@@ -1,0 +1,10 @@
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS first_day_info JSONB DEFAULT '{}'::jsonb;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS last_day_info JSONB DEFAULT '{}'::jsonb;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS gallery_images JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS hotels JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS departure_start_date DATE;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS departure_end_date DATE;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS itinerary JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS inclusions JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS exclusions JSONB DEFAULT '[]'::jsonb;
+ALTER TABLE destinations ADD COLUMN IF NOT EXISTS payment_options JSONB DEFAULT '[]'::jsonb;

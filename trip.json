@@ -1,0 +1,161 @@
+{
+  "name": "Tailândia Festival das Lanternas",
+  "description": "Viagens pela Ásia com grupos pequenos de brasileiros.",
+  "image_url": "https://phiphibrazuca.com/wp-content/uploads/2021/07/Festival_Lanternas_Chiang_Mai_Tailandia_Fogos.jpg",
+  "country": "Tailândia",
+  "price_from": "USD 3.300",
+  "duration": "15 dias",
+  "group_size": "6-12 pessoas",
+  "availability_status": "available",
+  "departure_start_date": "2026-11-21",
+  "departure_end_date": "2026-12-04",
+  "gallery_images": [
+    "https://cf.bstatic.com/xdata/images/hotel/max1024x768/563175365.jpg",
+    "https://cf.bstatic.com/xdata/images/hotel/max1024x768/613789630.jpg",
+    "https://cf.bstatic.com/xdata/images/hotel/max1024x768/281257565.jpg",
+    "https://q-xx.bstatic.com/xdata/images/hotel/max1024x768/66589630.jpg"
+  ],
+  "hotels": [
+    "Huen Hug Hotel",
+    "Seekers Finders Rama IV Hotel",
+    "Phi Phi Anita Resort",
+    "Vacation Village"
+  ],
+  "inclusions": [
+    "Passeios e atrações do roteiro",
+    "Passagens e transportes internos",
+    "Acomodação em quartos duplos",
+    "Long Boat Tour",
+    "Visita ao santuário",
+    "Ingressos do Festival das Lanternas",
+    "Acompanhamento Pré-embarque",
+    "Líderes brasileiros"
+  ],
+  "exclusions": [
+    "Passagens internacionais",
+    "Gastos pessoais",
+    "Alimentação",
+    "Seguro viagem"
+  ],
+  "payment_options": [
+    "PIX",
+    "Boleto",
+    "Cartão de Crédito"
+  ],
+  "first_day_info": {
+    "title": "A chegada",
+    "description": "Chegada em Bangkok, busca no aeroporto e check-in no hotel.",
+    "activities": [
+      "Recepcção e Transfer",
+      "Check-in"
+    ]
+  },
+  "last_day_info": {
+    "title": "Despedida",
+    "description": "Fim da nossa viagem e retorno",
+    "activities": [
+      "Check-out",
+      "Transfer",
+      "Voo"
+    ]
+  },
+  "itinerary": [
+    {
+      "day": "2",
+      "title": "Aventura",
+      "description": "Ida para Chiang Mai",
+      "activities": [
+        "City Tour"
+      ]
+    },
+    {
+      "day": "3",
+      "title": "Lanternas",
+      "description": "Festival das lanternas",
+      "activities": [
+        "Loy Krathong"
+      ]
+    },
+    {
+      "day": "4",
+      "title": "Chiang Rai",
+      "description": "Visita aos templos",
+      "activities": [
+        "Templo Branco",
+        "Templo Azul"
+      ]
+    },
+    {
+      "day": "5",
+      "title": "Elefantes",
+      "description": "Santuário dos elefantes",
+      "activities": [
+        "Interação ética"
+      ]
+    },
+    {
+      "day": "6",
+      "title": "Litoral",
+      "description": "Ida para Krabi",
+      "activities": [
+        "Praia"
+      ]
+    },
+    {
+      "day": "7",
+      "title": "Ilhas",
+      "description": "Passeio de barco",
+      "activities": [
+        "Island hopping"
+      ]
+    },
+    {
+      "day": "8",
+      "title": "Hong",
+      "description": "Passeio para Hong Island",
+      "activities": [
+        "Snorkeling"
+      ]
+    },
+    {
+      "day": "9",
+      "title": "Phi Phi",
+      "description": "Nightlife",
+      "activities": [
+        "Ferry"
+      ]
+    },
+    {
+      "day": "10",
+      "title": "Classics",
+      "description": "Maya Bay",
+      "activities": [
+        "Mergulho"
+      ]
+    },
+    {
+      "day": "11",
+      "title": "Retorno",
+      "description": "Bangkok",
+      "activities": [
+        "Khaosan Road"
+      ]
+    },
+    {
+      "day": "12",
+      "title": "Mercados",
+      "description": "Mercado Flutuante e do Trem",
+      "activities": [
+        "Tour"
+      ]
+    },
+    {
+      "day": "13",
+      "title": "Cultural",
+      "description": "Templo Wat Pho",
+      "activities": [
+        "China Town"
+      ]
+    }
+  ]
+}

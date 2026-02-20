@@ -14,6 +14,8 @@ import GuidesAdmin from '@/pages/admin/GuidesAdmin';
 import ContactRequestsAdmin from '@/pages/admin/ContactRequestsAdmin';
 import UsersAdmin from '@/pages/admin/UsersAdmin';
 import Login from '@/pages/Login';
+import TestimonialsAdmin from '@/pages/admin/TestimonialsAdmin';
+import CountriesAdmin from '@/pages/admin/CountriesAdmin';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -89,6 +91,24 @@ const AuthenticatedApp = () => {
         isAuthenticated ? (
           <AdminLayout>
             <ContactRequestsAdmin />
+          </AdminLayout>
+        ) : (
+          <Login />
+        )
+      } />
+      <Route path="/admin/testimonials" element={
+        isAuthenticated ? (
+          <AdminLayout>
+            <TestimonialsAdmin />
+          </AdminLayout>
+        ) : (
+          <Login />
+        )
+      } />
+      <Route path="/admin/countries" element={
+        isAuthenticated ? (
+          <AdminLayout>
+            <CountriesAdmin />
           </AdminLayout>
         ) : (
           <Login />

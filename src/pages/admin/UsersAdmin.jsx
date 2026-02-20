@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { PasswordInput } from "@/components/ui/password-input";
 import {
     Table,
     TableBody,
@@ -328,8 +329,7 @@ export default function UsersAdmin() {
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1 text-gray-700">Senha</label>
-                                <Input
-                                    type="password"
+                                <PasswordInput
                                     value={createFormData.password}
                                     onChange={(e) => setCreateFormData({ ...createFormData, password: e.target.value })}
                                     placeholder="••••••••"

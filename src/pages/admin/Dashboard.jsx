@@ -54,7 +54,7 @@ export default function Dashboard() {
         <div className="space-y-10">
             <div>
                 <h2 className="text-3xl font-light text-[#1A1A1A]">Visão Geral</h2>
-                <p className="text-gray-500 font-light">Bem-vindo ao centro de comando da Asia Journeys.</p>
+                <p className="text-gray-500 font-light">Bem-vindo ao centro de comando da Intu Trips.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

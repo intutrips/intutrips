@@ -10,10 +10,12 @@ import {
     Menu,
     X,
     ChevronRight,
-    Shield
+    Shield,
+    Globe
 } from 'lucide-react';
 import { useAuth } from '@/lib/AuthContext';
 import { Button } from '@/components/ui/button';
+import { getVersionDisplay } from '@/lib/version';
 
 export default function AdminLayout({ children }) {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -26,6 +28,7 @@ export default function AdminLayout({ children }) {
         { label: 'Destinos', icon: Map, path: '/admin/destinations' },
         { label: 'Guias', icon: BookOpen, path: '/admin/guides' },
         { label: 'Depoimentos', icon: MessageSquare, path: '/admin/testimonials' },
+        { label: 'Países', icon: Globe, path: '/admin/countries' },
         { label: 'Contatos', icon: Users, path: '/admin/contacts' },
         { label: 'Gerenciar Admins', icon: Shield, path: '/admin/users' },
     ];
@@ -41,7 +44,7 @@ export default function AdminLayout({ children }) {
             <aside className="hidden lg:flex flex-col w-64 bg-[#1A1A1A] text-white sticky top-0 h-screen">
                 <div className="p-6 border-b border-white/10">
                     <h1 className="text-xl font-light tracking-widest uppercase">
-                        Asia Journeys <span className="text-[#C9A962] italic block text-xs mt-1">Backoffice Admin</span>
+                        Intu Trips <span className="text-[#C9A962] italic block text-xs mt-1">Backoffice Admin</span>
                     </h1>
                 </div>
 
@@ -89,7 +92,7 @@ export default function AdminLayout({ children }) {
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 {/* Mobile Header */}
                 <header className="lg:hidden h-16 bg-white border-b flex items-center justify-between px-6 sticky top-0 z-50">
-                    <span className="font-light tracking-widest text-[#1A1A1A] uppercase text-sm">Asia Journeys Admin</span>
+                    <span className="font-light tracking-widest text-[#1A1A1A] uppercase text-sm">Intu Trips Admin</span>
                     <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
                         {isMobileMenuOpen ? <X /> : <Menu />}
                     </button>
@@ -125,6 +128,30 @@ export default function AdminLayout({ children }) {
                             Sair
                         </button>
                     </nav>
+                    
+                    {/* Version and Footer */}
+                    <div className="mt-auto p-4 border-t border-gray-200">
+                        <div className="text-center space-y-3">
+                            <div className="text-xs text-gray-500">
+                                Versão {getVersionDisplay()}
+                            </div>
+                            <div className="flex items-center justify-center gap-2">
+                                <span className="text-xs text-gray-400">Powered by</span>
+                                <a 
+                                    href="https://fiveagenciadigital.com.br" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                    className="inline-block"
+                                >
+                                    <img 
+                                        src="https://fiveagenciadigital.com.br/wp-content/uploads/2020/02/five-4.png" 
+                                        alt="Five Agency" 
+                                        className="h-6 w-auto hover:opacity-80 transition-opacity"
+                                    />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             )}
         </div>

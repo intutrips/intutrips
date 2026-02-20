@@ -14,7 +14,7 @@ export default function Testimonial() {
       const { data, error } = await supabase
         .from('testimonials')
         .select('*')
-        .order('order', { ascending: true });
+        .order('created_at', { ascending: true });
       if (error) throw error;
       return data;
     },
@@ -64,7 +64,7 @@ export default function Testimonial() {
             <Quote className="h-12 w-12 text-[#C9A962]/30 mx-auto mb-8" />
 
             <blockquote className="text-2xl md:text-4xl font-light text-[#1A1A1A] leading-relaxed mb-8 min-h-[180px] flex items-center justify-center">
-              {currentTestimonial.quote}
+              {currentTestimonial.content}
             </blockquote>
 
             <div className="flex items-center justify-center gap-4 mb-8">
