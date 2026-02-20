@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Send, MapPin, Mail, Phone, Loader2 } from 'lucide-react';
+import { Send, MapPin, Mail, Phone, Loader2, Check } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 // import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
@@ -20,6 +20,7 @@ export default function ContactSection() {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +35,7 @@ export default function ContactSection() {
 
       toast.success('Mensagem enviada! Entraremos em contato em breve.');
       setFormData({ name: '', email: '', phone: '', destination_interest: '', message: '' });
+      setIsSuccess(true);
     } catch (error) {
       console.error('Erro ao enviar contato:', error);
       toast.error('Erro ao enviar mensagem. Tente novamente mais tarde.');
@@ -100,69 +102,89 @@ export default function ContactSection() {
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="h-full"
           >
-            <form onSubmit={handleSubmit} className="bg-[#FAF8F5] rounded-3xl p-8 md:p-10">
-              <div className="space-y-5">
-                <div>
-                  <Input
-                    placeholder="Seu nome"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                    className="bg-white border-0 h-12 rounded-xl"
-                  />
+            {isSuccess ? (
+              <div className="bg-[#FAF8F5] rounded-3xl p-8 md:p-10 flex flex-col items-center justify-center text-center h-full min-h-[400px]">
+                <div className="w-16 h-16 bg-[#00634D]/10 rounded-full flex items-center justify-center mb-6">
+                  <Check className="h-8 w-8 text-[#00634D]" />
                 </div>
-                <div className="grid md:grid-cols-2 gap-5">
-                  <Input
-                    type="email"
-                    placeholder="Email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                    className="bg-white border-0 h-12 rounded-xl"
-                  />
-                  <Input
-                    placeholder="WhatsApp"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="bg-white border-0 h-12 rounded-xl"
-                  />
-                </div>
-                <Select
-                  value={formData.destination_interest}
-                  onValueChange={(value) => setFormData({ ...formData, destination_interest: value })}
-                >
-                  <SelectTrigger className="bg-white border-0 h-12 rounded-xl">
-                    <SelectValue placeholder="Destino de interesse" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {destinations.map((dest) => (
-                      <SelectItem key={dest} value={dest}>{dest}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <Textarea
-                  placeholder="Conte-nos sobre seu sonho de viagem..."
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="bg-white border-0 rounded-xl min-h-[120px] resize-none"
-                />
+                <h3 className="text-2xl font-light text-[#1A1A1A] mb-4">Mensagem Enviada!</h3>
+                <p className="text-gray-600 font-light mb-8">
+                  Agradecemos o seu interesse. Nossa equipe analisará sua solicitação e em breve entraremos em contato com você.
+                </p>
                 <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full bg-[#1A1A1A] hover:bg-[#2D4A3E] text-white h-12 rounded-xl transition-all duration-300"
+                  onClick={() => setIsSuccess(false)}
+                  variant="outline"
+                  className="rounded-xl px-8 border-gray-200"
                 >
-                  {isSubmitting ? (
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                  ) : (
-                    <>
-                      Enviar Mensagem
-                      <Send className="ml-2 h-4 w-4" />
-                    </>
-                  )}
+                  Enviar nova mensagem
                 </Button>
               </div>
-            </form>
+            ) : (
+              <form onSubmit={handleSubmit} className="bg-[#FAF8F5] rounded-3xl p-8 md:p-10">
+                <div className="space-y-5">
+                  <div>
+                    <Input
+                      placeholder="Seu nome"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      required
+                      className="bg-white border-0 h-12 rounded-xl"
+                    />
+                  </div>
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <Input
+                      type="email"
+                      placeholder="Email"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      required
+                      className="bg-white border-0 h-12 rounded-xl"
+                    />
+                    <Input
+                      placeholder="WhatsApp"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="bg-white border-0 h-12 rounded-xl"
+                    />
+                  </div>
+                  <Select
+                    value={formData.destination_interest}
+                    onValueChange={(value) => setFormData({ ...formData, destination_interest: value })}
+                  >
+                    <SelectTrigger className="bg-white border-0 h-12 rounded-xl">
+                      <SelectValue placeholder="Destino de interesse" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {destinations.map((dest) => (
+                        <SelectItem key={dest} value={dest}>{dest}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Textarea
+                    placeholder="Conte-nos sobre seu sonho de viagem..."
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    className="bg-white border-0 rounded-xl min-h-[120px] resize-none"
+                  />
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full bg-[#1A1A1A] hover:bg-[#2D4A3E] text-white h-12 rounded-xl transition-all duration-300"
+                  >
+                    {isSubmitting ? (
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                    ) : (
+                      <>
+                        Enviar Mensagem
+                        <Send className="ml-2 h-4 w-4" />
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </form>
+            )}
           </motion.div>
         </div>
       </div>
