@@ -137,8 +137,8 @@ export default function GuidesAdmin() {
         upsertMutation.mutate(formData);
     };
 
-    const filteredGuides = guides.filter(g =>
-        g.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    const filteredGuides = (guides || []).filter(g =>
+        g.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
         g.destination?.toLowerCase().includes(searchTerm.toLowerCase())
     );
 

@@ -66,7 +66,7 @@ export default function DestinationsAdmin() {
 
     const [localDestinations, setLocalDestinations] = useState([]);
 
-    const { data: destinations = [], isLoading } = useQuery({
+    const { data: destinationsData, isLoading } = useQuery({
         queryKey: ['admin-destinations'],
         queryFn: async () => {
             const { data, error } = await supabase
@@ -79,11 +79,13 @@ export default function DestinationsAdmin() {
         },
     });
 
+    const destinations = destinationsData || [];
+
     useEffect(() => {
-        if (destinations) {
-            setLocalDestinations(destinations);
+        if (destinationsData) {
+            setLocalDestinations(destinationsData);
         }
-    }, [destinations]);
+    }, [destinationsData]);
 
     const { data: countries = [] } = useQuery({
         queryKey: ['countries'],

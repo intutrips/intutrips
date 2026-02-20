@@ -1,5 +1,5 @@
 export const APP_VERSION = {
-  version: '1.0.0',
+  version: '1.0.6',
   buildDate: new Date().toISOString(),
   releaseNotes: [
     'Migração completa para Supabase',

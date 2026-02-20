@@ -79,12 +79,17 @@ export default function AdminLayout({ children }) {
                     </div>
                     <Button
                         variant="ghost"
-                        className="w-full justify-start text-gray-400 hover:text-white hover:bg-red-500/10 hover:text-red-400 gap-3"
+                        className="w-full justify-start text-gray-400 hover:text-white hover:bg-red-500/10 hover:text-red-400 gap-3 mb-4"
                         onClick={handleLogout}
                     >
                         <LogOut className="h-5 w-5" />
                         Sair do Painel
                     </Button>
+
+                    <div className="px-3 py-2 border-t border-white/5 pt-4">
+                        <p className="text-[10px] text-gray-500 uppercase tracking-widest text-center mb-1">Aplicação</p>
+                        <p className="text-[11px] text-gray-400 font-light text-center">Versão {getVersionDisplay()}</p>
+                    </div>
                 </div>
             </aside>
 
@@ -128,7 +133,7 @@ export default function AdminLayout({ children }) {
                             Sair
                         </button>
                     </nav>
-                    
+
                     {/* Version and Footer */}
                     <div className="mt-auto p-4 border-t border-gray-200">
                         <div className="text-center space-y-3">
@@ -137,15 +142,15 @@ export default function AdminLayout({ children }) {
                             </div>
                             <div className="flex items-center justify-center gap-2">
                                 <span className="text-xs text-gray-400">Powered by</span>
-                                <a 
-                                    href="https://fiveagenciadigital.com.br" 
-                                    target="_blank" 
+                                <a
+                                    href="https://fiveagenciadigital.com.br"
+                                    target="_blank"
                                     rel="noopener noreferrer"
                                     className="inline-block"
                                 >
-                                    <img 
-                                        src="https://fiveagenciadigital.com.br/wp-content/uploads/2020/02/five-4.png" 
-                                        alt="Five Agency" 
+                                    <img
+                                        src="https://fiveagenciadigital.com.br/wp-content/uploads/2020/02/five-4.png"
+                                        alt="Five Agency"
                                         className="h-6 w-auto hover:opacity-80 transition-opacity"
                                     />
                                 </a>
