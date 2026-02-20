@@ -47,6 +47,7 @@ export default function DestinationsAdmin() {
         duration: '',
         group_size: '',
         availability_status: 'available',
+        display_order: 0,
         departure_start_date: '',
         departure_end_date: '',
         gallery_images: [],
@@ -65,6 +66,7 @@ export default function DestinationsAdmin() {
             const { data, error } = await supabase
                 .from('destinations')
                 .select('*')
+                .order('display_order', { ascending: true })
                 .order('created_at', { ascending: false });
             if (error) throw error;
             return data;
@@ -139,6 +141,7 @@ export default function DestinationsAdmin() {
                 duration: destination.duration || '',
                 group_size: destination.group_size || '',
                 availability_status: destination.availability_status || 'available',
+                display_order: destination.display_order || 0,
                 departure_start_date: destination.departure_start_date || '',
                 departure_end_date: destination.departure_end_date || '',
                 gallery_images: destination.gallery_images || [],
@@ -161,6 +164,7 @@ export default function DestinationsAdmin() {
                 duration: '',
                 group_size: '',
                 availability_status: 'available',
+                display_order: 0,
                 departure_start_date: '',
                 departure_end_date: '',
                 gallery_images: [],
@@ -235,6 +239,7 @@ export default function DestinationsAdmin() {
                         <TableHeader className="bg-gray-50">
                             <TableRow>
                                 <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Imagem</th>
+                                <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Ordem</th>
                                 <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Título</th>
                                 <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">País</th>
                                 <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Duração</th>
@@ -260,6 +265,9 @@ export default function DestinationsAdmin() {
                                                     <ImageIcon className="h-5 w-5 text-gray-300" />
                                                 )}
                                             </div>
+                                        </TableCell>
+                                        <TableCell className="px-6 py-4">
+                                            <div className="font-medium text-gray-500">{dest.display_order}</div>
                                         </TableCell>
                                         <TableCell className="px-6 py-4">
                                             <div className="font-medium text-[#1A1A1A]">{dest.name}</div>
@@ -379,6 +387,14 @@ export default function DestinationsAdmin() {
                                             <option value="few_spots">Últimas Vagas</option>
                                             <option value="sold_out">Esgotado</option>
                                         </select>
+                                    </div>
+                                    <div className="space-y-2 col-span-2">
+                                        <label className="text-sm font-medium ml-1">Ordem de Exibição (1, 2, 3...)</label>
+                                        <Input
+                                            type="number"
+                                            value={formData.display_order}
+                                            onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) || 0 })}
+                                        />
                                     </div>
                                     <div className="space-y-2 col-span-2">
                                         <label className="text-sm font-medium ml-1">URL da Imagem de Capa</label>

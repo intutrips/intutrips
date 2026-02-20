@@ -16,6 +16,7 @@ export default function Home() {
       const { data, error } = await supabase
         .from('destinations')
         .select('*')
+        .order('display_order', { ascending: true })
         .order('created_at', { ascending: false })
         .limit(6);
 

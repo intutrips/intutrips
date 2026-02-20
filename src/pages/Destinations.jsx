@@ -16,6 +16,7 @@ export default function Destinations() {
       const { data, error } = await supabase
         .from('destinations')
         .select('*')
+        .order('display_order', { ascending: true })
         .order('created_at', { ascending: false });
       if (error) throw error;
       return data;
@@ -59,8 +60,8 @@ export default function Destinations() {
                 variant={selectedCountry === country ? "default" : "outline"}
                 onClick={() => setSelectedCountry(country)}
                 className={`rounded-full whitespace-nowrap ${selectedCountry === country
-                    ? 'bg-[#1A1A1A] hover:bg-[#2D4A3E] text-white'
-                    : 'border-gray-200 text-gray-600 hover:border-[#1A1A1A]'
+                  ? 'bg-[#1A1A1A] hover:bg-[#2D4A3E] text-white'
+                  : 'border-gray-200 text-gray-600 hover:border-[#1A1A1A]'
                   }`}
               >
                 {country}
