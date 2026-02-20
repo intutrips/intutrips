@@ -201,8 +201,10 @@ export default function DestinationDetail() {
 
                 {/* 3. Início e Fim da Viagem */}
                 <TripDaysSection
-                  tripStartInfo={destination.trip_start_info}
-                  tripEndInfo={destination.trip_end_info}
+                  tripStartInfo={destination.first_day_info}
+                  tripEndInfo={destination.last_day_info}
+                  startDate={destination.departure_start_date}
+                  endDate={destination.departure_end_date}
                 />
 
                 {/* 5. Exemplos de Hotéis */}
