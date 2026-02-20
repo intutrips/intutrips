@@ -8,7 +8,8 @@ import {
     Search,
     Loader2,
     BookOpen,
-    Image as ImageIcon
+    Image as ImageIcon,
+    X
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -28,6 +29,13 @@ import {
     DialogFooter,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { toast } from 'sonner';
 
 export default function GuidesAdmin() {
@@ -43,7 +51,9 @@ export default function GuidesAdmin() {
         destination: '',
         price: '',
         pages: '',
-        bestseller: false
+        bestseller: false,
+        topics: [],
+        checkout_url: ''
     });
 
     const { data: guides = [], isLoading } = useQuery({
@@ -53,6 +63,18 @@ export default function GuidesAdmin() {
                 .from('guides')
                 .select('*')
                 .order('created_at', { ascending: false });
+            if (error) throw error;
+            return data;
+        },
+    });
+
+    const { data: countries = [] } = useQuery({
+        queryKey: ['countries'],
+        queryFn: async () => {
+            const { data, error } = await supabase
+                .from('countries')
+                .select('id, name')
+                .order('name', { ascending: true });
             if (error) throw error;
             return data;
         },
@@ -110,7 +132,9 @@ export default function GuidesAdmin() {
                 destination: guide.destination || '',
                 price: guide.price || '',
                 pages: guide.pages || '',
-                bestseller: guide.bestseller || false
+                bestseller: guide.bestseller || false,
+                topics: guide.topics || [],
+                checkout_url: guide.checkout_url || ''
             });
         } else {
             setEditingGuide(null);
@@ -121,7 +145,9 @@ export default function GuidesAdmin() {
                 destination: '',
                 price: '',
                 pages: '',
-                bestseller: false
+                bestseller: false,
+                topics: [],
+                checkout_url: ''
             });
         }
         setIsDialogOpen(true);
@@ -213,7 +239,7 @@ export default function GuidesAdmin() {
                                             <span className="text-gray-600">{guide.pages || '-'}</span>
                                         </TableCell>
                                         <TableCell className="px-6 py-4">
-                                            <span className="text-gray-600">R$ {guide.price || '-'}</span>
+                                            <span className="text-gray-600">US$ {guide.price || '-'}</span>
                                         </TableCell>
                                         <TableCell className="px-6 py-4 text-right">
                                             <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -271,14 +297,24 @@ export default function GuidesAdmin() {
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1">Destino Relacionado</label>
-                                <Input
+                                <Select
                                     value={formData.destination}
-                                    onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
-                                    placeholder="Ex: Bali, Indonésia"
-                                />
+                                    onValueChange={(value) => setFormData({ ...formData, destination: value })}
+                                >
+                                    <SelectTrigger className="w-full">
+                                        <SelectValue placeholder="Selecione um país" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                        {countries.map((country) => (
+                                            <SelectItem key={country.id} value={country.name}>
+                                                {country.name}
+                                            </SelectItem>
+                                        ))}
+                                    </SelectContent>
+                                </Select>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-medium ml-1">Preço (R$)</label>
+                                <label className="text-sm font-medium ml-1">Preço (US$)</label>
                                 <Input
                                     value={formData.price}
                                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
@@ -311,6 +347,54 @@ export default function GuidesAdmin() {
                                     onChange={(e) => setFormData({ ...formData, cover_image_url: e.target.value })}
                                     placeholder="https://exemplo.com/capa.jpg"
                                 />
+                            </div>
+                            <div className="space-y-2 col-span-2">
+                                <label className="text-sm font-medium ml-1">URL de Checkout</label>
+                                <Input
+                                    value={formData.checkout_url}
+                                    onChange={(e) => setFormData({ ...formData, checkout_url: e.target.value })}
+                                    placeholder="https://checkout.exemplo.com/..."
+                                />
+                            </div>
+                            <div className="space-y-2 col-span-2">
+                                <div className="flex items-center justify-between mb-2">
+                                    <label className="text-sm font-medium ml-1">Destaques / Tópicos</label>
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => setFormData({ ...formData, topics: [...formData.topics, ''] })}
+                                    >
+                                        + Adicionar Tópico
+                                    </Button>
+                                </div>
+                                <div className="space-y-2">
+                                    {formData.topics.map((topic, index) => (
+                                        <div key={index} className="flex gap-2">
+                                            <Input
+                                                value={topic}
+                                                onChange={(e) => {
+                                                    const newTopics = [...formData.topics];
+                                                    newTopics[index] = e.target.value;
+                                                    setFormData({ ...formData, topics: newTopics });
+                                                }}
+                                                placeholder="Ex: O que levar, Onde comer..."
+                                            />
+                                            <Button
+                                                type="button"
+                                                variant="ghost"
+                                                size="icon"
+                                                onClick={() => {
+                                                    const newTopics = formData.topics.filter((_, i) => i !== index);
+                                                    setFormData({ ...formData, topics: newTopics });
+                                                }}
+                                                className="text-red-500"
+                                            >
+                                                <X className="h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                             <div className="space-y-2 col-span-2">
                                 <label className="text-sm font-medium ml-1">Descrição do Guia</label>

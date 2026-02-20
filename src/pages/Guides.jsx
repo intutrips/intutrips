@@ -143,10 +143,13 @@ export default function Guides() {
                     <div className="flex items-center justify-between pt-4 border-t">
                       <div>
                         <div className="text-2xl font-light text-[#3C3333]">
-                          R$ {guide.price?.toFixed(2)}
+                          US$ {guide.price}
                         </div>
                       </div>
-                      <Button className="bg-[#00634D] hover:bg-[#032B22] text-white">
+                      <Button
+                        onClick={() => guide.checkout_url && window.open(guide.checkout_url, '_blank')}
+                        className="bg-[#00634D] hover:bg-[#032B22] text-white"
+                      >
                         Comprar
                       </Button>
                     </div>
