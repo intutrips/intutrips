@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
+import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import {
     Plus,
     Pencil,
     Trash2,
     Search,
     Loader2,
-    Image as ImageIcon
+    Image as ImageIcon,
+    GripVertical
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -60,6 +62,8 @@ export default function DestinationsAdmin() {
         itinerary: []
     });
 
+    const [localDestinations, setLocalDestinations] = useState([]);
+
     const { data: destinations = [], isLoading } = useQuery({
         queryKey: ['admin-destinations'],
         queryFn: async () => {
@@ -73,6 +77,12 @@ export default function DestinationsAdmin() {
         },
     });
 
+    useEffect(() => {
+        if (destinations) {
+            setLocalDestinations(destinations);
+        }
+    }, [destinations]);
+
     const { data: countries = [] } = useQuery({
         queryKey: ['countries'],
         queryFn: async () => {
@@ -85,6 +95,7 @@ export default function DestinationsAdmin() {
         },
     });
 
+    /** @type {any} */
     const upsertMutation = useMutation({
         mutationFn: async (newData) => {
             if (editingDestination) {
@@ -128,6 +139,41 @@ export default function DestinationsAdmin() {
             toast.error('Erro ao remover: ' + error.message);
         }
     });
+
+    /** @type {any} */
+    const updateOrderMutation = useMutation({
+        mutationFn: async (updates) => {
+            const promises = updates.map(u =>
+                supabase.from('destinations').update({ display_order: u.display_order }).eq('id', u.id)
+            );
+            await Promise.all(promises);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['admin-destinations'] });
+            toast.success('Ordem de exibição atualizada!');
+        },
+        onError: (error) => {
+            toast.error('Erro ao atualizar ordem: ' + error.message);
+        }
+    });
+
+    const handleDragEnd = (result) => {
+        if (!result.destination) return;
+        if (searchTerm.length > 0) return; // Disable reordering while searching
+
+        const items = Array.from(localDestinations);
+        const [reorderedItem] = items.splice(result.source.index, 1);
+        items.splice(result.destination.index, 0, reorderedItem);
+
+        setLocalDestinations(items);
+
+        const updates = items.map((item, index) => ({
+            id: item.id,
+            display_order: index + 1
+        }));
+
+        updateOrderMutation.mutate(updates);
+    };
 
     const handleOpenDialog = (destination = null) => {
         if (destination) {
@@ -200,7 +246,7 @@ export default function DestinationsAdmin() {
         upsertMutation.mutate(formData);
     };
 
-    const filteredDestinations = destinations.filter(d =>
+    const filteredDestinations = localDestinations.filter(d =>
         d.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         d.country?.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -235,83 +281,112 @@ export default function DestinationsAdmin() {
                 </div>
 
                 <div className="rounded-2xl border border-gray-50 overflow-hidden">
-                    <Table>
-                        <TableHeader className="bg-gray-50">
-                            <TableRow>
-                                <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Imagem</th>
-                                <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Ordem</th>
-                                <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Título</th>
-                                <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">País</th>
-                                <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Duração</th>
-                                <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Preço</th>
-                                <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500 text-right">Ações</th>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {isLoading ? (
+                    <DragDropContext onDragEnd={handleDragEnd}>
+                        <Table>
+                            <TableHeader className="bg-gray-50">
                                 <TableRow>
-                                    <TableCell colSpan={6} className="h-40 text-center">
-                                        <Loader2 className="h-8 w-8 animate-spin mx-auto text-gray-300" />
-                                    </TableCell>
+                                    <th className="px-4 py-4 w-10"></th>
+                                    <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Imagem</th>
+                                    <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Ordem</th>
+                                    <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Título</th>
+                                    <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">País</th>
+                                    <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Duração</th>
+                                    <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Preço</th>
+                                    <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500 text-right">Ações</th>
                                 </TableRow>
-                            ) : filteredDestinations.length > 0 ? (
-                                filteredDestinations.map((dest) => (
-                                    <TableRow key={dest.id} className="group">
-                                        <TableCell className="px-6 py-4">
-                                            <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center">
-                                                {dest.image_url ? (
-                                                    <img src={dest.image_url} alt="" className="w-full h-full object-cover" />
-                                                ) : (
-                                                    <ImageIcon className="h-5 w-5 text-gray-300" />
-                                                )}
-                                            </div>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <div className="font-medium text-gray-500">{dest.display_order}</div>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <div className="font-medium text-[#1A1A1A]">{dest.name}</div>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <span className="text-gray-600">{dest.country || '-'}</span>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <span className="text-gray-600">{dest.duration || '-'}</span>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4">
-                                            <span className="text-gray-600">{dest.price_from || '-'}</span>
-                                        </TableCell>
-                                        <TableCell className="px-6 py-4 text-right">
-                                            <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="h-8 w-8 rounded-lg text-blue-500 hover:text-blue-600 hover:bg-blue-50"
-                                                    onClick={() => handleOpenDialog(dest)}
-                                                >
-                                                    <Pencil className="h-4 w-4" />
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="h-8 w-8 rounded-lg text-red-500 hover:text-red-600 hover:bg-red-50"
-                                                    onClick={() => handleOpenDeleteDialog(dest)}
-                                                >
-                                                    <Trash2 className="h-4 w-4" />
-                                                </Button>
-                                            </div>
+                            </TableHeader>
+                            {isLoading ? (
+                                <TableBody>
+                                    <TableRow>
+                                        <TableCell colSpan={8} className="h-40 text-center">
+                                            <Loader2 className="h-8 w-8 animate-spin mx-auto text-gray-300" />
                                         </TableCell>
                                     </TableRow>
-                                ))
+                                </TableBody>
                             ) : (
-                                <TableRow>
-                                    <TableCell colSpan={5} className="h-40 text-center text-gray-400 font-light">
-                                        Nenhum destino encontrado.
-                                    </TableCell>
-                                </TableRow>
+                                <Droppable droppableId="destinations" isDropDisabled={searchTerm.length > 0}>
+                                    {(provided) => (
+                                        <TableBody {...provided.droppableProps} ref={provided.innerRef}>
+                                            {filteredDestinations.length > 0 ? (
+                                                filteredDestinations.map((dest, index) => (
+                                                    <Draggable key={dest.id} draggableId={dest.id} index={index} isDragDisabled={searchTerm.length > 0}>
+                                                        {(provided, snapshot) => (
+                                                            <TableRow
+                                                                className={`group ${snapshot.isDragging ? 'bg-white shadow-lg z-50' : ''}`}
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                                style={{
+                                                                    ...provided.draggableProps.style,
+                                                                    display: snapshot.isDragging ? 'table' : '',
+                                                                }}
+                                                            >
+                                                                <TableCell className="px-4 py-4 w-10">
+                                                                    <div {...provided.dragHandleProps} className={`text-gray-300 hover:text-gray-500 cursor-grab active:cursor-grabbing ${searchTerm.length > 0 ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                                                        <GripVertical className="h-5 w-5" />
+                                                                    </div>
+                                                                </TableCell>
+                                                                <TableCell className="px-6 py-4">
+                                                                    <div className="w-12 h-12 rounded-lg bg-gray-100 overflow-hidden flex items-center justify-center">
+                                                                        {dest.image_url ? (
+                                                                            <img src={dest.image_url} alt="" className="w-full h-full object-cover" />
+                                                                        ) : (
+                                                                            <ImageIcon className="h-5 w-5 text-gray-300" />
+                                                                        )}
+                                                                    </div>
+                                                                </TableCell>
+                                                                <TableCell className="px-6 py-4">
+                                                                    <div className="font-medium text-gray-500">{dest.display_order}</div>
+                                                                </TableCell>
+                                                                <TableCell className="px-6 py-4">
+                                                                    <div className="font-medium text-[#1A1A1A]">{dest.name}</div>
+                                                                </TableCell>
+                                                                <TableCell className="px-6 py-4">
+                                                                    <span className="text-gray-600">{dest.country || '-'}</span>
+                                                                </TableCell>
+                                                                <TableCell className="px-6 py-4">
+                                                                    <span className="text-gray-600">{dest.duration || '-'}</span>
+                                                                </TableCell>
+                                                                <TableCell className="px-6 py-4">
+                                                                    <span className="text-gray-600">{dest.price_from || '-'}</span>
+                                                                </TableCell>
+                                                                <TableCell className="px-6 py-4 text-right">
+                                                                    <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                                        <Button
+                                                                            variant="ghost"
+                                                                            size="icon"
+                                                                            className="h-8 w-8 rounded-lg text-blue-500 hover:text-blue-600 hover:bg-blue-50"
+                                                                            onClick={() => handleOpenDialog(dest)}
+                                                                        >
+                                                                            <Pencil className="h-4 w-4" />
+                                                                        </Button>
+                                                                        <Button
+                                                                            variant="ghost"
+                                                                            size="icon"
+                                                                            className="h-8 w-8 rounded-lg text-red-500 hover:text-red-600 hover:bg-red-50"
+                                                                            onClick={() => handleOpenDeleteDialog(dest)}
+                                                                        >
+                                                                            <Trash2 className="h-4 w-4" />
+                                                                        </Button>
+                                                                    </div>
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        )}
+                                                    </Draggable>
+                                                ))
+                                            ) : (
+                                                <TableRow>
+                                                    <TableCell colSpan={8} className="h-40 text-center text-gray-400 font-light">
+                                                        Nenhum destino encontrado.
+                                                    </TableCell>
+                                                </TableRow>
+                                            )}
+                                            {provided.placeholder}
+                                        </TableBody>
+                                    )}
+                                </Droppable>
                             )}
-                        </TableBody>
-                    </Table>
+                        </Table>
+                    </DragDropContext>
                 </div>
             </div>
 
@@ -330,15 +405,16 @@ export default function DestinationsAdmin() {
                             </TabsList>
 
                             <TabsContent value="geral">
-                                <div className="grid grid-cols-2 gap-4">                            <div className="space-y-2 col-span-2">
-                                    <label className="text-sm font-medium ml-1">Título do Destino</label>
-                                    <Input
-                                        value={formData.name}
-                                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                                        placeholder="Ex: Expedição Índia Espiritual"
-                                        required
-                                    />
-                                </div>
+                                <div className="grid grid-cols-2 gap-4">
+                                    <div className="space-y-2 col-span-2">
+                                        <label className="text-sm font-medium ml-1">Título do Destino</label>
+                                        <Input
+                                            value={formData.name}
+                                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                            placeholder="Ex: Expedição Índia Espiritual"
+                                            required
+                                        />
+                                    </div>
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium ml-1">País</label>
                                         <select
