@@ -317,6 +317,7 @@ export default function DestinationsAdmin() {
                             <TabsList className="mb-4">
                                 <TabsTrigger value="geral">Geral</TabsTrigger>
                                 <TabsTrigger value="detalhes">Detalhes Adicionais</TabsTrigger>
+                                <TabsTrigger value="hoteis">Acomodações</TabsTrigger>
                                 <TabsTrigger value="roteiro">Roteiro Diário</TabsTrigger>
                             </TabsList>
 
@@ -435,14 +436,7 @@ export default function DestinationsAdmin() {
                                             placeholder="Passagem aérea&#10;Gorjetas"
                                         />
                                     </div>
-                                    <div className="space-y-2">
-                                        <label className="text-sm font-medium ml-1">Exemplos de Hotéis (1 por linha)</label>
-                                        <Textarea
-                                            className="min-h-[120px]"
-                                            value={(formData.hotels || []).join('\n')}
-                                            onChange={(e) => setFormData({ ...formData, hotels: e.target.value.split('\n') })}
-                                        />
-                                    </div>
+
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium ml-1">Formas de Pagamento (1 por linha)</label>
                                         <Textarea
@@ -460,6 +454,89 @@ export default function DestinationsAdmin() {
                                             placeholder="https://exemplo.com/img1.jpg&#10;https://exemplo.com/img2.jpg"
                                         />
                                     </div>
+                                </div>
+                            </TabsContent>
+
+                            <TabsContent value="hoteis" className="space-y-6">
+                                <div className="space-y-4">
+                                    <div className="flex justify-between items-center">
+                                        <h3 className="font-medium text-[#1A1A1A]">Exemplos de Acomodação</h3>
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            onClick={() => setFormData({ ...formData, hotels: [...(formData.hotels || []), { name: '', location: '', rating: 3, image: '' }] })}
+                                        >
+                                            + Adicionar Hotel
+                                        </Button>
+                                    </div>
+
+                                    {(formData.hotels || []).map((hotelStrOrObj, index) => {
+                                        const hotel = typeof hotelStrOrObj === 'string' ? { name: hotelStrOrObj, location: '', rating: 3, image: '' } : hotelStrOrObj;
+                                        return (
+                                            <div key={index} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-3 relative group">
+                                                <Button
+                                                    type="button"
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="absolute top-2 right-2 h-6 w-6 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
+                                                    onClick={() => {
+                                                        const newHotels = [...(formData.hotels || [])];
+                                                        newHotels.splice(index, 1);
+                                                        setFormData({ ...formData, hotels: newHotels });
+                                                    }}
+                                                >
+                                                    <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                                <div className="grid grid-cols-2 gap-3 pr-8">
+                                                    <Input
+                                                        placeholder="Nome do Hotel (ex: Huen Hug Hotel)"
+                                                        value={hotel?.name || ''}
+                                                        onChange={e => {
+                                                            const newHotels = [...(formData.hotels || [])].map(h => typeof h === 'string' ? { name: h } : h);
+                                                            newHotels[index] = { ...newHotels[index], name: e.target.value };
+                                                            setFormData({ ...formData, hotels: newHotels });
+                                                        }}
+                                                    />
+                                                    <Input
+                                                        placeholder="Localização (ex: Chiang Mai)"
+                                                        value={hotel?.location || ''}
+                                                        onChange={e => {
+                                                            const newHotels = [...(formData.hotels || [])].map(h => typeof h === 'string' ? { name: h } : h);
+                                                            newHotels[index] = { ...newHotels[index], location: e.target.value };
+                                                            setFormData({ ...formData, hotels: newHotels });
+                                                        }}
+                                                    />
+                                                    <div className="flex flex-col gap-1 w-full justify-end">
+                                                        <select
+                                                            className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background"
+                                                            value={hotel?.rating || 3}
+                                                            onChange={e => {
+                                                                const newHotels = [...(formData.hotels || [])].map(h => typeof h === 'string' ? { name: h } : h);
+                                                                newHotels[index] = { ...newHotels[index], rating: parseInt(e.target.value) };
+                                                                setFormData({ ...formData, hotels: newHotels });
+                                                            }}
+                                                        >
+                                                            <option value={1}>1 Estrela</option>
+                                                            <option value={2}>2 Estrelas</option>
+                                                            <option value={3}>3 Estrelas</option>
+                                                            <option value={4}>4 Estrelas</option>
+                                                            <option value={5}>5 Estrelas</option>
+                                                        </select>
+                                                    </div>
+                                                    <Input
+                                                        placeholder="URL da Imagem da Acomodação"
+                                                        value={hotel?.image || ''}
+                                                        onChange={e => {
+                                                            const newHotels = [...(formData.hotels || [])].map(h => typeof h === 'string' ? { name: h } : h);
+                                                            newHotels[index] = { ...newHotels[index], image: e.target.value };
+                                                            setFormData({ ...formData, hotels: newHotels });
+                                                        }}
+                                                    />
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                             </TabsContent>
 
