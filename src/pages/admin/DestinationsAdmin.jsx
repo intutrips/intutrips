@@ -9,7 +9,8 @@ import {
     Search,
     Loader2,
     Image as ImageIcon,
-    GripVertical
+    GripVertical,
+    X
 } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -59,7 +60,8 @@ export default function DestinationsAdmin() {
         payment_options: [],
         first_day_info: { title: '', description: '', activities: [] },
         last_day_info: { title: '', description: '', activities: [] },
-        itinerary: []
+        itinerary: [],
+        highlights: []
     });
 
     const [localDestinations, setLocalDestinations] = useState([]);
@@ -197,7 +199,8 @@ export default function DestinationsAdmin() {
                 payment_options: destination.payment_options || [],
                 first_day_info: destination.first_day_info || { title: '', description: '', activities: [] },
                 last_day_info: destination.last_day_info || { title: '', description: '', activities: [] },
-                itinerary: destination.itinerary || []
+                itinerary: destination.itinerary || [],
+                highlights: destination.highlights || []
             });
         } else {
             setEditingDestination(null);
@@ -220,7 +223,8 @@ export default function DestinationsAdmin() {
                 payment_options: [],
                 first_day_info: { title: '', description: '', activities: [] },
                 last_day_info: { title: '', description: '', activities: [] },
-                itinerary: []
+                itinerary: [],
+                highlights: []
             });
         }
         setIsDialogOpen(true);
@@ -400,6 +404,7 @@ export default function DestinationsAdmin() {
                             <TabsList className="mb-4">
                                 <TabsTrigger value="geral">Geral</TabsTrigger>
                                 <TabsTrigger value="detalhes">Detalhes Adicionais</TabsTrigger>
+                                <TabsTrigger value="highlights">Destaques</TabsTrigger>
                                 <TabsTrigger value="hoteis">Acomodações</TabsTrigger>
                                 <TabsTrigger value="roteiro">Roteiro Diário</TabsTrigger>
                             </TabsList>
@@ -546,6 +551,83 @@ export default function DestinationsAdmin() {
                                             placeholder="https://exemplo.com/img1.jpg&#10;https://exemplo.com/img2.jpg"
                                         />
                                     </div>
+                                </div>
+                            </TabsContent>
+
+                            <TabsContent value="highlights">
+                                <div className="space-y-6">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <h4 className="text-sm font-medium">Destaques da Viagem</h4>
+                                            <p className="text-xs text-gray-500">Adicione as principais experiências com fotos.</p>
+                                        </div>
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            size="sm"
+                                            onClick={() => setFormData({
+                                                ...formData,
+                                                highlights: [...(formData.highlights || []), { title: '', image_url: '' }]
+                                            })}
+                                            className="rounded-lg"
+                                        >
+                                            <Plus className="h-4 w-4 mr-1" /> Adicionar Destaque
+                                        </Button>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        {(formData.highlights || []).map((highlight, index) => (
+                                            <div key={index} className="relative p-4 rounded-2xl border border-gray-100 bg-gray-50/50 space-y-3">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => {
+                                                        const newHighlights = [...formData.highlights];
+                                                        newHighlights.splice(index, 1);
+                                                        setFormData({ ...formData, highlights: newHighlights });
+                                                    }}
+                                                    className="absolute top-2 right-2 p-1 text-gray-400 hover:text-red-500 transition-colors"
+                                                >
+                                                    <X className="h-4 w-4" />
+                                                </button>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] uppercase tracking-wider font-semibold text-gray-400 ml-1">Título</label>
+                                                    <Input
+                                                        value={highlight.title}
+                                                        onChange={(e) => {
+                                                            const newHighlights = [...formData.highlights];
+                                                            newHighlights[index] = { ...newHighlights[index], title: e.target.value };
+                                                            setFormData({ ...formData, highlights: newHighlights });
+                                                        }}
+                                                        placeholder="Ex: Pôr do sol na Pink Beach"
+                                                        className="h-9 bg-white"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] uppercase tracking-wider font-semibold text-gray-400 ml-1">URL da Imagem</label>
+                                                    <Input
+                                                        value={highlight.image_url}
+                                                        onChange={(e) => {
+                                                            const newHighlights = [...formData.highlights];
+                                                            newHighlights[index] = { ...newHighlights[index], image_url: e.target.value };
+                                                            setFormData({ ...formData, highlights: newHighlights });
+                                                        }}
+                                                        placeholder="https://..."
+                                                        className="h-9 bg-white"
+                                                    />
+                                                </div>
+                                                {highlight.image_url && (
+                                                    <div className="mt-2 aspect-video w-full rounded-lg overflow-hidden border border-gray-200 bg-white">
+                                                        <img src={highlight.image_url} alt="" className="w-full h-full object-cover" />
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {(!formData.highlights || formData.highlights.length === 0) && (
+                                        <div className="text-center py-10 border-2 border-dashed border-gray-100 rounded-3xl">
+                                            <p className="text-gray-400 text-sm">Nenhum destaque adicionado ainda.</p>
+                                        </div>
+                                    )}
                                 </div>
                             </TabsContent>
 
