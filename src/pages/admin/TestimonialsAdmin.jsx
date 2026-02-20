@@ -340,7 +340,7 @@ export default function TestimonialsAdmin() {
 
             {/* Create Dialog */}
             <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-                <DialogContent className="max-w-md rounded-3xl">
+                <DialogContent className="max-w-md rounded-3xl overflow-y-auto max-h-[90vh]">
                     <DialogHeader>
                         <DialogTitle>Novo Depoimento</DialogTitle>
                     </DialogHeader>
@@ -430,7 +430,7 @@ export default function TestimonialsAdmin() {
 
             {/* Edit Dialog */}
             <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-                <DialogContent className="max-w-md rounded-3xl">
+                <DialogContent className="max-w-md rounded-3xl overflow-y-auto max-h-[90vh]">
                     <DialogHeader>
                         <DialogTitle>Editar Depoimento</DialogTitle>
                     </DialogHeader>
