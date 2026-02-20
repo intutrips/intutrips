@@ -639,7 +639,7 @@ export default function DestinationsAdmin() {
                                             type="button"
                                             variant="outline"
                                             size="sm"
-                                            onClick={() => setFormData({ ...formData, hotels: [...(formData.hotels || []), { name: '', location: '', rating: 3, image: '' }] })}
+                                            onClick={() => setFormData({ ...formData, hotels: [...(formData.hotels || []), { name: '', location: '', rating: 3, image: '', description: '' }] })}
                                         >
                                             + Adicionar Hotel
                                         </Button>
@@ -707,6 +707,18 @@ export default function DestinationsAdmin() {
                                                             setFormData({ ...formData, hotels: newHotels });
                                                         }}
                                                     />
+                                                    <div className="col-span-2">
+                                                        <Textarea
+                                                            placeholder="Breve descrição da acomodação (ex: Hotel boutique com vista para os arrozais)"
+                                                            value={hotel?.description || ''}
+                                                            onChange={e => {
+                                                                const newHotels = [...(formData.hotels || [])].map(h => typeof h === 'string' ? { name: h } : h);
+                                                                newHotels[index] = { ...newHotels[index], description: e.target.value };
+                                                                setFormData({ ...formData, hotels: newHotels });
+                                                            }}
+                                                            className="min-h-[60px] resize-none"
+                                                        />
+                                                    </div>
                                                 </div>
                                             </div>
                                         )
