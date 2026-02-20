@@ -1,0 +1,2 @@
+ALTER TABLE testimonials ADD COLUMN IF NOT EXISTS trip_info TEXT;
+ALTER TABLE testimonials ADD COLUMN IF NOT EXISTS display_order INTEGER DEFAULT 0;

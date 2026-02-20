@@ -45,7 +45,9 @@ export default function TestimonialsAdmin() {
         client_name: '',
         content: '',
         rating: 5,
-        destination_id: null
+        destination_id: null,
+        trip_info: '',
+        display_order: 1
     });
 
     const { data: testimonials = [], isLoading } = useQuery({
@@ -139,7 +141,9 @@ export default function TestimonialsAdmin() {
             client_name: '',
             content: '',
             rating: 5,
-            destination_id: null
+            destination_id: null,
+            trip_info: '',
+            display_order: 1
         });
         setIsCreateDialogOpen(true);
     };
@@ -150,7 +154,9 @@ export default function TestimonialsAdmin() {
             client_name: '',
             content: '',
             rating: 5,
-            destination_id: null
+            destination_id: null,
+            trip_info: '',
+            display_order: 1
         });
     };
 
@@ -160,7 +166,9 @@ export default function TestimonialsAdmin() {
             client_name: testimonial.client_name,
             content: testimonial.content,
             rating: testimonial.rating,
-            destination_id: testimonial.destination_id
+            destination_id: testimonial.destination_id,
+            trip_info: testimonial.trip_info || '',
+            display_order: testimonial.display_order || 1
         });
         setIsEditDialogOpen(true);
     };
@@ -172,7 +180,9 @@ export default function TestimonialsAdmin() {
             client_name: '',
             content: '',
             rating: 5,
-            destination_id: null
+            destination_id: null,
+            trip_info: '',
+            display_order: 1
         });
     };
 
@@ -385,6 +395,24 @@ export default function TestimonialsAdmin() {
                                     ))}
                                 </select>
                             </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium ml-1 text-gray-700">Informações da viagem</label>
+                                <Input
+                                    value={formData.trip_info}
+                                    onChange={(e) => setFormData({ ...formData, trip_info: e.target.value })}
+                                    placeholder="Ex: Viajou para o Japão e Tailândia em 2024"
+                                    className="h-11 rounded-xl"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium ml-1 text-gray-700">Ordem de exibição</label>
+                                <Input
+                                    type="number"
+                                    value={formData.display_order}
+                                    onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) || 0 })}
+                                    className="h-11 rounded-xl"
+                                />
+                            </div>
                         </div>
                         <DialogFooter className="pt-2">
                             <Button type="button" variant="ghost" onClick={handleCloseCreateDialog} className="rounded-xl">Cancelar</Button>
@@ -457,6 +485,24 @@ export default function TestimonialsAdmin() {
                                     ))}
                                 </select>
                             </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium ml-1 text-gray-700">Informações da viagem</label>
+                                <Input
+                                    value={formData.trip_info}
+                                    onChange={(e) => setFormData({ ...formData, trip_info: e.target.value })}
+                                    placeholder="Ex: Viajou para o Japão e Tailândia em 2024"
+                                    className="h-11 rounded-xl"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium ml-1 text-gray-700">Ordem de exibição</label>
+                                <Input
+                                    type="number"
+                                    value={formData.display_order}
+                                    onChange={(e) => setFormData({ ...formData, display_order: parseInt(e.target.value) || 0 })}
+                                    className="h-11 rounded-xl"
+                                />
+                            </div>
                         </div>
                         <DialogFooter className="pt-2">
                             <Button type="button" variant="ghost" onClick={handleCloseEditDialog} className="rounded-xl">Cancelar</Button>
@@ -488,10 +534,10 @@ export default function TestimonialsAdmin() {
                         <p className="text-sm text-gray-500">Esta ação não pode ser desfeita.</p>
                     </div>
                     <DialogFooter className="pt-2">
-                        <Button 
-                            type="button" 
-                            variant="ghost" 
-                            onClick={handleCloseDeleteDialog} 
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            onClick={handleCloseDeleteDialog}
                             className="rounded-xl flex-1"
                         >
                             Cancelar
