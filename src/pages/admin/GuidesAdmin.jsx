@@ -314,12 +314,21 @@ export default function GuidesAdmin() {
                                 </Select>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-medium ml-1">Preço (US$)</label>
-                                <Input
-                                    value={formData.price}
-                                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                                    placeholder="0.00"
-                                />
+                                <label className="text-sm font-medium ml-1">Preço (USD)</label>
+                                <div className="relative">
+                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                                    <Input
+                                        type="text"
+                                        inputMode="numeric"
+                                        className="pl-7"
+                                        value={formData.price}
+                                        onChange={(e) => {
+                                            const val = e.target.value.replace(/\D/g, '');
+                                            setFormData({ ...formData, price: val });
+                                        }}
+                                        placeholder="0"
+                                    />
+                                </div>
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1">Número de Páginas</label>

@@ -353,7 +353,7 @@ export default function DestinationsAdmin() {
                                                                     <span className="text-gray-600">{dest.duration || '-'}</span>
                                                                 </TableCell>
                                                                 <TableCell className="px-6 py-4">
-                                                                    <span className="text-gray-600">{dest.price_from || '-'}</span>
+                                                                    <span className="text-gray-600">{dest.price_from ? `USD ${dest.price_from}` : '-'}</span>
                                                                 </TableCell>
                                                                 <TableCell className="px-6 py-4 text-right">
                                                                     <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -436,12 +436,21 @@ export default function DestinationsAdmin() {
                                         </select>
                                     </div>
                                     <div className="space-y-2">
-                                        <label className="text-sm font-medium ml-1">Preço (Exemplo: USD 4.500)</label>
-                                        <Input
-                                            value={formData.price_from}
-                                            onChange={(e) => setFormData({ ...formData, price_from: e.target.value })}
-                                            placeholder="USD 0.00"
-                                        />
+                                        <label className="text-sm font-medium ml-1">Preço (USD)</label>
+                                        <div className="relative">
+                                            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                                            <Input
+                                                className="pl-7"
+                                                type="text"
+                                                inputMode="numeric"
+                                                value={formData.price_from}
+                                                onChange={(e) => {
+                                                    const val = e.target.value.replace(/\D/g, '');
+                                                    setFormData({ ...formData, price_from: val });
+                                                }}
+                                                placeholder="0"
+                                            />
+                                        </div>
                                     </div>
                                     <div className="space-y-2">
                                         <label className="text-sm font-medium ml-1">Duração</label>

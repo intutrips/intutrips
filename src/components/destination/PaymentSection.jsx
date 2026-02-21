@@ -18,7 +18,7 @@ export default function PaymentSection({ price_from, payment_options }) {
         <CreditCard className="h-6 w-6 text-[#00634D]" />
         Valores e Pagamento
       </h2>
-      
+
       <div className="grid lg:grid-cols-2 gap-8">
         {/* Price Info */}
         <motion.div
@@ -30,13 +30,13 @@ export default function PaymentSection({ price_from, payment_options }) {
           <DollarSign className="h-10 w-10 text-[#00634D] mb-4" />
           <span className="text-white/70 text-sm">Valor por pessoa</span>
           <div className="text-5xl font-light my-4">
-            USD {price_from ? price_from.toLocaleString('en-US') : '0'}
+            USD {price_from ? Number(price_from).toLocaleString('en-US') : '0'}
           </div>
           <p className="text-white/60 text-sm font-light leading-relaxed">
-            *A cotação para reais será baseada no dólar turismo no dia do fechamento da viagem. 
-            Entre em contato para consultar condições especiais.
+            *Valores expressos em dólares americanos (USD).
+            Entre em contato para consultar as melhores condições de reserva.
           </p>
-          
+
           <div className="mt-6 pt-6 border-t border-white/10">
             <div className="flex items-center gap-2 text-sm text-white/80">
               <Shield className="h-4 w-4 text-[#00634D]" />
@@ -56,7 +56,7 @@ export default function PaymentSection({ price_from, payment_options }) {
           <h3 className="text-lg font-medium text-[#3C3333] mb-6">
             Formas de pagamento
           </h3>
-          
+
           <div className="space-y-4">
             {options.map((option, index) => (
               <div key={index} className="flex items-start gap-3 p-4 bg-[#FDF6EA] rounded-xl">

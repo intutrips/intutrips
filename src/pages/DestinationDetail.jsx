@@ -242,7 +242,7 @@ export default function DestinationDetail() {
                   <div className="mb-6">
                     <span className="text-sm text-gray-500">A partir de</span>
                     <div className="text-3xl font-light text-[#1A1A1A]">
-                      USD {destination.price_from.toLocaleString('en-US')}
+                      USD {Number(destination.price_from).toLocaleString('en-US')}
                     </div>
                     <span className="text-sm text-gray-500">por pessoa</span>
                   </div>

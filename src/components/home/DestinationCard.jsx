@@ -16,7 +16,7 @@ const countryImages = {
 
 export default function DestinationCard({ destination, index }) {
   const imageUrl = destination.image_url || countryImages[destination.country] || countryImages["Tailândia"];
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -24,7 +24,7 @@ export default function DestinationCard({ destination, index }) {
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
     >
-      <Link 
+      <Link
         to={`${createPageUrl('DestinationDetail')}?id=${destination.id}`}
         className="group block"
       >
@@ -56,11 +56,11 @@ export default function DestinationCard({ destination, index }) {
             <span className="inline-block px-3 py-1 bg-[#C9A962]/90 text-white text-xs tracking-wider uppercase rounded-full mb-3">
               {destination.country}
             </span>
-            
+
             <h3 className="text-2xl font-light text-white mb-2 group-hover:text-[#C9A962] transition-colors">
               {destination.name}
             </h3>
-            
+
             <p className="text-white/70 text-sm line-clamp-2 mb-4">
               {destination.description}
             </p>
@@ -86,7 +86,7 @@ export default function DestinationCard({ destination, index }) {
                   </span>
                 )}
               </div>
-              
+
               <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#C9A962] transition-all duration-300">
                 <ArrowUpRight className="h-4 w-4 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
@@ -98,7 +98,7 @@ export default function DestinationCard({ destination, index }) {
             <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg">
               <span className="text-xs text-gray-500">a partir de</span>
               <div className="text-lg font-medium text-[#1A1A1A]">
-                USD {destination.price_from.toLocaleString('en-US')}
+                USD {Number(destination.price_from).toLocaleString('en-US')}
               </div>
             </div>
           )}
