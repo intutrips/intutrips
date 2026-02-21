@@ -11,8 +11,11 @@ import {
     X,
     ChevronRight,
     Shield,
-    Globe
+    Globe,
+    User
 } from 'lucide-react';
+
+
 import { useAuth } from '@/lib/AuthContext';
 import { Button } from '@/components/ui/button';
 import { getVersionDisplay } from '@/lib/version';
@@ -31,7 +34,9 @@ export default function AdminLayout({ children }) {
         { label: 'Países', icon: Globe, path: '/admin/countries' },
         { label: 'Contatos', icon: Users, path: '/admin/contacts' },
         { label: 'Gerenciar Admins', icon: Shield, path: '/admin/users' },
+        { label: 'Meu Perfil', icon: User, path: '/admin/profile' },
     ];
+
 
     const handleLogout = async () => {
         await logout();
@@ -68,15 +73,16 @@ export default function AdminLayout({ children }) {
                 </nav>
 
                 <div className="p-4 border-t border-white/10">
-                    <div className="flex items-center gap-3 p-3 mb-4">
-                        <div className="w-10 h-10 rounded-full bg-[#C9A962]/20 border border-[#C9A962]/30 flex items-center justify-center text-[#C9A962]">
+                    <Link to="/admin/profile" className="flex items-center gap-3 p-3 mb-4 hover:bg-white/5 rounded-xl transition-all group">
+                        <div className="w-10 h-10 rounded-full bg-[#C9A962]/20 border border-[#C9A962]/30 flex items-center justify-center text-[#C9A962] group-hover:bg-[#C9A962]/30 transition-all">
                             {user?.email?.charAt(0).toUpperCase()}
                         </div>
                         <div className="overflow-hidden">
-                            <p className="text-sm font-medium truncate">{user?.email}</p>
+                            <p className="text-sm font-medium truncate group-hover:text-white transition-all">{user?.email}</p>
                             <p className="text-xs text-gray-500 uppercase tracking-tighter">Administrador</p>
                         </div>
-                    </div>
+                    </Link>
+
                     <Button
                         variant="ghost"
                         className="w-full justify-start text-gray-400 hover:text-white hover:bg-red-500/10 hover:text-red-400 gap-3 mb-4"

@@ -16,6 +16,8 @@ import UsersAdmin from '@/pages/admin/UsersAdmin';
 import Login from '@/pages/Login';
 import TestimonialsAdmin from '@/pages/admin/TestimonialsAdmin';
 import CountriesAdmin from '@/pages/admin/CountriesAdmin';
+import Profile from '@/pages/admin/Profile';
+
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -28,11 +30,11 @@ const LayoutWrapper = ({ children, currentPageName }) => Layout ?
 // Component to scroll to top on route change
 const ScrollToTop = () => {
   const location = useLocation();
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  
+
   return null;
 };
 
@@ -123,6 +125,16 @@ const AuthenticatedApp = () => {
           <Login />
         )
       } />
+      <Route path="/admin/profile" element={
+        isAuthenticated ? (
+          <AdminLayout>
+            <Profile />
+          </AdminLayout>
+        ) : (
+          <Login />
+        )
+      } />
+
 
       {Object.entries(Pages).map(([path, Page]) => (
         <Route
