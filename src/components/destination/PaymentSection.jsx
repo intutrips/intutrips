@@ -1,6 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CreditCard, DollarSign, Calendar, Shield } from 'lucide-react';
+import { formatCurrency } from '@/utils';
+
 
 export default function PaymentSection({ price_from, payment_options }) {
   const defaultPaymentOptions = [
@@ -30,7 +32,8 @@ export default function PaymentSection({ price_from, payment_options }) {
           <DollarSign className="h-10 w-10 text-[#00634D] mb-4" />
           <span className="text-white/70 text-sm">Valor por pessoa</span>
           <div className="text-5xl font-light my-4">
-            USD {price_from ? Number(price_from).toLocaleString('en-US') : '0'}
+            USD {formatCurrency(price_from)}
+
           </div>
           <p className="text-white/60 text-sm font-light leading-relaxed">
             *Valores expressos em dólares americanos (USD).

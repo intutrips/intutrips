@@ -2,7 +2,9 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 import { Eye, EyeOff } from "lucide-react"
 
+/** @type {React.ForwardRefExoticComponent<React.InputHTMLAttributes<HTMLInputElement>>} */
 const PasswordInput = React.forwardRef(({ className, ...props }, ref) => {
+
   const [showPassword, setShowPassword] = React.useState(false)
 
   const togglePasswordVisibility = () => {
@@ -24,7 +26,8 @@ const PasswordInput = React.forwardRef(({ className, ...props }, ref) => {
         type="button"
         onClick={togglePasswordVisibility}
         className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 transition-colors"
-        tabIndex="-1"
+        tabIndex={-1}
+
       >
         {showPassword ? (
           <EyeOff className="h-4 w-4" />

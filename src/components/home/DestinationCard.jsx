@@ -2,7 +2,8 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Users, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { createPageUrl, formatCurrency } from '@/utils';
+
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -98,7 +99,8 @@ export default function DestinationCard({ destination, index }) {
             <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg">
               <span className="text-xs text-gray-500">a partir de</span>
               <div className="text-lg font-medium text-[#1A1A1A]">
-                USD {Number(destination.price_from).toLocaleString('en-US')}
+                USD {formatCurrency(destination.price_from)}
+
               </div>
             </div>
           )}

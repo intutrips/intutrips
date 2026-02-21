@@ -5,7 +5,8 @@ import { motion } from 'framer-motion';
 import { Calendar, Users, Clock, MapPin, Check, ArrowLeft } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Link, useSearchParams } from 'react-router-dom';
-import { createPageUrl } from '@/utils';
+import { createPageUrl, formatCurrency } from '@/utils';
+
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import ContactSection from '@/components/home/ContactSection';
@@ -242,7 +243,8 @@ export default function DestinationDetail() {
                   <div className="mb-6">
                     <span className="text-sm text-gray-500">A partir de</span>
                     <div className="text-3xl font-light text-[#1A1A1A]">
-                      USD {Number(destination.price_from).toLocaleString('en-US')}
+                      USD {formatCurrency(destination.price_from)}
+
                     </div>
                     <span className="text-sm text-gray-500">por pessoa</span>
                   </div>
