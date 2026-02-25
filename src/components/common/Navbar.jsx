@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { createPageUrl } from '@/utils';
+import { useSiteTexts } from '@/hooks/useSiteTexts';
 import { Button } from "@/components/ui/button";
-import { Menu, X, MapPin } from 'lucide-react';
+import { Menu, X, MapPin, Instagram } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const navLinks = [
-{ name: 'Início', page: 'Home' },
-{ name: 'Destinos', page: 'Destinations' },
-{ name: 'Guias', page: 'Guides' },
-{ name: 'Sobre Nós', page: 'About' }];
+  { name: 'Início', page: 'Home' },
+  { name: 'Destinos', page: 'Destinations' },
+  { name: 'Guias', page: 'Guides' },
+  { name: 'Sobre Nós', page: 'About' }];
 
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { texts } = useSiteTexts();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,18 +41,18 @@ export default function Navbar() {
             {/* Logo */}
             <Link to={createPageUrl('Home')} className="flex items-center gap-3">
               <img
-                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/6988295eab60382ac956dcb6/bd3162b6c_VIAJECOMAGENTE-2.png"
+                src="/logo_intu_trips.png"
                 alt="intu trips"
-                className="h-10 w-auto" />
+                className="h-12 w-auto" />
 
             </Link>
 
             {/* Desktop Nav */}
             <div className="hidden md:flex items-center gap-8">
               {navLinks.map((link) =>
-              <Link
-                key={link.page}
-                to={createPageUrl(link.page)} className="text-slate-50 text-sm font-light transition-colors hover:text-[#00634D]">
+                <Link
+                  key={link.page}
+                  to={createPageUrl(link.page)} className="text-slate-50 text-sm font-light transition-colors hover:text-[#00634D]">
 
 
 
@@ -60,13 +62,20 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               )}
-              <Link to={`${createPageUrl('Home')}#contato`}>
+              <Link
+                to="/#contato"
+                onClick={(e) => {
+                  if (isHome) {
+                    e.preventDefault();
+                    document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }}
+              >
                 <Button
                   size="sm"
-                  className={`rounded-full px-6 ${
-                  isScrolled || !isHome ?
-                  'bg-[#00634D] hover:bg-[#032B22] text-white' :
-                  'bg-white text-[#032B22] hover:bg-white/90'}`
+                  className={`rounded-full px-6 ${isScrolled || !isHome ?
+                    'bg-[#00634D] hover:bg-[#032B22] text-white' :
+                    'bg-white text-[#032B22] hover:bg-white/90'}`
                   }>
 
                   Contato
@@ -80,9 +89,9 @@ export default function Navbar() {
               className="md:hidden">
 
               {isMobileMenuOpen ?
-              <X className={`h-6 w-6 ${isScrolled || !isHome ? 'text-[#3C3333]' : 'text-white'}`} /> :
+                <X className={`h-6 w-6 ${isScrolled || !isHome ? 'text-[#3C3333]' : 'text-white'}`} /> :
 
-              <Menu className={`h-6 w-6 ${isScrolled || !isHome ? 'text-[#3C3333]' : 'text-white'}`} />
+                <Menu className={`h-6 w-6 ${isScrolled || !isHome ? 'text-[#3C3333]' : 'text-white'}`} />
               }
             </button>
           </div>
@@ -92,31 +101,46 @@ export default function Navbar() {
       {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen &&
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          className="fixed inset-0 z-40 bg-[#FDF6EA] pt-24 px-6 md:hidden">
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-40 bg-[#FDF6EA] pt-24 px-6 md:hidden">
 
             <div className="flex flex-col gap-6">
+              <span className="text-2xl font-light text-white tracking-widest uppercase">
+                {texts.general_site_name || 'INTU'}
+              </span>
               {navLinks.map((link) =>
-            <Link
-              key={link.page}
-              to={createPageUrl(link.page)}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-2xl font-light text-[#3C3333] py-2 border-b border-gray-100">
+                <Link
+                  key={link.page}
+                  to={createPageUrl(link.page)}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-2xl font-light text-[#3C3333] py-2 border-b border-gray-100">
 
                   {link.name}
                 </Link>
-            )}
+              )}
               <Link
-              to={`${createPageUrl('Home')}#contato`}
-              onClick={() => setIsMobileMenuOpen(false)}>
+                to="/#contato"
+                onClick={(e) => {
+                  setIsMobileMenuOpen(false);
+                  if (isHome) {
+                    e.preventDefault();
+                    // setTimeout para dar tempo do menu mobile fechar primeiro
+                    setTimeout(() => {
+                      document.getElementById('contato')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 300);
+                  }
+                }}>
 
                 <Button className="w-full bg-[#00634D] hover:bg-[#032B22] text-white rounded-full mt-4">
                   Entrar em Contato
                 </Button>
               </Link>
+              <a href={texts.general_instagram || 'https://www.instagram.com/intu.trips/'} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/70 hover:bg-white hover:text-black transition-colors">
+                <Instagram className="h-5 w-5" />
+              </a>
             </div>
           </motion.div>
         }

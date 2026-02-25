@@ -4,8 +4,8 @@ import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
 import { Calendar, Users, Clock, MapPin, Check, ArrowLeft } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import { Link, useSearchParams } from 'react-router-dom';
-import { createPageUrl, formatCurrency } from '@/utils';
+import { Link, useParams } from 'react-router-dom';
+import { createPageUrl, formatCurrency, generateSlug } from '@/utils';
 
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -27,21 +27,24 @@ const countryImages = {
 };
 
 export default function DestinationDetail() {
-  const [searchParams] = useSearchParams();
-  const destinationId = searchParams.get('id');
+  const { slug } = useParams();
 
   const { data: destination, isLoading } = useQuery({
-    queryKey: ['destination', destinationId],
+    queryKey: ['destination', slug],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from('destinations')
-        .select('*')
-        .eq('id', destinationId)
-        .single();
+      // Baixa todos porque é rápido e compara em memória pra encontrar o certo através do slug ou id
+      const { data, error } = await supabase.from('destinations').select('*');
       if (error) throw error;
-      return data;
+
+      const found = data.find(d => {
+        const destSlug = d.slug || (d.country ? generateSlug(d.country) : d.id);
+        return destSlug === slug || d.id === slug;
+      });
+
+      if (!found) throw new Error("Destination not found");
+      return found;
     },
-    enabled: !!destinationId,
+    enabled: !!slug,
   });
 
   if (isLoading) {

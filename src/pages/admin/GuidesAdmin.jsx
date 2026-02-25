@@ -37,6 +37,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { toast } from 'sonner';
+import { Badge } from "@/components/ui/badge";
 
 export default function GuidesAdmin() {
     const queryClient = useQueryClient();
@@ -239,7 +240,10 @@ export default function GuidesAdmin() {
                                             <span className="text-gray-600">{guide.pages || '-'}</span>
                                         </TableCell>
                                         <TableCell className="px-6 py-4">
-                                            <span className="text-gray-600">US$ {guide.price || '-'}</span>
+                                            <div className="flex items-center gap-2 mb-2">
+                                                <Badge variant="outline" className="text-[#00634D] border-[#00634D]/20">Ebook</Badge>
+                                                <span className="text-gray-600">R$ {guide.price || '-'}</span>
+                                            </div>
                                         </TableCell>
                                         <TableCell className="px-6 py-4 text-right">
                                             <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -314,9 +318,9 @@ export default function GuidesAdmin() {
                                 </Select>
                             </div>
                             <div className="space-y-2">
-                                <label className="text-sm font-medium ml-1">Preço (USD)</label>
+                                <label className="text-sm font-medium ml-1">Preço (BRL)</label>
                                 <div className="relative">
-                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">R$</span>
                                     <Input
                                         type="text"
                                         inputMode="numeric"

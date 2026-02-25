@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Users, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { createPageUrl, formatCurrency } from '@/utils';
+import { createPageUrl, formatCurrency, generateSlug } from '@/utils';
 
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -18,6 +18,8 @@ const countryImages = {
 export default function DestinationCard({ destination, index }) {
   const imageUrl = destination.image_url || countryImages[destination.country] || countryImages["Tailândia"];
 
+  const destSlug = destination.slug || (destination.country ? generateSlug(destination.country) : destination.id);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -26,7 +28,7 @@ export default function DestinationCard({ destination, index }) {
       transition={{ duration: 0.6, delay: index * 0.1 }}
     >
       <Link
-        to={`${createPageUrl('DestinationDetail')}?id=${destination.id}`}
+        to={`/${destSlug}`}
         className="group block"
       >
         <div className="relative overflow-hidden rounded-2xl bg-[#1A1A1A]">

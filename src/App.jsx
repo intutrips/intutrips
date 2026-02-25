@@ -16,6 +16,7 @@ import UsersAdmin from '@/pages/admin/UsersAdmin';
 import Login from '@/pages/Login';
 import TestimonialsAdmin from '@/pages/admin/TestimonialsAdmin';
 import CountriesAdmin from '@/pages/admin/CountriesAdmin';
+import SiteTextsAdmin from '@/pages/admin/SiteTextsAdmin';
 import Profile from '@/pages/admin/Profile';
 
 
@@ -32,8 +33,14 @@ const ScrollToTop = () => {
   const location = useLocation();
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+    if (location.hash) {
+      setTimeout(() => {
+        document.querySelector(location.hash)?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname, location.hash]);
 
   return null;
 };
@@ -125,6 +132,15 @@ const AuthenticatedApp = () => {
           <Login />
         )
       } />
+      <Route path="/admin/site-texts" element={
+        isAuthenticated ? (
+          <AdminLayout>
+            <SiteTextsAdmin />
+          </AdminLayout>
+        ) : (
+          <Login />
+        )
+      } />
       <Route path="/admin/profile" element={
         isAuthenticated ? (
           <AdminLayout>
@@ -136,17 +152,29 @@ const AuthenticatedApp = () => {
       } />
 
 
-      {Object.entries(Pages).map(([path, Page]) => (
-        <Route
-          key={path}
-          path={`/${path}`}
-          element={
-            <LayoutWrapper currentPageName={path}>
-              <Page />
-            </LayoutWrapper>
-          }
-        />
-      ))}
+      {Object.entries(Pages)
+        .filter(([path]) => path !== 'DestinationDetail')
+        .map(([path, Page]) => (
+          <Route
+            key={path}
+            path={`/${path.toLowerCase()}`}
+            element={
+              <LayoutWrapper currentPageName={path}>
+                <Page />
+              </LayoutWrapper>
+            }
+          />
+        ))}
+
+      {/* Rota dinâmica para os Destinos Individuais usando slug */}
+      <Route
+        path="/:slug"
+        element={
+          <LayoutWrapper currentPageName="DestinationDetail">
+            <Pages.DestinationDetail />
+          </LayoutWrapper>
+        }
+      />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

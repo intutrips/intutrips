@@ -8,10 +8,12 @@ import { Send, MapPin, Mail, Phone, Loader2, Check } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
 // import { base44 } from '@/api/base44Client';
 import { toast } from 'sonner';
+import { useSiteTexts } from '@/hooks/useSiteTexts';
 
 const destinations = ["India", "China", "Indonésia", "Vietnã", "Tailândia", "Ainda não sei"];
 
 export default function ContactSection() {
+  const { texts } = useSiteTexts();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -55,15 +57,13 @@ export default function ContactSection() {
             viewport={{ once: true }}
           >
             <span className="text-[#C9A962] text-sm tracking-widest uppercase">
-              Fale Conosco
+              {texts.home_contact_tag || 'Fale Conosco'}
             </span>
             <h2 className="text-4xl md:text-5xl font-light text-[#1A1A1A] mt-4 mb-6">
-              Vamos planejar sua<br />
-              <span className="italic">próxima aventura?</span>
+              {texts.home_contact_title || 'Vamos planejar sua próxima aventura?'}
             </h2>
             <p className="text-gray-600 font-light mb-10 leading-relaxed">
-              Conte-nos seu sonho de viagem. Nossa equipe vai entrar em contato
-              para criar a experiência perfeita para você.
+              {texts.home_contact_desc || 'Conte-nos seu sonho de viagem. Nossa equipe vai entrar em contato para criar a experiência perfeita para você.'}
             </p>
 
             <div className="space-y-6">
@@ -73,18 +73,25 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Email</div>
-                  <div className="text-[#1A1A1A]">intu.trips@gmail.com</div>
+                  <a href={`mailto:${texts.general_email || 'intutrips@gmail.com'}`} className="text-[#1A1A1A] hover:text-[#C9A962] transition-colors">
+                    {texts.general_email || 'intutrips@gmail.com'}
+                  </a>
                 </div>
               </div>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-[#FAF8F5] flex items-center justify-center">
-                  <Phone className="h-5 w-5 text-[#C9A962]" />
+
+              {(!texts.general_show_phone || texts.general_show_phone === 'true') && (
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-xl bg-[#FAF8F5] flex items-center justify-center">
+                    <Phone className="h-5 w-5 text-[#C9A962]" />
+                  </div>
+                  <div>
+                    <div className="text-sm text-gray-500">WhatsApp</div>
+                    <a href={`https://wa.me/${(texts.general_phone || '+5511512332225').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-[#1A1A1A] hover:text-[#C9A962] transition-colors">
+                      {texts.general_phone || '+55 (11) 5123-3225'}
+                    </a>
+                  </div>
                 </div>
-                <div>
-                  <div className="text-sm text-gray-500">WhatsApp</div>
-                  <div className="text-[#1A1A1A]">+55 (11) 5123-3225</div>
-                </div>
-              </div>
+              )}
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-[#FAF8F5] flex items-center justify-center">
                   <MapPin className="h-5 w-5 text-[#C9A962]" />

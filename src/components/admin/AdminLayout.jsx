@@ -12,7 +12,8 @@ import {
     ChevronRight,
     Shield,
     Globe,
-    User
+    User,
+    FileText
 } from 'lucide-react';
 
 
@@ -33,6 +34,7 @@ export default function AdminLayout({ children }) {
         { label: 'Depoimentos', icon: MessageSquare, path: '/admin/testimonials' },
         { label: 'Países', icon: Globe, path: '/admin/countries' },
         { label: 'Contatos', icon: Users, path: '/admin/contacts' },
+        { label: 'Textos do Site', icon: FileText, path: '/admin/site-texts' },
         { label: 'Gerenciar Admins', icon: Shield, path: '/admin/users' },
         { label: 'Meu Perfil', icon: User, path: '/admin/profile' },
     ];

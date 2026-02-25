@@ -143,7 +143,7 @@ export default function Guides() {
                     <div className="flex items-center justify-between pt-4 border-t">
                       <div>
                         <div className="text-2xl font-light text-[#3C3333]">
-                          US$ {guide.price}
+                          R$ {guide.price}
                         </div>
                       </div>
                       <Button
