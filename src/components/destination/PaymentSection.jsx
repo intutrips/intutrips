@@ -12,7 +12,15 @@ export default function PaymentSection({ price_from, payment_options }) {
     "Pagamento fragmentado (30% de entrada + valor final 30 dias antes do embarque)"
   ];
 
-  const options = defaultPaymentOptions;
+  const parsed = (() => {
+    if (!payment_options) return [];
+    if (typeof payment_options === 'string') {
+      try { return JSON.parse(payment_options); } catch { return payment_options.split('\n'); }
+    }
+    return Array.isArray(payment_options) ? payment_options : [];
+  })();
+  const filtered = parsed.filter(o => typeof o === 'string' && o.trim().length > 0);
+  const options = filtered.length > 0 ? filtered : defaultPaymentOptions;
 
   return (
     <section className="mb-16">

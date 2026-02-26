@@ -249,7 +249,13 @@ export default function DestinationsAdmin() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        upsertMutation.mutate(formData);
+        const cleanedData = {
+            ...formData,
+            payment_options: (formData.payment_options || []).filter(o => o.trim().length > 0),
+            inclusions: (formData.inclusions || []).filter(o => o.trim().length > 0),
+            exclusions: (formData.exclusions || []).filter(o => o.trim().length > 0),
+        };
+        upsertMutation.mutate(cleanedData);
     };
 
     const filteredDestinations = localDestinations.filter(d =>
