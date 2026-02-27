@@ -8,7 +8,7 @@ export default function ItinerarySection({ itinerary }) {
   return (
     <section className="mb-16">
       <h2 className="text-2xl font-light text-[#1A1A1A] mb-8 flex items-center gap-3">
-        <Calendar className="h-6 w-6 text-[#C9A962]" />
+        <Calendar className="h-6 w-6 text-[#bda94c]" />
         Roteiro Detalhado
       </h2>
       
@@ -24,8 +24,8 @@ export default function ItinerarySection({ itinerary }) {
           >
             <div className="flex items-start gap-6">
               <div className="flex-shrink-0">
-                <div className="w-16 h-16 rounded-xl bg-[#C9A962]/10 flex items-center justify-center">
-                  <span className="text-2xl font-light text-[#C9A962]">
+                <div className="w-16 h-16 rounded-xl bg-[#bda94c]/10 flex items-center justify-center">
+                  <span className="text-2xl font-light text-[#bda94c]">
                     {day.day}
                   </span>
                 </div>
@@ -43,7 +43,7 @@ export default function ItinerarySection({ itinerary }) {
                   <div className="space-y-2">
                     {day.activities.map((activity, actIndex) => (
                       <div key={actIndex} className="flex items-start gap-2 text-sm text-gray-600">
-                        <MapPin className="h-4 w-4 text-[#C9A962] mt-0.5 flex-shrink-0" />
+                        <MapPin className="h-4 w-4 text-[#bda94c] mt-0.5 flex-shrink-0" />
                         <span>{activity}</span>
                       </div>
                     ))}

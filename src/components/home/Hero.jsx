@@ -81,7 +81,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="text-[#C9A962] mb-8 text-4xl font-light italic leading-tight md:text-6xl lg:text-7xl"
+          className="text-[#bda94c] mb-8 text-4xl font-light italic leading-tight md:text-6xl lg:text-7xl"
         >
           {subheadline}
         </motion.h1>
@@ -106,7 +106,7 @@ export default function Hero() {
           <Link to={btn1Link}>
             <Button
               size="lg"
-              className="bg-[#00634D] hover:bg-[#032B22] text-white px-8 py-6 text-base rounded-full transition-all duration-300 hover:scale-105"
+              className="bg-[#6b9faf] hover:bg-[#598491] text-white px-8 py-6 text-base rounded-full transition-all duration-300 hover:scale-105"
             >
               {btn1Label}
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -132,7 +132,7 @@ export default function Hero() {
         >
           {stats.map((stat, index) => (
             <div key={index} className="text-center">
-              <stat.icon className="h-5 w-5 text-[#00634D] mx-auto mb-2" />
+              <stat.icon className="h-5 w-5 text-[#6b9faf] mx-auto mb-2" />
               <div className="text-2xl md:text-3xl font-light text-white">{stat.value}</div>
               <div className="text-xs text-white/60 uppercase tracking-wider">{stat.label}</div>
             </div>

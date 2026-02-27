@@ -236,10 +236,10 @@ export default function SiteTextsAdmin() {
     };
 
     const getPageIcon = (slug) => {
-        if (slug === 'home') return <Home className={`h-5 w-5 ${activeTab === slug ? 'text-[#C9A962]' : 'text-gray-400'}`} />;
-        if (slug === 'about') return <Users className={`h-5 w-5 ${activeTab === slug ? 'text-[#C9A962]' : 'text-gray-400'}`} />;
-        if (slug === 'general') return <GlobeIcon className={`h-5 w-5 ${activeTab === slug ? 'text-[#C9A962]' : 'text-gray-400'}`} />;
-        return <FileText className={`h-5 w-5 ${activeTab === slug ? 'text-[#C9A962]' : 'text-gray-400'}`} />;
+        if (slug === 'home') return <Home className={`h-5 w-5 ${activeTab === slug ? 'text-[#bda94c]' : 'text-gray-400'}`} />;
+        if (slug === 'about') return <Users className={`h-5 w-5 ${activeTab === slug ? 'text-[#bda94c]' : 'text-gray-400'}`} />;
+        if (slug === 'general') return <GlobeIcon className={`h-5 w-5 ${activeTab === slug ? 'text-[#bda94c]' : 'text-gray-400'}`} />;
+        return <FileText className={`h-5 w-5 ${activeTab === slug ? 'text-[#bda94c]' : 'text-gray-400'}`} />;
     };
 
     const getSectionName = (sectionSlug) => {
@@ -540,7 +540,7 @@ export default function SiteTextsAdmin() {
                                                                                         <div className="flex items-center gap-3 pt-2">
                                                                                             <div
                                                                                                 onClick={() => handleValueChange(item.id, currentValue === 'true' ? 'false' : 'true')}
-                                                                                                className={`w-11 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors ${currentValue === 'true' ? 'bg-[#00634D]' : 'bg-gray-200'}`}
+                                                                                                className={`w-11 h-6 flex items-center rounded-full p-1 cursor-pointer transition-colors ${currentValue === 'true' ? 'bg-[#6b9faf]' : 'bg-gray-200'}`}
                                                                                             >
                                                                                                 <div className={`bg-white w-4 h-4 rounded-full shadow-md transform transition-transform ${currentValue === 'true' ? 'translate-x-5' : ''}`} />
                                                                                             </div>

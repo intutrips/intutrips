@@ -56,7 +56,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <span className="text-[#C9A962] text-sm tracking-widest uppercase">
+            <span className="text-[#bda94c] text-sm tracking-widest uppercase">
               {texts.home_contact_tag || 'Fale Conosco'}
             </span>
             <h2 className="text-4xl md:text-5xl font-light text-[#1A1A1A] mt-4 mb-6">
@@ -69,11 +69,11 @@ export default function ContactSection() {
             <div className="space-y-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-[#FAF8F5] flex items-center justify-center">
-                  <Mail className="h-5 w-5 text-[#C9A962]" />
+                  <Mail className="h-5 w-5 text-[#bda94c]" />
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Email</div>
-                  <a href={`mailto:${texts.general_email || 'intutrips@gmail.com'}`} className="text-[#1A1A1A] hover:text-[#C9A962] transition-colors">
+                  <a href={`mailto:${texts.general_email || 'intutrips@gmail.com'}`} className="text-[#1A1A1A] hover:text-[#bda94c] transition-colors">
                     {texts.general_email || 'intutrips@gmail.com'}
                   </a>
                 </div>
@@ -82,11 +82,11 @@ export default function ContactSection() {
               {(!texts.general_show_phone || texts.general_show_phone === 'true') && (
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-[#FAF8F5] flex items-center justify-center">
-                    <Phone className="h-5 w-5 text-[#C9A962]" />
+                    <Phone className="h-5 w-5 text-[#bda94c]" />
                   </div>
                   <div>
                     <div className="text-sm text-gray-500">WhatsApp</div>
-                    <a href={`https://wa.me/${(texts.general_phone || '+5511512332225').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-[#1A1A1A] hover:text-[#C9A962] transition-colors">
+                    <a href={`https://wa.me/${(texts.general_phone || '+5511512332225').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-[#1A1A1A] hover:text-[#bda94c] transition-colors">
                       {texts.general_phone || '+55 (11) 5123-3225'}
                     </a>
                   </div>
@@ -94,7 +94,7 @@ export default function ContactSection() {
               )}
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-[#FAF8F5] flex items-center justify-center">
-                  <MapPin className="h-5 w-5 text-[#C9A962]" />
+                  <MapPin className="h-5 w-5 text-[#bda94c]" />
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Localização</div>
@@ -113,8 +113,8 @@ export default function ContactSection() {
           >
             {isSuccess ? (
               <div className="bg-[#FAF8F5] rounded-3xl p-8 md:p-10 flex flex-col items-center justify-center text-center h-full min-h-[400px]">
-                <div className="w-16 h-16 bg-[#00634D]/10 rounded-full flex items-center justify-center mb-6">
-                  <Check className="h-8 w-8 text-[#00634D]" />
+                <div className="w-16 h-16 bg-[#6b9faf]/10 rounded-full flex items-center justify-center mb-6">
+                  <Check className="h-8 w-8 text-[#6b9faf]" />
                 </div>
                 <h3 className="text-2xl font-light text-[#1A1A1A] mb-4">Mensagem Enviada!</h3>
                 <p className="text-gray-600 font-light mb-8">

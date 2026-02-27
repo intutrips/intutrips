@@ -20,19 +20,19 @@ export default function Guides() {
   });
 
   return (
-    <div className="min-h-screen bg-[#FDF6EA]">
+    <div className="min-h-screen bg-[#f8eee5]">
       {/* Header */}
-      <section className="pt-32 pb-16 px-6 bg-[#032B22]">
+      <section className="pt-32 pb-16 px-6 bg-[#92314D]">
         <div className="max-w-7xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <span className="text-[#00634D] text-sm tracking-widest uppercase">
+            <span className="text-[#6b9faf] text-sm tracking-widest uppercase">
               Viaje com Autonomia
             </span>
             <h1 className="text-4xl md:text-6xl font-light text-white mt-4 mb-6">
-              Guias de <span className="italic text-[#00634D]">Viagem</span>
+              Guias de <span className="italic text-[#6b9faf]">Viagem</span>
             </h1>
             <p className="text-gray-300 max-w-2xl mx-auto font-light text-lg">
               Ebooks práticos com dicas essenciais de quem viveu o destino na prática.
@@ -59,8 +59,8 @@ export default function Guides() {
                 transition={{ delay: i * 0.1 }}
                 className="text-center p-6"
               >
-                <div className="w-16 h-16 rounded-2xl bg-[#00634D]/10 flex items-center justify-center mx-auto mb-4">
-                  <item.icon className="h-7 w-7 text-[#00634D]" />
+                <div className="w-16 h-16 rounded-2xl bg-[#6b9faf]/10 flex items-center justify-center mx-auto mb-4">
+                  <item.icon className="h-7 w-7 text-[#6b9faf]" />
                 </div>
                 <h3 className="text-lg font-medium text-[#3C3333] mb-2">{item.title}</h3>
                 <p className="text-gray-600 font-light">{item.desc}</p>
@@ -99,12 +99,12 @@ export default function Guides() {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-[#032B22] to-[#00634D] flex items-center justify-center">
+                      <div className="w-full h-full bg-gradient-to-br from-[#92314D] to-[#6b9faf] flex items-center justify-center">
                         <BookOpen className="h-20 w-20 text-white/20" />
                       </div>
                     )}
                     {guide.bestseller && (
-                      <Badge className="absolute top-4 right-4 bg-[#54234B] text-white border-0">
+                      <Badge className="absolute top-4 right-4 bg-[#92314D] text-white border-0">
                         <Award className="h-3 w-3 mr-1" />
                         Best-seller
                       </Badge>
@@ -113,10 +113,10 @@ export default function Guides() {
 
                   {/* Content */}
                   <div className="p-6">
-                    <div className="text-sm text-[#00634D] mb-2 font-medium">
+                    <div className="text-sm text-[#6b9faf] mb-2 font-medium">
                       {guide.destination}
                     </div>
-                    <h3 className="text-xl font-medium text-[#3C3333] mb-3 group-hover:text-[#00634D] transition-colors">
+                    <h3 className="text-xl font-medium text-[#3C3333] mb-3 group-hover:text-[#6b9faf] transition-colors">
                       {guide.title}
                     </h3>
                     <p className="text-gray-600 font-light mb-4 line-clamp-2">
@@ -133,7 +133,7 @@ export default function Guides() {
                     {guide.topics && guide.topics.length > 0 && (
                       <div className="flex flex-wrap gap-2 mb-4">
                         {guide.topics.slice(0, 3).map((topic, i) => (
-                          <Badge key={i} variant="outline" className="text-xs border-[#00634D]/30 text-[#032B22]">
+                          <Badge key={i} variant="outline" className="text-xs border-[#6b9faf]/30 text-[#92314D]">
                             {topic}
                           </Badge>
                         ))}
@@ -148,7 +148,7 @@ export default function Guides() {
                       </div>
                       <Button
                         onClick={() => guide.checkout_url && window.open(guide.checkout_url, '_blank')}
-                        className="bg-[#00634D] hover:bg-[#032B22] text-white"
+                        className="bg-[#6b9faf] hover:bg-[#598491] text-white"
                       >
                         Comprar
                       </Button>
@@ -169,7 +169,7 @@ export default function Guides() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 bg-[#032B22]">
+      <section className="py-24 px-6 bg-[#92314D]">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -177,14 +177,14 @@ export default function Guides() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-4xl font-light text-white mb-6">
-              Prefere viajar em <span className="italic text-[#00634D]">grupo?</span>
+              Prefere viajar em <span className="italic text-[#6b9faf]">grupo?</span>
             </h2>
             <p className="text-gray-300 font-light mb-8">
               Conheça nossos roteiros guiados pela Ásia com grupos pequenos e suporte completo.
             </p>
             <Button
               onClick={() => window.location.href = '/destinations'}
-              className="bg-[#00634D] hover:bg-[#54234B] text-white rounded-full px-8 py-6 text-base"
+              className="bg-[#6b9faf] hover:bg-[#92314D] text-white rounded-full px-8 py-6 text-base"
             >
               Ver Destinos em Grupo
             </Button>

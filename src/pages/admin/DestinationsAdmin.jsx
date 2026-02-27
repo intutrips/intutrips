@@ -274,7 +274,7 @@ export default function DestinationsAdmin() {
                 </div>
                 <Button
                     onClick={() => handleOpenDialog()}
-                    className="bg-[#C9A962] hover:bg-[#B3934F] text-white rounded-xl px-6"
+                    className="bg-[#bda94c] hover:bg-[#B3934F] text-white rounded-xl px-6"
                 >
                     <Plus className="mr-2 h-4 w-4" />
                     Novo Destino

@@ -31,17 +31,17 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-fuchsia-950 fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md shadow-sm">
+      <nav className="bg-[#92314D] fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md shadow-sm">
 
 
 
 
-        <div className="bg-fuchsia-950 mx-auto px-6 max-w-7xl">
+        <div className="bg-[#92314D] mx-auto px-6 max-w-7xl">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to={createPageUrl('Home')} className="flex items-center gap-3">
               <img
-                src="/logo_intu_trips.png"
+                src="/logo_intutrips.svg"
                 alt="intu trips"
                 className="h-12 w-auto" />
 
@@ -52,7 +52,7 @@ export default function Navbar() {
               {navLinks.map((link) =>
                 <Link
                   key={link.page}
-                  to={createPageUrl(link.page)} className="text-slate-50 text-sm font-light transition-colors hover:text-[#00634D]">
+                  to={createPageUrl(link.page)} className="text-slate-50 text-sm font-light transition-colors hover:text-[#6b9faf]">
 
 
 
@@ -74,8 +74,8 @@ export default function Navbar() {
                 <Button
                   size="sm"
                   className={`rounded-full px-6 ${isScrolled || !isHome ?
-                    'bg-[#00634D] hover:bg-[#032B22] text-white' :
-                    'bg-white text-[#032B22] hover:bg-white/90'}`
+                    'bg-[#6b9faf] hover:bg-[#598491] text-white' :
+                    'bg-white text-[#92314D] hover:bg-white/90'}`
                   }>
 
                   Contato
@@ -105,7 +105,7 @@ export default function Navbar() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 bg-[#FDF6EA] pt-24 px-6 md:hidden">
+            className="fixed inset-0 z-40 bg-[#f8eee5] pt-24 px-6 md:hidden">
 
             <div className="flex flex-col gap-6">
               <span className="text-2xl font-light text-white tracking-widest uppercase">
@@ -134,7 +134,7 @@ export default function Navbar() {
                   }
                 }}>
 
-                <Button className="w-full bg-[#00634D] hover:bg-[#032B22] text-white rounded-full mt-4">
+                <Button className="w-full bg-[#6b9faf] hover:bg-[#598491] text-white rounded-full mt-4">
                   Entrar em Contato
                 </Button>
               </Link>

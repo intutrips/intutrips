@@ -4,14 +4,14 @@ import Footer from '@/components/common/Footer';
 
 export default function Layout({ children }) {
   return (
-    <div className="min-h-screen bg-[#FDF6EA]">
+    <div className="min-h-screen bg-[#f8eee5]">
       <style>{`
         :root {
-          --color-primary: #032B22;
-          --color-secondary: #54234B;
-          --color-accent: #00634D;
+          --color-primary: #92314D;
+          --color-secondary: #92314D;
+          --color-accent: #6b9faf;
           --color-dark: #3C3333;
-          --color-cream: #FDF6EA;
+          --color-cream: #f8eee5;
         }
 
         html {

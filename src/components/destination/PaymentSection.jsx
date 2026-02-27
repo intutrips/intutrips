@@ -25,7 +25,7 @@ export default function PaymentSection({ price_from, payment_options }) {
   return (
     <section className="mb-16">
       <h2 className="text-2xl font-light text-[#3C3333] mb-8 flex items-center gap-3">
-        <CreditCard className="h-6 w-6 text-[#00634D]" />
+        <CreditCard className="h-6 w-6 text-[#6b9faf]" />
         Valores e Pagamento
       </h2>
 
@@ -35,9 +35,9 @@ export default function PaymentSection({ price_from, payment_options }) {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-br from-[#032B22] to-[#00634D] text-white rounded-2xl p-8"
+          className="bg-gradient-to-br from-[#92314D] to-[#6b9faf] text-white rounded-2xl p-8"
         >
-          <DollarSign className="h-10 w-10 text-[#00634D] mb-4" />
+          <DollarSign className="h-10 w-10 text-[#6b9faf] mb-4" />
           <span className="text-white/70 text-sm">Valor por pessoa</span>
           <div className="text-5xl font-light my-4">
             USD {formatCurrency(price_from)}
@@ -50,7 +50,7 @@ export default function PaymentSection({ price_from, payment_options }) {
 
           <div className="mt-6 pt-6 border-t border-white/10">
             <div className="flex items-center gap-2 text-sm text-white/80">
-              <Shield className="h-4 w-4 text-[#00634D]" />
+              <Shield className="h-4 w-4 text-[#6b9faf]" />
               <span>Pagamento 100% seguro</span>
             </div>
           </div>
@@ -70,9 +70,9 @@ export default function PaymentSection({ price_from, payment_options }) {
 
           <div className="space-y-4">
             {options.map((option, index) => (
-              <div key={index} className="flex items-start gap-3 p-4 bg-[#FDF6EA] rounded-xl">
-                <div className="w-6 h-6 rounded-full bg-[#00634D]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <div className="w-2 h-2 rounded-full bg-[#00634D]" />
+              <div key={index} className="flex items-start gap-3 p-4 bg-[#f8eee5] rounded-xl">
+                <div className="w-6 h-6 rounded-full bg-[#6b9faf]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <div className="w-2 h-2 rounded-full bg-[#6b9faf]" />
                 </div>
                 <span className="text-gray-700 font-light">{option}</span>
               </div>
@@ -81,7 +81,7 @@ export default function PaymentSection({ price_from, payment_options }) {
 
           <div className="mt-6 pt-6 border-t border-gray-100">
             <div className="flex items-start gap-2 text-sm text-gray-500">
-              <Calendar className="h-4 w-4 text-[#00634D] flex-shrink-0 mt-0.5" />
+              <Calendar className="h-4 w-4 text-[#6b9faf] flex-shrink-0 mt-0.5" />
               <span className="font-light">
                 Reserve sua vaga com antecedência e garanta as melhores condições de pagamento.
               </span>

@@ -178,7 +178,7 @@ export default function GuidesAdmin() {
                 </div>
                 <Button
                     onClick={() => handleOpenDialog()}
-                    className="bg-[#C9A962] hover:bg-[#B3934F] text-white rounded-xl px-6"
+                    className="bg-[#bda94c] hover:bg-[#B3934F] text-white rounded-xl px-6"
                 >
                     <Plus className="mr-2 h-4 w-4" />
                     Novo Guia
@@ -241,7 +241,7 @@ export default function GuidesAdmin() {
                                         </TableCell>
                                         <TableCell className="px-6 py-4">
                                             <div className="flex items-center gap-2 mb-2">
-                                                <Badge variant="outline" className="text-[#00634D] border-[#00634D]/20">Ebook</Badge>
+                                                <Badge variant="outline" className="text-[#6b9faf] border-[#6b9faf]/20">Ebook</Badge>
                                                 <span className="text-gray-600">R$ {guide.price || '-'}</span>
                                             </div>
                                         </TableCell>
@@ -349,7 +349,7 @@ export default function GuidesAdmin() {
                                     id="bestseller"
                                     checked={formData.bestseller}
                                     onChange={(e) => setFormData({ ...formData, bestseller: e.target.checked })}
-                                    className="h-4 w-4 accent-[#C9A962]"
+                                    className="h-4 w-4 accent-[#bda94c]"
                                 />
                                 <label htmlFor="bestseller" className="text-sm font-medium leading-none">Marcar como Bestseller</label>
                             </div>

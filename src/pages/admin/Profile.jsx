@@ -55,11 +55,11 @@ export default function Profile() {
                 {/* User Info Card */}
                 <div className="md:col-span-1 space-y-6">
                     <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col items-center text-center">
-                        <div className="w-24 h-24 rounded-full bg-[#C9A962]/10 border-4 border-[#C9A962]/20 flex items-center justify-center text-[#C9A962] mb-4">
+                        <div className="w-24 h-24 rounded-full bg-[#bda94c]/10 border-4 border-[#bda94c]/20 flex items-center justify-center text-[#bda94c] mb-4">
                             <span className="text-3xl font-light">{user?.email?.charAt(0).toUpperCase()}</span>
                         </div>
                         <h3 className="font-medium text-lg text-[#1A1A1A] truncate w-full" title={user?.email}>{user?.email}</h3>
-                        <p className="text-[#C9A962] font-medium text-xs uppercase tracking-widest mt-1">Administrador</p>
+                        <p className="text-[#bda94c] font-medium text-xs uppercase tracking-widest mt-1">Administrador</p>
 
                         <div className="w-full border-t border-gray-100 my-6"></div>
 
@@ -80,7 +80,7 @@ export default function Profile() {
                 <div className="md:col-span-2">
                     <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
                         <div className="flex items-center gap-4 mb-8">
-                            <div className="p-3 bg-gray-50 rounded-2xl text-[#C9A962]">
+                            <div className="p-3 bg-gray-50 rounded-2xl text-[#bda94c]">
                                 <Lock className="h-6 w-6" />
                             </div>
                             <div>
@@ -120,7 +120,7 @@ export default function Profile() {
                                 <Button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="w-full md:w-auto px-10 h-12 bg-[#1A1A1A] hover:bg-[#C9A962] text-white rounded-xl transition-all shadow-lg shadow-black/5"
+                                    className="w-full md:w-auto px-10 h-12 bg-[#1A1A1A] hover:bg-[#bda94c] text-white rounded-xl transition-all shadow-lg shadow-black/5"
                                 >
                                     {isLoading ? 'Atualizando...' : 'Atualizar Senha'}
                                 </Button>

@@ -25,7 +25,7 @@ export default function GallerySection({ images }) {
       <div className="flex items-center gap-3 mb-6">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gray-200" />
         <h2 className="text-2xl font-light text-[#3C3333]">
-          Galeria de <span className="text-[#00634D] italic">Fotos</span>
+          Galeria de <span className="text-[#6b9faf] italic">Fotos</span>
         </h2>
         <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gray-200" />
       </div>

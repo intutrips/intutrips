@@ -36,7 +36,7 @@ export default function Destinations() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
-            <span className="text-[#C9A962] text-sm tracking-widest uppercase">
+            <span className="text-[#bda94c] text-sm tracking-widest uppercase">
               Explore
             </span>
             <h1 className="text-4xl md:text-6xl font-light text-white mt-4 mb-6">

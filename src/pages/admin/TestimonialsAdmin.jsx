@@ -233,7 +233,7 @@ export default function TestimonialsAdmin() {
                 </div>
                 <Button
                     onClick={handleOpenCreateDialog}
-                    className="bg-[#C9A962] hover:bg-[#B3934F] text-white rounded-xl px-6"
+                    className="bg-[#bda94c] hover:bg-[#B3934F] text-white rounded-xl px-6"
                 >
                     <Plus className="mr-2 h-4 w-4" />
                     Novo Depoimento
@@ -369,7 +369,7 @@ export default function TestimonialsAdmin() {
                             <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1 text-gray-700">Avaliação</label>
                                 <select
-                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#C9A962] transition-all"
+                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#bda94c] transition-all"
                                     value={formData.rating}
                                     onChange={(e) => setFormData({ ...formData, rating: parseInt(e.target.value) })}
                                 >
@@ -383,7 +383,7 @@ export default function TestimonialsAdmin() {
                             <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1 text-gray-700">Destino (Opcional)</label>
                                 <select
-                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#C9A962] transition-all"
+                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#bda94c] transition-all"
                                     value={formData.destination_id || ''}
                                     onChange={(e) => setFormData({ ...formData, destination_id: e.target.value || null })}
                                 >
@@ -419,7 +419,7 @@ export default function TestimonialsAdmin() {
                             <Button
                                 type="submit"
                                 disabled={createMutation.isPending}
-                                className="bg-[#1A1A1A] hover:bg-[#C9A962] text-white px-8 rounded-xl transition-all"
+                                className="bg-[#1A1A1A] hover:bg-[#bda94c] text-white px-8 rounded-xl transition-all"
                             >
                                 {createMutation.isPending ? 'Criando...' : 'Criar Depoimento'}
                             </Button>
@@ -459,7 +459,7 @@ export default function TestimonialsAdmin() {
                             <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1 text-gray-700">Avaliação</label>
                                 <select
-                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#C9A962] transition-all"
+                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#bda94c] transition-all"
                                     value={formData.rating}
                                     onChange={(e) => setFormData({ ...formData, rating: parseInt(e.target.value) })}
                                 >
@@ -473,7 +473,7 @@ export default function TestimonialsAdmin() {
                             <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1 text-gray-700">Destino (Opcional)</label>
                                 <select
-                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#C9A962] transition-all"
+                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#bda94c] transition-all"
                                     value={formData.destination_id || ''}
                                     onChange={(e) => setFormData({ ...formData, destination_id: e.target.value || null })}
                                 >
@@ -509,7 +509,7 @@ export default function TestimonialsAdmin() {
                             <Button
                                 type="submit"
                                 disabled={updateMutation.isPending}
-                                className="bg-[#1A1A1A] hover:bg-[#C9A962] text-white px-8 rounded-xl transition-all"
+                                className="bg-[#1A1A1A] hover:bg-[#bda94c] text-white px-8 rounded-xl transition-all"
                             >
                                 {updateMutation.isPending ? 'Salvando...' : 'Salvar Alterações'}
                             </Button>

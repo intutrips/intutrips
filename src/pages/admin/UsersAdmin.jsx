@@ -197,7 +197,7 @@ export default function UsersAdmin() {
                 </div>
                 <Button
                     onClick={handleOpenCreateDialog}
-                    className="bg-[#C9A962] hover:bg-[#B3934F] text-white rounded-xl px-6"
+                    className="bg-[#bda94c] hover:bg-[#B3934F] text-white rounded-xl px-6"
                 >
                     <Plus className="mr-2 h-4 w-4" />
                     Novo Admin
@@ -250,7 +250,7 @@ export default function UsersAdmin() {
                                         </TableCell>
                                         <TableCell className="px-6 py-4">
                                             <div className="flex items-center gap-2">
-                                                <Shield className="h-4 w-4 text-[#C9A962]" />
+                                                <Shield className="h-4 w-4 text-[#bda94c]" />
                                                 <span className="text-sm font-medium text-gray-700 capitalize">
                                                     {user.role}
                                                 </span>
@@ -342,7 +342,7 @@ export default function UsersAdmin() {
                             <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1 text-gray-700">Cargo / Nível de Acesso</label>
                                 <select
-                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#C9A962] transition-all"
+                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#bda94c] transition-all"
                                     value={createFormData.role}
                                     onChange={(e) => setCreateFormData({ ...createFormData, role: e.target.value })}
                                 >
@@ -357,7 +357,7 @@ export default function UsersAdmin() {
                             <Button
                                 type="submit"
                                 disabled={createMutation.isPending}
-                                className="bg-[#1A1A1A] hover:bg-[#C9A962] text-white px-8 rounded-xl transition-all"
+                                className="bg-[#1A1A1A] hover:bg-[#bda94c] text-white px-8 rounded-xl transition-all"
                             >
                                 {createMutation.isPending ? 'Cadastrando...' : 'Cadastrar Admin'}
                             </Button>
@@ -385,7 +385,7 @@ export default function UsersAdmin() {
                             <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1 text-gray-700">Cargo / Nível de Acesso</label>
                                 <select
-                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#C9A962] transition-all"
+                                    className="w-full h-11 rounded-xl border-gray-100 bg-gray-50 px-3 py-2 text-sm focus:ring-2 focus:ring-[#bda94c] transition-all"
                                     value={formData.role}
                                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
                                 >
@@ -407,7 +407,7 @@ export default function UsersAdmin() {
                             <Button
                                 type="submit"
                                 disabled={updateMutation.isPending}
-                                className="bg-[#1A1A1A] hover:bg-[#C9A962] text-white px-8 rounded-xl transition-all"
+                                className="bg-[#1A1A1A] hover:bg-[#bda94c] text-white px-8 rounded-xl transition-all"
                             >
                                 {updateMutation.isPending ? 'Salvando...' : 'Salvar Alterações'}
                             </Button>

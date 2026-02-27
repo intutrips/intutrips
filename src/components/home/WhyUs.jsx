@@ -23,7 +23,7 @@ export default function WhyUs() {
   }));
 
   return (
-    <section className="py-24 px-6 bg-[#1A1A1A]">
+    <section className="py-24 px-6 bg-[#6b9faf]">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -32,13 +32,13 @@ export default function WhyUs() {
           viewport={{ once: true }}
           className="text-center mb-16">
 
-          <span className="text-[#C9A962] text-sm tracking-widest uppercase">
+          <span className="inline-block px-4 py-2 bg-[#92314D] text-white text-sm tracking-widest uppercase font-bold rounded-full drop-shadow-md mb-2">
             {texts.home_why_tag || 'Por Que Viajar Conosco'}
           </span>
           <h2 className="text-4xl md:text-5xl font-light text-white mt-4 mb-6">
             {texts.home_why_title || 'A gente cuida de tudo'}
           </h2>
-          <p className="text-gray-400 max-w-2xl mx-auto font-light">
+          <p className="text-white max-w-2xl mx-auto font-medium text-lg leading-relaxed drop-shadow-sm">
             {texts.home_why_desc || 'Sabemos que viajar para a Ásia pode parecer desafiador. Por isso, transformamos o complexo em simples e o sonho em realidade.'}
           </p>
         </motion.div>
@@ -54,13 +54,13 @@ export default function WhyUs() {
               transition={{ delay: index * 0.1 }}
               className="group p-8 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300">
 
-              <div className="w-12 h-12 rounded-xl bg-[#C9A962]/20 flex items-center justify-center mb-6 group-hover:bg-[#C9A962]/30 transition-colors">
-                <feature.icon className="h-6 w-6 text-[#C9A962]" />
+              <div className="w-12 h-12 rounded-xl bg-[#92314D] flex items-center justify-center mb-6 group-hover:bg-[#7a2840] transition-colors shadow-md">
+                <feature.icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-medium text-white mb-3">
+              <h3 className="text-xl font-bold text-white mb-3 drop-shadow-sm">
                 {feature.title}
               </h3>
-              <p className="text-gray-400 font-light leading-relaxed">
+              <p className="text-white font-medium leading-relaxed drop-shadow-sm">
                 {feature.description}
               </p>
             </motion.div>

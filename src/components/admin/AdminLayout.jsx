@@ -51,7 +51,7 @@ export default function AdminLayout({ children }) {
             <aside className="hidden lg:flex flex-col w-64 bg-[#1A1A1A] text-white sticky top-0 h-screen">
                 <div className="p-6 border-b border-white/10">
                     <h1 className="text-xl font-light tracking-widest uppercase">
-                        Intu Trips <span className="text-[#C9A962] italic block text-xs mt-1">Backoffice Admin</span>
+                        Intu Trips <span className="text-[#bda94c] italic block text-xs mt-1">Backoffice Admin</span>
                     </h1>
                 </div>
 
@@ -61,7 +61,7 @@ export default function AdminLayout({ children }) {
                             key={item.path}
                             to={item.path}
                             className={`flex items-center justify-between p-3 rounded-xl transition-all ${location.pathname === item.path
-                                ? 'bg-[#C9A962] text-white shadow-lg shadow-[#C9A962]/20'
+                                ? 'bg-[#bda94c] text-white shadow-lg shadow-[#bda94c]/20'
                                 : 'text-gray-400 hover:text-white hover:bg-white/5'
                                 }`}
                         >
@@ -76,7 +76,7 @@ export default function AdminLayout({ children }) {
 
                 <div className="p-4 border-t border-white/10">
                     <Link to="/admin/profile" className="flex items-center gap-3 p-3 mb-4 hover:bg-white/5 rounded-xl transition-all group">
-                        <div className="w-10 h-10 rounded-full bg-[#C9A962]/20 border border-[#C9A962]/30 flex items-center justify-center text-[#C9A962] group-hover:bg-[#C9A962]/30 transition-all">
+                        <div className="w-10 h-10 rounded-full bg-[#bda94c]/20 border border-[#bda94c]/30 flex items-center justify-center text-[#bda94c] group-hover:bg-[#bda94c]/30 transition-all">
                             {user?.email?.charAt(0).toUpperCase()}
                         </div>
                         <div className="overflow-hidden">
@@ -126,7 +126,7 @@ export default function AdminLayout({ children }) {
                                 key={item.path}
                                 to={item.path}
                                 onClick={() => setIsMobileMenuOpen(false)}
-                                className={`flex items-center gap-4 text-xl font-light p-4 rounded-2xl ${location.pathname === item.path ? 'bg-[#C9A962]' : ''
+                                className={`flex items-center gap-4 text-xl font-light p-4 rounded-2xl ${location.pathname === item.path ? 'bg-[#bda94c]' : ''
                                     }`}
                             >
                                 <item.icon className="h-6 w-6" />

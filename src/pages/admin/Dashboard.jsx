@@ -47,7 +47,7 @@ export default function Dashboard() {
         { label: 'Destinos Ativos', value: stats?.destinations, icon: Map, color: 'bg-blue-500' },
         { label: 'E-books / Guias', value: stats?.guides, icon: BookOpen, color: 'bg-purple-500' },
         { label: 'Depoimentos', value: stats?.testimonials, icon: MessageSquare, color: 'bg-green-500' },
-        { label: 'Novos Contatos', value: stats?.contacts, icon: Users, color: 'bg-[#C9A962]' },
+        { label: 'Novos Contatos', value: stats?.contacts, icon: Users, color: 'bg-[#bda94c]' },
     ];
 
     return (
@@ -68,9 +68,9 @@ export default function Dashboard() {
                     >
                         <div className="flex justify-between items-start mb-4">
                             <div className={`p-3 rounded-2xl ${card.color} bg-opacity-10 text-white flex items-center justify-center`}>
-                                <card.icon className={`h-6 w-6 text-${card.color.split('-')[1]}-500`} style={{ color: card.color.includes('C9A962') ? '#C9A962' : '' }} />
+                                <card.icon className={`h-6 w-6 text-${card.color.split('-')[1]}-500`} style={{ color: card.color.includes('C9A962') ? '#bda94c' : '' }} />
                             </div>
-                            <ArrowUpRight className="h-5 w-5 text-gray-300 group-hover:text-[#C9A962] transition-colors" />
+                            <ArrowUpRight className="h-5 w-5 text-gray-300 group-hover:text-[#bda94c] transition-colors" />
                         </div>
                         <div className="text-3xl font-bold text-[#1A1A1A] mb-1">{card.value ?? '...'}</div>
                         <div className="text-sm text-gray-400 font-light uppercase tracking-wider">{card.label}</div>
@@ -82,7 +82,7 @@ export default function Dashboard() {
                 <div className="lg:col-span-2 space-y-6">
                     <div className="flex justify-between items-center">
                         <h3 className="text-xl font-light text-[#1A1A1A]">Últimos Contatos Recebidos</h3>
-                        <button className="text-[#C9A962] text-sm hover:underline">Ver todos</button>
+                        <button className="text-[#bda94c] text-sm hover:underline">Ver todos</button>
                     </div>
 
                     <div className="bg-white rounded-3xl border border-gray-100 overflow-hidden shadow-sm">

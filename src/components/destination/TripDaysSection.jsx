@@ -21,7 +21,7 @@ export default function TripDaysSection({ tripStartInfo, tripEndInfo, startDate,
       <div className="flex items-center gap-3 mb-8">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gray-200" />
         <h2 className="text-2xl font-light text-gray-500">
-          Início e <span className="text-[#00634D] italic">Fim da Viagem</span>
+          Início e <span className="text-[#6b9faf] italic">Fim da Viagem</span>
         </h2>
         <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gray-200" />
       </div>
@@ -36,7 +36,7 @@ export default function TripDaysSection({ tripStartInfo, tripEndInfo, startDate,
         >
           <div className="flex items-start gap-4">
             <div className="w-14 h-14 rounded-2xl bg-[#E8F3F1] flex items-center justify-center flex-shrink-0">
-              <Plane className="h-7 w-7 text-[#00634D]" />
+              <Plane className="h-7 w-7 text-[#6b9faf]" />
             </div>
             <div className="pt-1">
               <h3 className="text-xl font-medium text-[#1A1A1A]">Primeiro Dia</h3>
@@ -45,7 +45,7 @@ export default function TripDaysSection({ tripStartInfo, tripEndInfo, startDate,
           </div>
 
           <div className="flex items-center gap-2 text-gray-600 mt-auto">
-            <MapPin className="h-5 w-5 text-[#C9A962]" />
+            <MapPin className="h-5 w-5 text-[#bda94c]" />
             <span className="font-light">{tripStartInfo?.title || 'Destino'}</span>
           </div>
         </motion.div>
@@ -59,7 +59,7 @@ export default function TripDaysSection({ tripStartInfo, tripEndInfo, startDate,
         >
           <div className="flex items-start gap-4">
             <div className="w-14 h-14 rounded-2xl bg-[#F3E8EF] flex items-center justify-center flex-shrink-0">
-              <Plane className="h-7 w-7 text-[#54234B] -rotate-45" />
+              <Plane className="h-7 w-7 text-[#92314D] -rotate-45" />
             </div>
             <div className="pt-1">
               <h3 className="text-xl font-medium text-[#1A1A1A]">Último Dia</h3>
@@ -68,7 +68,7 @@ export default function TripDaysSection({ tripStartInfo, tripEndInfo, startDate,
           </div>
 
           <div className="flex items-center gap-2 text-gray-600 mt-auto">
-            <MapPin className="h-5 w-5 text-[#C9A962]" />
+            <MapPin className="h-5 w-5 text-[#bda94c]" />
             <span className="font-light">{tripEndInfo?.title || 'Destino'}</span>
           </div>
         </motion.div>

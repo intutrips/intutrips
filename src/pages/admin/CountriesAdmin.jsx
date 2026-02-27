@@ -200,7 +200,7 @@ export default function CountriesAdmin() {
                 </div>
                 <Button
                     onClick={handleOpenCreateDialog}
-                    className="bg-[#C9A962] hover:bg-[#B3934F] text-white rounded-xl px-6"
+                    className="bg-[#bda94c] hover:bg-[#B3934F] text-white rounded-xl px-6"
                 >
                     <Plus className="mr-2 h-4 w-4" />
                     Novo País
@@ -356,7 +356,7 @@ export default function CountriesAdmin() {
                                     id="featured"
                                     checked={formData.featured}
                                     onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                                    className="w-4 h-4 text-[#C9A962] border-gray-300 rounded focus:ring-[#C9A962]"
+                                    className="w-4 h-4 text-[#bda94c] border-gray-300 rounded focus:ring-[#bda94c]"
                                 />
                                 <label htmlFor="featured" className="text-sm font-medium text-gray-700">
                                     País em destaque
@@ -368,7 +368,7 @@ export default function CountriesAdmin() {
                             <Button
                                 type="submit"
                                 disabled={createMutation.isPending}
-                                className="bg-[#1A1A1A] hover:bg-[#C9A962] text-white px-8 rounded-xl transition-all"
+                                className="bg-[#1A1A1A] hover:bg-[#bda94c] text-white px-8 rounded-xl transition-all"
                             >
                                 {createMutation.isPending ? 'Criando...' : 'Criar País'}
                             </Button>
@@ -421,7 +421,7 @@ export default function CountriesAdmin() {
                                     id="featured-edit"
                                     checked={formData.featured}
                                     onChange={(e) => setFormData({ ...formData, featured: e.target.checked })}
-                                    className="w-4 h-4 text-[#C9A962] border-gray-300 rounded focus:ring-[#C9A962]"
+                                    className="w-4 h-4 text-[#bda94c] border-gray-300 rounded focus:ring-[#bda94c]"
                                 />
                                 <label htmlFor="featured-edit" className="text-sm font-medium text-gray-700">
                                     País em destaque
@@ -433,7 +433,7 @@ export default function CountriesAdmin() {
                             <Button
                                 type="submit"
                                 disabled={updateMutation.isPending}
-                                className="bg-[#1A1A1A] hover:bg-[#C9A962] text-white px-8 rounded-xl transition-all"
+                                className="bg-[#1A1A1A] hover:bg-[#bda94c] text-white px-8 rounded-xl transition-all"
                             >
                                 {updateMutation.isPending ? 'Salvando...' : 'Salvar Alterações'}
                             </Button>

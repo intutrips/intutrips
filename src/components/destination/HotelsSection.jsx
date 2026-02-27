@@ -10,7 +10,7 @@ export default function HotelsSection({ hotels }) {
       <div className="flex items-center gap-3 mb-6">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gray-200" />
         <h2 className="text-2xl font-light text-[#3C3333]">
-          Exemplos de <span className="text-[#00634D] italic">Acomodação</span>
+          Exemplos de <span className="text-[#6b9faf] italic">Acomodação</span>
         </h2>
         <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gray-200" />
       </div>
@@ -52,7 +52,7 @@ export default function HotelsSection({ hotels }) {
                   {rating > 0 && (
                     <div className="flex items-center gap-1">
                       {[...Array(rating)].map((_, i) => (
-                        <Star key={i} className="h-3 w-3 fill-[#00634D] text-[#00634D]" />
+                        <Star key={i} className="h-3 w-3 fill-[#6b9faf] text-[#6b9faf]" />
                       ))}
                     </div>
                   )}

@@ -126,7 +126,7 @@ export default function ContactRequestsAdmin() {
                                             <div className="text-xs text-gray-400">{req.email}</div>
                                         </TableCell>
                                         <TableCell className="px-6 py-4">
-                                            <Badge variant="outline" className="bg-white font-normal border-[#C9A962]/20 text-[#1A1A1A]">
+                                            <Badge variant="outline" className="bg-white font-normal border-[#bda94c]/20 text-[#1A1A1A]">
                                                 {req.destination_interest || 'N/A'}
                                             </Badge>
                                         </TableCell>
@@ -200,7 +200,7 @@ export default function ContactRequestsAdmin() {
 
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="flex items-center gap-2 group">
-                                        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border group-hover:bg-[#C9A962] group-hover:text-white transition-colors duration-300">
+                                        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border group-hover:bg-[#bda94c] group-hover:text-white transition-colors duration-300">
                                             <Mail className="h-4 w-4" />
                                         </div>
                                         <div>
@@ -209,7 +209,7 @@ export default function ContactRequestsAdmin() {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2 group">
-                                        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border group-hover:bg-[#C9A962] group-hover:text-white transition-colors duration-300">
+                                        <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border group-hover:bg-[#bda94c] group-hover:text-white transition-colors duration-300">
                                             <Phone className="h-4 w-4" />
                                         </div>
                                         <div>

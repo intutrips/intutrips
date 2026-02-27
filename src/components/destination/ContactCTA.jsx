@@ -21,7 +21,7 @@ export default function ContactCTA() {
         className="bg-gradient-to-br from-[#2D4A3E] to-[#1A1A1A] rounded-2xl p-8 md:p-12 text-center">
 
         <h2 className="text-2xl md:text-3xl font-light text-white mb-4">
-          Pronto para esta <span className="italic text-[#C9A962]">aventura?</span>
+          Pronto para esta <span className="italic text-[#bda94c]">aventura?</span>
         </h2>
         <p className="text-white/70 font-light mb-8 max-w-2xl mx-auto">
           Entre em contato agora e garanta sua vaga nesta experiência única.

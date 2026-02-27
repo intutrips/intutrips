@@ -19,7 +19,7 @@ export default function FeaturedDestinations({ destinations, isLoading }) {
           viewport={{ once: true }}
           className="text-center mb-16">
 
-          <span className="text-[#C9A962] text-sm tracking-widest uppercase">
+          <span className="text-[#bda94c] text-sm tracking-widest uppercase">
             {texts.home_destinations_tag || 'Nossos Destinos'}
           </span>
           <h2 className="text-4xl md:text-5xl font-light text-[#1A1A1A] mt-4 mb-6">

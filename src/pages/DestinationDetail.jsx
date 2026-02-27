@@ -50,7 +50,7 @@ export default function DestinationDetail() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#C9A962]" />
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#bda94c]" />
       </div>
     );
   }
@@ -102,7 +102,7 @@ export default function DestinationDetail() {
               animate={{ opacity: 1, y: 0 }}
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="inline-block px-4 py-2 bg-[#00634D] text-white text-sm tracking-wider uppercase rounded-full">
+                <span className="inline-block px-4 py-2 bg-[#6b9faf] text-white text-sm tracking-wider uppercase rounded-full">
                   {destination.country}
                 </span>
                 {destination.availability_status === 'sold_out' && (
@@ -189,8 +189,8 @@ export default function DestinationDetail() {
                               )}
                               <div className={`p-6 flex items-center ${!imageUrl ? 'md:col-span-2' : ''}`}>
                                 <div className="flex items-start gap-4 w-full">
-                                  <div className="w-8 h-8 rounded-full bg-[#C9A962]/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                    <Check className="h-4 w-4 text-[#C9A962]" />
+                                  <div className="w-8 h-8 rounded-full bg-[#bda94c]/20 flex items-center justify-center flex-shrink-0 mt-1">
+                                    <Check className="h-4 w-4 text-[#bda94c]" />
                                   </div>
                                   <span className="text-gray-700 text-lg font-light">{title}</span>
                                 </div>
@@ -255,17 +255,17 @@ export default function DestinationDetail() {
 
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center gap-3 text-gray-600">
-                    <MapPin className="h-5 w-5 text-[#C9A962]" />
+                    <MapPin className="h-5 w-5 text-[#bda94c]" />
                     <span>{destination.country}</span>
                   </div>
                   {destination.duration && (
                     <div className="flex items-center gap-3 text-gray-600">
-                      <Clock className="h-5 w-5 text-[#C9A962]" />
+                      <Clock className="h-5 w-5 text-[#bda94c]" />
                       <span>{destination.duration}</span>
                     </div>
                   )}
                   <div className="flex items-center gap-3 text-gray-600">
-                    <Users className="h-5 w-5 text-[#C9A962]" />
+                    <Users className="h-5 w-5 text-[#bda94c]" />
                     <span>{destination.group_size || "6-12 pessoas"}</span>
                   </div>
                 </div>

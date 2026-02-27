@@ -56,11 +56,11 @@ export default function DestinationCard({ destination, index }) {
 
           {/* Content Overlay */}
           <div className="absolute bottom-0 left-0 right-0 p-6">
-            <span className="inline-block px-3 py-1 bg-[#C9A962]/90 text-white text-xs tracking-wider uppercase rounded-full mb-3">
+            <span className="inline-block px-3 py-1 bg-[#bda94c]/90 text-white text-xs tracking-wider uppercase rounded-full mb-3">
               {destination.country}
             </span>
 
-            <h3 className="text-2xl font-light text-white mb-2 group-hover:text-[#C9A962] transition-colors">
+            <h3 className="text-2xl font-light text-white mb-2 group-hover:text-[#bda94c] transition-colors">
               {destination.name}
             </h3>
 
@@ -90,7 +90,7 @@ export default function DestinationCard({ destination, index }) {
                 )}
               </div>
 
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#C9A962] transition-all duration-300">
+              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#bda94c] transition-all duration-300">
                 <ArrowUpRight className="h-4 w-4 text-white transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
             </div>

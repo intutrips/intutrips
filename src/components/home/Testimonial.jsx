@@ -48,7 +48,7 @@ export default function Testimonial() {
   return (
     <section className="py-24 px-6 bg-[#FAF8F5] relative overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-[#C9A962]/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute top-0 left-0 w-64 h-64 bg-[#bda94c]/5 rounded-full -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#2D4A3E]/5 rounded-full translate-x-1/3 translate-y-1/3" />
 
       <div className="max-w-4xl mx-auto relative">
@@ -61,7 +61,7 @@ export default function Testimonial() {
             transition={{ duration: 0.5 }}
             className="text-center"
           >
-            <Quote className="h-12 w-12 text-[#C9A962]/30 mx-auto mb-8" />
+            <Quote className="h-12 w-12 text-[#bda94c]/30 mx-auto mb-8" />
 
             <blockquote className="text-2xl md:text-4xl font-light text-[#1A1A1A] leading-relaxed mb-8 min-h-[180px] flex items-center justify-center">
               {currentTestimonial.content}
@@ -90,7 +90,7 @@ export default function Testimonial() {
               variant="outline"
               size="icon"
               onClick={goToPrevious}
-              className="rounded-full border-[#C9A962]/30 hover:bg-[#C9A962]/10"
+              className="rounded-full border-[#bda94c]/30 hover:bg-[#bda94c]/10"
             >
               <ChevronLeft className="h-5 w-5 text-[#1A1A1A]" />
             </Button>
@@ -102,8 +102,8 @@ export default function Testimonial() {
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all ${index === currentIndex
-                      ? 'bg-[#C9A962] w-8'
-                      : 'bg-[#C9A962]/30 hover:bg-[#C9A962]/50'
+                      ? 'bg-[#bda94c] w-8'
+                      : 'bg-[#bda94c]/30 hover:bg-[#bda94c]/50'
                     }`}
                 />
               ))}
@@ -113,7 +113,7 @@ export default function Testimonial() {
               variant="outline"
               size="icon"
               onClick={goToNext}
-              className="rounded-full border-[#C9A962]/30 hover:bg-[#C9A962]/10"
+              className="rounded-full border-[#bda94c]/30 hover:bg-[#bda94c]/10"
             >
               <ChevronRight className="h-5 w-5 text-[#1A1A1A]" />
             </Button>
