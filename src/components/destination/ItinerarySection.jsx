@@ -104,8 +104,8 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
                 </div>
               </div>
 
-              {/* Imagem: largura total no mobile, fixa no desktop */}
-              <div className="w-full md:w-64 flex-shrink-0">
+              {/* Imagem */}
+              <div className="w-full">
                 <DayCarousel images={day.images} dayIndex={index} fallbackImage={fallbackImage} />
               </div>
             </div>
