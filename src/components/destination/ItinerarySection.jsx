@@ -67,8 +67,7 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
             transition={{ delay: index * 0.05 }}
             className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow"
           >
-            {/* Mobile: coluna. Desktop: linha */}
-            <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex flex-col gap-4">
               {/* Conteúdo: badge + texto */}
               <div className="flex gap-4 items-start flex-1 min-w-0">
                 <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[#bda94c]/10 flex items-center justify-center">
