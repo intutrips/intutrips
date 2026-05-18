@@ -1,80 +1,39 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, Calendar, Shield, Users, Lock } from 'lucide-react';
+import { CreditCard, MessageCircle, Mail, Check, Users, Lock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/utils';
 
 const SPOTS_PER_LOT = 6;
 
-function LotCard({ lot, index }) {
-  const spotsLeft = SPOTS_PER_LOT - (lot.spots_filled || 0);
-  const isSoldOut = spotsLeft <= 0;
-  const isActive = lot.active !== false;
+const WHATSAPP_URL = "https://api.whatsapp.com/send/?phone=551151233225&text=Ol%C3%A1%2C+gostaria+de+reservar+minha+vaga%21&type=phone_number&app_absent=0";
+const EMAIL = "mailto:contato@intutrips.com";
+
+function PriceTag({ lots, price_from }) {
+  const activeLots = lots.filter(l => l.active !== false);
+  const currentLot = activeLots.find(l => (SPOTS_PER_LOT - (l.spots_filled || 0)) > 0);
+
+  if (!currentLot && !price_from) return null;
+
+  const price = currentLot?.price || price_from;
+  const spotsLeft = currentLot ? SPOTS_PER_LOT - (currentLot.spots_filled || 0) : null;
+  const lotName = currentLot?.name || '1º Lote';
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      className={`relative rounded-2xl p-7 flex flex-col gap-4 ${
-        isSoldOut
-          ? 'bg-gray-100 border border-gray-200'
-          : index === 0
-          ? 'bg-gradient-to-br from-[#92314D] to-[#6b9faf] text-white shadow-lg'
-          : 'bg-white border border-[#bda94c]/40 shadow-sm'
-      }`}
-    >
-      {isSoldOut && (
-        <div className="absolute top-4 right-4 flex items-center gap-1 text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded-full">
-          <Lock className="h-3 w-3" />
-          Encerrado
-        </div>
-      )}
-
+    <div className="mb-6 flex items-end gap-3 flex-wrap">
       <div>
-        <span className={`text-xs font-semibold uppercase tracking-widest ${isSoldOut ? 'text-gray-400' : index === 0 ? 'text-white/70' : 'text-[#bda94c]'}`}>
-          {lot.name || `${index + 1}º Lote`}
-        </span>
-        <div className={`text-4xl font-light mt-2 ${isSoldOut ? 'text-gray-400 line-through' : index === 0 ? 'text-white' : 'text-[#1A1A1A]'}`}>
-          {lot.price ? `USD ${formatCurrency(lot.price)}` : '—'}
+        <span className="text-xs uppercase tracking-widest font-semibold text-[#bda94c]">{lotName} — por pessoa</span>
+        <div className="text-4xl font-light text-[#1A1A1A] mt-0.5">
+          USD {formatCurrency(price)}
         </div>
-        <span className={`text-sm ${isSoldOut ? 'text-gray-400' : index === 0 ? 'text-white/70' : 'text-gray-500'}`}>
-          por pessoa
-        </span>
       </div>
-
-      <div className="flex items-center gap-2">
-        <Users className={`h-4 w-4 ${isSoldOut ? 'text-gray-400' : index === 0 ? 'text-white/80' : 'text-[#6b9faf]'}`} />
-        <span className={`text-sm font-medium ${isSoldOut ? 'text-gray-400' : index === 0 ? 'text-white/90' : 'text-gray-700'}`}>
-          {isSoldOut ? 'Sem vagas' : `${spotsLeft} vaga${spotsLeft !== 1 ? 's' : ''} restante${spotsLeft !== 1 ? 's' : ''}`}
-        </span>
-      </div>
-
-      {/* Vagas visual */}
-      <div className="flex gap-1.5">
-        {Array.from({ length: SPOTS_PER_LOT }).map((_, i) => (
-          <div
-            key={i}
-            className={`flex-1 h-2 rounded-full ${
-              i < (lot.spots_filled || 0)
-                ? 'bg-red-400'
-                : isSoldOut
-                ? 'bg-gray-300'
-                : index === 0
-                ? 'bg-white/40'
-                : 'bg-[#bda94c]/30'
-            }`}
-          />
-        ))}
-      </div>
-
-      {!isSoldOut && (
-        <div className={`flex items-center gap-2 text-xs pt-2 border-t ${index === 0 ? 'border-white/20 text-white/70' : 'border-gray-100 text-gray-400'}`}>
-          <Shield className="h-3.5 w-3.5" />
-          Pagamento 100% seguro
+      {spotsLeft !== null && (
+        <div className="flex items-center gap-1.5 text-sm text-gray-500 mb-1.5">
+          <Users className="h-4 w-4 text-[#6b9faf]" />
+          {spotsLeft} vaga{spotsLeft !== 1 ? 's' : ''} restante{spotsLeft !== 1 ? 's' : ''}
         </div>
       )}
-    </motion.div>
+    </div>
   );
 }
 
@@ -106,46 +65,83 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
 
   return (
     <section className="mb-16">
-      <h2 className="text-2xl font-light text-[#3C3333] mb-2 flex items-center gap-3">
+      <h2 className="text-2xl font-light text-[#3C3333] mb-6 flex items-center gap-3">
         <CreditCard className="h-6 w-6 text-[#6b9faf]" />
         Valores e Pagamento
       </h2>
-      <p className="text-gray-500 font-light mb-8 text-sm">
-        Valores expressos em dólares americanos (USD). Cada lote possui 6 vagas.
-      </p>
 
-      {/* Lotes */}
-      <div className="grid sm:grid-cols-2 gap-6 mb-10">
-        {lots.map((lot, i) => (
-          <LotCard key={i} lot={lot} index={i} />
-        ))}
-      </div>
-
-      {/* Formas de pagamento */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="bg-white rounded-2xl p-8 shadow-sm"
+        className="grid md:grid-cols-5 gap-0 bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100"
       >
-        <h3 className="text-lg font-medium text-[#3C3333] mb-6">
-          Formas de pagamento
-        </h3>
-        <div className="space-y-4">
-          {options.map((option, index) => (
-            <div key={index} className="flex items-start gap-3 p-4 bg-[#f8eee5] rounded-xl">
-              <div className="w-6 h-6 rounded-full bg-[#6b9faf]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <div className="w-2 h-2 rounded-full bg-[#6b9faf]" />
+        {/* Left — price + payment options */}
+        <div className="md:col-span-3 p-7 border-b md:border-b-0 md:border-r border-gray-100">
+          <PriceTag lots={lots} price_from={price_from} />
+
+          <p className="text-xs text-gray-400 mb-4 uppercase tracking-wider font-semibold">Formas de pagamento</p>
+          <div className="space-y-2.5">
+            {options.map((option, i) => (
+              <div key={i} className="flex items-start gap-2.5">
+                <Check className="h-4 w-4 text-[#6b9faf] flex-shrink-0 mt-0.5" />
+                <span className="text-sm text-gray-700 font-light">{option}</span>
               </div>
-              <span className="text-gray-700 font-light">{option}</span>
+            ))}
+          </div>
+
+          {/* Lotes compactos se houver mais de um */}
+          {lots.filter(l => l.active !== false && l.price).length > 1 && (
+            <div className="mt-6 pt-5 border-t border-gray-100">
+              <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-3">Lotes disponíveis</p>
+              <div className="flex flex-wrap gap-3">
+                {lots.filter(l => l.active !== false && l.price).map((lot, i) => {
+                  const spotsLeft = SPOTS_PER_LOT - (lot.spots_filled || 0);
+                  const isSoldOut = spotsLeft <= 0;
+                  return (
+                    <div key={i} className={`px-4 py-2 rounded-xl text-sm border ${isSoldOut ? 'bg-gray-50 border-gray-200 text-gray-400' : 'bg-[#bda94c]/5 border-[#bda94c]/30 text-[#1A1A1A]'}`}>
+                      <span className="font-medium">{lot.name}</span>
+                      <span className="mx-1.5 text-gray-300">·</span>
+                      {isSoldOut ? (
+                        <span className="flex items-center gap-1 inline-flex"><Lock className="h-3 w-3" /> Esgotado</span>
+                      ) : (
+                        <span>USD {formatCurrency(lot.price)} <span className="text-gray-400 text-xs">({spotsLeft} vagas)</span></span>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-          ))}
+          )}
         </div>
-        <div className="mt-6 pt-6 border-t border-gray-100 flex items-start gap-2 text-sm text-gray-500">
-          <Calendar className="h-4 w-4 text-[#6b9faf] flex-shrink-0 mt-0.5" />
-          <span className="font-light">
-            Reserve sua vaga com antecedência e garanta as melhores condições de pagamento.
-          </span>
+
+        {/* Right — CTA */}
+        <div className="md:col-span-2 p-7 flex flex-col justify-center items-center text-center gap-5 bg-gradient-to-br from-[#1A1A1A] to-[#2D4A3E]">
+          <div>
+            <p className="text-white/60 text-xs uppercase tracking-widest mb-2">Vagas limitadas</p>
+            <h3 className="text-white text-xl font-light leading-snug">
+              Pronto para<br /><span className="text-[#bda94c] italic">garantir sua vaga?</span>
+            </h3>
+          </div>
+
+          <div className="flex flex-col gap-3 w-full">
+            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="w-full">
+              <Button className="w-full bg-[#25D366] hover:bg-[#1fba58] text-white rounded-full h-11 gap-2 font-medium">
+                <MessageCircle className="h-4 w-4" />
+                WhatsApp
+              </Button>
+            </a>
+            <a href={EMAIL} className="w-full">
+              <Button variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 hover:text-white rounded-full h-11 gap-2 font-medium bg-transparent">
+                <Mail className="h-4 w-4" />
+                Email
+              </Button>
+            </a>
+          </div>
+
+          <p className="text-white/40 text-xs font-light">
+            Pagamento 100% seguro
+          </p>
         </div>
       </motion.div>
     </section>

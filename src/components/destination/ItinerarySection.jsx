@@ -20,7 +20,7 @@ function DayCarousel({ images, dayIndex, fallbackImage }) {
   const next = () => setCurrent(i => (i + 1) % imgs.length);
 
   return (
-    <div className="relative rounded-xl overflow-hidden h-40 bg-gray-100 flex-shrink-0 w-full md:w-48">
+    <div className="relative rounded-xl overflow-hidden h-44 md:h-52 bg-gray-100 flex-shrink-0 w-full md:w-64">
       <img src={imgs[current]} alt={`Foto ${current + 1}`} className="w-full h-full object-cover" />
       {imgs.length > 1 && (
         <>
