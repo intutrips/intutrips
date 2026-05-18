@@ -1,6 +1,49 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, Check } from 'lucide-react';
+import { Calendar, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+
+function DayCarousel({ images }) {
+  const [current, setCurrent] = useState(0);
+  if (!images || images.length === 0) return null;
+
+  const prev = () => setCurrent(i => (i - 1 + images.length) % images.length);
+  const next = () => setCurrent(i => (i + 1) % images.length);
+
+  return (
+    <div className="relative mt-5 rounded-xl overflow-hidden aspect-[16/9] bg-gray-100">
+      <img
+        src={images[current]}
+        alt={`Foto ${current + 1}`}
+        className="w-full h-full object-cover transition-opacity duration-300"
+      />
+      {images.length > 1 && (
+        <>
+          <button
+            onClick={prev}
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors"
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            onClick={next}
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1.5 transition-colors"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+            {images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                className={`w-2 h-2 rounded-full transition-colors ${i === current ? 'bg-white' : 'bg-white/50'}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
 
 export default function ItinerarySection({ itinerary }) {
   if (!itinerary || itinerary.length === 0) return null;
@@ -11,7 +54,7 @@ export default function ItinerarySection({ itinerary }) {
         <Calendar className="h-6 w-6 text-[#bda94c]" />
         Roteiro Detalhado
       </h2>
-      
+
       <div className="space-y-6">
         {itinerary.map((day, index) => (
           <motion.div
@@ -30,7 +73,7 @@ export default function ItinerarySection({ itinerary }) {
                   </span>
                 </div>
               </div>
-              
+
               <div className="flex-1">
                 <h3 className="text-xl font-medium text-[#1A1A1A] mb-2">
                   {day.title}
@@ -38,7 +81,7 @@ export default function ItinerarySection({ itinerary }) {
                 <p className="text-gray-600 font-light mb-4 leading-relaxed">
                   {day.description}
                 </p>
-                
+
                 {day.activities && day.activities.length > 0 && (
                   <div className="space-y-2">
                     {day.activities.map((activity, actIndex) => (
@@ -49,6 +92,8 @@ export default function ItinerarySection({ itinerary }) {
                     ))}
                   </div>
                 )}
+
+                <DayCarousel images={day.images} />
               </div>
             </div>
           </motion.div>

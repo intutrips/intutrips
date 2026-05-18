@@ -17,6 +17,7 @@ import ContactCTA from '@/components/destination/ContactCTA';
 import GallerySection from '@/components/destination/GallerySection';
 import HotelsSection from '@/components/destination/HotelsSection';
 import TripDaysSection from '@/components/destination/TripDaysSection';
+import TestimonialsSection from '@/components/destination/TestimonialsSection';
 
 const countryImages = {
   "India": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920&q=80",
@@ -226,10 +227,15 @@ export default function DestinationDetail() {
                 {/* 8. Valores e Pagamento */}
                 <PaymentSection
                   price_from={destination.price_from}
+                  price_lote2={destination.price_lote2}
+                  pricing_lots={destination.pricing_lots}
                   payment_options={destination.payment_options}
                 />
 
-                {/* 9. Contato */}
+                {/* 9. Depoimentos em vídeo */}
+                <TestimonialsSection testimonials={destination.testimonial_videos} />
+
+                {/* 10. Contato */}
                 <ContactCTA />
               </motion.div>
             </div>
@@ -242,17 +248,6 @@ export default function DestinationDetail() {
                 transition={{ delay: 0.3 }}
                 className="bg-white rounded-2xl p-8 sticky top-28"
               >
-                {destination.price_from && (
-                  <div className="mb-6">
-                    <span className="text-sm text-gray-500">A partir de</span>
-                    <div className="text-3xl font-light text-[#1A1A1A]">
-                      USD {formatCurrency(destination.price_from)}
-
-                    </div>
-                    <span className="text-sm text-gray-500">por pessoa</span>
-                  </div>
-                )}
-
                 <div className="space-y-4 mb-8">
                   <div className="flex items-center gap-3 text-gray-600">
                     <MapPin className="h-5 w-5 text-[#bda94c]" />
