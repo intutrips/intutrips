@@ -46,7 +46,7 @@ export default function Hero() {
           className="w-full h-full object-cover"
           initial={{ scale: 1.08 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 8, ease: 'easeOut' }}
+          transition={{ duration: 15, ease: 'easeOut' }}
         />
         {/* Overlay com opacidade dinâmica */}
         <div
