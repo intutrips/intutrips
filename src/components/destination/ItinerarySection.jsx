@@ -18,9 +18,6 @@ function DayCarousel({ images, dayIndex, fallbackImage }) {
   if (!resolved || resolved.length === 0) return null;
   const imgs = resolved;
 
-  const prev = () => setCurrent(i => (i - 1 + images.length) % images.length);
-  const next = () => setCurrent(i => (i + 1) % images.length);
-
   const prev = () => setCurrent(i => (i - 1 + imgs.length) % imgs.length);
   const next = () => setCurrent(i => (i + 1) % imgs.length);
 
