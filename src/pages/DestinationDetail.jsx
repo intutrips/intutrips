@@ -200,14 +200,14 @@ export default function DestinationDetail() {
               endDate={destination.departure_end_date}
             />
 
-            {/* Hotéis */}
-            <HotelsSection hotels={destination.hotels} />
-
             {/* Roteiro com fotos */}
             <ItinerarySection
               itinerary={destination.itinerary}
               fallbackImage={imageUrl}
             />
+
+            {/* Hotéis */}
+            <HotelsSection hotels={destination.hotels} />
 
             {/* Inclusões e Exclusões */}
             <InclusionsSection
