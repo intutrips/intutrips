@@ -111,7 +111,7 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
         Valores e Pagamento
       </h2>
       <p className="text-gray-500 font-light mb-8 text-sm">
-        *Valores expressos em dólares americanos (USD). Cada lote possui 6 vagas.
+        Valores expressos em dólares americanos (USD). Cada lote possui 6 vagas.
       </p>
 
       {/* Lotes */}

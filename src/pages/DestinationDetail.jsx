@@ -18,6 +18,7 @@ import GallerySection from '@/components/destination/GallerySection';
 import HotelsSection from '@/components/destination/HotelsSection';
 import TripDaysSection from '@/components/destination/TripDaysSection';
 import TestimonialsSection from '@/components/destination/TestimonialsSection';
+import FAQSection from '@/components/destination/FAQSection';
 
 const countryImages = {
   "India": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920&q=80",
@@ -212,6 +213,9 @@ export default function DestinationDetail() {
               inclusions={destination.inclusions}
               exclusions={destination.exclusions}
             />
+
+            {/* FAQ */}
+            <FAQSection country={destination.country} />
 
             {/* Valores e Pagamento */}
             <PaymentSection
