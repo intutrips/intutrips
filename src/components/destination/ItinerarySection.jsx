@@ -26,7 +26,7 @@ function DayCarousel({ images, dayIndex, fallbackImage }) {
   const next = () => setCurrent(i => (i + 1) % imgs.length);
 
   return (
-    <div className="relative rounded-xl overflow-hidden h-44 md:h-52 bg-gray-100 flex-shrink-0 w-full md:w-64">
+    <div className="relative rounded-xl overflow-hidden h-52 bg-gray-100 w-full">
       <img src={imgs[current]} alt={`Foto ${current + 1}`} className="w-full h-full object-cover" />
       {imgs.length > 1 && (
         <>
@@ -67,41 +67,48 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
             transition={{ delay: index * 0.05 }}
             className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow"
           >
-            <div className="flex gap-4 items-start">
-              <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[#bda94c]/10 flex items-center justify-center">
-                <span className="text-sm font-semibold text-[#bda94c]">{day.day}</span>
-              </div>
+            {/* Mobile: coluna. Desktop: linha */}
+            <div className="flex flex-col md:flex-row gap-4">
+              {/* Conteúdo: badge + texto */}
+              <div className="flex gap-4 items-start flex-1 min-w-0">
+                <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[#bda94c]/10 flex items-center justify-center">
+                  <span className="text-sm font-semibold text-[#bda94c]">{day.day}</span>
+                </div>
 
-              <div className="flex-1 min-w-0">
-                <h3 className="text-lg font-semibold text-[#1A1A1A] mb-2">{day.title}</h3>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-lg font-semibold text-[#1A1A1A] mb-2">{day.title}</h3>
 
-                {day.description && (
-                  <p className="text-base text-gray-500 font-light mb-3 leading-relaxed">{day.description}</p>
-                )}
+                  {day.description && (
+                    <p className="text-base text-gray-500 font-light mb-3 leading-relaxed">{day.description}</p>
+                  )}
 
-                {day.toque_intu && (
-                  <div className="mb-3 flex items-start gap-2.5 bg-gradient-to-r from-[#bda94c]/10 to-[#bda94c]/5 border border-[#bda94c]/30 rounded-xl px-4 py-3">
-                    <IntuStar size={18} color="#bda94c" />
-                    <div>
-                      <span className="text-sm font-bold text-[#bda94c] uppercase tracking-wider">Toque da Intu</span>
-                      <p className="text-base text-gray-700 font-light mt-0.5">{day.toque_intu}</p>
+                  {day.toque_intu && (
+                    <div className="mb-3 flex items-start gap-2.5 bg-gradient-to-r from-[#bda94c]/10 to-[#bda94c]/5 border border-[#bda94c]/30 rounded-xl px-4 py-3">
+                      <IntuStar size={18} color="#bda94c" />
+                      <div>
+                        <span className="text-sm font-bold text-[#bda94c] uppercase tracking-wider">Toque da Intu</span>
+                        <p className="text-base text-gray-700 font-light mt-0.5">{day.toque_intu}</p>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
 
-                {day.activities && day.activities.filter(a => a?.trim()).length > 0 && (
-                  <div className="flex flex-wrap gap-2">
-                    {day.activities.filter(a => a?.trim()).map((activity, actIndex) => (
-                      <span key={actIndex} className="inline-flex items-center gap-1 text-sm text-gray-600 bg-gray-50 rounded-full px-3 py-1.5">
-                        <MapPin className="h-3.5 w-3.5 text-[#bda94c]" />
-                        {activity}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                  {day.activities && day.activities.filter(a => a?.trim()).length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {day.activities.filter(a => a?.trim()).map((activity, actIndex) => (
+                        <span key={actIndex} className="inline-flex items-center gap-1 text-sm text-gray-600 bg-gray-50 rounded-full px-3 py-1.5">
+                          <MapPin className="h-3.5 w-3.5 text-[#bda94c]" />
+                          {activity}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
 
-              <DayCarousel images={day.images} dayIndex={index} fallbackImage={fallbackImage} />
+              {/* Imagem: largura total no mobile, fixa no desktop */}
+              <div className="w-full md:w-64 flex-shrink-0">
+                <DayCarousel images={day.images} dayIndex={index} fallbackImage={fallbackImage} />
+              </div>
             </div>
           </motion.div>
         ))}
