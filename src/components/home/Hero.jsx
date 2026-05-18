@@ -44,9 +44,9 @@ export default function Hero() {
           src={bgImage}
           alt="Hero background"
           className="w-full h-full object-cover"
-          initial={{ scale: 1.08 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 15, ease: 'easeOut' }}
+          initial={{ scale: 1 }}
+          animate={{ scale: 1.08 }}
+          transition={{ duration: 15, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
         />
         {/* Overlay com opacidade dinâmica */}
         <div
