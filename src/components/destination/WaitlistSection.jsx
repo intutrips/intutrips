@@ -13,7 +13,7 @@ export default function WaitlistSection({ destinationName }) {
       viewport={{ once: true }}
       className="mb-12"
     >
-      <div className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[#1A1A1A] to-[#2D4A3E] px-7 py-8">
+      <div className="relative rounded-2xl overflow-hidden bg-[#6b9faf] px-7 py-8">
         <img
           src="/brand/crystal-blue.png"
           alt=""
@@ -21,12 +21,12 @@ export default function WaitlistSection({ destinationName }) {
         />
         <div className="relative z-10 flex flex-col sm:flex-row sm:items-center gap-6">
           <div className="flex items-start gap-3 flex-1">
-            <div className="w-9 h-9 rounded-full bg-[#bda94c]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <Bell className="h-4 w-4 text-[#bda94c]" />
+            <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <Bell className="h-4 w-4 text-white" />
             </div>
             <div>
               <h3 className="text-white font-semibold text-base">As datas atuais não funcionam para você?</h3>
-              <p className="text-white/60 text-sm font-light mt-1">
+              <p className="text-white/80 text-sm font-light mt-1">
                 Entre na lista de espera e seja a primeira a saber quando abrirmos novas datas para {destinationName} em 2027.
               </p>
             </div>
