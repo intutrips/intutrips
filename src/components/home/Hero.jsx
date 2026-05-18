@@ -86,22 +86,12 @@ export default function Hero() {
           {subheadline}
         </motion.h1>
 
-        {/* Texto de apoio */}
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-12 font-light leading-relaxed"
-        >
-          {supportText}
-        </motion.p>
-
         {/* Botões */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          className="flex flex-col sm:flex-row gap-4 justify-center mt-10"
         >
           <Link to={btn1Link}>
             <Button
@@ -123,21 +113,6 @@ export default function Hero() {
           </Link>
         </motion.div>
 
-        {/* Stats dinâmicas */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
-          className="mt-20 grid grid-cols-3 gap-8 max-w-xl mx-auto"
-        >
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <stat.icon className="h-5 w-5 text-[#6b9faf] mx-auto mb-2" />
-              <div className="text-2xl md:text-3xl font-light text-white">{stat.value}</div>
-              <div className="text-xs text-white/60 uppercase tracking-wider">{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
       </div>
 
       {/* Scroll Indicator */}
