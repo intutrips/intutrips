@@ -73,18 +73,18 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
               </div>
 
               <div className="flex-1 min-w-0">
-                <h3 className="text-base font-semibold text-[#1A1A1A] mb-2">{day.title}</h3>
+                <h3 className="text-lg font-semibold text-[#1A1A1A] mb-2">{day.title}</h3>
 
                 {day.description && (
-                  <p className="text-sm text-gray-500 font-light mb-3 leading-relaxed">{day.description}</p>
+                  <p className="text-base text-gray-500 font-light mb-3 leading-relaxed">{day.description}</p>
                 )}
 
                 {day.toque_intu && (
                   <div className="mb-3 flex items-start gap-2.5 bg-gradient-to-r from-[#bda94c]/10 to-[#bda94c]/5 border border-[#bda94c]/30 rounded-xl px-4 py-3">
                     <IntuStar size={18} color="#bda94c" />
                     <div>
-                      <span className="text-xs font-bold text-[#bda94c] uppercase tracking-wider">Toque da Intu</span>
-                      <p className="text-sm text-gray-700 font-light mt-0.5">{day.toque_intu}</p>
+                      <span className="text-sm font-bold text-[#bda94c] uppercase tracking-wider">Toque da Intu</span>
+                      <p className="text-base text-gray-700 font-light mt-0.5">{day.toque_intu}</p>
                     </div>
                   </div>
                 )}
@@ -92,8 +92,8 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
                 {day.activities && day.activities.filter(a => a?.trim()).length > 0 && (
                   <div className="flex flex-wrap gap-2">
                     {day.activities.filter(a => a?.trim()).map((activity, actIndex) => (
-                      <span key={actIndex} className="inline-flex items-center gap-1 text-xs text-gray-600 bg-gray-50 rounded-full px-2.5 py-1">
-                        <MapPin className="h-3 w-3 text-[#bda94c]" />
+                      <span key={actIndex} className="inline-flex items-center gap-1 text-sm text-gray-600 bg-gray-50 rounded-full px-3 py-1.5">
+                        <MapPin className="h-3.5 w-3.5 text-[#bda94c]" />
                         {activity}
                       </span>
                     ))}
