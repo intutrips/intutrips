@@ -74,6 +74,13 @@ export default function DestinationDetail() {
 
   const imageUrl = destination.image_url || countryImages[destination.country] || countryImages["Tailândia"];
 
+  const whatsappUrls = {
+    'Tailândia': 'https://wa.me/551151233225?text=Ola,%20vi%20a%20viagem%20da%20Tailandia%20no%20seu%20site%20e%20me%20interessei.%20Gostaria%20de%20mais%20informacoes.',
+    'India': 'https://wa.me/551151233225?text=Ola,%20vi%20a%20viagem%20da%20India%20no%20seu%20site%20e%20me%20interessei.%20Gostaria%20de%20mais%20informacoes.',
+    'China': 'https://wa.me/551151233225?text=Ola,%20vi%20a%20viagem%20da%20China%20no%20seu%20site%20e%20me%20interessei.%20Gostaria%20de%20mais%20informacoes.',
+  };
+  const whatsappUrl = whatsappUrls[destination.country] || `https://wa.me/551151233225?text=Ola,%20vi%20a%20viagem%20${encodeURIComponent(destination.name)}%20no%20seu%20site%20e%20me%20interessei.%20Gostaria%20de%20mais%20informacoes.`;
+
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
       {/* Hero */}
@@ -162,7 +169,7 @@ export default function DestinationDetail() {
                 </p>
               </div>
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-4">
-                <a href="https://api.whatsapp.com/send/?phone=551151233225&text=Ol%C3%A1%2C+gostaria+de+saber+mais+sobre+...&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                   <Button className="w-full bg-[#1A1A1A] hover:bg-[#2D4A3E] text-white rounded-full h-12">
                     Quero Participar
                   </Button>
@@ -221,6 +228,7 @@ export default function DestinationDetail() {
               price_lote2={destination.price_lote2}
               pricing_lots={destination.pricing_lots}
               payment_options={destination.payment_options}
+              whatsappUrl={whatsappUrl}
             />
 
             {/* Lista de Espera */}

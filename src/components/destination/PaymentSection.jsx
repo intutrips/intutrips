@@ -6,7 +6,6 @@ import { formatCurrency } from '@/utils';
 
 const SPOTS_PER_LOT = 6;
 
-const WHATSAPP_URL = "https://api.whatsapp.com/send/?phone=551151233225&text=Ol%C3%A1%2C+gostaria+de+reservar+minha+vaga%21&type=phone_number&app_absent=0";
 const EMAIL = "mailto:contato@intutrips.com";
 
 function PriceTag({ lots, price_from }) {
@@ -37,7 +36,7 @@ function PriceTag({ lots, price_from }) {
   );
 }
 
-export default function PaymentSection({ price_from, price_lote2, pricing_lots, payment_options }) {
+export default function PaymentSection({ price_from, price_lote2, pricing_lots, payment_options, whatsappUrl }) {
   const defaultPaymentOptions = [
     "PIX",
     "Boleto Parcelado Sem Juros",
@@ -147,7 +146,7 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
           </div>
 
           <div className="flex flex-col gap-3 w-full">
-            <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="w-full">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full">
               <Button className="w-full bg-[#25D366] hover:bg-[#1fba58] text-white rounded-full h-11 gap-2 font-medium">
                 <MessageCircle className="h-4 w-4" />
                 WhatsApp
