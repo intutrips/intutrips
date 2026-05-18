@@ -214,9 +214,6 @@ export default function DestinationDetail() {
               exclusions={destination.exclusions}
             />
 
-            {/* FAQ */}
-            <FAQSection country={destination.country} />
-
             {/* Valores e Pagamento */}
             <PaymentSection
               price_from={destination.price_from}
@@ -225,11 +222,14 @@ export default function DestinationDetail() {
               payment_options={destination.payment_options}
             />
 
-            {/* Depoimentos em vídeo */}
-            <TestimonialsSection testimonials={destination.testimonial_videos} />
-
             {/* Contato */}
             <ContactCTA />
+
+            {/* Perguntas Frequentes */}
+            <FAQSection country={destination.country} />
+
+            {/* Depoimentos em vídeo */}
+            <TestimonialsSection testimonials={destination.testimonial_videos} />
           </motion.div>
         </div>
       </section>
