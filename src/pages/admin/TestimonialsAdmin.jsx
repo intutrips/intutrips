@@ -47,7 +47,8 @@ export default function TestimonialsAdmin() {
         rating: 5,
         destination_id: null,
         trip_info: '',
-        display_order: 1
+        display_order: 1,
+        photo_url: ''
     });
 
     const { data: testimonials = [], isLoading } = useQuery({
@@ -143,7 +144,8 @@ export default function TestimonialsAdmin() {
             rating: 5,
             destination_id: null,
             trip_info: '',
-            display_order: 1
+            display_order: 1,
+            photo_url: ''
         });
         setIsCreateDialogOpen(true);
     };
@@ -156,7 +158,8 @@ export default function TestimonialsAdmin() {
             rating: 5,
             destination_id: null,
             trip_info: '',
-            display_order: 1
+            display_order: 1,
+            photo_url: ''
         });
     };
 
@@ -168,7 +171,8 @@ export default function TestimonialsAdmin() {
             rating: testimonial.rating,
             destination_id: testimonial.destination_id,
             trip_info: testimonial.trip_info || '',
-            display_order: testimonial.display_order || 1
+            display_order: testimonial.display_order || 1,
+            photo_url: testimonial.photo_url || ''
         });
         setIsEditDialogOpen(true);
     };
@@ -182,7 +186,8 @@ export default function TestimonialsAdmin() {
             rating: 5,
             destination_id: null,
             trip_info: '',
-            display_order: 1
+            display_order: 1,
+            photo_url: ''
         });
     };
 
@@ -405,6 +410,18 @@ export default function TestimonialsAdmin() {
                                 />
                             </div>
                             <div className="space-y-2">
+                                <label className="text-sm font-medium ml-1 text-gray-700">Foto do Cliente (URL)</label>
+                                <Input
+                                    value={formData.photo_url}
+                                    onChange={(e) => setFormData({ ...formData, photo_url: e.target.value })}
+                                    placeholder="https://exemplo.com/foto.jpg"
+                                    className="h-11 rounded-xl"
+                                />
+                                {formData.photo_url && (
+                                    <img src={formData.photo_url} alt="preview" className="w-14 h-14 rounded-full object-cover border border-gray-200 mt-1" />
+                                )}
+                            </div>
+                            <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1 text-gray-700">Ordem de exibição</label>
                                 <Input
                                     type="number"
@@ -493,6 +510,18 @@ export default function TestimonialsAdmin() {
                                     placeholder="Ex: Viajou para o Japão e Tailândia em 2024"
                                     className="h-11 rounded-xl"
                                 />
+                            </div>
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium ml-1 text-gray-700">Foto do Cliente (URL)</label>
+                                <Input
+                                    value={formData.photo_url}
+                                    onChange={(e) => setFormData({ ...formData, photo_url: e.target.value })}
+                                    placeholder="https://exemplo.com/foto.jpg"
+                                    className="h-11 rounded-xl"
+                                />
+                                {formData.photo_url && (
+                                    <img src={formData.photo_url} alt="preview" className="w-14 h-14 rounded-full object-cover border border-gray-200 mt-1" />
+                                )}
                             </div>
                             <div className="space-y-2">
                                 <label className="text-sm font-medium ml-1 text-gray-700">Ordem de exibição</label>

@@ -226,7 +226,7 @@ export default function DestinationDetail() {
             <ContactCTA />
 
             {/* Perguntas Frequentes */}
-            <FAQSection country={destination.country} />
+            <FAQSection country={destination.country} extraFaqs={destination.extra_faqs || []} />
 
             {/* Depoimentos em vídeo */}
             <TestimonialsSection testimonials={destination.testimonial_videos} />

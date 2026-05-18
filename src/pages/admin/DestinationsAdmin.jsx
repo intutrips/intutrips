@@ -50,6 +50,7 @@ export default function DestinationsAdmin() {
         duration: '',
         group_size: '',
         availability_status: 'available',
+        is_published: false,
         display_order: 0,
         departure_start_date: '',
         departure_end_date: '',
@@ -58,6 +59,12 @@ export default function DestinationsAdmin() {
         inclusions: [],
         exclusions: [],
         payment_options: [],
+        pricing_lots: [
+            { name: '1º Lote', price: '', spots_filled: 0, active: true },
+            { name: '2º Lote', price: '', spots_filled: 0, active: true },
+        ],
+        testimonial_videos: [],
+        extra_faqs: [],
         first_day_info: { title: '', description: '', activities: [] },
         last_day_info: { title: '', description: '', activities: [] },
         itinerary: [],
@@ -191,6 +198,7 @@ export default function DestinationsAdmin() {
                 duration: destination.duration || '',
                 group_size: destination.group_size || '',
                 availability_status: destination.availability_status || 'available',
+                is_published: destination.is_published ?? false,
                 display_order: destination.display_order || 0,
                 departure_start_date: destination.departure_start_date || '',
                 departure_end_date: destination.departure_end_date || '',
@@ -199,6 +207,14 @@ export default function DestinationsAdmin() {
                 inclusions: destination.inclusions || [],
                 exclusions: destination.exclusions || [],
                 payment_options: destination.payment_options || [],
+                pricing_lots: destination.pricing_lots && destination.pricing_lots.length > 0
+                    ? destination.pricing_lots
+                    : [
+                        { name: '1º Lote', price: destination.price_from || '', spots_filled: 0, active: true },
+                        { name: '2º Lote', price: '', spots_filled: 0, active: true },
+                    ],
+                testimonial_videos: destination.testimonial_videos || [],
+                extra_faqs: destination.extra_faqs || [],
                 first_day_info: destination.first_day_info || { title: '', description: '', activities: [] },
                 last_day_info: destination.last_day_info || { title: '', description: '', activities: [] },
                 itinerary: destination.itinerary || [],
@@ -215,6 +231,7 @@ export default function DestinationsAdmin() {
                 duration: '',
                 group_size: '',
                 availability_status: 'available',
+                is_published: false,
                 display_order: 0,
                 departure_start_date: '',
                 departure_end_date: '',
@@ -223,6 +240,12 @@ export default function DestinationsAdmin() {
                 inclusions: [],
                 exclusions: [],
                 payment_options: [],
+                pricing_lots: [
+                    { name: '1º Lote', price: '', spots_filled: 0, active: true },
+                    { name: '2º Lote', price: '', spots_filled: 0, active: true },
+                ],
+                testimonial_videos: [],
+                extra_faqs: [],
                 first_day_info: { title: '', description: '', activities: [] },
                 last_day_info: { title: '', description: '', activities: [] },
                 itinerary: [],
@@ -304,13 +327,14 @@ export default function DestinationsAdmin() {
                                     <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">País</th>
                                     <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Duração</th>
                                     <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Preço</th>
+                                    <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500">Status</th>
                                     <th className="px-6 py-4 font-medium text-xs uppercase text-gray-500 text-right">Ações</th>
                                 </TableRow>
                             </TableHeader>
                             {isLoading ? (
                                 <TableBody>
                                     <TableRow>
-                                        <TableCell colSpan={8} className="h-40 text-center">
+                                        <TableCell colSpan={9} className="h-40 text-center">
                                             <Loader2 className="h-8 w-8 animate-spin mx-auto text-gray-300" />
                                         </TableCell>
                                     </TableRow>
@@ -361,6 +385,13 @@ export default function DestinationsAdmin() {
                                                                 <TableCell className="px-6 py-4">
                                                                     <span className="text-gray-600">{dest.price_from ? `USD ${dest.price_from}` : '-'}</span>
                                                                 </TableCell>
+                                                                <TableCell className="px-6 py-4">
+                                                                    {dest.is_published ? (
+                                                                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">Publicado</span>
+                                                                    ) : (
+                                                                        <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-500">Rascunho</span>
+                                                                    )}
+                                                                </TableCell>
                                                                 <TableCell className="px-6 py-4 text-right">
                                                                     <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                                                         <Button
@@ -387,7 +418,7 @@ export default function DestinationsAdmin() {
                                                 ))
                                             ) : (
                                                 <TableRow>
-                                                    <TableCell colSpan={8} className="h-40 text-center text-gray-400 font-light">
+                                                    <TableCell colSpan={9} className="h-40 text-center text-gray-400 font-light">
                                                         Nenhum destino encontrado.
                                                     </TableCell>
                                                 </TableRow>
@@ -409,12 +440,15 @@ export default function DestinationsAdmin() {
                     </DialogHeader>
                     <form onSubmit={handleSubmit} className="space-y-4 py-4">
                         <Tabs defaultValue="geral" className="w-full">
-                            <TabsList className="mb-4">
+                            <TabsList className="mb-4 flex-wrap h-auto gap-1">
                                 <TabsTrigger value="geral">Geral</TabsTrigger>
-                                <TabsTrigger value="detalhes">Detalhes Adicionais</TabsTrigger>
+                                <TabsTrigger value="detalhes">Detalhes</TabsTrigger>
+                                <TabsTrigger value="lotes">Vagas & Lotes</TabsTrigger>
                                 <TabsTrigger value="highlights">Destaques</TabsTrigger>
                                 <TabsTrigger value="hoteis">Acomodações</TabsTrigger>
                                 <TabsTrigger value="roteiro">Roteiro Diário</TabsTrigger>
+                                <TabsTrigger value="videos">Vídeos</TabsTrigger>
+                                <TabsTrigger value="faq">FAQ</TabsTrigger>
                             </TabsList>
 
                             <TabsContent value="geral">
@@ -527,6 +561,26 @@ export default function DestinationsAdmin() {
                                             onChange={(e) => setFormData({ ...formData, departure_end_date: e.target.value })}
                                         />
                                     </div>
+                                    <div className="col-span-2">
+                                        <label className="flex items-center gap-3 cursor-pointer p-4 rounded-xl border border-gray-200 hover:border-[#bda94c] transition-colors">
+                                            <div className="relative">
+                                                <input
+                                                    type="checkbox"
+                                                    className="sr-only"
+                                                    checked={formData.is_published}
+                                                    onChange={(e) => setFormData({ ...formData, is_published: e.target.checked })}
+                                                />
+                                                <div className={`w-11 h-6 rounded-full transition-colors ${formData.is_published ? 'bg-green-500' : 'bg-gray-300'}`} />
+                                                <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${formData.is_published ? 'translate-x-5' : 'translate-x-0'}`} />
+                                            </div>
+                                            <div>
+                                                <span className="text-sm font-medium text-[#1A1A1A]">
+                                                    {formData.is_published ? 'Publicado — visível no site' : 'Rascunho — oculto no site'}
+                                                </span>
+                                                <p className="text-xs text-gray-400 mt-0.5">Destinos em rascunho não aparecem na lista pública.</p>
+                                            </div>
+                                        </label>
+                                    </div>
                                 </div>
                             </TabsContent>
 
@@ -568,6 +622,104 @@ export default function DestinationsAdmin() {
                                             placeholder="https://exemplo.com/img1.jpg&#10;https://exemplo.com/img2.jpg"
                                         />
                                     </div>
+                                </div>
+                            </TabsContent>
+
+                            <TabsContent value="lotes">
+                                <div className="space-y-6">
+                                    <div>
+                                        <h4 className="text-sm font-medium mb-1">Lotes de Vagas</h4>
+                                        <p className="text-xs text-gray-500 mb-4">Cada lote possui 6 vagas. Configure o preço e quantas foram preenchidas.</p>
+                                    </div>
+                                    {(formData.pricing_lots || []).map((lot, i) => (
+                                        <div key={i} className="bg-gray-50 rounded-2xl p-5 border border-gray-200 space-y-4 relative group">
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const updated = [...formData.pricing_lots];
+                                                    updated.splice(i, 1);
+                                                    setFormData({ ...formData, pricing_lots: updated });
+                                                }}
+                                                className="absolute top-3 right-3 p-1 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                                            >
+                                                <X className="h-4 w-4" />
+                                            </button>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] uppercase tracking-wider font-semibold text-gray-400">Nome do Lote</label>
+                                                    <Input
+                                                        value={lot.name || ''}
+                                                        onChange={e => {
+                                                            const updated = [...formData.pricing_lots];
+                                                            updated[i] = { ...updated[i], name: e.target.value };
+                                                            setFormData({ ...formData, pricing_lots: updated });
+                                                        }}
+                                                        placeholder="Ex: 1º Lote"
+                                                        className="h-9 bg-white"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] uppercase tracking-wider font-semibold text-gray-400">Preço (USD)</label>
+                                                    <Input
+                                                        type="text"
+                                                        inputMode="numeric"
+                                                        value={lot.price || ''}
+                                                        onChange={e => {
+                                                            const val = e.target.value.replace(/\D/g, '');
+                                                            const updated = [...formData.pricing_lots];
+                                                            updated[i] = { ...updated[i], price: val };
+                                                            setFormData({ ...formData, pricing_lots: updated });
+                                                        }}
+                                                        placeholder="0"
+                                                        className="h-9 bg-white"
+                                                    />
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] uppercase tracking-wider font-semibold text-gray-400">Vagas preenchidas (de 6)</label>
+                                                    <select
+                                                        className="w-full h-9 rounded-md border border-input bg-white px-3 text-sm"
+                                                        value={lot.spots_filled || 0}
+                                                        onChange={e => {
+                                                            const updated = [...formData.pricing_lots];
+                                                            updated[i] = { ...updated[i], spots_filled: parseInt(e.target.value) };
+                                                            setFormData({ ...formData, pricing_lots: updated });
+                                                        }}
+                                                    >
+                                                        {[0,1,2,3,4,5,6].map(n => (
+                                                            <option key={n} value={n}>{n} {n === 6 ? '(Esgotado)' : ''}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div className="space-y-1 flex flex-col justify-end">
+                                                    <label className="flex items-center gap-2 cursor-pointer">
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={lot.active !== false}
+                                                            onChange={e => {
+                                                                const updated = [...formData.pricing_lots];
+                                                                updated[i] = { ...updated[i], active: e.target.checked };
+                                                                setFormData({ ...formData, pricing_lots: updated });
+                                                            }}
+                                                            className="w-4 h-4 accent-[#bda94c]"
+                                                        />
+                                                        <span className="text-sm text-gray-600">Lote ativo</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => setFormData({
+                                            ...formData,
+                                            pricing_lots: [...(formData.pricing_lots || []), { name: '', price: '', spots_filled: 0, active: true }]
+                                        })}
+                                        className="rounded-xl"
+                                    >
+                                        <Plus className="h-4 w-4 mr-1" /> Adicionar Lote
+                                    </Button>
                                 </div>
                             </TabsContent>
 
@@ -832,6 +984,26 @@ export default function DestinationsAdmin() {
                                                     setFormData({ ...formData, itinerary: newItinerary });
                                                 }}
                                             />
+                                            <Input
+                                                placeholder="Toque da Intu (destaque especial do dia)"
+                                                value={day.toque_intu || ''}
+                                                onChange={e => {
+                                                    const newItinerary = [...formData.itinerary];
+                                                    newItinerary[index].toque_intu = e.target.value;
+                                                    setFormData({ ...formData, itinerary: newItinerary });
+                                                }}
+                                                className="border-[#bda94c]/40 focus-visible:ring-[#bda94c]"
+                                            />
+                                            <Textarea
+                                                placeholder="Fotos do dia (URLs, 1 por linha)"
+                                                value={(day.images || []).join('\n')}
+                                                onChange={e => {
+                                                    const newItinerary = [...formData.itinerary];
+                                                    newItinerary[index].images = e.target.value.split('\n').filter(Boolean);
+                                                    setFormData({ ...formData, itinerary: newItinerary });
+                                                }}
+                                                className="min-h-[70px] text-xs"
+                                            />
                                         </div>
                                     ))}
                                 </div>
@@ -855,6 +1027,142 @@ export default function DestinationsAdmin() {
                                     />
                                 </div>
 
+                            </TabsContent>
+
+                            <TabsContent value="videos">
+                                <div className="space-y-5">
+                                    <div>
+                                        <h4 className="text-sm font-medium mb-1">Vídeos de Depoimento</h4>
+                                        <p className="text-xs text-gray-500 mb-4">Adicione links de YouTube Shorts ou vídeos diretos de clientes.</p>
+                                    </div>
+                                    {(formData.testimonial_videos || []).map((video, i) => (
+                                        <div key={i} className="bg-gray-50 rounded-2xl p-4 border border-gray-200 space-y-3 relative group">
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const updated = [...formData.testimonial_videos];
+                                                    updated.splice(i, 1);
+                                                    setFormData({ ...formData, testimonial_videos: updated });
+                                                }}
+                                                className="absolute top-3 right-3 p-1 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                                            >
+                                                <X className="h-4 w-4" />
+                                            </button>
+                                            <div className="grid grid-cols-2 gap-3 pr-6">
+                                                <Input
+                                                    placeholder="Nome (ex: Ana Lima)"
+                                                    value={video.name || ''}
+                                                    onChange={e => {
+                                                        const updated = [...formData.testimonial_videos];
+                                                        updated[i] = { ...updated[i], name: e.target.value };
+                                                        setFormData({ ...formData, testimonial_videos: updated });
+                                                    }}
+                                                    className="h-9 bg-white"
+                                                />
+                                                <Input
+                                                    placeholder="Cidade/País (ex: São Paulo, Brasil)"
+                                                    value={video.location || ''}
+                                                    onChange={e => {
+                                                        const updated = [...formData.testimonial_videos];
+                                                        updated[i] = { ...updated[i], location: e.target.value };
+                                                        setFormData({ ...formData, testimonial_videos: updated });
+                                                    }}
+                                                    className="h-9 bg-white"
+                                                />
+                                                <div className="col-span-2">
+                                                    <Input
+                                                        placeholder="URL do vídeo (YouTube, Vimeo ou link direto)"
+                                                        value={video.url || ''}
+                                                        onChange={e => {
+                                                            const updated = [...formData.testimonial_videos];
+                                                            updated[i] = { ...updated[i], url: e.target.value };
+                                                            setFormData({ ...formData, testimonial_videos: updated });
+                                                        }}
+                                                        className="h-9 bg-white"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => setFormData({
+                                            ...formData,
+                                            testimonial_videos: [...(formData.testimonial_videos || []), { name: '', location: '', url: '' }]
+                                        })}
+                                        className="rounded-xl"
+                                    >
+                                        <Plus className="h-4 w-4 mr-1" /> Adicionar Vídeo
+                                    </Button>
+                                    {(!formData.testimonial_videos || formData.testimonial_videos.length === 0) && (
+                                        <div className="text-center py-8 border-2 border-dashed border-gray-100 rounded-3xl">
+                                            <p className="text-gray-400 text-sm">Nenhum vídeo adicionado ainda.</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </TabsContent>
+
+                            <TabsContent value="faq">
+                                <div className="space-y-5">
+                                    <div>
+                                        <h4 className="text-sm font-medium mb-1">Perguntas Frequentes Extras</h4>
+                                        <p className="text-xs text-gray-500 mb-4">Adicione perguntas específicas deste destino. As perguntas padrão já aparecem automaticamente.</p>
+                                    </div>
+                                    {(formData.extra_faqs || []).map((faq, i) => (
+                                        <div key={i} className="bg-gray-50 rounded-2xl p-4 border border-gray-200 space-y-3 relative group">
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    const updated = [...formData.extra_faqs];
+                                                    updated.splice(i, 1);
+                                                    setFormData({ ...formData, extra_faqs: updated });
+                                                }}
+                                                className="absolute top-3 right-3 p-1 text-gray-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                                            >
+                                                <X className="h-4 w-4" />
+                                            </button>
+                                            <Input
+                                                placeholder="Pergunta"
+                                                value={faq.q || ''}
+                                                onChange={e => {
+                                                    const updated = [...formData.extra_faqs];
+                                                    updated[i] = { ...updated[i], q: e.target.value };
+                                                    setFormData({ ...formData, extra_faqs: updated });
+                                                }}
+                                                className="bg-white"
+                                            />
+                                            <Textarea
+                                                placeholder="Resposta"
+                                                value={faq.a || ''}
+                                                onChange={e => {
+                                                    const updated = [...formData.extra_faqs];
+                                                    updated[i] = { ...updated[i], a: e.target.value };
+                                                    setFormData({ ...formData, extra_faqs: updated });
+                                                }}
+                                                className="bg-white min-h-[80px] resize-none"
+                                            />
+                                        </div>
+                                    ))}
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => setFormData({
+                                            ...formData,
+                                            extra_faqs: [...(formData.extra_faqs || []), { q: '', a: '' }]
+                                        })}
+                                        className="rounded-xl"
+                                    >
+                                        <Plus className="h-4 w-4 mr-1" /> Adicionar Pergunta
+                                    </Button>
+                                    {(!formData.extra_faqs || formData.extra_faqs.length === 0) && (
+                                        <div className="text-center py-8 border-2 border-dashed border-gray-100 rounded-3xl">
+                                            <p className="text-gray-400 text-sm">Nenhuma pergunta extra adicionada.</p>
+                                        </div>
+                                    )}
+                                </div>
                             </TabsContent>
                         </Tabs>
                         <DialogFooter className="pt-4">
