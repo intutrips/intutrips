@@ -19,7 +19,7 @@ export default function Footer() {
                 className="h-12 w-auto brightness-200"
               />
             </div>
-            <p className="text-gray-400 font-light max-w-md leading-relaxed">
+            <p className="text-white/80 font-light max-w-md leading-relaxed">
               {texts.home_footer_desc || 'Onde ir por conta vira barreira, a gente vira apoio. Viagens em grupo pela Ásia com o cuidado que você merece.'}
             </p>
           </div>
@@ -28,9 +28,9 @@ export default function Footer() {
           {/* Links */}
           <div>
             <h4 className="font-medium mb-4 text-[#6b9faf]">Navegação</h4>
-            <ul className="space-y-3 text-gray-400">
+            <ul className="space-y-3 text-white/80">
               <li>
-                <Link to={createPageUrl('Home')} className="hover:text-[#6b9faf] transition-colors">
+                <Link to={createPageUrl('Home')} className="text-white/80 hover:text-[#6b9faf] transition-colors">
                   Início
                 </Link>
               </li>
@@ -55,7 +55,7 @@ export default function Footer() {
           {/* Destinos */}
           <div>
             <h4 className="font-medium mb-4 text-[#6b9faf]">Destinos</h4>
-            <ul className="space-y-3 text-gray-400">
+            <ul className="space-y-3 text-white/80">
               <li><Link to="/india" className="hover:text-[#6b9faf] transition-colors">Índia</Link></li>
               <li><Link to="/china" className="hover:text-[#6b9faf] transition-colors">China</Link></li>
               <li><Link to="/indonesia" className="hover:text-[#6b9faf] transition-colors">Indonésia</Link></li>
@@ -67,7 +67,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-gray-500 text-sm">
+          <p className="text-white/70 text-sm">
             {texts.general_copyright || `© ${new Date().getFullYear()} Agência de Viagens. Todos os direitos reservados.`}
           </p>
           <div className="flex items-center gap-4">

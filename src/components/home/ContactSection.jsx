@@ -47,7 +47,10 @@ export default function ContactSection() {
   };
 
   return (
-    <section className="py-24 px-6 bg-white" id="contato">
+    <section className="py-24 px-6 bg-white relative overflow-hidden" id="contato">
+      {/* Decorative crystals */}
+      <img src="/brand/crystal-wine.png" alt="" className="absolute -right-8 top-1/2 -translate-y-1/2 w-32 md:w-48 opacity-10 pointer-events-none select-none" />
+      <img src="/brand/crystal-blue.png" alt="" className="absolute -left-6 bottom-12 w-20 md:w-32 opacity-10 pointer-events-none select-none" />
       <div className="max-w-7xl mx-auto">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           {/* Left - Info */}
@@ -56,8 +59,10 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
           >
-            <span className="text-[#bda94c] text-sm tracking-widest uppercase">
+            <span className="inline-flex items-center gap-2.5 text-[#bda94c] text-sm tracking-widest uppercase">
+              <svg width="10" height="10" viewBox="0 0 100 100" fill="#bda94c"><path d="M50 0 C52 40 60 48 100 50 C60 52 52 60 50 100 C48 60 40 52 0 50 C40 48 48 40 50 0Z"/></svg>
               {texts.home_contact_tag || 'Fale Conosco'}
+              <svg width="10" height="10" viewBox="0 0 100 100" fill="#bda94c"><path d="M50 0 C52 40 60 48 100 50 C60 52 52 60 50 100 C48 60 40 52 0 50 C40 48 48 40 50 0Z"/></svg>
             </span>
             <h2 className="text-4xl md:text-5xl font-light text-[#1A1A1A] mt-4 mb-6">
               {texts.home_contact_title || 'Vamos planejar sua próxima aventura?'}
