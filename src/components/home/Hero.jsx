@@ -99,7 +99,7 @@ export default function Hero() {
           <Link to={btn1Link}>
             <Button
               size="lg"
-              className="btn-intu bg-[#6b9faf] hover:bg-[#598491] text-white py-6 text-base transition-all duration-300 hover:scale-105"
+              className="bg-[#6b9faf] hover:bg-[#598491] text-white px-8 py-6 text-base rounded-full transition-all duration-300 hover:scale-105"
             >
               {btn1Label}
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -109,7 +109,7 @@ export default function Hero() {
             <Button
               size="lg"
               variant="outline"
-              className="btn-intu text-white py-6 text-base border-white/30 hover:bg-white/10 backdrop-blur-sm bg-transparent"
+              className="text-white px-8 py-6 text-base rounded-full border-white/30 hover:bg-white/10 backdrop-blur-sm bg-transparent"
             >
               {btn2Label}
             </Button>

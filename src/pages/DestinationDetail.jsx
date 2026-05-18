@@ -17,6 +17,7 @@ import GallerySection from '@/components/destination/GallerySection';
 import HotelsSection from '@/components/destination/HotelsSection';
 import TripDaysSection from '@/components/destination/TripDaysSection';
 import TestimonialsSection from '@/components/destination/TestimonialsSection';
+import WaitlistSection from '@/components/destination/WaitlistSection';
 import FAQSection from '@/components/destination/FAQSection';
 
 const countryImages = {
@@ -162,7 +163,7 @@ export default function DestinationDetail() {
               </div>
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-4">
                 <a href="https://api.whatsapp.com/send/?phone=551151233225&text=Ol%C3%A1%2C+gostaria+de+saber+mais+sobre+...&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
-                  <Button className="btn-intu w-full bg-[#1A1A1A] hover:bg-[#2D4A3E] text-white h-12">
+                  <Button className="w-full bg-[#1A1A1A] hover:bg-[#2D4A3E] text-white rounded-full h-12">
                     Quero Participar
                   </Button>
                 </a>
@@ -221,6 +222,14 @@ export default function DestinationDetail() {
               pricing_lots={destination.pricing_lots}
               payment_options={destination.payment_options}
             />
+
+            {/* Lista de Espera */}
+            {['Tailândia', 'China'].includes(destination.country) && (
+              <WaitlistSection
+                destinationName={destination.name}
+                country={destination.country}
+              />
+            )}
 
             {/* Perguntas Frequentes */}
             <FAQSection country={destination.country} extraFaqs={destination.extra_faqs || []} />

@@ -7,13 +7,6 @@ h1, h2, h3 {
   font-weight: 700;
 }
 
-/* Botão com shape do logo Intu (hexágono horizontal com pontas laterais) */
-.btn-intu {
-  clip-path: polygon(18px 0%, calc(100% - 18px) 0%, 100% 50%, calc(100% - 18px) 100%, 18px 100%, 0% 50%);
-  padding-left: 2rem !important;
-  padding-right: 2rem !important;
-  border-radius: 0 !important;
-}
 
 @layer base {
   :root {
