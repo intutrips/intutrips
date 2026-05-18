@@ -26,17 +26,17 @@ function DayCarousel({ images, dayIndex, fallbackImage }) {
   const next = () => setCurrent(i => (i + 1) % imgs.length);
 
   return (
-    <div className="relative rounded-xl overflow-hidden h-52 bg-gray-100 w-full">
-      <img src={imgs[current]} alt={`Foto ${current + 1}`} className="w-full h-full object-cover" />
+    <div className="relative rounded-xl overflow-hidden w-full h-full min-h-[160px] bg-gray-100">
+      <img src={imgs[current]} alt={`Foto ${current + 1}`} className="w-full h-full object-cover absolute inset-0" />
       {imgs.length > 1 && (
         <>
-          <button onClick={prev} className="absolute left-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1 transition-colors">
+          <button onClick={prev} className="absolute left-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1 transition-colors z-10">
             <ChevronLeft className="h-4 w-4" />
           </button>
-          <button onClick={next} className="absolute right-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1 transition-colors">
+          <button onClick={next} className="absolute right-1 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-1 transition-colors z-10">
             <ChevronRight className="h-4 w-4" />
           </button>
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-1">
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 flex gap-1 z-10">
             {imgs.map((_, i) => (
               <button key={i} onClick={() => setCurrent(i)} className={`w-1.5 h-1.5 rounded-full transition-colors ${i === current ? 'bg-white' : 'bg-white/50'}`} />
             ))}
@@ -65,47 +65,47 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.05 }}
-            className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow"
+            className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow"
           >
-            <div className="flex flex-col gap-4">
-              {/* Conteúdo: badge + texto */}
-              <div className="flex gap-4 items-start flex-1 min-w-0">
-                <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-[#bda94c]/10 flex items-center justify-center">
-                  <span className="text-sm font-semibold text-[#bda94c]">{day.day}</span>
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <h3 className="text-lg font-semibold text-[#1A1A1A] mb-2">{day.title}</h3>
-
-                  {day.description && (
-                    <p className="text-base text-gray-500 font-light mb-3 leading-relaxed">{day.description}</p>
-                  )}
-
-                  {day.toque_intu && (
-                    <div className="mb-3 flex items-start gap-2.5 bg-gradient-to-r from-[#bda94c]/10 to-[#bda94c]/5 border border-[#bda94c]/30 rounded-xl px-4 py-3">
-                      <IntuStar size={18} color="#bda94c" />
-                      <div>
-                        <span className="text-sm font-bold text-[#bda94c] uppercase tracking-wider">Toque da Intu</span>
-                        <p className="text-base text-gray-700 font-light mt-0.5">{day.toque_intu}</p>
-                      </div>
-                    </div>
-                  )}
-
-                  {day.activities && day.activities.filter(a => a?.trim()).length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {day.activities.filter(a => a?.trim()).map((activity, actIndex) => (
-                        <span key={actIndex} className="inline-flex items-center gap-1 text-sm text-gray-600 bg-gray-50 rounded-full px-3 py-1.5">
-                          <MapPin className="h-3.5 w-3.5 text-[#bda94c]" />
-                          {activity}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
+            {/* Texto à esquerda, imagem fixa à direita */}
+            <div className="flex gap-3 h-full">
+              {/* Badge do dia */}
+              <div className="flex-shrink-0 w-9 h-9 rounded-xl bg-[#bda94c]/10 flex items-center justify-center mt-0.5">
+                <span className="text-sm font-semibold text-[#bda94c]">{day.day}</span>
               </div>
 
-              {/* Imagem */}
-              <div className="w-full">
+              {/* Texto */}
+              <div className="flex-1 min-w-0">
+                <h3 className="text-base font-semibold text-[#1A1A1A] mb-1.5">{day.title}</h3>
+
+                {day.description && (
+                  <p className="text-sm text-gray-500 font-light mb-2 leading-relaxed">{day.description}</p>
+                )}
+
+                {day.toque_intu && (
+                  <div className="mb-2 flex items-start gap-2 bg-gradient-to-r from-[#bda94c]/10 to-[#bda94c]/5 border border-[#bda94c]/30 rounded-xl px-3 py-2">
+                    <IntuStar size={14} color="#bda94c" />
+                    <div>
+                      <span className="text-xs font-bold text-[#bda94c] uppercase tracking-wider">Toque da Intu</span>
+                      <p className="text-sm text-gray-700 font-light mt-0.5">{day.toque_intu}</p>
+                    </div>
+                  </div>
+                )}
+
+                {day.activities && day.activities.filter(a => a?.trim()).length > 0 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {day.activities.filter(a => a?.trim()).map((activity, actIndex) => (
+                      <span key={actIndex} className="inline-flex items-center gap-1 text-xs text-gray-600 bg-gray-50 rounded-full px-2.5 py-1">
+                        <MapPin className="h-3 w-3 text-[#bda94c]" />
+                        {activity}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* Imagem fixa à direita */}
+              <div className="flex-shrink-0 w-32 self-stretch">
                 <DayCarousel images={day.images} dayIndex={index} fallbackImage={fallbackImage} />
               </div>
             </div>
