@@ -33,7 +33,7 @@ export default function Destinations() {
       {/* Header */}
       <section className="relative h-[50vh] min-h-[380px] overflow-hidden">
         <img
-          src="https://images.pexels.com/photos/13010366/pexels-photo-13010366.jpeg"
+          src="https://images.pexels.com/photos/14363477/pexels-photo-14363477.jpeg"
           alt="Destinos"
           className="w-full h-full object-cover"
         />
