@@ -90,23 +90,45 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
             ))}
           </div>
 
-          {/* Lotes compactos se houver mais de um */}
-          {lots.filter(l => l.active !== false && l.price).length > 1 && (
+          {/* Lotes com barra de vagas */}
+          {lots.filter(l => l.active !== false && l.price).length > 0 && (
             <div className="mt-6 pt-5 border-t border-gray-100">
               <p className="text-xs text-gray-400 uppercase tracking-wider font-semibold mb-3">Lotes disponíveis</p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-col gap-3">
                 {lots.filter(l => l.active !== false && l.price).map((lot, i) => {
                   const spotsLeft = SPOTS_PER_LOT - (lot.spots_filled || 0);
                   const isSoldOut = spotsLeft <= 0;
                   return (
-                    <div key={i} className={`px-4 py-2 rounded-xl text-sm border ${isSoldOut ? 'bg-gray-50 border-gray-200 text-gray-400' : 'bg-[#bda94c]/5 border-[#bda94c]/30 text-[#1A1A1A]'}`}>
-                      <span className="font-medium">{lot.name}</span>
-                      <span className="mx-1.5 text-gray-300">·</span>
-                      {isSoldOut ? (
-                        <span className="flex items-center gap-1 inline-flex"><Lock className="h-3 w-3" /> Esgotado</span>
-                      ) : (
-                        <span>USD {formatCurrency(lot.price)} <span className="text-gray-400 text-xs">({spotsLeft} vagas)</span></span>
-                      )}
+                    <div key={i} className={`p-4 rounded-xl border ${isSoldOut ? 'bg-gray-50 border-gray-200' : 'bg-[#bda94c]/5 border-[#bda94c]/30'}`}>
+                      <div className="flex items-center justify-between mb-2.5">
+                        <div className="flex items-center gap-2">
+                          {isSoldOut && <Lock className="h-3.5 w-3.5 text-gray-400" />}
+                          <span className={`text-sm font-semibold ${isSoldOut ? 'text-gray-400' : 'text-[#1A1A1A]'}`}>{lot.name}</span>
+                          {lot.price && (
+                            <span className={`text-sm ${isSoldOut ? 'text-gray-400 line-through' : 'text-[#1A1A1A]'}`}>
+                              · USD {formatCurrency(lot.price)}
+                            </span>
+                          )}
+                        </div>
+                        <span className={`text-xs font-medium ${isSoldOut ? 'text-gray-400' : 'text-[#6b9faf]'}`}>
+                          {isSoldOut ? 'Esgotado' : `${spotsLeft} vaga${spotsLeft !== 1 ? 's' : ''}`}
+                        </span>
+                      </div>
+                      {/* Barra de vagas */}
+                      <div className="flex gap-1">
+                        {Array.from({ length: SPOTS_PER_LOT }).map((_, j) => (
+                          <div
+                            key={j}
+                            className={`flex-1 h-1.5 rounded-full ${
+                              j < (lot.spots_filled || 0)
+                                ? 'bg-red-400'
+                                : isSoldOut
+                                ? 'bg-gray-300'
+                                : 'bg-[#bda94c]/30'
+                            }`}
+                          />
+                        ))}
+                      </div>
                     </div>
                   );
                 })}
