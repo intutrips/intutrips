@@ -235,7 +235,9 @@ export default function DestinationDetail() {
             <FAQSection country={destination.country} extraFaqs={destination.extra_faqs || []} />
 
             {/* Depoimentos em vídeo */}
-            <TestimonialsSection testimonials={destination.testimonial_videos} />
+            {destination.show_testimonials && (
+              <TestimonialsSection testimonials={destination.testimonial_videos} />
+            )}
           </motion.div>
         </div>
       </section>

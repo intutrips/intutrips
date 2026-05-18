@@ -52,6 +52,7 @@ export default function DestinationsAdmin() {
         availability_status: 'available',
         is_published: false,
         show_waitlist: false,
+        show_testimonials: false,
         display_order: 0,
         departure_start_date: '',
         departure_end_date: '',
@@ -201,6 +202,7 @@ export default function DestinationsAdmin() {
                 availability_status: destination.availability_status || 'available',
                 is_published: destination.is_published ?? false,
                 show_waitlist: destination.show_waitlist ?? false,
+                show_testimonials: destination.show_testimonials ?? false,
                 display_order: destination.display_order || 0,
                 departure_start_date: destination.departure_start_date || '',
                 departure_end_date: destination.departure_end_date || '',
@@ -235,6 +237,7 @@ export default function DestinationsAdmin() {
                 availability_status: 'available',
                 is_published: false,
                 show_waitlist: false,
+                show_testimonials: false,
                 display_order: 0,
                 departure_start_date: '',
                 departure_end_date: '',
@@ -601,6 +604,26 @@ export default function DestinationsAdmin() {
                                                     {formData.show_waitlist ? 'Lista de espera ativada' : 'Lista de espera desativada'}
                                                 </span>
                                                 <p className="text-xs text-gray-400 mt-0.5">Exibe o bloco de lista de espera para 2027 na página do destino.</p>
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div className="col-span-2">
+                                        <label className="flex items-center gap-3 cursor-pointer p-4 rounded-xl border border-gray-200 hover:border-[#92314D] transition-colors">
+                                            <div className="relative">
+                                                <input
+                                                    type="checkbox"
+                                                    className="sr-only"
+                                                    checked={formData.show_testimonials}
+                                                    onChange={(e) => setFormData({ ...formData, show_testimonials: e.target.checked })}
+                                                />
+                                                <div className={`w-11 h-6 rounded-full transition-colors ${formData.show_testimonials ? 'bg-[#92314D]' : 'bg-gray-300'}`} />
+                                                <div className={`absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform ${formData.show_testimonials ? 'translate-x-5' : 'translate-x-0'}`} />
+                                            </div>
+                                            <div>
+                                                <span className="text-sm font-medium text-[#1A1A1A]">
+                                                    {formData.show_testimonials ? 'Depoimentos em vídeo visíveis' : 'Depoimentos em vídeo ocultos'}
+                                                </span>
+                                                <p className="text-xs text-gray-400 mt-0.5">"Quem já viajou com a gente" — ative quando tiver os vídeos prontos.</p>
                                             </div>
                                         </label>
                                     </div>
