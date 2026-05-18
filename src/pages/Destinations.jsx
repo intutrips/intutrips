@@ -31,23 +31,31 @@ export default function Destinations() {
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
       {/* Header */}
-      <section className="pt-32 pb-16 px-6 bg-[#1A1A1A]">
-        <div className="max-w-7xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <span className="text-[#bda94c] text-sm tracking-widest uppercase">
-              Explore
-            </span>
-            <h1 className="text-4xl md:text-6xl font-light text-white mt-4 mb-6">
-              Nossos <span className="italic">Destinos</span>
-            </h1>
-            <p className="text-gray-400 max-w-2xl mx-auto font-light">
-              Cada roteiro foi pensado para proporcionar experiências únicas,
-              com o conforto de um grupo pequeno e exclusivamente brasileiro.
-            </p>
-          </motion.div>
+      <section className="relative h-[50vh] min-h-[380px] overflow-hidden">
+        <img
+          src="https://images.pexels.com/photos/13010366/pexels-photo-13010366.jpeg"
+          alt="Destinos"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/40 to-black/20" />
+        <div className="absolute inset-0 flex items-end pb-14 px-6">
+          <div className="max-w-7xl mx-auto w-full text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+            >
+              <span className="text-[#bda94c] text-sm tracking-widest uppercase">
+                Explore
+              </span>
+              <h1 className="text-4xl md:text-6xl font-light text-white mt-4 mb-6">
+                Nossos <span className="italic">Destinos</span>
+              </h1>
+              <p className="text-white/70 max-w-2xl mx-auto font-light">
+                Cada roteiro foi pensado para proporcionar experiências únicas,
+                com o conforto de um grupo pequeno e exclusivamente brasileiro.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
 
