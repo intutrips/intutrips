@@ -224,7 +224,7 @@ export default function DestinationDetail() {
             />
 
             {/* Lista de Espera */}
-            {['Tailândia', 'China'].includes(destination.country) && (
+            {destination.show_waitlist && (
               <WaitlistSection
                 destinationName={destination.name}
                 country={destination.country}
