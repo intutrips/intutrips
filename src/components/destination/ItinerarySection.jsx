@@ -57,7 +57,7 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
         Roteiro Detalhado
       </h2>
 
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {itinerary.map((day, index) => (
           <motion.div
             key={index}
