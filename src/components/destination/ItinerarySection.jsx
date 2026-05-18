@@ -2,21 +2,36 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
 
-function DayCarousel({ images }) {
+const FALLBACK_IMAGES = [
+  "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80",
+  "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80",
+  "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80",
+  "https://images.unsplash.com/photo-1557750255-c76072a7aad1?w=800&q=80",
+  "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80",
+];
+
+function DayCarousel({ images, dayIndex, fallbackImage }) {
   const [current, setCurrent] = useState(0);
-  if (!images || images.length === 0) return null;
+  const resolved = (images && images.length > 0)
+    ? images
+    : [fallbackImage || FALLBACK_IMAGES[dayIndex % FALLBACK_IMAGES.length]];
+  if (!resolved || resolved.length === 0) return null;
+  const imgs = resolved;
 
   const prev = () => setCurrent(i => (i - 1 + images.length) % images.length);
   const next = () => setCurrent(i => (i + 1) % images.length);
 
+  const prev = () => setCurrent(i => (i - 1 + imgs.length) % imgs.length);
+  const next = () => setCurrent(i => (i + 1) % imgs.length);
+
   return (
     <div className="relative mt-5 rounded-xl overflow-hidden aspect-[16/9] bg-gray-100">
       <img
-        src={images[current]}
+        src={imgs[current]}
         alt={`Foto ${current + 1}`}
         className="w-full h-full object-cover transition-opacity duration-300"
       />
-      {images.length > 1 && (
+      {imgs.length > 1 && (
         <>
           <button
             onClick={prev}
@@ -31,7 +46,7 @@ function DayCarousel({ images }) {
             <ChevronRight className="h-5 w-5" />
           </button>
           <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
-            {images.map((_, i) => (
+            {imgs.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
@@ -45,7 +60,7 @@ function DayCarousel({ images }) {
   );
 }
 
-export default function ItinerarySection({ itinerary }) {
+export default function ItinerarySection({ itinerary, fallbackImage }) {
   if (!itinerary || itinerary.length === 0) return null;
 
   return (
@@ -93,7 +108,7 @@ export default function ItinerarySection({ itinerary }) {
                   </div>
                 )}
 
-                <DayCarousel images={day.images} />
+                <DayCarousel images={day.images} dayIndex={index} fallbackImage={fallbackImage} />
               </div>
             </div>
           </motion.div>

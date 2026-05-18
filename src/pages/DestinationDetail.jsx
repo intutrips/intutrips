@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Calendar, Users, Clock, MapPin, Check, ArrowLeft } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from 'react-router-dom';
-import { createPageUrl, formatCurrency, generateSlug } from '@/utils';
+import { createPageUrl, generateSlug } from '@/utils';
 
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -144,135 +144,89 @@ export default function DestinationDetail() {
       </section>
 
       {/* Content */}
-      <section className="py-16 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-3 gap-12">
-            {/* Main Content */}
-            <div className="lg:col-span-2">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                {/* 1. Introdução */}
-                <section className="mb-16">
-                  <h2 className="text-2xl font-light text-[#1A1A1A] mb-6">
-                    Sobre esta viagem
-                  </h2>
-                  <p className="text-gray-600 font-light leading-relaxed text-lg">
-                    {destination.description}
-                  </p>
-                </section>
-
-                {/* 2. Highlights */}
-                {destination.highlights && destination.highlights.length > 0 && (
-                  <section className="mb-16">
-                    <h2 className="text-2xl font-light text-[#1A1A1A] mb-8">
-                      Destaques da viagem
-                    </h2>
-                    <div className="grid gap-6">
-                      {destination.highlights.map((highlight, index) => {
-                        const isStringFormat = typeof highlight === 'string';
-                        const title = isStringFormat ? highlight : highlight.title;
-                        const imageUrl = isStringFormat ? null : highlight.image_url;
-
-                        return (
-                          <div key={index} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
-                            <div className="grid md:grid-cols-2 gap-0">
-                              {imageUrl && (
-                                <div className="aspect-[4/3] md:aspect-auto">
-                                  <img
-                                    src={imageUrl}
-                                    alt={title}
-                                    className="w-full h-full object-cover"
-                                  />
-                                </div>
-                              )}
-                              <div className={`p-6 flex items-center ${!imageUrl ? 'md:col-span-2' : ''}`}>
-                                <div className="flex items-start gap-4 w-full">
-                                  <div className="w-8 h-8 rounded-full bg-[#bda94c]/20 flex items-center justify-center flex-shrink-0 mt-1">
-                                    <Check className="h-4 w-4 text-[#bda94c]" />
-                                  </div>
-                                  <span className="text-gray-700 text-lg font-light">{title}</span>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </section>
-                )}
-
-                {/* 3. Início e Fim da Viagem */}
-                <TripDaysSection
-                  tripStartInfo={destination.first_day_info}
-                  tripEndInfo={destination.last_day_info}
-                  startDate={destination.departure_start_date}
-                  endDate={destination.departure_end_date}
-                />
-
-                {/* 5. Exemplos de Hotéis */}
-                <HotelsSection hotels={destination.hotels} />
-
-                {/* 6. Roteiro Detalhado */}
-                <ItinerarySection itinerary={destination.itinerary} />
-
-                {/* 7. Inclusões e Exclusões */}
-                <InclusionsSection
-                  inclusions={destination.inclusions}
-                  exclusions={destination.exclusions}
-                />
-
-                {/* 8. Valores e Pagamento */}
-                <PaymentSection
-                  price_from={destination.price_from}
-                  price_lote2={destination.price_lote2}
-                  pricing_lots={destination.pricing_lots}
-                  payment_options={destination.payment_options}
-                />
-
-                {/* 9. Depoimentos em vídeo */}
-                <TestimonialsSection testimonials={destination.testimonial_videos} />
-
-                {/* 10. Contato */}
-                <ContactCTA />
-              </motion.div>
-            </div>
-
-            {/* Sidebar */}
-            <div>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="bg-white rounded-2xl p-8 sticky top-28"
-              >
-                <div className="space-y-4 mb-8">
-                  <div className="flex items-center gap-3 text-gray-600">
-                    <MapPin className="h-5 w-5 text-[#bda94c]" />
-                    <span>{destination.country}</span>
-                  </div>
-                  {destination.duration && (
-                    <div className="flex items-center gap-3 text-gray-600">
-                      <Clock className="h-5 w-5 text-[#bda94c]" />
-                      <span>{destination.duration}</span>
-                    </div>
-                  )}
-                  <div className="flex items-center gap-3 text-gray-600">
-                    <Users className="h-5 w-5 text-[#bda94c]" />
-                    <span>{destination.group_size || "6-12 pessoas"}</span>
-                  </div>
-                </div>
-
+      <section className="py-12 px-6">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+          >
+            {/* Descrição + CTA lado a lado */}
+            <section className="mb-12 grid md:grid-cols-3 gap-8 items-start">
+              <div className="md:col-span-2">
+                <h2 className="text-2xl font-light text-[#1A1A1A] mb-4">Sobre esta viagem</h2>
+                <p className="text-gray-600 font-light leading-relaxed text-lg">
+                  {destination.description}
+                </p>
+              </div>
+              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-4">
                 <a href="https://api.whatsapp.com/send/?phone=551151233225&text=Ol%C3%A1%2C+gostaria+de+saber+mais+sobre+...&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
                   <Button className="w-full bg-[#1A1A1A] hover:bg-[#2D4A3E] text-white rounded-full h-12">
                     Quero Participar
                   </Button>
                 </a>
-              </motion.div>
-            </div>
-          </div>
+                <p className="text-xs text-gray-400 text-center font-light">Vagas limitadas — garanta a sua</p>
+              </div>
+            </section>
+
+            {/* Highlights — chips horizontais compactos */}
+            {destination.highlights && destination.highlights.length > 0 && (
+              <section className="mb-12">
+                <h2 className="text-2xl font-light text-[#1A1A1A] mb-5">Destaques da viagem</h2>
+                <div className="flex flex-wrap gap-3">
+                  {destination.highlights.map((highlight, index) => {
+                    const title = typeof highlight === 'string' ? highlight : highlight.title;
+                    return (
+                      <div key={index} className="flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-gray-100 text-sm text-gray-700 font-light">
+                        <Check className="h-4 w-4 text-[#bda94c] flex-shrink-0" />
+                        {title}
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
+            {/* Galeria compacta */}
+            <GallerySection images={destination.images} />
+
+            {/* Início e Fim da Viagem */}
+            <TripDaysSection
+              tripStartInfo={destination.first_day_info}
+              tripEndInfo={destination.last_day_info}
+              startDate={destination.departure_start_date}
+              endDate={destination.departure_end_date}
+            />
+
+            {/* Hotéis */}
+            <HotelsSection hotels={destination.hotels} />
+
+            {/* Roteiro com fotos */}
+            <ItinerarySection
+              itinerary={destination.itinerary}
+              fallbackImage={imageUrl}
+            />
+
+            {/* Inclusões e Exclusões */}
+            <InclusionsSection
+              inclusions={destination.inclusions}
+              exclusions={destination.exclusions}
+            />
+
+            {/* Valores e Pagamento */}
+            <PaymentSection
+              price_from={destination.price_from}
+              price_lote2={destination.price_lote2}
+              pricing_lots={destination.pricing_lots}
+              payment_options={destination.payment_options}
+            />
+
+            {/* Depoimentos em vídeo */}
+            <TestimonialsSection testimonials={destination.testimonial_videos} />
+
+            {/* Contato */}
+            <ContactCTA />
+          </motion.div>
         </div>
       </section>
 

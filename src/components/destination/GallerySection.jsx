@@ -30,15 +30,15 @@ export default function GallerySection({ images }) {
         <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gray-200" />
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
         {images.map((image, index) => (
           <motion.div
             key={index}
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.05 }}
-            className="aspect-square rounded-xl overflow-hidden cursor-pointer group"
+            transition={{ delay: index * 0.04 }}
+            className="flex-shrink-0 w-48 h-36 rounded-xl overflow-hidden cursor-pointer group"
             onClick={() => setSelectedImage(image)}
           >
             <img
