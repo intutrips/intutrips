@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+h1, h2, h3 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

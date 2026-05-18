@@ -10,7 +10,7 @@ export default function HotelsSection({ hotels }) {
       <div className="flex items-center gap-3 mb-6">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gray-200" />
         <h2 className="text-2xl font-light text-[#3C3333]">
-          Exemplos de <span className="text-[#6b9faf] italic">Acomodação</span>
+          Estadias <span className="text-[#6b9faf] italic">Selecionadas</span>
         </h2>
         <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gray-200" />
       </div>
@@ -74,10 +74,6 @@ export default function HotelsSection({ hotels }) {
         })}
       </div>
 
-      <p className="text-sm text-gray-500 text-center mt-6 font-light italic">
-        * Os hotéis são exemplos de acomodações similares que podem ser utilizadas.
-        A acomodação final pode variar de acordo com disponibilidade.
-      </p>
     </section>
   );
 }

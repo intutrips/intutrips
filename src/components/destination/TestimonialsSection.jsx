@@ -95,9 +95,17 @@ function VideoCard({ video, index }) {
   );
 }
 
+const DEMO_VIDEOS = [
+  { url: "https://www.youtube.com/shorts/thOxqPRENRY", name: "Viajante", location: "Brasil" },
+  { url: "https://www.youtube.com/shorts/thOxqPRENRY", name: "Viajante", location: "Brasil" },
+  { url: "https://www.youtube.com/shorts/thOxqPRENRY", name: "Viajante", location: "Brasil" },
+  { url: "https://www.youtube.com/shorts/thOxqPRENRY", name: "Viajante", location: "Brasil" },
+  { url: "https://www.youtube.com/shorts/thOxqPRENRY", name: "Viajante", location: "Brasil" },
+];
+
 export default function TestimonialsSection({ testimonials }) {
   const scrollRef = useRef(null);
-  if (!testimonials || testimonials.length === 0) return null;
+  const videos = (testimonials && testimonials.length > 0) ? testimonials : DEMO_VIDEOS;
 
   const scroll = (dir) => {
     if (!scrollRef.current) return;
@@ -116,7 +124,7 @@ export default function TestimonialsSection({ testimonials }) {
             Experiências reais de quem viveu essa viagem
           </p>
         </div>
-        {testimonials.length > 2 && (
+        {videos.length > 2 && (
           <div className="flex gap-2">
             <button
               onClick={() => scroll(-1)}
@@ -139,7 +147,7 @@ export default function TestimonialsSection({ testimonials }) {
         className="flex gap-5 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
-        {testimonials.map((video, i) => (
+        {videos.map((video, i) => (
           <div key={i} className="snap-start">
             <VideoCard video={video} index={i} />
           </div>
