@@ -40,10 +40,13 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image dinâmico */}
       <div className="absolute inset-0">
-        <img
+        <motion.img
           src={bgImage}
           alt="Hero background"
           className="w-full h-full object-cover"
+          initial={{ scale: 1.08 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 8, ease: 'easeOut' }}
         />
         {/* Overlay com opacidade dinâmica */}
         <div
