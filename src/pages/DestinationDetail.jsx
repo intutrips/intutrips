@@ -13,7 +13,6 @@ import ContactSection from '@/components/home/ContactSection';
 import ItinerarySection from '@/components/destination/ItinerarySection';
 import InclusionsSection from '@/components/destination/InclusionsSection';
 import PaymentSection from '@/components/destination/PaymentSection';
-import ContactCTA from '@/components/destination/ContactCTA';
 import GallerySection from '@/components/destination/GallerySection';
 import HotelsSection from '@/components/destination/HotelsSection';
 import TripDaysSection from '@/components/destination/TripDaysSection';
@@ -221,9 +220,6 @@ export default function DestinationDetail() {
               pricing_lots={destination.pricing_lots}
               payment_options={destination.payment_options}
             />
-
-            {/* Contato */}
-            <ContactCTA />
 
             {/* Perguntas Frequentes */}
             <FAQSection country={destination.country} extraFaqs={destination.extra_faqs || []} />
