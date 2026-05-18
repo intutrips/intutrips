@@ -80,7 +80,11 @@ export default function Testimonial() {
     <section className="py-20 px-6 bg-[#FAF8F5]">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-12">
-          <span className="text-[#6b9faf] text-sm tracking-widest uppercase">Depoimentos</span>
+          <span className="inline-flex items-center gap-2.5 text-[#6b9faf] text-sm tracking-widest uppercase">
+            <svg width="10" height="10" viewBox="0 0 100 100" fill="#6b9faf"><path d="M50 0 C52 40 60 48 100 50 C60 52 52 60 50 100 C48 60 40 52 0 50 C40 48 48 40 50 0Z"/></svg>
+            Depoimentos
+            <svg width="10" height="10" viewBox="0 0 100 100" fill="#6b9faf"><path d="M50 0 C52 40 60 48 100 50 C60 52 52 60 50 100 C48 60 40 52 0 50 C40 48 48 40 50 0Z"/></svg>
+          </span>
           <h2 className="text-3xl font-light text-[#1A1A1A] mt-3">
             O que dizem quem <span className="italic text-[#6b9faf]">já viajou com a gente</span>
           </h2>

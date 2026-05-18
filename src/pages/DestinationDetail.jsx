@@ -103,7 +103,8 @@ export default function DestinationDetail() {
               animate={{ opacity: 1, y: 0 }}
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="inline-block px-4 py-2 bg-[#6b9faf] text-white text-sm tracking-wider uppercase rounded-full">
+                <span className="inline-flex items-center gap-2 px-4 py-2 bg-[#6b9faf] text-white text-sm tracking-wider uppercase rounded-full">
+                  <img src="/brand/star-4pt-cream.png" alt="" className="w-3 h-3 opacity-80" />
                   {destination.country}
                 </span>
                 {destination.availability_status === 'sold_out' && (

@@ -16,8 +16,10 @@ function TeamSection() {
     <section className="py-24 px-6 bg-[#f8eee5]">
       <div className="max-w-7xl mx-auto">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
-          <span className="text-[#6b9faf] text-sm tracking-widest uppercase">
+          <span className="inline-flex items-center gap-2.5 text-[#6b9faf] text-sm tracking-widest uppercase">
+            <svg width="10" height="10" viewBox="0 0 100 100" fill="#6b9faf"><path d="M50 0 C52 40 60 48 100 50 C60 52 52 60 50 100 C48 60 40 52 0 50 C40 48 48 40 50 0Z"/></svg>
             {texts.about_team_tag || 'Quem Está Por Trás'}
+            <svg width="10" height="10" viewBox="0 0 100 100" fill="#6b9faf"><path d="M50 0 C52 40 60 48 100 50 C60 52 52 60 50 100 C48 60 40 52 0 50 C40 48 48 40 50 0Z"/></svg>
           </span>
           <h2 className="text-3xl md:text-4xl font-light text-[#3C3333] mt-4">
             {texts.about_team_title1 || 'Conheça quem'}{' '}

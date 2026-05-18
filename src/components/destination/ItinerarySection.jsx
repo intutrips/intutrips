@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin, ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { Calendar, MapPin, ChevronLeft, ChevronRight } from 'lucide-react';
+
+const IntuStar = ({ size = 18, color = '#bda94c' }) => (
+  <svg width={size} height={size} viewBox="0 0 100 100" fill={color} className="flex-shrink-0">
+    <path d="M50 0 C52 40 60 48 100 50 C60 52 52 60 50 100 C48 60 40 52 0 50 C40 48 48 40 50 0Z"/>
+  </svg>
+);
 
 const FALLBACK_IMAGES = [
   "https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80",
@@ -75,7 +81,7 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
 
                 {day.toque_intu && (
                   <div className="mb-3 flex items-start gap-2.5 bg-gradient-to-r from-[#bda94c]/10 to-[#bda94c]/5 border border-[#bda94c]/30 rounded-xl px-4 py-3">
-                    <Star className="h-4 w-4 text-[#bda94c] flex-shrink-0 mt-0.5 fill-[#bda94c]" />
+                    <IntuStar size={18} color="#bda94c" />
                     <div>
                       <span className="text-xs font-bold text-[#bda94c] uppercase tracking-wider">Toque da Intu</span>
                       <p className="text-sm text-gray-700 font-light mt-0.5">{day.toque_intu}</p>

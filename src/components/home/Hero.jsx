@@ -57,6 +57,35 @@ export default function Hero() {
         />
       </div>
 
+      {/* Decorative brand elements */}
+      {/* Star compass — top right */}
+      <motion.img
+        src="/brand/star-compass.png"
+        alt=""
+        className="absolute top-16 right-8 md:right-16 w-28 md:w-40 opacity-20 pointer-events-none select-none"
+        initial={{ opacity: 0, rotate: -15 }}
+        animate={{ opacity: 0.18, rotate: 0 }}
+        transition={{ duration: 2, ease: 'easeOut' }}
+      />
+      {/* Crystal — bottom left */}
+      <motion.img
+        src="/brand/crystal-blue.png"
+        alt=""
+        className="absolute bottom-16 left-4 md:left-12 w-16 md:w-24 opacity-15 pointer-events-none select-none"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 0.15, y: 0 }}
+        transition={{ duration: 2, delay: 0.5, ease: 'easeOut' }}
+      />
+      {/* Small star — bottom right */}
+      <motion.img
+        src="/brand/star-4pt-cream.png"
+        alt=""
+        className="absolute bottom-24 right-12 md:right-24 w-8 md:w-12 opacity-25 pointer-events-none select-none"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.25 }}
+        transition={{ duration: 2, delay: 1, ease: 'easeOut' }}
+      />
+
       {/* Content */}
       <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
 
@@ -66,8 +95,10 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white/90 text-sm tracking-widest uppercase mb-8 border border-white/20">
+          <span className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white/90 text-sm tracking-widest uppercase mb-8 border border-white/20">
+            <img src="/brand/star-4pt-cream.png" alt="" className="w-3 h-3 opacity-80" />
             {tagline}
+            <img src="/brand/star-4pt-cream.png" alt="" className="w-3 h-3 opacity-80" />
           </span>
         </motion.div>
 
