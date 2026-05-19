@@ -85,24 +85,24 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
                 <p className="text-sm text-gray-500 font-light leading-relaxed">{day.description}</p>
               )}
 
-              {day.toque_intu && (
-                <div className="flex items-start gap-2 bg-gradient-to-r from-[#bda94c]/10 to-[#bda94c]/5 border border-[#bda94c]/30 rounded-xl px-3 py-2">
-                  <IntuStar size={14} color="#bda94c" />
-                  <div>
-                    <span className="text-xs font-bold text-[#bda94c] uppercase tracking-wider">Toque da Intu</span>
-                    <p className="text-sm text-gray-700 font-light mt-0.5">{day.toque_intu}</p>
-                  </div>
-                </div>
-              )}
-
               {day.activities && day.activities.filter(a => a?.trim()).length > 0 && (
-                <div className="flex flex-wrap gap-1.5 mt-auto pt-1">
+                <div className="flex flex-wrap gap-1.5">
                   {day.activities.filter(a => a?.trim()).map((activity, actIndex) => (
                     <span key={actIndex} className="inline-flex items-center gap-1 text-xs text-gray-600 bg-gray-50 rounded-full px-2.5 py-1">
                       <MapPin className="h-3 w-3 text-[#bda94c]" />
                       {activity}
                     </span>
                   ))}
+                </div>
+              )}
+
+              {day.toque_intu && (
+                <div className="flex items-start gap-2 bg-gradient-to-r from-[#bda94c]/10 to-[#bda94c]/5 border border-[#bda94c]/30 rounded-xl px-3 py-2 mt-auto">
+                  <IntuStar size={14} color="#bda94c" />
+                  <div>
+                    <span className="text-xs font-bold text-[#bda94c] uppercase tracking-wider">Toque da Intu</span>
+                    <p className="text-sm text-gray-700 font-light mt-0.5">{day.toque_intu}</p>
+                  </div>
                 </div>
               )}
             </div>
