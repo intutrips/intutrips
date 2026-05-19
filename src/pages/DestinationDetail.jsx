@@ -2,7 +2,17 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
-import { Calendar, Users, Clock, MapPin, Check, ArrowLeft } from 'lucide-react';
+import { Calendar, Users, Clock, MapPin, Check, ArrowLeft, Leaf, Sparkles, Palette, Landmark, Moon, Heart, Globe } from 'lucide-react';
+
+const PROFILE_TAG_ICONS = {
+  'Natureza':          Leaf,
+  'Espiritualidade':   Sparkles,
+  'Cultura':           Palette,
+  'História':          Landmark,
+  'Vida Noturna':      Moon,
+  'Reconexão Pessoal': Heart,
+  'Imersão Cultural':  Globe,
+};
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from 'react-router-dom';
 import { createPageUrl, generateSlug } from '@/utils';
@@ -200,21 +210,13 @@ export default function DestinationDetail() {
             {destination.profile_tags && destination.profile_tags.length > 0 && (
               <section className="mb-12">
                 <h2 className="text-2xl font-light text-[#1A1A1A] mb-5">Perfil da viagem</h2>
-                <div className="flex flex-wrap gap-4">
+                <div className="flex flex-wrap gap-3">
                   {destination.profile_tags.map((tag, index) => {
-                    const icons = {
-                      'história': '🏛️', 'historia': '🏛️',
-                      'tecnologia': '⚡', 'tradição': '🎎', 'tradicao': '🎎',
-                      'cultura': '🎭', 'natureza': '🌿',
-                      'vida noturna': '🌙', 'espiritualidade': '🪷',
-                      'gastronomia': '🍜', 'aventura': '🧭',
-                      'praias': '🏖️', 'templos': '⛩️',
-                    };
-                    const emoji = icons[tag.toLowerCase()] || '✦';
+                    const Icon = PROFILE_TAG_ICONS[tag];
                     return (
-                      <div key={index} className="flex items-center gap-3 px-5 py-3 bg-white rounded-2xl shadow-sm border border-gray-100">
-                        <span className="text-xl">{emoji}</span>
-                        <span className="text-sm font-medium text-[#3C3333] tracking-wide">{tag}</span>
+                      <div key={index} className="flex items-center gap-2.5 px-5 py-3 bg-white rounded-2xl shadow-sm border border-gray-100">
+                        {Icon && <Icon className="h-5 w-5 text-[#6b9faf] flex-shrink-0" />}
+                        <span className="text-sm font-medium text-[#3C3333]">{tag}</span>
                       </div>
                     );
                   })}
