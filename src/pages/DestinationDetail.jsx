@@ -196,6 +196,32 @@ export default function DestinationDetail() {
               </section>
             )}
 
+            {/* Perfil da Viagem */}
+            {destination.profile_tags && destination.profile_tags.length > 0 && (
+              <section className="mb-12">
+                <h2 className="text-2xl font-light text-[#1A1A1A] mb-5">Perfil da viagem</h2>
+                <div className="flex flex-wrap gap-4">
+                  {destination.profile_tags.map((tag, index) => {
+                    const icons = {
+                      'história': '🏛️', 'historia': '🏛️',
+                      'tecnologia': '⚡', 'tradição': '🎎', 'tradicao': '🎎',
+                      'cultura': '🎭', 'natureza': '🌿',
+                      'vida noturna': '🌙', 'espiritualidade': '🪷',
+                      'gastronomia': '🍜', 'aventura': '🧭',
+                      'praias': '🏖️', 'templos': '⛩️',
+                    };
+                    const emoji = icons[tag.toLowerCase()] || '✦';
+                    return (
+                      <div key={index} className="flex items-center gap-3 px-5 py-3 bg-white rounded-2xl shadow-sm border border-gray-100">
+                        <span className="text-xl">{emoji}</span>
+                        <span className="text-sm font-medium text-[#3C3333] tracking-wide">{tag}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </section>
+            )}
+
             {/* Galeria compacta */}
             <GallerySection images={destination.images} />
 

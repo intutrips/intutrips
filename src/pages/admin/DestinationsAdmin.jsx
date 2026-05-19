@@ -70,7 +70,8 @@ export default function DestinationsAdmin() {
         first_day_info: { title: '', description: '', activities: [] },
         last_day_info: { title: '', description: '', activities: [] },
         itinerary: [],
-        highlights: []
+        highlights: [],
+        profile_tags: []
     });
 
     const [localDestinations, setLocalDestinations] = useState([]);
@@ -222,7 +223,8 @@ export default function DestinationsAdmin() {
                 first_day_info: destination.first_day_info || { title: '', description: '', activities: [] },
                 last_day_info: destination.last_day_info || { title: '', description: '', activities: [] },
                 itinerary: destination.itinerary || [],
-                highlights: destination.highlights || []
+                highlights: destination.highlights || [],
+                profile_tags: destination.profile_tags || []
             });
         } else {
             setEditingDestination(null);
@@ -255,7 +257,8 @@ export default function DestinationsAdmin() {
                 first_day_info: { title: '', description: '', activities: [] },
                 last_day_info: { title: '', description: '', activities: [] },
                 itinerary: [],
-                highlights: []
+                highlights: [],
+                profile_tags: []
             });
         }
         setIsDialogOpen(true);
@@ -843,6 +846,21 @@ export default function DestinationsAdmin() {
                                             <p className="text-gray-400 text-sm">Nenhum destaque adicionado ainda.</p>
                                         </div>
                                     )}
+
+                                    {/* Perfil da Viagem */}
+                                    <div className="pt-4 border-t border-gray-100">
+                                        <h4 className="text-sm font-medium mb-1">Perfil da Viagem</h4>
+                                        <p className="text-xs text-gray-500 mb-3">Tags que descrevem o estilo da viagem (ex: Cultura, Natureza, História). Uma por linha.</p>
+                                        <textarea
+                                            className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm font-light resize-none h-28"
+                                            placeholder={"Cultura\nNatureza\nVida Noturna"}
+                                            value={(formData.profile_tags || []).join('\n')}
+                                            onChange={e => setFormData({
+                                                ...formData,
+                                                profile_tags: e.target.value.split('\n').map(t => t.trim()).filter(Boolean)
+                                            })}
+                                        />
+                                    </div>
                                 </div>
                             </TabsContent>
 
