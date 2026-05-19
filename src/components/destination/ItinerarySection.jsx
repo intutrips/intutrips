@@ -68,9 +68,11 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
             className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col"
           >
             {/* Imagem com proporção fixa + badge do dia */}
-            <div className="relative aspect-[16/9] flex-shrink-0">
-              <DayCarousel images={day.images} dayIndex={index} fallbackImage={fallbackImage} />
-              <div className="absolute top-3 left-3 w-9 h-9 rounded-xl bg-[#bda94c] flex items-center justify-center shadow">
+            <div className="relative aspect-[16/9] flex-shrink-0 overflow-hidden">
+              <div className="absolute inset-0">
+                <DayCarousel images={day.images} dayIndex={index} fallbackImage={fallbackImage} />
+              </div>
+              <div className="absolute top-3 left-3 w-9 h-9 rounded-xl bg-[#bda94c] flex items-center justify-center shadow z-10">
                 <span className="text-white text-sm font-bold">{day.day}</span>
               </div>
             </div>
