@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useSiteTexts } from '@/hooks/useSiteTexts';
 
 export default function Hero() {
-  const { texts } = useSiteTexts();
+  const { texts, isLoading } = useSiteTexts();
 
   // Campos dinâmicos com fallbacks
   const tagline = texts.home_hero_tagline || 'Viagens em Grupo pela Ásia';
@@ -40,14 +40,17 @@ export default function Hero() {
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image dinâmico */}
       <div className="absolute inset-0">
-        <motion.img
-          src={bgImage}
-          alt="Hero background"
-          className="w-full h-full object-cover"
-          initial={{ scale: 1 }}
-          animate={{ scale: 1.08 }}
-          transition={{ duration: 15, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
-        />
+        {!isLoading && (
+          <motion.img
+            key={bgImage}
+            src={bgImage}
+            alt="Hero background"
+            className="w-full h-full object-cover"
+            initial={{ scale: 1 }}
+            animate={{ scale: 1.08 }}
+            transition={{ duration: 15, ease: 'easeInOut', repeat: Infinity, repeatType: 'reverse' }}
+          />
+        )}
         {/* Overlay com opacidade dinâmica */}
         <div
           className="absolute inset-0 bg-gradient-to-b"
