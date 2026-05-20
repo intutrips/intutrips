@@ -35,12 +35,12 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to={createPageUrl('Destinations')} className="hover:text-[#6b9faf] transition-colors">
+                <Link to={createPageUrl('Destinos')} className="hover:text-[#6b9faf] transition-colors">
                   Destinos
                 </Link>
               </li>
               <li>
-                <Link to={createPageUrl('Guides')} className="hover:text-[#6b9faf] transition-colors">
+                <Link to={createPageUrl('Guias')} className="hover:text-[#6b9faf] transition-colors">
                   Guias
                 </Link>
               </li>

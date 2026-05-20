@@ -59,7 +59,7 @@ export default function FeaturedDestinations({ destinations, isLoading }) {
             viewport={{ once: true }}
             className="text-center mt-12">
 
-            <Link to={createPageUrl('Destinations')}>
+            <Link to={createPageUrl('Destinos')}>
               <Button
                 variant="outline"
                 className="border-[#1A1A1A] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white rounded-full px-8">

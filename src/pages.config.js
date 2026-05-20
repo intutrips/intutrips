@@ -59,8 +59,8 @@ import __Layout from './Layout.jsx';
 export const PAGES = {
     "Sobre": About,
     "DestinationDetail": DestinationDetail,
-    "Destinations": Destinations,
-    "Guides": Guides,
+    "Destinos": Destinations,
+    "Guias": Guides,
     "Home": Home,
     "login": Login,
 }

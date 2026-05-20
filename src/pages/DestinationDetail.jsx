@@ -72,7 +72,7 @@ export default function DestinationDetail() {
       <div className="min-h-screen bg-[#FAF8F5] flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl text-gray-800 mb-4">Destino não encontrado</h1>
-          <Link to={createPageUrl('Destinations')}>
+          <Link to={createPageUrl('Destinos')}>
             <Button className="bg-[#1A1A1A] hover:bg-[#2D4A3E]">
               Ver todos os destinos
             </Button>
@@ -104,7 +104,7 @@ export default function DestinationDetail() {
 
         {/* Back Button */}
         <Link
-          to={createPageUrl('Destinations')}
+          to={createPageUrl('Destinos')}
           className="absolute top-28 left-6 md:left-12 z-10"
         >
           <Button variant="ghost" className="text-white hover:bg-white/10 gap-2">
