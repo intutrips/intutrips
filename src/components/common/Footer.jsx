@@ -45,7 +45,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to={createPageUrl('About')} className="hover:text-[#6b9faf] transition-colors">
+                <Link to={createPageUrl('Sobre')} className="hover:text-[#6b9faf] transition-colors">
                   Sobre Nós
                 </Link>
               </li>

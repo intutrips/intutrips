@@ -10,7 +10,7 @@ const navLinks = [
   { name: 'Início', page: 'Home' },
   { name: 'Destinos', page: 'Destinations' },
   { name: 'Guias', page: 'Guides' },
-  { name: 'Sobre Nós', page: 'About' }];
+  { name: 'Sobre Nós', page: 'Sobre' }];
 
 
 export default function Navbar() {
