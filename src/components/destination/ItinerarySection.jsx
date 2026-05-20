@@ -50,6 +50,8 @@ function DayCarousel({ images, dayIndex, fallbackImage }) {
 export default function ItinerarySection({ itinerary, fallbackImage }) {
   if (!itinerary || itinerary.length === 0) return null;
 
+  const sortedItinerary = [...itinerary].sort((a, b) => (Number(a.day) || 0) - (Number(b.day) || 0));
+
   return (
     <section className="mb-12">
       <h2 className="text-2xl font-light text-[#1A1A1A] mb-6 flex items-center gap-3">
@@ -58,7 +60,7 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
       </h2>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {itinerary.map((day, index) => (
+        {sortedItinerary.map((day, index) => (
           <motion.div
             key={index}
             initial={{ opacity: 0, y: 15 }}
