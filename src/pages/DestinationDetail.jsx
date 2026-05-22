@@ -83,6 +83,7 @@ export default function DestinationDetail() {
   }
 
   const imageUrl = destination.image_url || countryImages[destination.country] || countryImages["Tailândia"];
+  const isComingSoon = destination.availability_status === 'coming_soon';
 
   const whatsappUrls = {
     'Tailândia': 'https://wa.me/551151233225?text=Ola,%20vi%20a%20viagem%20da%20Tailandia%20no%20seu%20site%20e%20me%20interessei.%20Gostaria%20de%20mais%20informacoes.',
@@ -162,7 +163,36 @@ export default function DestinationDetail() {
         </div>
       </section>
 
+      {/* Em Breve — conteúdo simplificado */}
+      {isComingSoon && (
+        <section className="py-16 px-6">
+          <div className="max-w-2xl mx-auto text-center">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+              <span className="inline-block px-4 py-2 bg-[#6b9faf]/10 text-[#6b9faf] text-sm font-medium rounded-full mb-6 tracking-wider uppercase">
+                Em Breve
+              </span>
+              <h2 className="text-3xl font-light text-[#1A1A1A] mb-4">
+                Estamos preparando esta viagem
+              </h2>
+              <p className="text-gray-500 font-light leading-relaxed mb-8">
+                {destination.description || 'Os detalhes desta expedição estão sendo finalizados. Cadastre-se para ser notificada assim que abrirmos as inscrições.'}
+              </p>
+              <a
+                href="https://wa.me/551151233225?text=Ola,%20vi%20o%20destino%20em%20breve%20no%20seu%20site%20e%20gostaria%20de%20ser%20avisada%20quando%20abrirem%20as%20inscricoes."
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="bg-[#6b9faf] hover:bg-[#598491] text-white rounded-full h-12 px-8 text-base">
+                  Quero ser avisada quando abrir
+                </Button>
+              </a>
+            </motion.div>
+          </div>
+        </section>
+      )}
+
       {/* Content */}
+      {!isComingSoon &&
       <section className="py-12 px-4 md:px-10">
         <div className="max-w-6xl mx-auto">
           <motion.div
@@ -276,7 +306,7 @@ export default function DestinationDetail() {
             )}
           </motion.div>
         </div>
-      </section>
+      </section>}
 
     </div>
   );

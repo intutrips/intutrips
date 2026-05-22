@@ -33,6 +33,11 @@ export default function DestinationCard({ destination, index }) {
       >
         <div className="relative overflow-hidden rounded-2xl bg-[#1A1A1A]">
           {/* Availability Badge */}
+          {destination.availability_status === 'coming_soon' && (
+            <div className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-[#6b9faf] text-white text-xs font-medium uppercase rounded-full tracking-wider">
+              Em Breve
+            </div>
+          )}
           {destination.availability_status === 'sold_out' && (
             <div className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-red-500 text-white text-xs font-medium uppercase rounded-full">
               Esgotado
@@ -42,6 +47,10 @@ export default function DestinationCard({ destination, index }) {
             <div className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-orange-500 text-white text-xs font-medium uppercase rounded-full">
               Últimas Vagas
             </div>
+          )}
+          {/* Overlay escuro sutil para Em Breve */}
+          {destination.availability_status === 'coming_soon' && (
+            <div className="absolute inset-0 z-[5] bg-black/30 backdrop-blur-[1px]" />
           )}
 
           {/* Image */}
@@ -97,7 +106,7 @@ export default function DestinationCard({ destination, index }) {
           </div>
 
           {/* Price Badge */}
-          {destination.price_from && (
+          {destination.price_from && destination.availability_status !== 'coming_soon' && (
             <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg">
               <span className="text-xs text-gray-500">a partir de</span>
               <div className="text-lg font-medium text-[#1A1A1A]">

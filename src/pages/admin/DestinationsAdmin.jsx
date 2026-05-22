@@ -542,6 +542,7 @@ export default function DestinationsAdmin() {
                                             onChange={(e) => setFormData({ ...formData, availability_status: e.target.value })}
                                         >
                                             <option value="available">Disponível</option>
+                                            <option value="coming_soon">Em Breve</option>
                                             <option value="few_spots">Últimas Vagas</option>
                                             <option value="sold_out">Esgotado</option>
                                         </select>
