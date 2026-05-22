@@ -202,12 +202,12 @@ export default function DestinationDetail() {
                 )}
               </div>
               <a
-                href={whatsappUrl}
+                href="https://forms.gle/iBzcRrTPc9CTqfUr5"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Button className="bg-[#6b9faf] hover:bg-[#598491] text-white rounded-full h-12 px-8 text-base">
-                  Quero ser avisada quando abrir
+                  Quero saber quando as vagas abrirem
                 </Button>
               </a>
             </motion.div>
