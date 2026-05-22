@@ -2,7 +2,7 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
-import { Calendar, Users, Clock, MapPin, Check, ArrowLeft, Leaf, Sparkles, Palette, Landmark, Moon, Heart, Globe } from 'lucide-react';
+import { Calendar, Users, Clock, MapPin, Check, ArrowLeft, Leaf, Sparkles, Palette, Landmark, Moon, Heart, Globe, Venus } from 'lucide-react';
 
 const PROFILE_TAG_ICONS = {
   'Natureza':          Leaf,
@@ -157,6 +157,18 @@ export default function DestinationDetail() {
                     Datas: {format(new Date(destination.departure_start_date), "dd/MM")} - {format(new Date(destination.departure_end_date), "dd/MM/yyyy")}
                   </span>
                 )}
+                {destination.group_type === 'mulheres' && (
+                  <span className="flex items-center gap-2 px-3 py-1 bg-[#92314D]/80 rounded-full text-sm">
+                    <Venus className="h-4 w-4" />
+                    Apenas Mulheres
+                  </span>
+                )}
+                {destination.group_type === 'misto' && (
+                  <span className="flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-sm">
+                    <Users className="h-4 w-4" />
+                    Grupo Misto
+                  </span>
+                )}
               </div>
             </motion.div>
           </div>
@@ -168,17 +180,29 @@ export default function DestinationDetail() {
         <section className="py-16 px-6">
           <div className="max-w-2xl mx-auto text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-              <span className="inline-block px-4 py-2 bg-[#6b9faf]/10 text-[#6b9faf] text-sm font-medium rounded-full mb-6 tracking-wider uppercase">
+              <span className="inline-block px-4 py-2 bg-[#6b9faf]/10 text-[#6b9faf] text-sm font-medium rounded-full mb-8 tracking-wider uppercase">
                 Em Breve
               </span>
-              <h2 className="text-3xl font-light text-[#1A1A1A] mb-4">
-                Estamos preparando esta viagem
+              <h2 className="text-3xl font-light text-[#1A1A1A] mb-8">
+                Estamos preparando esta expedição
               </h2>
-              <p className="text-gray-500 font-light leading-relaxed mb-8">
-                {destination.description || 'Os detalhes desta expedição estão sendo finalizados. Cadastre-se para ser notificada assim que abrirmos as inscrições.'}
-              </p>
+              {/* Apenas grupo e datas */}
+              <div className="flex flex-wrap justify-center gap-4 mb-10">
+                <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-2xl shadow-sm border border-gray-100">
+                  <Users className="h-5 w-5 text-[#6b9faf]" />
+                  <span className="text-sm font-medium text-[#3C3333]">{destination.group_size || '6-12 pessoas'}</span>
+                </div>
+                {destination.departure_start_date && destination.departure_end_date && (
+                  <div className="flex items-center gap-2 px-5 py-3 bg-white rounded-2xl shadow-sm border border-gray-100">
+                    <Calendar className="h-5 w-5 text-[#6b9faf]" />
+                    <span className="text-sm font-medium text-[#3C3333]">
+                      {format(new Date(destination.departure_start_date), "dd/MM")} — {format(new Date(destination.departure_end_date), "dd/MM/yyyy")}
+                    </span>
+                  </div>
+                )}
+              </div>
               <a
-                href="https://wa.me/551151233225?text=Ola,%20vi%20o%20destino%20em%20breve%20no%20seu%20site%20e%20gostaria%20de%20ser%20avisada%20quando%20abrirem%20as%20inscricoes."
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
               >

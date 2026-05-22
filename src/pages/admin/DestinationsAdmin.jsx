@@ -67,6 +67,7 @@ export default function DestinationsAdmin() {
         duration: '',
         group_size: '',
         availability_status: 'available',
+        group_type: 'misto',
         is_published: false,
         show_waitlist: false,
         show_testimonials: false,
@@ -218,6 +219,7 @@ export default function DestinationsAdmin() {
                 duration: destination.duration || '',
                 group_size: destination.group_size || '',
                 availability_status: destination.availability_status || 'available',
+                group_type: destination.group_type || 'misto',
                 is_published: destination.is_published ?? false,
                 show_waitlist: destination.show_waitlist ?? false,
                 show_testimonials: destination.show_testimonials ?? false,
@@ -545,6 +547,17 @@ export default function DestinationsAdmin() {
                                             <option value="coming_soon">Em Breve</option>
                                             <option value="few_spots">Últimas Vagas</option>
                                             <option value="sold_out">Esgotado</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="text-sm font-medium text-gray-700 mb-1 block">Tipo de Grupo</label>
+                                        <select
+                                            className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                            value={formData.group_type}
+                                            onChange={(e) => setFormData({ ...formData, group_type: e.target.value })}
+                                        >
+                                            <option value="misto">Grupo Misto</option>
+                                            <option value="mulheres">Apenas Mulheres</option>
                                         </select>
                                     </div>
                                     <div className="space-y-2 col-span-2">

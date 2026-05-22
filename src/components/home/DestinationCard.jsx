@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Users, ArrowUpRight } from 'lucide-react';
+import { Calendar, Users, ArrowUpRight, Venus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { createPageUrl, formatCurrency, generateSlug } from '@/utils';
 
@@ -54,6 +54,20 @@ export default function DestinationCard({ destination, index }) {
           )}
 
           {/* Image */}
+          {/* Group type tag */}
+          {destination.group_type === 'mulheres' && (
+            <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 bg-[#92314D] text-white text-xs font-medium rounded-full">
+              <Venus className="h-3 w-3" />
+              Apenas Mulheres
+            </div>
+          )}
+          {destination.group_type === 'misto' && (
+            <div className="absolute top-4 right-4 z-10 flex items-center gap-1.5 px-3 py-1.5 bg-black/40 backdrop-blur-sm text-white text-xs font-medium rounded-full">
+              <Users className="h-3 w-3" />
+              Grupo Misto
+            </div>
+          )}
+
           <div className="aspect-[4/5] overflow-hidden">
             <img
               src={imageUrl}
