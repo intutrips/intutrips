@@ -26,7 +26,7 @@ export default function Footer() {
             <div className="mt-5">
               <p className="text-white/50 text-xs mb-2 uppercase tracking-wider">Cadastrada em</p>
               <img
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Logotipo_da_Embratur.svg/250px-Logotipo_da_Embratur.svg.png"
+                src="https://lh3.googleusercontent.com/pw/AP1GczOt6z2vj5q02Q8m9EI3Scosbu0-3yncmmWcmxQQCiFHdvw721v7Bhv9lLprWEvjF6t2cV2X5R43QdfmY_8d2AVC_aRJj9AM07yh6pl1L7g6riesfa8Si1PRDd9YQvrsumbEdMiaSN_jEvC9_C0WC5WA=w490-h110-s-no-gm?authuser=1"
                 alt="Embratur - Instituto Brasileiro de Turismo"
                 className="h-8 w-auto opacity-90"
               />
