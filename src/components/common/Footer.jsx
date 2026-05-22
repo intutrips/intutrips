@@ -22,6 +22,15 @@ export default function Footer() {
             <p className="text-white/80 font-light max-w-md leading-relaxed">
               {texts.home_footer_desc || 'Onde ir por conta vira barreira, a gente vira apoio. Viagens em grupo pela Ásia com o cuidado que você merece.'}
             </p>
+            <p className="text-white/50 text-xs mt-2">CNPJ: 58.315.120/0001-68</p>
+            <div className="mt-5">
+              <p className="text-white/50 text-xs mb-2 uppercase tracking-wider">Cadastrada em</p>
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Embratur.svg/200px-Embratur.svg.png"
+                alt="Embratur - Instituto Brasileiro de Turismo"
+                className="h-8 w-auto opacity-90"
+              />
+            </div>
           </div>
 
 
