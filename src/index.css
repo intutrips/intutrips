@@ -147,3 +147,109 @@ h1, h2, h3 {
   color: #6b9faf;
   text-decoration: underline;
 }
+.blog-content h4 {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #bda94c;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.blog-content ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+  color: #444;
+}
+.blog-content ol li {
+  margin-bottom: 0.7rem;
+  line-height: 1.75;
+  font-weight: 300;
+}
+.blog-content .lead {
+  font-size: 1.2rem;
+  line-height: 1.75;
+  color: #3C3333;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+
+/* Blog callouts */
+.blog-content .callout {
+  background: #fdf8ed;
+  border-left: 4px solid #bda94c;
+  padding: 20px 24px;
+  margin: 2rem 0;
+  border-radius: 0 8px 8px 0;
+}
+.blog-content .callout.info {
+  background: #f0f7fa;
+  border-left-color: #6b9faf;
+}
+.blog-content .callout.tip {
+  background: #f0f7fa;
+  border-left-color: #6b9faf;
+}
+.blog-content .callout-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #bda94c;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.blog-content .callout.info .callout-title,
+.blog-content .callout.tip .callout-title {
+  color: #6b9faf;
+}
+.blog-content .callout p:last-child { margin-bottom: 0; }
+
+/* Blog checklist */
+.blog-content .checklist {
+  background: #fff;
+  border: 1px solid #e8e4d8;
+  padding: 24px 28px;
+  margin: 2rem 0;
+  border-radius: 12px;
+}
+.blog-content .checklist h4 { margin-top: 0; }
+.blog-content .checklist ul {
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+.blog-content .checklist li {
+  padding-left: 2rem;
+  position: relative;
+  margin-bottom: 10px;
+}
+.blog-content .checklist li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #bda94c;
+  font-weight: 700;
+}
+
+/* Blog divider */
+.blog-content .divider-decoration {
+  text-align: center;
+  margin: 3rem 0;
+  color: #bda94c;
+  font-size: 1.2rem;
+  letter-spacing: 0.8em;
+  opacity: 0.5;
+}
+
+/* Blog signature */
+.blog-content .signature {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.3rem;
+  color: #6b9faf;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
