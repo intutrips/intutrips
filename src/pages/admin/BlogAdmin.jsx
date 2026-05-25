@@ -366,9 +366,13 @@ export default function BlogAdmin() {
                   <button
                     type="button"
                     onClick={() => setRawHtmlMode(m => !m)}
-                    className="text-xs px-3 py-1 rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors"
+                    className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-colors ${
+                      rawHtmlMode
+                        ? 'border-[#6b9faf] bg-[#6b9faf]/10 text-[#6b9faf]'
+                        : 'border-[#bda94c] bg-[#bda94c]/10 text-[#bda94c] hover:bg-[#bda94c]/20'
+                    }`}
                   >
-                    {rawHtmlMode ? '✏️ Modo editor' : '</> Colar HTML'}
+                    {rawHtmlMode ? '✏️ Voltar ao editor' : '</> Colar HTML diretamente'}
                   </button>
                 </div>
                 {rawHtmlMode ? (

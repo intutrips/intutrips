@@ -58,6 +58,11 @@ export default function Footer() {
                   Sobre Nós
                 </Link>
               </li>
+              <li>
+                <Link to="/blog" className="hover:text-[#6b9faf] transition-colors">
+                  Blog
+                </Link>
+              </li>
             </ul>
           </div>
 
