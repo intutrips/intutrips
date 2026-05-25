@@ -100,3 +100,50 @@ h1, h2, h3 {
     @apply bg-background text-foreground;
   }
 }
+/* Blog content styles */
+.blog-content h2 {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #1A1A1A;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+}
+.blog-content h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #1A1A1A;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.blog-content p {
+  font-size: 1.05rem;
+  color: #444;
+  line-height: 1.85;
+  margin-bottom: 1.25rem;
+  font-weight: 300;
+}
+.blog-content ul, .blog-content ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+  color: #444;
+}
+.blog-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+.blog-content blockquote {
+  border-left: 3px solid #bda94c;
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  color: #666;
+  font-style: italic;
+}
+.blog-content strong {
+  color: #1A1A1A;
+  font-weight: 600;
+}
+.blog-content a {
+  color: #6b9faf;
+  text-decoration: underline;
+}

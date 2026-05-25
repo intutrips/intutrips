@@ -18,6 +18,7 @@ import Login from '@/pages/Login';
 import TestimonialsAdmin from '@/pages/admin/TestimonialsAdmin';
 import CountriesAdmin from '@/pages/admin/CountriesAdmin';
 import SiteTextsAdmin from '@/pages/admin/SiteTextsAdmin';
+import BlogAdmin from '@/pages/admin/BlogAdmin';
 import Profile from '@/pages/admin/Profile';
 
 
@@ -154,10 +155,19 @@ const AuthenticatedApp = () => {
           <Login />
         )
       } />
+      <Route path="/admin/blog" element={
+        isAuthenticated ? (
+          <AdminLayout>
+            <BlogAdmin />
+          </AdminLayout>
+        ) : (
+          <Login />
+        )
+      } />
 
 
       {Object.entries(Pages)
-        .filter(([path]) => path !== 'DestinationDetail')
+        .filter(([path]) => !['DestinationDetail', 'BlogPost'].includes(path))
         .map(([path, Page]) => (
           <Route
             key={path}
@@ -169,6 +179,16 @@ const AuthenticatedApp = () => {
             }
           />
         ))}
+
+      {/* Rota dinâmica para posts do blog */}
+      <Route
+        path="/blog/:slug"
+        element={
+          <LayoutWrapper currentPageName="BlogPost">
+            <Pages.BlogPost />
+          </LayoutWrapper>
+        }
+      />
 
       {/* Rota dinâmica para os Destinos Individuais usando slug */}
       <Route
