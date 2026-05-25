@@ -11,6 +11,19 @@ import 'react-quill/dist/quill.snow.css';
 
 const CATEGORIES = ['Destinos', 'Dicas de Viagem', 'Cultura & Costumes', 'Viagem em Grupo'];
 
+const THAILAND_POST = {
+  title: 'O que brasileiros precisam saber antes de viajar para a Tailândia?',
+  slug: 'o-que-brasileiros-precisam-saber-antes-de-viajar-para-a-tailandia',
+  excerpt: 'Tudo o que você precisa resolver antes de embarcar para a Terra dos Sorrisos: visto, vacinas, clima, dinheiro e os detalhes culturais que fazem a diferença.',
+  cover_image_url: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=1200&q=80',
+  category: 'Destinos',
+  author: 'Intu Trips',
+  read_time_minutes: 12,
+  meta_description: 'Guia completo para brasileiros que querem viajar à Tailândia em 2026: visto, TDAC, vacinas, clima, dinheiro, cultura e dicas essenciais.',
+  is_published: true,
+  published_at: '2026-05-25',
+};
+
 const emptyForm = {
   title: '',
   slug: '',
@@ -52,6 +65,7 @@ export default function BlogAdmin() {
   const [formData, setFormData] = useState(emptyForm);
   const [isSaving, setIsSaving] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
+  const [rawHtmlMode, setRawHtmlMode] = useState(false);
 
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ['blog_posts_admin'],
@@ -65,9 +79,10 @@ export default function BlogAdmin() {
     },
   });
 
-  const openCreate = () => {
+  const openCreate = (prefill = null) => {
     setEditingPost(null);
-    setFormData(emptyForm);
+    setFormData(prefill ? { ...emptyForm, ...prefill } : emptyForm);
+    setRawHtmlMode(!!prefill);
     setIsModalOpen(true);
   };
 
@@ -181,10 +196,15 @@ export default function BlogAdmin() {
           <h1 className="text-2xl font-light text-[#1A1A1A]">Blog</h1>
           <p className="text-sm text-gray-500 mt-1">{posts.length} post{posts.length !== 1 ? 's' : ''} no total</p>
         </div>
-        <Button onClick={openCreate} className="bg-[#bda94c] hover:bg-[#a8943f] text-white gap-2 rounded-xl">
-          <Plus className="h-4 w-4" />
-          Novo Post
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={() => openCreate(THAILAND_POST)} variant="outline" className="gap-2 rounded-xl text-sm border-[#bda94c] text-[#bda94c] hover:bg-[#bda94c]/10">
+            🇹🇭 Carregar post Tailândia
+          </Button>
+          <Button onClick={() => openCreate()} className="bg-[#bda94c] hover:bg-[#a8943f] text-white gap-2 rounded-xl">
+            <Plus className="h-4 w-4" />
+            Novo Post
+          </Button>
+        </div>
       </div>
 
       {/* List */}
@@ -338,17 +358,36 @@ export default function BlogAdmin() {
 
               {/* Editor de conteúdo */}
               <div>
-                <label className="text-sm font-medium text-gray-700 block mb-2">Conteúdo</label>
-                <div className="border border-gray-200 rounded-xl overflow-hidden">
-                  <ReactQuill
-                    theme="snow"
-                    value={formData.content}
-                    onChange={value => setFormData(prev => ({ ...prev, content: value }))}
-                    modules={quillModules}
-                    placeholder="Escreva o conteúdo do post aqui..."
-                    style={{ minHeight: '280px' }}
-                  />
+                <div className="flex items-center justify-between mb-2">
+                  <label className="text-sm font-medium text-gray-700">Conteúdo</label>
+                  <button
+                    type="button"
+                    onClick={() => setRawHtmlMode(m => !m)}
+                    className="text-xs px-3 py-1 rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors"
+                  >
+                    {rawHtmlMode ? '✏️ Modo editor' : '</> Colar HTML'}
+                  </button>
                 </div>
+                {rawHtmlMode ? (
+                  <textarea
+                    rows={14}
+                    className="w-full border border-[#bda94c] rounded-xl px-4 py-3 text-xs font-mono focus:outline-none focus:ring-2 focus:ring-[#bda94c]/50 resize-y bg-gray-50"
+                    value={formData.content}
+                    onChange={e => setFormData(prev => ({ ...prev, content: e.target.value }))}
+                    placeholder="Cole o HTML do conteúdo aqui..."
+                  />
+                ) : (
+                  <div className="border border-gray-200 rounded-xl overflow-hidden">
+                    <ReactQuill
+                      theme="snow"
+                      value={formData.content}
+                      onChange={value => setFormData(prev => ({ ...prev, content: value }))}
+                      modules={quillModules}
+                      placeholder="Escreva o conteúdo do post aqui..."
+                      style={{ minHeight: '280px' }}
+                    />
+                  </div>
+                )}
               </div>
 
               {/* Autor + Tempo + Data */}
