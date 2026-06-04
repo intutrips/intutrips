@@ -43,6 +43,230 @@ const THAILAND_EXPERIENCES_POST = {
   content: THAILAND_EXPERIENCES_CONTENT,
 };
 
+const CHINA_POST_CONTENT = `<p class="lead">A China é uma das experiências mais transformadoras que um viajante pode ter. Mas ela cobra o seu preço em preparação. Quem chega sem se planejar descobre, tarde demais, que o Google não funciona, o cartão de crédito é recusado e o WeChat é mais essencial do que o passaporte. Este guia existe para que você não cometa esses erros.</p>
+
+<nav class="blog-toc">
+  <p class="toc-title">Neste Guia</p>
+  <ol>
+    <li><a href="#visto">Visto: quando é (e quando não é) necessário</a></li>
+    <li><a href="#documentos">Documentação essencial</a></li>
+    <li><a href="#internet">Internet, VPN e o Grande Firewall</a></li>
+    <li><a href="#dinheiro">Dinheiro, pagamentos e WeChat Pay</a></li>
+    <li><a href="#apps">Apps indispensáveis</a></li>
+    <li><a href="#saude">Saúde, vacinas e seguro-viagem</a></li>
+    <li><a href="#costumes">Costumes, etiqueta e o que evitar</a></li>
+    <li><a href="#transporte">Transporte interno</a></li>
+    <li><a href="#checklist">Checklist final antes de embarcar</a></li>
+  </ol>
+</nav>
+
+<div class="section-header" id="visto"><span class="num">01</span><h2>Visto: Quando é (e quando não é) Necessário</h2></div>
+
+<p>Em novembro de 2023, a China e o Brasil firmaram um acordo de isenção mútua de vistos. <strong>Desde então, brasileiros podem entrar na China sem visto para estadias de até 30 dias</strong>, para fins de turismo, trânsito, visita a familiares ou viagem a negócios.</p>
+
+<div class="callout tip"><div class="callout-title">✅ Boa notícia</div><p>Brasileiros com passaporte comum não precisam de visto para turismo de até 30 dias. O acordo está em vigor e é recíproco.</p></div>
+
+<p>No entanto, o visto ainda é obrigatório para: estadias superiores a 30 dias, trabalho remunerado, estudo em instituições chinesas e residência de longa duração. Nesses casos, solicite no Consulado-Geral da China em São Paulo, Rio de Janeiro ou Brasília.</p>
+
+<table>
+  <thead><tr><th>Tipo</th><th>Finalidade</th><th>Observação</th></tr></thead>
+  <tbody>
+    <tr><td><strong>L (Turismo)</strong></td><td>Turismo, lazer, visita a familiares</td><td>Isento para estadias &lt; 30 dias</td></tr>
+    <tr><td><strong>M (Negócios)</strong></td><td>Viagens comerciais, feiras</td><td>Isento para &lt; 30 dias</td></tr>
+    <tr><td><strong>X (Estudante)</strong></td><td>Cursos e intercâmbio</td><td>Sempre necessário</td></tr>
+    <tr><td><strong>Z (Trabalho)</strong></td><td>Emprego em empresa chinesa</td><td>Sempre necessário</td></tr>
+    <tr><td><strong>G (Trânsito)</strong></td><td>Parada de conexão</td><td>Regras de 72/144h se aplicam</td></tr>
+  </tbody>
+</table>
+
+<div class="callout"><div class="callout-title">⚠️ Atenção: Hong Kong e Macau são diferentes</div><p>Hong Kong e Macau possuem sistemas de imigração próprios, separados da China continental. A isenção de visto para o continente <em>não</em> se aplica automaticamente a essas regiões.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="documentos"><span class="num">02</span><h2>Documentação Essencial</h2></div>
+
+<p>Mesmo com a isenção de visto, a imigração chinesa é rigorosa. Tenha toda a documentação em mãos e mantenha cópias digitais na nuvem.</p>
+
+<div class="blog-cards">
+  <div class="blog-card"><span class="card-icon">🛂</span><h3>Passaporte válido</h3><p>Validade mínima de 6 meses além do retorno e pelo menos 2 páginas em branco.</p></div>
+  <div class="blog-card"><span class="card-icon">✈️</span><h3>Passagem de volta</h3><p>A imigração pode solicitar prova da data de saída. Tenha a confirmação disponível offline.</p></div>
+  <div class="blog-card"><span class="card-icon">🏨</span><h3>Confirmação de hospedagem</h3><p>Nome, endereço e número do hotel para o formulário de chegada.</p></div>
+  <div class="blog-card"><span class="card-icon">💳</span><h3>Comprovante financeiro</h3><p>Extrato bancário ou cartão de crédito internacional pode ser solicitado.</p></div>
+</div>
+
+<div class="callout"><div class="callout-title">📋 Formulário de chegada</div><p>Ao desembarcar, você preencherá o "Arrival Card" com endereço de hospedagem, duração da estadia e finalidade da visita. Leve as informações do hotel salvas offline — a internet no aeroporto pode ser limitada.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="internet"><span class="num">03</span><h2>Internet, VPN e o Grande Firewall</h2></div>
+
+<p>Este é, provavelmente, o maior choque para o viajante ocidental. A China opera o que é conhecido como "Grande Firewall" (防火长城), um sistema de censura que bloqueia a maioria dos serviços ocidentais.</p>
+
+<div class="callout"><div class="callout-title">🚫 Serviços bloqueados na China</div><p>Google (Maps, Gmail, Drive, YouTube, Tradutor), Instagram, Facebook, WhatsApp, Twitter/X, Telegram, Spotify, Netflix e a maioria dos serviços ocidentais de nuvem. Até o ChatGPT é inacessível sem VPN.</p></div>
+
+<p>Uma VPN (Rede Virtual Privada) permite burlar o bloqueio. <strong>É fundamental instalar e testar antes de embarcar</strong> — os sites das VPNs também são bloqueados na China, então você não conseguirá baixá-la quando já estiver lá. VPNs recomendadas: <strong>ExpressVPN, NordVPN e Astrill</strong>.</p>
+
+<div class="callout tip"><div class="callout-title">📲 A melhor alternativa: eSIM com VPN embutida</div><p>Plataformas como a <strong>Airalo</strong> oferecem eSIMs para a China com VPN já integrada — instale tudo pelo celular antes de embarcar, sem chip físico nem VPN separada.</p></div>
+
+<table>
+  <thead><tr><th>Opção</th><th>Prós</th><th>Contras</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Roaming BR</strong></td><td>Sem burocracia, mantém número BR</td><td>Caro, sujeito ao firewall</td></tr>
+    <tr><td><strong>SIM local chinês</strong></td><td>Barato, boa cobertura 5G</td><td>Sujeito ao firewall, exige registro</td></tr>
+    <tr><td><strong>SIM Hong Kong / eSIM HK</strong></td><td>Ignora o firewall, prático</td><td>Pode ser mais caro que SIM local</td></tr>
+    <tr><td><strong>eSIM virtual (Airalo)</strong></td><td>Instalação pelo celular, VPN embutida disponível</td><td>Requer celular compatível com eSIM</td></tr>
+  </tbody>
+</table>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="dinheiro"><span class="num">04</span><h2>Dinheiro, Pagamentos e WeChat Pay</h2></div>
+
+<p>A China é uma das economias mais cashless do mundo — e o sistema deles é completamente diferente do nosso.</p>
+
+<p class="pull-quote">"Na China, não ter WeChat Pay é como não ter carteira. Você pode ficar parado na calçada sem conseguir pagar um copo d'água."</p>
+
+<p>WeChat Pay e Alipay dominam absolutamente os pagamentos. Cartões Visa e Mastercard são aceitos em hotéis internacionais, mas na maioria dos estabelecimentos locais simplesmente não funcionam. A boa notícia: desde 2023, ambos passaram a aceitar cartões internacionais vinculados.</p>
+
+<div class="checklist"><ul>
+  <li>Baixe o WeChat e crie sua conta <strong>antes</strong> de viajar</li>
+  <li>No app, vá em "Wallet" e vincule um cartão de crédito internacional</li>
+  <li>Faça verificação de identidade com foto do passaporte</li>
+  <li>Teste uma transação pequena para confirmar o funcionamento</li>
+  <li>Instale o Alipay como backup</li>
+</ul></div>
+
+<div class="callout tip"><div class="callout-title">💵 Leve também dinheiro em espécie</div><p>Mantenha entre 500 e 1.000 yuan (CNY) como reserva de emergência. Câmbios em aeroportos brasileiros raramente têm yuan — compre ao chegar em Pequim ou Xangai.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="apps"><span class="num">05</span><h2>Apps Indispensáveis</h2></div>
+
+<p>Baixe todos estes apps antes de embarcar, de preferência com VPN ativa para configurá-los corretamente.</p>
+
+<div class="blog-cards">
+  <div class="blog-card"><span class="card-icon">💬</span><h3>WeChat (微信)</h3><p>O app mais importante. Comunicação, pagamentos, maps, reservas — a espinha dorsal digital da China.</p></div>
+  <div class="blog-card"><span class="card-icon">🗺️</span><h3>Baidu Maps / Amap</h3><p>Google Maps não funciona. Baidu Maps e Amap (高德) têm dados precisos e transporte público.</p></div>
+  <div class="blog-card"><span class="card-icon">🚕</span><h3>DiDi</h3><p>O Uber chinês. Funciona em todas as cidades grandes e é mais barato que táxis convencionais.</p></div>
+  <div class="blog-card"><span class="card-icon">🌐</span><h3>Tradutor offline</h3><p>Microsoft Translator com pacote offline de chinês. A câmera lê caracteres em tempo real.</p></div>
+  <div class="blog-card"><span class="card-icon">🚆</span><h3>Trip.com / Ctrip</h3><p>Para reservar trens de alta velocidade e hotéis. Interface em inglês disponível.</p></div>
+  <div class="blog-card"><span class="card-icon">🔐</span><h3>VPN</h3><p>Essencial. Instale, pague e teste antes de embarcar. Não deixe para fazer na China.</p></div>
+</div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="saude"><span class="num">06</span><h2>Saúde, Vacinas e Seguro-Viagem</h2></div>
+
+<p>A China não exige vacinação obrigatória para brasileiros. Porém, o Ministério da Saúde recomenda manter o calendário vacinal em dia, especialmente:</p>
+
+<div class="checklist"><ul>
+  <li><strong>Hepatite A e B</strong> — transmitidas por água, alimentos e contato</li>
+  <li><strong>Febre Tifoide</strong> — recomendada para quem come em locais populares</li>
+  <li><strong>Tétano e difteria</strong> — manter dose de reforço atualizada</li>
+  <li><strong>Raiva</strong> — considerar se houver contato com animais</li>
+</ul></div>
+
+<p>O seguro-viagem é essencial. Atendimento em clínicas internacionais pode custar centenas de dólares por consulta. Certifique-se de que o seguro cobre despesas médicas (mínimo USD 30.000), evacuação de emergência e repatriação.</p>
+
+<div class="callout"><div class="callout-title">💊 Medicamentos</div><p>Leve quantidade suficiente dos seus medicamentos de uso contínuo, com receita médica em inglês. Encontrar equivalentes estrangeiros na China pode ser difícil.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="costumes"><span class="num">07</span><h2>Costumes, Etiqueta e o que Evitar</h2></div>
+
+<p>A China tem uma cultura milenar com códigos de conduta distintos. Respeitar esses costumes enriquece genuinamente a experiência.</p>
+
+<div class="blog-cards">
+  <div class="blog-card"><span class="card-icon">🍽️</span><h3>À mesa</h3><p>Não espete os pauzinhos verticalmente no arroz (símbolo funerário). Servir o outro antes de si é sinal de respeito.</p></div>
+  <div class="blog-card"><span class="card-icon">🎁</span><h3>Presentes</h3><p>Evite dar relógios (simboliza morte), sapatos ou flores brancas. Dê com as duas mãos.</p></div>
+  <div class="blog-card"><span class="card-icon">💼</span><h3>Cartões de visita</h3><p>Receba com as duas mãos, observe com atenção e nunca escreva sobre um cartão recebido.</p></div>
+  <div class="blog-card"><span class="card-icon">🙏</span><h3>Templos</h3><p>Vista-se recatadamente, fale baixo e não fotografe monges ou locais sagrados sem permissão.</p></div>
+</div>
+
+<div class="callout"><div class="callout-title">🚫 Temas sensíveis</div><p>Evite discussões públicas sobre Tiananmen, Taiwan, Tibet, Xinjiang e lideranças políticas. A China possui leis que punem críticas ao governo — o que parece uma conversa casual pode ter consequências sérias para estrangeiros.</p></div>
+
+<p>No dia a dia, os chineses são extremamente hospitaleiros e curiosos com brasileiros. Aprenda algumas palavras básicas: <strong>"Nǐ hǎo"</strong> (olá), <strong>"Xièxiè"</strong> (obrigado) e <strong>"Duìbuqǐ"</strong> (desculpe) fazem maravilhas.</p>
+
+<div class="intu-callout">
+  <p class="intu-label">✨ Expedição Intu Trips</p>
+  <h3>Conheça a China com quem já esteve lá — e volta sempre</h3>
+  <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=900&q=80" alt="China - Grande Muralha" style="width:100%;border-radius:8px;margin-bottom:16px;max-height:280px;object-fit:cover;">
+  <p>Preparar uma viagem à China sozinha é desafiador: VPN, WeChat Pay, trens de alta velocidade, roteiro cultural entre Pequim, Xangai e as cidades milenares — são muitas peças para encaixar. Na <strong>expedição da Intu Trips para a China</strong>, cuidamos de tudo isso para você. Um grupo pequeno, guias locais, experiências autênticas e a energia de quem viaja com a mesma vibe.</p>
+  <a href="https://www.intutrips.com/china" class="intu-btn">Ver a expedição para a China →</a>
+</div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="transporte"><span class="num">08</span><h2>Transporte Interno</h2></div>
+
+<p>A China possui uma das infraestruturas de transporte mais impressionantes do mundo. Ir de Xangai a Pequim em 4 horas de trem ou pegar um metrô ultramoderno em dezenas de cidades é parte da experiência.</p>
+
+<p>A <strong>rede ferroviária de alta velocidade</strong> (高铁 gāotiě) é a maior do mundo, com trens a 350 km/h. É mais rápido, confortável e muitas vezes mais barato que voos domésticos. Reserve pelo Trip.com com antecedência.</p>
+
+<div class="blog-cards">
+  <div class="blog-card"><span class="card-icon">🚇</span><h3>Metrô</h3><p>Presente em mais de 40 cidades. Rápido, barato e com sinalização em inglês nas grandes capitais.</p></div>
+  <div class="blog-card"><span class="card-icon">🚕</span><h3>DiDi</h3><p>Mais confiável que táxis de rua. Motoristas raramente falam inglês, mas o app gerencia o destino automaticamente.</p></div>
+  <div class="blog-card"><span class="card-icon">🛵</span><h3>Bicicleta / Scooter</h3><p>Apps como Meituan Bike e Hello Bike oferecem aluguel por minuto. Ótimo para explorar bairros.</p></div>
+  <div class="blog-card"><span class="card-icon">✈️</span><h3>Voos domésticos</h3><p>Para distâncias maiores, Air China, China Eastern e China Southern são frequentes e baratos.</p></div>
+</div>
+
+<div class="callout"><div class="callout-title">🚆 Dica: passaporte no trem</div><p>Para comprar passagens de trem, estrangeiros precisam apresentar o passaporte. Nas principais cidades há guichês específicos para estrangeiros. Mantenha o passaporte acessível.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="checklist"><span class="num">09</span><h2>Checklist Final Antes de Embarcar</h2></div>
+
+<h3>2 meses antes</h3>
+<div class="checklist"><ul>
+  <li>Verifique a validade do passaporte (mínimo 6 meses após o retorno)</li>
+  <li>Consulte seu médico sobre vacinas recomendadas</li>
+  <li>Contrate o seguro-viagem com cobertura adequada</li>
+</ul></div>
+
+<h3>1 mês antes</h3>
+<div class="checklist"><ul>
+  <li>Assine uma VPN e teste o funcionamento (ExpressVPN, Astrill etc.)</li>
+  <li>Crie conta no WeChat e vincule cartão internacional</li>
+  <li>Instale e configure o Alipay como backup</li>
+  <li>Baixe mapas offline do Amap ou Baidu Maps</li>
+  <li>Reserve hotéis e guarde os endereços offline</li>
+</ul></div>
+
+<h3>1 semana antes</h3>
+<div class="checklist"><ul>
+  <li>Compre chip de Hong Kong ou eSIM internacional</li>
+  <li>Separe yuan em espécie (500–1.000 CNY mínimo)</li>
+  <li>Baixe Microsoft Translator com pacote offline de chinês</li>
+  <li>Instale DiDi e Trip.com</li>
+  <li>Informe ao banco sobre a viagem</li>
+</ul></div>
+
+<h3>Na mochila</h3>
+<div class="checklist"><ul>
+  <li>Passaporte + cópia digital salva na nuvem</li>
+  <li>Confirmação de hospedagem com endereço em chinês</li>
+  <li>Seguro-viagem (apólice + número de emergência)</li>
+  <li>Adaptador elétrico (China usa tipo A e I — 220V)</li>
+  <li>Medicamentos de uso contínuo + receita em inglês</li>
+  <li>Power bank com certificação CCC (中国强制认证) — verifique o símbolo antes de embarcar</li>
+</ul></div>
+
+<div class="signature">旅途愉快 — Boa viagem à China! 🇨🇳</div>`;
+
+const CHINA_POST = {
+  title: 'Tudo que um Brasileiro Precisa Saber Antes de Ir à China',
+  slug: 'tudo-que-um-brasileiro-precisa-saber-antes-de-ir-a-china',
+  excerpt: 'Vistos, internet, VPN, WeChat Pay, apps, saúde, costumes e transporte — o guia completo e atualizado para brasileiros que vão à China pela primeira vez.',
+  cover_image_url: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=1200&q=80',
+  category: 'Destinos',
+  author: 'Intu Trips',
+  read_time_minutes: 14,
+  meta_description: 'Guia completo para brasileiros que vão à China: visto, VPN, WeChat Pay, apps indispensáveis, costumes, transporte e checklist para 2025.',
+  is_published: true,
+  published_at: '2026-05-25',
+  content: CHINA_POST_CONTENT,
+};
+
 const emptyForm = {
   title: '',
   slug: '',
@@ -221,6 +445,9 @@ export default function BlogAdmin() {
           </Button>
           <Button onClick={() => openCreate(THAILAND_EXPERIENCES_POST)} variant="outline" className="gap-2 rounded-xl text-sm border-[#6b9faf] text-[#6b9faf] hover:bg-[#6b9faf]/10">
             🏝️ Post 2: O que fazer
+          </Button>
+          <Button onClick={() => openCreate(CHINA_POST)} variant="outline" className="gap-2 rounded-xl text-sm border-[#92314D] text-[#92314D] hover:bg-[#92314D]/10">
+            🇨🇳 Post: China
           </Button>
           <Button onClick={() => openCreate()} className="bg-[#bda94c] hover:bg-[#a8943f] text-white gap-2 rounded-xl">
             <Plus className="h-4 w-4" />
