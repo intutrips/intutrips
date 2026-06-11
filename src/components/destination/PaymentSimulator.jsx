@@ -44,7 +44,7 @@ function useExchangeRate() {
     try {
       const res = await fetch('https://economia.awesomeapi.com.br/json/last/USDT-BRL');
       const data = await res.json();
-      const bid = parseFloat(data['USDBRLT']?.bid);
+      const bid = parseFloat(data['USDBRLT']?.ask);
       if (!isNaN(bid)) {
         setRate(bid);
         setLastUpdate(new Date());
