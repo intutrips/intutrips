@@ -311,6 +311,7 @@ export default function DestinationDetail() {
               pricing_lots={destination.pricing_lots}
               payment_options={destination.payment_options}
               whatsappUrl={whatsappUrl}
+              departureDate={destination.departure_start_date}
             />
 
             {/* Lista de Espera */}

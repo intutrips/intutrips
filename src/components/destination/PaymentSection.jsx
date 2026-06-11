@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { CreditCard, MessageCircle, Mail, Check, Users, Lock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/utils';
+import PaymentSimulator from './PaymentSimulator';
 
 const SPOTS_PER_LOT = 6;
 
@@ -36,7 +37,7 @@ function PriceTag({ lots, price_from }) {
   );
 }
 
-export default function PaymentSection({ price_from, price_lote2, pricing_lots, payment_options, whatsappUrl }) {
+export default function PaymentSection({ price_from, price_lote2, pricing_lots, payment_options, whatsappUrl, departureDate }) {
   const defaultPaymentOptions = [
     "PIX",
     "Boleto Parcelado Sem Juros",
@@ -165,6 +166,8 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
           </p>
         </div>
       </motion.div>
+      {/* Simulador de pagamento */}
+      <PaymentSimulator basePrice={price_from} departureDate={departureDate} />
     </section>
   );
 }
