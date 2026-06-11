@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { differenceInMonths, subDays } from 'date-fns';
-import { Zap, FileText, CreditCard, Layers, RefreshCw, TrendingUp } from 'lucide-react';
+import { Zap, FileText, CreditCard, Layers, RefreshCw, TrendingUp, ChevronDown } from 'lucide-react';
 
 // Formata número com casas decimais sem usar o formatCurrency global (que remove decimais)
 const fmtNum = (val) =>
@@ -64,6 +64,7 @@ function useExchangeRate() {
 }
 
 export default function PaymentSimulator({ basePrice, departureDate }) {
+  const [open, setOpen] = useState(false);
   const [method, setMethod] = useState('pix');
   const [cardInstallments, setCardInstallments] = useState(1);
   const [boletoInstallments, setBoletoInstallments] = useState(3);
@@ -134,19 +135,22 @@ export default function PaymentSimulator({ basePrice, departureDate }) {
   return (
     <div className="mt-8 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
 
-      {/* Header */}
-      <div className="px-6 pt-6 pb-4 border-b border-gray-100">
-        <h3 className="text-base font-semibold text-[#1A1A1A]">Simulador de Pagamento</h3>
-        <p className="text-sm text-gray-400 font-light mt-0.5">
-          Valor base da viagem:{' '}
-          <span className="font-semibold text-[#1A1A1A]">{fmtUSD(price)}</span>
-          {rate && (
-            <span className="ml-2 text-[#6b9faf] font-medium">≈ {fmtBRL(price * rate)}</span>
-          )}
-          <span className="text-gray-400"> por pessoa</span>
-        </p>
-      </div>
+      {/* Header — clicável para abrir/fechar */}
+      <button
+        onClick={() => setOpen(o => !o)}
+        className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-gray-50 transition-colors"
+      >
+        <div>
+          <h3 className="text-base font-semibold text-[#1A1A1A]">Simulador de Pagamento</h3>
+          <p className="text-sm text-gray-400 font-light mt-0.5">
+            Simule o valor da viagem nas diferentes formas de pagamento
+          </p>
+        </div>
+        <ChevronDown className={`h-5 w-5 text-[#bda94c] flex-shrink-0 ml-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
+      </button>
 
+      {/* Conteúdo recolhível */}
+      {open && <>
       {/* Cotação */}
       <RateBar />
 
@@ -367,6 +371,7 @@ export default function PaymentSimulator({ basePrice, departureDate }) {
           </p>
         </div>
       )}
+      </>}
     </div>
   );
 }
