@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { differenceInMonths, subDays } from 'date-fns';
-import { Zap, FileText, CreditCard, Layers } from 'lucide-react';
-import { formatCurrency } from '@/utils';
+import { Zap, FileText, CreditCard, Layers, RefreshCw, TrendingUp } from 'lucide-react';
 
-// Taxas aplicadas SOBRE o valor base (todas as bandeiras)
+// Formata número com casas decimais sem usar o formatCurrency global (que remove decimais)
+const fmtNum = (val) =>
+  Number(val).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+const fmtUSD = (val) => `USD ${fmtNum(val)}`;
+const fmtBRL = (val) => `R$ ${fmtNum(val)}`;
+
+// Taxas aplicadas SOBRE o valor base (cartão de crédito)
 const CARD_FEES = {
   1: 3.97,  2: 5.75,  3: 6.29,  4: 6.82,
   5: 7.34,  6: 7.88,  7: 8.77,  8: 10.36,
   9: 11.25, 10: 11.66, 11: 12.85, 12: 13.99
 };
 
-const fmt = (val) => `USD ${formatCurrency(val)}`;
-
-function ResultBox({ label, value, sub, highlight = false }) {
+function ResultBox({ label, value, valueBRL, sub, highlight = false }) {
   return (
     <div className={`rounded-xl px-5 py-4 flex flex-col gap-0.5 ${
       highlight
@@ -20,38 +24,74 @@ function ResultBox({ label, value, sub, highlight = false }) {
         : 'bg-gray-50 border border-gray-100'
     }`}>
       <span className="text-xs text-gray-500 font-semibold uppercase tracking-wider">{label}</span>
-      <span className={`text-2xl font-light ${highlight ? 'text-[#bda94c]' : 'text-[#1A1A1A]'}`}>{value}</span>
+      <span className={`text-xl font-light ${highlight ? 'text-[#bda94c]' : 'text-[#1A1A1A]'}`}>{value}</span>
+      {valueBRL && (
+        <span className="text-sm text-[#6b9faf] font-medium">{valueBRL}</span>
+      )}
       {sub && <span className="text-xs text-gray-400 font-light mt-0.5">{sub}</span>}
     </div>
   );
 }
 
+// Hook para buscar cotação dólar turismo em tempo real
+function useExchangeRate() {
+  const [rate, setRate] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [lastUpdate, setLastUpdate] = useState(null);
+
+  const fetchRate = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('https://economia.awesomeapi.com.br/json/last/USDT-BRL');
+      const data = await res.json();
+      const bid = parseFloat(data['USDTBRL']?.bid);
+      if (!isNaN(bid)) {
+        setRate(bid);
+        setLastUpdate(new Date());
+      }
+    } catch {
+      // fallback silencioso — sem mostrar erro ao usuário
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRate();
+  }, []);
+
+  return { rate, loading, lastUpdate, refresh: fetchRate };
+}
+
 export default function PaymentSimulator({ basePrice, departureDate }) {
   const [method, setMethod] = useState('pix');
-  const [cardInstallments, setCardInstallments] = useState(6);
+  const [cardInstallments, setCardInstallments] = useState(1);
   const [boletoInstallments, setBoletoInstallments] = useState(3);
   const [entryPct, setEntryPct] = useState(30);
+  const { rate, loading: rateLoading, lastUpdate, refresh } = useExchangeRate();
 
   if (!basePrice || Number(basePrice) <= 0) return null;
 
   const price = Number(basePrice);
   const today = new Date();
 
-  // Meses disponíveis: da hoje até 30 dias antes do embarque
+  // Meses disponíveis para boleto
   const departureDeadline = departureDate ? subDays(new Date(departureDate), 30) : null;
   const monthsAvailable = departureDeadline
     ? Math.max(1, differenceInMonths(departureDeadline, today))
     : 6;
 
-  // — Cartão de crédito —
-  // Total = preço base + taxa% aplicada sobre o base
-  const cardFee = CARD_FEES[cardInstallments] / 100;
-  const cardTotal = price * (1 + cardFee);
+  // Cartão: total = base × (1 + taxa%)
+  const cardFeePercent = CARD_FEES[cardInstallments];
+  const cardTotal = price * (1 + cardFeePercent / 100);
   const cardPerInstallment = cardTotal / cardInstallments;
 
-  // — Fragmentado (apenas 2 pagamentos, sem juros) —
+  // Fragmentado: 2 pagamentos sem juros
   const entryAmount = price * (entryPct / 100);
-  const remainingAmount = price - entryAmount; // saldo em 1 único pagamento
+  const remainingAmount = price - entryAmount;
+
+  // Conversão BRL
+  const toBRL = (usd) => rate ? usd * rate : null;
 
   const tabs = [
     { id: 'pix',         label: 'PIX / À Vista',    icon: Zap },
@@ -60,6 +100,37 @@ export default function PaymentSimulator({ basePrice, departureDate }) {
     { id: 'fragmentado', label: 'Fragmentado',        icon: Layers },
   ];
 
+  // Barra de cotação
+  const RateBar = () => (
+    <div className="flex items-center justify-between px-6 py-3 bg-[#1A1A1A]/5 border-b border-gray-100">
+      <div className="flex items-center gap-2">
+        <TrendingUp className="h-3.5 w-3.5 text-[#6b9faf]" />
+        {rateLoading ? (
+          <span className="text-xs text-gray-400">Buscando cotação...</span>
+        ) : rate ? (
+          <span className="text-xs text-gray-500">
+            <span className="font-semibold text-[#1A1A1A]">Dólar Turismo: {fmtBRL(rate)}</span>
+            {lastUpdate && (
+              <span className="text-gray-400 ml-2">
+                · atualizado {lastUpdate.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}
+              </span>
+            )}
+          </span>
+        ) : (
+          <span className="text-xs text-gray-400">Cotação indisponível</span>
+        )}
+      </div>
+      <button
+        onClick={refresh}
+        className="flex items-center gap-1 text-xs text-[#6b9faf] hover:text-[#598491] transition-colors"
+        disabled={rateLoading}
+      >
+        <RefreshCw className={`h-3 w-3 ${rateLoading ? 'animate-spin' : ''}`} />
+        Atualizar
+      </button>
+    </div>
+  );
+
   return (
     <div className="mt-8 bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
 
@@ -67,9 +138,17 @@ export default function PaymentSimulator({ basePrice, departureDate }) {
       <div className="px-6 pt-6 pb-4 border-b border-gray-100">
         <h3 className="text-base font-semibold text-[#1A1A1A]">Simulador de Pagamento</h3>
         <p className="text-sm text-gray-400 font-light mt-0.5">
-          Valor da viagem: <span className="font-semibold text-[#1A1A1A]">{fmt(price)}</span> por pessoa
+          Valor base da viagem:{' '}
+          <span className="font-semibold text-[#1A1A1A]">{fmtUSD(price)}</span>
+          {rate && (
+            <span className="ml-2 text-[#6b9faf] font-medium">≈ {fmtBRL(price * rate)}</span>
+          )}
+          <span className="text-gray-400"> por pessoa</span>
         </p>
       </div>
+
+      {/* Cotação */}
+      <RateBar />
 
       {/* Tabs */}
       <div className="flex overflow-x-auto border-b border-gray-100">
@@ -98,7 +177,12 @@ export default function PaymentSimulator({ basePrice, departureDate }) {
             <p className="text-sm text-gray-500 font-light">
               Pagamento único via PIX ou transferência bancária, sem nenhum acréscimo.
             </p>
-            <ResultBox label="Valor total" value={fmt(price)} highlight />
+            <ResultBox
+              label="Valor total"
+              value={fmtUSD(price)}
+              valueBRL={rate ? `≈ ${fmtBRL(price * rate)}` : null}
+              highlight
+            />
             <p className="text-xs text-gray-400">✓ Sem taxas · ✓ Confirmação imediata · ✓ Vaga garantida na hora</p>
           </div>
         )}
@@ -137,13 +221,15 @@ export default function PaymentSimulator({ basePrice, departureDate }) {
             <div className="grid grid-cols-2 gap-3">
               <ResultBox
                 label={`${boletoInstallments}x de`}
-                value={fmt(price / boletoInstallments)}
+                value={fmtUSD(price / boletoInstallments)}
+                valueBRL={rate ? `≈ ${fmtBRL((price / boletoInstallments) * rate)} /mês` : null}
                 sub="sem juros"
                 highlight
               />
               <ResultBox
                 label="Total"
-                value={fmt(price)}
+                value={fmtUSD(price)}
+                valueBRL={rate ? `≈ ${fmtBRL(price * rate)}` : null}
                 sub="igual ao valor à vista"
               />
             </div>
@@ -155,7 +241,7 @@ export default function PaymentSimulator({ basePrice, departureDate }) {
         {method === 'cartao' && (
           <div className="space-y-4">
             <p className="text-sm text-gray-500 font-light">
-              Parcelamento em até 12x. A taxa é adicionada ao valor da viagem e varia conforme o número de parcelas.
+              Parcelamento em até 12x. A taxa é adicionada ao valor base e varia conforme o número de parcelas.
             </p>
 
             <div>
@@ -182,14 +268,16 @@ export default function PaymentSimulator({ basePrice, departureDate }) {
             <div className="grid grid-cols-2 gap-3">
               <ResultBox
                 label={`${cardInstallments}x de`}
-                value={fmt(cardPerInstallment)}
-                sub={`taxa de ${CARD_FEES[cardInstallments]}% incluída`}
+                value={fmtUSD(cardPerInstallment)}
+                valueBRL={rate ? `≈ ${fmtBRL(cardPerInstallment * rate)} /parcela` : null}
+                sub={`taxa de ${cardFeePercent}% incluída`}
                 highlight
               />
               <ResultBox
                 label="Total final"
-                value={fmt(cardTotal)}
-                sub={`+${CARD_FEES[cardInstallments]}% sobre o valor base`}
+                value={fmtUSD(cardTotal)}
+                valueBRL={rate ? `≈ ${fmtBRL(cardTotal * rate)}` : null}
+                sub={`+${cardFeePercent}% sobre USD ${fmtNum(price)}`}
               />
             </div>
 
@@ -227,41 +315,41 @@ export default function PaymentSimulator({ basePrice, departureDate }) {
               </div>
             </div>
 
-            {/* Os dois pagamentos */}
             <div className="grid grid-cols-2 gap-3">
               <ResultBox
                 label="1º pagamento — Entrada"
-                value={fmt(entryAmount)}
+                value={fmtUSD(entryAmount)}
+                valueBRL={rate ? `≈ ${fmtBRL(entryAmount * rate)}` : null}
                 sub={`${entryPct}% do total · pago agora`}
                 highlight
               />
               <ResultBox
                 label="2º pagamento — Saldo"
-                value={fmt(remainingAmount)}
+                value={fmtUSD(remainingAmount)}
+                valueBRL={rate ? `≈ ${fmtBRL(remainingAmount * rate)}` : null}
                 sub={`${100 - entryPct}% restante · até 30 dias antes do embarque`}
               />
             </div>
 
-            {/* Timeline */}
             <div className="bg-gray-50 rounded-xl p-4 space-y-4">
               <p className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Como funciona</p>
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-full bg-[#bda94c] text-white text-xs flex items-center justify-center font-bold flex-shrink-0">1</div>
                 <div>
-                  <p className="text-sm font-semibold text-[#1A1A1A]">Entrada: {fmt(entryAmount)}</p>
+                  <p className="text-sm font-semibold text-[#1A1A1A]">Entrada: {fmtUSD(entryAmount)}{rate && ` ≈ ${fmtBRL(entryAmount * rate)}`}</p>
                   <p className="text-xs text-gray-400">Paga hoje · Vaga garantida na hora</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <div className="w-8 h-8 rounded-full bg-[#6b9faf] text-white text-xs flex items-center justify-center font-bold flex-shrink-0">2</div>
                 <div>
-                  <p className="text-sm font-semibold text-[#1A1A1A]">Saldo: {fmt(remainingAmount)}</p>
+                  <p className="text-sm font-semibold text-[#1A1A1A]">Saldo: {fmtUSD(remainingAmount)}{rate && ` ≈ ${fmtBRL(remainingAmount * rate)}`}</p>
                   <p className="text-xs text-gray-400">Pago até 30 dias antes do embarque · Sem juros</p>
                 </div>
               </div>
               <div className="border-t border-gray-200 pt-3 flex justify-between items-center">
                 <span className="text-xs text-gray-400 font-medium">Total pago</span>
-                <span className="text-sm font-semibold text-[#1A1A1A]">{fmt(price)} · sem juros</span>
+                <span className="text-sm font-semibold text-[#1A1A1A]">{fmtUSD(price)}{rate && ` ≈ ${fmtBRL(price * rate)}`} · sem juros</span>
               </div>
             </div>
 
@@ -270,6 +358,15 @@ export default function PaymentSimulator({ basePrice, departureDate }) {
         )}
 
       </div>
+
+      {/* Rodapé cotação */}
+      {rate && (
+        <div className="px-6 pb-4">
+          <p className="text-xs text-gray-400 font-light">
+            * Valores em BRL são estimativas baseadas no dólar turismo (cotação ao vivo). O valor final em reais pode variar conforme a cotação no momento do pagamento.
+          </p>
+        </div>
+      )}
     </div>
   );
 }
