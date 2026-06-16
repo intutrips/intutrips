@@ -7,7 +7,7 @@ import PaymentSimulator from './PaymentSimulator';
 
 const SPOTS_PER_LOT = 6;
 
-const EMAIL = "mailto:contato@intutrips.com";
+const EMAIL = "mailto:intutrips@gmail.com";
 
 function PriceTag({ lots, price_from }) {
   const activeLots = lots.filter(l => l.active !== false);
