@@ -22,19 +22,24 @@ export default function Simulador() {
     },
   });
 
-  // Pré-seleciona pelo ?destino=slug ou seleciona o primeiro da lista
+  // Só mostra destinos com preço definido e disponíveis (exclui coming_soon)
+  const availableDestinations = destinations.filter(
+    d => d.availability_status !== 'coming_soon' && d.price_from
+  );
+
+  // Pré-seleciona pelo ?destino=slug ou seleciona o primeiro disponível
   useEffect(() => {
-    if (!destinations.length) return;
+    if (!availableDestinations.length) return;
     if (slugParam) {
-      const found = destinations.find(d =>
+      const found = availableDestinations.find(d =>
         (d.slug || generateSlug(d.country)) === slugParam
       );
       if (found) { setSelectedId(found.id); return; }
     }
-    setSelectedId(prev => prev || destinations[0]?.id || '');
-  }, [destinations, slugParam]);
+    setSelectedId(prev => prev || availableDestinations[0]?.id || '');
+  }, [availableDestinations.length, slugParam]);
 
-  const selected = destinations.find(d => d.id === selectedId);
+  const selected = availableDestinations.find(d => d.id === selectedId);
 
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
@@ -71,8 +76,8 @@ export default function Simulador() {
             <div className="h-12 bg-gray-100 rounded-xl animate-pulse" />
           ) : isError ? (
             <p className="text-sm text-red-400">Erro ao carregar destinos. Tente recarregar a página.</p>
-          ) : destinations.length === 0 ? (
-            <p className="text-sm text-gray-400">Nenhum destino publicado encontrado.</p>
+          ) : availableDestinations.length === 0 ? (
+            <p className="text-sm text-gray-400">Nenhum destino disponível no momento.</p>
           ) : (
             <select
               id="dest-select"
@@ -80,7 +85,7 @@ export default function Simulador() {
               onChange={e => setSelectedId(e.target.value)}
               className="w-full h-12 px-4 rounded-xl border-2 border-[#bda94c]/40 bg-[#bda94c]/5 text-[#1A1A1A] text-sm font-semibold appearance-none cursor-pointer focus:outline-none focus:border-[#bda94c]"
             >
-              {destinations.map(dest => (
+              {availableDestinations.map(dest => (
                 <option key={dest.id} value={dest.id}>
                   {dest.name} — {dest.country}
                   {dest.price_from ? ` · USD ${Number(dest.price_from).toLocaleString('pt-BR')}` : ''}
