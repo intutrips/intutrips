@@ -3,12 +3,12 @@ import { useSearchParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { generateSlug } from '@/utils';
-import { MapPin } from 'lucide-react';
 import PaymentSimulator from '@/components/destination/PaymentSimulator';
 
 export default function Simulador() {
   const [searchParams] = useSearchParams();
   const slugParam = searchParams.get('destino');
+  const [selectedId, setSelectedId] = useState('');
 
   const { data: destinations = [], isLoading } = useQuery({
     queryKey: ['destinations-simulador'],
@@ -17,16 +17,13 @@ export default function Simulador() {
         .from('destinations')
         .select('id, name, country, price_from, departure_start_date, slug, availability_status')
         .eq('is_published', true)
-        .neq('availability_status', 'coming_soon')
         .order('display_order', { ascending: true });
       if (error) throw error;
       return data || [];
     },
   });
 
-  const [selectedId, setSelectedId] = useState(null);
-
-  // Pré-seleciona pelo ?destino=slug na URL
+  // Pré-seleciona pelo ?destino=slug ou seleciona o primeiro da lista
   useEffect(() => {
     if (!destinations.length) return;
     if (slugParam) {
@@ -35,8 +32,7 @@ export default function Simulador() {
       );
       if (found) { setSelectedId(found.id); return; }
     }
-    // Padrão: primeiro da lista
-    if (!selectedId) setSelectedId(destinations[0]?.id);
+    setSelectedId(prev => prev || destinations[0]?.id || '');
   }, [destinations, slugParam]);
 
   const selected = destinations.find(d => d.id === selectedId);
@@ -44,7 +40,7 @@ export default function Simulador() {
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
 
-      {/* Hero compacto */}
+      {/* Hero */}
       <section className="bg-[#1A1A1A] pt-32 pb-12 px-6">
         <div className="max-w-2xl mx-auto text-center">
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-[#bda94c]/20 text-[#bda94c] text-xs font-semibold uppercase tracking-widest rounded-full mb-5">
@@ -55,73 +51,66 @@ export default function Simulador() {
             Quanto custaria a sua viagem?
           </h1>
           <p className="text-white/50 text-sm font-light">
-            Selecione o destino e simule o valor em reais nas diferentes formas de pagamento.
+            Selecione o destino e simule o valor nas diferentes formas de pagamento.
           </p>
         </div>
       </section>
 
-      {/* Seletor de destino + simulador */}
-      <section className="max-w-2xl mx-auto px-6 py-10">
+      {/* Conteúdo */}
+      <section className="max-w-2xl mx-auto px-6 py-10 space-y-6">
 
-        {/* Seletor */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 mb-6">
-          <label className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">
+        {/* Seletor de destino */}
+        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
+          <label
+            htmlFor="dest-select"
+            className="block text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3"
+          >
             Escolha o destino
           </label>
 
           {isLoading ? (
             <div className="h-12 bg-gray-100 rounded-xl animate-pulse" />
+          ) : destinations.length === 0 ? (
+            <p className="text-sm text-gray-400">Nenhum destino disponível no momento.</p>
           ) : (
-            <div className="grid gap-3">
-              {destinations.map(dest => {
-                const isActive = dest.id === selectedId;
-                return (
-                  <button
-                    key={dest.id}
-                    onClick={() => setSelectedId(dest.id)}
-                    className={`flex items-center gap-4 w-full text-left px-5 py-4 rounded-xl border-2 transition-all ${
-                      isActive
-                        ? 'border-[#bda94c] bg-[#bda94c]/5'
-                        : 'border-gray-100 hover:border-gray-200 bg-gray-50'
-                    }`}
-                  >
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-                      isActive ? 'bg-[#bda94c]' : 'bg-gray-200'
-                    }`}>
-                      <MapPin className={`h-4 w-4 ${isActive ? 'text-white' : 'text-gray-400'}`} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-semibold truncate ${isActive ? 'text-[#1A1A1A]' : 'text-gray-600'}`}>
-                        {dest.name}
-                      </p>
-                      <p className="text-xs text-gray-400 font-light">{dest.country}</p>
-                    </div>
-                    {dest.price_from && (
-                      <span className={`text-sm font-semibold flex-shrink-0 ${isActive ? 'text-[#bda94c]' : 'text-gray-400'}`}>
-                        USD {Number(dest.price_from).toLocaleString('pt-BR')}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
-            </div>
+            <select
+              id="dest-select"
+              value={selectedId}
+              onChange={e => setSelectedId(e.target.value)}
+              className="w-full h-12 px-4 rounded-xl border-2 border-[#bda94c]/40 bg-[#bda94c]/5 text-[#1A1A1A] text-sm font-semibold appearance-none cursor-pointer focus:outline-none focus:border-[#bda94c]"
+            >
+              {destinations.map(dest => (
+                <option key={dest.id} value={dest.id}>
+                  {dest.name} — {dest.country}
+                  {dest.price_from ? ` · USD ${Number(dest.price_from).toLocaleString('pt-BR')}` : ''}
+                </option>
+              ))}
+            </select>
           )}
         </div>
 
-        {/* Simulador — abre expandido nesta página */}
-        {selected && (
-          <PaymentSimulator
-            key={selected.id}
-            basePrice={selected.price_from}
-            departureDate={selected.departure_start_date}
-            _defaultOpen={true}
-          />
-        )}
+        {/* Simulador */}
+        {selected ? (
+          selected.price_from ? (
+            <PaymentSimulator
+              key={selected.id}
+              basePrice={selected.price_from}
+              departureDate={selected.departure_start_date}
+              _defaultOpen={true}
+            />
+          ) : (
+            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 text-center">
+              <p className="text-sm text-gray-400">
+                O valor desta viagem ainda não foi definido. Entre em contato para mais informações.
+              </p>
+            </div>
+          )
+        ) : null}
 
-        {/* Rodapé da página */}
-        <div className="mt-10 text-center space-y-3">
+        {/* Contato */}
+        <div className="text-center space-y-3 pt-4">
           <p className="text-xs text-gray-400 font-light">
-            Tem dúvidas? Fale com a gente pelo WhatsApp ou e-mail.
+            Tem dúvidas? Fale com a gente.
           </p>
           <div className="flex justify-center gap-4">
             <a
@@ -140,8 +129,8 @@ export default function Simulador() {
             </a>
           </div>
         </div>
+
       </section>
     </div>
   );
 }
-
