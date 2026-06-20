@@ -10,14 +10,13 @@ export default function Simulador() {
   const slugParam = searchParams.get('destino');
   const [selectedId, setSelectedId] = useState('');
 
-  const { data: destinations = [], isLoading } = useQuery({
-    queryKey: ['destinations-simulador'],
+  const { data: destinations = [], isLoading, isError } = useQuery({
+    queryKey: ['destinations'],
     queryFn: async () => {
       const { data, error } = await supabase
         .from('destinations')
-        .select('id, name, country, price_from, departure_start_date, slug, availability_status')
-        .eq('is_published', true)
-        .order('display_order', { ascending: true });
+        .select('*')
+        .eq('is_published', true);
       if (error) throw error;
       return data || [];
     },
@@ -70,8 +69,10 @@ export default function Simulador() {
 
           {isLoading ? (
             <div className="h-12 bg-gray-100 rounded-xl animate-pulse" />
+          ) : isError ? (
+            <p className="text-sm text-red-400">Erro ao carregar destinos. Tente recarregar a página.</p>
           ) : destinations.length === 0 ? (
-            <p className="text-sm text-gray-400">Nenhum destino disponível no momento.</p>
+            <p className="text-sm text-gray-400">Nenhum destino publicado encontrado.</p>
           ) : (
             <select
               id="dest-select"
