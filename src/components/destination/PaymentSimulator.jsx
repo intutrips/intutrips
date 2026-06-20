@@ -48,8 +48,8 @@ function useExchangeRate() {
   return { rate, loading, refresh: fetchRate };
 }
 
-export default function PaymentSimulator({ basePrice, departureDate }) {
-  const [open, setOpen] = useState(false);
+export default function PaymentSimulator({ basePrice, departureDate, _defaultOpen = false }) {
+  const [open, setOpen] = useState(_defaultOpen);
   const [method, setMethod] = useState('pix');
   const [cardInstallments, setCardInstallments] = useState(1);
   const [boletoInstallments, setBoletoInstallments] = useState(3);

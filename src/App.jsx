@@ -20,6 +20,7 @@ import CountriesAdmin from '@/pages/admin/CountriesAdmin';
 import SiteTextsAdmin from '@/pages/admin/SiteTextsAdmin';
 import BlogAdmin from '@/pages/admin/BlogAdmin';
 import Profile from '@/pages/admin/Profile';
+import Simulador from '@/pages/Simulador';
 
 
 const { Pages, Layout, mainPage } = pagesConfig;
@@ -186,6 +187,16 @@ const AuthenticatedApp = () => {
         element={
           <LayoutWrapper currentPageName="BlogPost">
             <Pages.BlogPost />
+          </LayoutWrapper>
+        }
+      />
+
+      {/* Simulador de pagamento — página oculta, acessível via link direto */}
+      <Route
+        path="/simulador"
+        element={
+          <LayoutWrapper currentPageName="Simulador">
+            <Simulador />
           </LayoutWrapper>
         }
       />
