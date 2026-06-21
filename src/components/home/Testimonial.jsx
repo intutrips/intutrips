@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
 
 function TestimonialCard({ testimonial }) {
   const initials = testimonial.client_name
@@ -40,11 +40,8 @@ function TestimonialCard({ testimonial }) {
   );
 }
 
-const VISIBLE = 3;
-
 export default function Testimonial() {
   const [offset, setOffset] = useState(0);
-  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
   const intervalRef = useRef(null);
 
   const { data: testimonials = [], isLoading } = useQuery({
@@ -61,57 +58,59 @@ export default function Testimonial() {
   });
 
   const n = testimonials.length;
-  const isLooped = n > VISIBLE;
 
-  // Janela deslizante infinita: sempre pega VISIBLE itens usando módulo
-  const visible = isLooped
-    ? Array.from({ length: VISIBLE }, (_, i) => testimonials[(offset + i) % n])
-    : testimonials;
-
-  const startAutoPlay = () => {
-    if (!isLooped) return;
+  const resetAutoPlay = () => {
     clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      setDirection(1);
-      setOffset(o => (o + 1) % n);
-    }, 6000);
+    if (n > 1) {
+      intervalRef.current = setInterval(() => {
+        setOffset(o => (o + 1) % n);
+      }, 5500);
+    }
   };
 
   useEffect(() => {
-    startAutoPlay();
+    resetAutoPlay();
     return () => clearInterval(intervalRef.current);
   }, [n]);
 
-  const goNext = () => {
-    setDirection(1);
-    setOffset(o => (o + 1) % n);
-    startAutoPlay();
-  };
-
-  const goPrev = () => {
-    setDirection(-1);
-    setOffset(o => (o - 1 + n) % n);
-    startAutoPlay();
-  };
-
-  const goTo = (i) => {
-    setDirection(i > offset ? 1 : -1);
-    setOffset(i);
-    startAutoPlay();
+  const navigate = (dir) => {
+    setOffset(o => (o + dir + n) % n);
+    resetAutoPlay();
   };
 
   if (isLoading || n === 0) return null;
 
-  const variants = {
-    enter: (dir) => ({ opacity: 0, x: dir > 0 ? 40 : -40 }),
-    center: { opacity: 1, x: 0 },
-    exit: (dir) => ({ opacity: 0, x: dir > 0 ? -40 : 40 }),
+  // Cada card recebe uma posição relativa ao offset: -2, -1, 0, 1, 2
+  // Normaliza para o range mais curto (wrap-around)
+  const getRelPos = (i) => {
+    let rel = i - offset;
+    if (rel > n / 2) rel -= n;
+    if (rel < -n / 2) rel += n;
+    return rel;
+  };
+
+  // Propriedades visuais por posição relativa
+  const cardProps = (relPos) => {
+    if (relPos === 0) return {
+      x: '0%', scale: 1, opacity: 1,
+      filter: 'blur(0px)', zIndex: 10, cursor: 'default',
+    };
+    if (Math.abs(relPos) === 1) return {
+      x: `${relPos * 57}%`, scale: 0.78, opacity: 0.45,
+      filter: 'blur(2px)', zIndex: 5, cursor: 'pointer',
+    };
+    return {
+      x: `${relPos * 90}%`, scale: 0.65, opacity: 0,
+      filter: 'blur(4px)', zIndex: 1, cursor: 'default',
+    };
   };
 
   return (
     <section className="py-20 px-6 bg-[#FAF8F5]">
-      <div className="max-w-6xl mx-auto">
-        <div className="text-center mb-12">
+      <div className="max-w-5xl mx-auto">
+
+        {/* Título */}
+        <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2.5 text-[#6b9faf] text-sm tracking-widest uppercase">
             <svg width="10" height="10" viewBox="0 0 100 100" fill="#6b9faf"><path d="M50 0 C52 40 60 48 100 50 C60 52 52 60 50 100 C48 60 40 52 0 50 C40 48 48 40 50 0Z"/></svg>
             Depoimentos
@@ -122,59 +121,56 @@ export default function Testimonial() {
           </h2>
         </div>
 
-        <div className="relative">
-          {/* Seta esquerda */}
-          {isLooped && (
-            <button
-              onClick={goPrev}
-              className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors"
-            >
-              <ChevronLeft className="h-5 w-5 text-gray-600" />
-            </button>
-          )}
+        {/* Carrossel com foco */}
+        <div className="relative flex items-center justify-center" style={{ height: 320 }}>
+          {testimonials.map((t, i) => {
+            const rel = getRelPos(i);
+            const props = cardProps(rel);
+            const isHidden = Math.abs(rel) >= 2;
 
-          <AnimatePresence mode="wait" custom={direction}>
-            <motion.div
-              key={offset}
-              custom={direction}
-              variants={variants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.35, ease: 'easeInOut' }}
-              className="grid md:grid-cols-3 gap-6"
-            >
-              {visible.map((t, i) => (
-                <TestimonialCard key={`${offset}-${i}`} testimonial={t} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Seta direita */}
-          {isLooped && (
-            <button
-              onClick={goNext}
-              className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors"
-            >
-              <ChevronRight className="h-5 w-5 text-gray-600" />
-            </button>
-          )}
+            return (
+              <motion.div
+                key={t.id || i}
+                animate={{
+                  x: props.x,
+                  scale: props.scale,
+                  opacity: props.opacity,
+                  filter: props.filter,
+                  zIndex: props.zIndex,
+                }}
+                transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                onClick={() => {
+                  if (rel === -1) navigate(-1);
+                  if (rel === 1) navigate(1);
+                }}
+                className="absolute"
+                style={{
+                  width: '52%',
+                  cursor: props.cursor,
+                  pointerEvents: isHidden ? 'none' : 'auto',
+                }}
+              >
+                <TestimonialCard testimonial={t} />
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Dots — um por depoimento */}
-        {isLooped && (
-          <div className="flex justify-center gap-2 mt-8">
-            {Array.from({ length: n }).map((_, i) => (
+        {/* Indicador sutil: linha de progresso */}
+        {n > 1 && (
+          <div className="flex justify-center gap-1.5 mt-10">
+            {testimonials.map((_, i) => (
               <button
                 key={i}
-                onClick={() => goTo(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  i === offset ? 'bg-[#6b9faf] w-6' : 'bg-[#6b9faf]/30 w-2 hover:bg-[#6b9faf]/50'
+                onClick={() => { setOffset(i); resetAutoPlay(); }}
+                className={`h-1 rounded-full transition-all duration-400 ${
+                  i === offset ? 'bg-[#6b9faf] w-8' : 'bg-[#6b9faf]/25 w-4'
                 }`}
               />
             ))}
           </div>
         )}
+
       </div>
     </section>
   );
