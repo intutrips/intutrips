@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -11,15 +11,10 @@ function TestimonialCard({ testimonial }) {
 
   return (
     <div className="bg-white rounded-2xl border border-[#6b9faf]/20 p-7 flex flex-col gap-4 h-full">
-      {/* Header: foto + nome + estrelas */}
       <div className="flex items-center gap-4">
         <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#92314D] to-[#6b9faf]">
           {testimonial.photo_url ? (
-            <img
-              src={testimonial.photo_url}
-              alt={testimonial.client_name}
-              className="w-full h-full object-cover"
-            />
+            <img src={testimonial.photo_url} alt={testimonial.client_name} className="w-full h-full object-cover" />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
               <span className="text-white font-semibold text-sm">{initials}</span>
@@ -38,8 +33,6 @@ function TestimonialCard({ testimonial }) {
           </div>
         </div>
       </div>
-
-      {/* Texto */}
       <p className="text-gray-600 font-light text-sm leading-relaxed flex-1">
         {testimonial.content}
       </p>
@@ -47,10 +40,12 @@ function TestimonialCard({ testimonial }) {
   );
 }
 
-const CARDS_PER_PAGE = 3;
+const VISIBLE = 3;
 
 export default function Testimonial() {
-  const [page, setPage] = useState(0);
+  const [offset, setOffset] = useState(0);
+  const [direction, setDirection] = useState(1); // 1 = forward, -1 = backward
+  const intervalRef = useRef(null);
 
   const { data: testimonials = [], isLoading } = useQuery({
     queryKey: ['testimonials'],
@@ -65,16 +60,53 @@ export default function Testimonial() {
     },
   });
 
-  const totalPages = Math.ceil(testimonials.length / CARDS_PER_PAGE);
-  const visible = testimonials.slice(page * CARDS_PER_PAGE, page * CARDS_PER_PAGE + CARDS_PER_PAGE);
+  const n = testimonials.length;
+  const isLooped = n > VISIBLE;
+
+  // Janela deslizante infinita: sempre pega VISIBLE itens usando módulo
+  const visible = isLooped
+    ? Array.from({ length: VISIBLE }, (_, i) => testimonials[(offset + i) % n])
+    : testimonials;
+
+  const startAutoPlay = () => {
+    if (!isLooped) return;
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      setDirection(1);
+      setOffset(o => (o + 1) % n);
+    }, 6000);
+  };
 
   useEffect(() => {
-    if (totalPages <= 1) return;
-    const timer = setInterval(() => setPage(p => (p + 1) % totalPages), 7000);
-    return () => clearInterval(timer);
-  }, [totalPages]);
+    startAutoPlay();
+    return () => clearInterval(intervalRef.current);
+  }, [n]);
 
-  if (isLoading || testimonials.length === 0) return null;
+  const goNext = () => {
+    setDirection(1);
+    setOffset(o => (o + 1) % n);
+    startAutoPlay();
+  };
+
+  const goPrev = () => {
+    setDirection(-1);
+    setOffset(o => (o - 1 + n) % n);
+    startAutoPlay();
+  };
+
+  const goTo = (i) => {
+    setDirection(i > offset ? 1 : -1);
+    setOffset(i);
+    startAutoPlay();
+  };
+
+  if (isLoading || n === 0) return null;
+
+  const variants = {
+    enter: (dir) => ({ opacity: 0, x: dir > 0 ? 40 : -40 }),
+    center: { opacity: 1, x: 0 },
+    exit: (dir) => ({ opacity: 0, x: dir > 0 ? -40 : 40 }),
+  };
 
   return (
     <section className="py-20 px-6 bg-[#FAF8F5]">
@@ -92,34 +124,36 @@ export default function Testimonial() {
 
         <div className="relative">
           {/* Seta esquerda */}
-          {totalPages > 1 && (
+          {isLooped && (
             <button
-              onClick={() => setPage(p => (p - 1 + totalPages) % totalPages)}
+              onClick={goPrev}
               className="absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors"
             >
               <ChevronLeft className="h-5 w-5 text-gray-600" />
             </button>
           )}
 
-          <AnimatePresence mode="wait">
+          <AnimatePresence mode="wait" custom={direction}>
             <motion.div
-              key={page}
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4 }}
+              key={offset}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.35, ease: 'easeInOut' }}
               className="grid md:grid-cols-3 gap-6"
             >
               {visible.map((t, i) => (
-                <TestimonialCard key={t.id || i} testimonial={t} />
+                <TestimonialCard key={`${offset}-${i}`} testimonial={t} />
               ))}
             </motion.div>
           </AnimatePresence>
 
           {/* Seta direita */}
-          {totalPages > 1 && (
+          {isLooped && (
             <button
-              onClick={() => setPage(p => (p + 1) % totalPages)}
+              onClick={goNext}
               className="absolute -right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-gray-50 transition-colors"
             >
               <ChevronRight className="h-5 w-5 text-gray-600" />
@@ -127,14 +161,16 @@ export default function Testimonial() {
           )}
         </div>
 
-        {/* Dots */}
-        {totalPages > 1 && (
+        {/* Dots — um por depoimento */}
+        {isLooped && (
           <div className="flex justify-center gap-2 mt-8">
-            {Array.from({ length: totalPages }).map((_, i) => (
+            {Array.from({ length: n }).map((_, i) => (
               <button
                 key={i}
-                onClick={() => setPage(i)}
-                className={`h-2 rounded-full transition-all duration-300 ${i === page ? 'bg-[#6b9faf] w-6' : 'bg-[#6b9faf]/30 w-2 hover:bg-[#6b9faf]/50'}`}
+                onClick={() => goTo(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === offset ? 'bg-[#6b9faf] w-6' : 'bg-[#6b9faf]/30 w-2 hover:bg-[#6b9faf]/50'
+                }`}
               />
             ))}
           </div>
