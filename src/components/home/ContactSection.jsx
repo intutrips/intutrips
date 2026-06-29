@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Send, MapPin, Mail, Phone, Loader2, Check } from 'lucide-react';
 import { supabase } from '@/lib/supabase';
-// import { base44 } from '@/api/base44Client';
+import emailjs from '@emailjs/browser';
 import { toast } from 'sonner';
 import { useSiteTexts } from '@/hooks/useSiteTexts';
 
@@ -29,11 +29,27 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
+      // Salva no Supabase
       const { error } = await supabase
         .from('contact_requests')
         .insert([formData]);
 
       if (error) throw error;
+
+      // Envia email de notificação para intutrips@gmail.com
+      const serviceId  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (serviceId && templateId && publicKey) {
+        await emailjs.send(serviceId, templateId, {
+          from_name:   formData.name,
+          from_email:  formData.email,
+          phone:       formData.phone || '—',
+          destination: formData.destination_interest || '—',
+          message:     formData.message || '—',
+        }, publicKey);
+      }
 
       toast.success('Mensagem enviada! Entraremos em contato em breve.');
       setFormData({ name: '', email: '', phone: '', destination_interest: '', message: '' });
