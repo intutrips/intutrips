@@ -287,20 +287,84 @@ const CHINA_FOOD_POST_CONTENT = `<p class="lead">A culinária chinesa tem mais d
       <td>Picante, com a pimenta que "dorme" a boca</td>
       <td>Mapo Tofu, Hot Pot de Sichuan, Frango Kung Pao</td>
     </tr>
+    <tr>
+      <td>Shaanxi e noroeste</td>
+      <td>Robusto, encorpado, com influência da Rota da Seda</td>
+      <td>Rou Jia Mo, Liangpi, Biang Biang noodles</td>
+    </tr>
   </tbody>
 </table>
 
 <h2>Quais pratos chineses eu preciso experimentar?</h2>
-<p>Se o tempo de viagem for curto, vale priorizar esta lista. Ela cobre os pratos mais emblemáticos, com uma dica prática de como comer cada um.</p>
+<p>Se o tempo de viagem for curto, vale priorizar esta lista. Cada prato tem uma personalidade única — e uma dica de como aproveitá-lo ao máximo.</p>
 
-<ul>
-  <li><strong>Pato Laqueado (Pequim)</strong>: pele crocante, carne macia, servido com panquecas finas, cebolinha e molho hoisin. Enrole você mesmo a panqueca, não tente comer o pato sozinho com hashi.</li>
-  <li><strong>Xiaolongbao</strong>: o bolinho recheado com caldo quente por dentro. Morda uma pontinha primeiro para deixar o vapor sair, senão o caldo pode queimar a boca.</li>
-  <li><strong>Hot Pot</strong>: uma panela de caldo fervente no centro da mesa, onde cada um cozinha os próprios ingredientes. Ótimo para grupos, mas peça o caldo "não picante" ou "meio a meio" se não tiver costume com pimenta.</li>
-  <li><strong>Mapo Tofu</strong>: tofu macio com molho picante à base de pimenta e feijão fermentado, típico de Sichuan.</li>
-  <li><strong>Dim Sum</strong>: pequenas porções no vapor, tradicionalmente servidas no café da manhã ou almoço cantonês, acompanhadas de chá.</li>
-  <li><strong>Jianbing</strong>: o "sanduíche chinês" de rua, uma massa fina recheada e dobrada, comum no café da manhã.</li>
-</ul>
+<div style="margin-top:24px;">
+
+  <div style="display:grid;grid-template-columns:150px 1fr;gap:0;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid #e8e4d8;background:#fdfaf5;">
+    <img src="https://images.unsplash.com/photo-1765441012353-10fb4701a276?q=80&w=400&auto=format&fit=crop" alt="Pato Laqueado de Pequim" style="width:150px;height:150px;object-fit:cover;display:block;">
+    <div style="padding:16px 18px;">
+      <p style="margin:0 0 6px;font-weight:700;color:#1a1a1a;font-size:1em;">Pato Laqueado — Pequim</p>
+      <p style="margin:0;color:#555;line-height:1.65;font-size:0.92em;font-weight:400;">Pele crocante e caramelizada, carne macia, servido com panquecas finas, cebolinha e molho hoisin. Enrole você mesmo a panqueca — não tente comer o pato sozinho com hashi. Um dos pratos mais icônicos da China, com receita que remonta à dinastia Ming.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:150px 1fr;gap:0;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid #e8e4d8;background:#fdfaf5;">
+    <img src="https://images.unsplash.com/photo-1694834589398-27b369c6f7a6?q=80&w=400&auto=format&fit=crop" alt="Xiaolongbao" style="width:150px;height:150px;object-fit:cover;display:block;">
+    <div style="padding:16px 18px;">
+      <p style="margin:0 0 6px;font-weight:700;color:#1a1a1a;font-size:1em;">Xiaolongbao — Xangai</p>
+      <p style="margin:0;color:#555;line-height:1.65;font-size:0.92em;font-weight:400;">O famoso bolinho de massa fina com caldo quente aprisionado dentro. O segredo está na gelatina de caldo que derrete durante o cozimento no vapor. Morda uma pontinha primeiro para liberar o vapor, senão o caldo escaldante pode queimar a boca.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:150px 1fr;gap:0;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid #e8e4d8;background:#fdfaf5;">
+    <img src="https://images.unsplash.com/photo-1703945530505-2f06e3e1cf97?q=80&w=400&auto=format&fit=crop" alt="Hot Pot" style="width:150px;height:150px;object-fit:cover;display:block;">
+    <div style="padding:16px 18px;">
+      <p style="margin:0 0 6px;font-weight:700;color:#1a1a1a;font-size:1em;">Hot Pot — Sichuan</p>
+      <p style="margin:0;color:#555;line-height:1.65;font-size:0.92em;font-weight:400;">Uma panela de caldo fervente no centro da mesa onde cada pessoa cozinha os próprios ingredientes — carnes fatiadas, vegetais, tofu e macarrão. Ótimo para grupos. Peça o caldo dividido ("meio a meio") se não tiver costume com a pimenta de Sichuan, que causa uma dormência única na língua.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:150px 1fr;gap:0;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid #e8e4d8;background:#fdfaf5;">
+    <img src="https://images.unsplash.com/photo-1769065647078-f067eb768035?q=80&w=400&auto=format&fit=crop" alt="Mapo Tofu" style="width:150px;height:150px;object-fit:cover;display:block;">
+    <div style="padding:16px 18px;">
+      <p style="margin:0 0 6px;font-weight:700;color:#1a1a1a;font-size:1em;">Mapo Tofu — Sichuan</p>
+      <p style="margin:0;color:#555;line-height:1.65;font-size:0.92em;font-weight:400;">Tofu macio e sedoso cozido em molho intenso de pimenta vermelha, pasta de feijão fermentado (doubanjiang) e pimenta de Sichuan. O nome significa "tofu da velha de rosto marcado" — uma referência à cozinheira que criou o prato no século XIX em Chengdu. Servido com arroz branco.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:150px 1fr;gap:0;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid #e8e4d8;background:#fdfaf5;">
+    <img src="https://images.unsplash.com/photo-1518983546435-91f8b87fe561?q=80&w=400&auto=format&fit=crop" alt="Dim Sum" style="width:150px;height:150px;object-fit:cover;display:block;">
+    <div style="padding:16px 18px;">
+      <p style="margin:0 0 6px;font-weight:700;color:#1a1a1a;font-size:1em;">Dim Sum — Cantão</p>
+      <p style="margin:0;color:#555;line-height:1.65;font-size:0.92em;font-weight:400;">Uma tradição cantonesa do "yum cha" (beber chá), onde pequenas porções chegam em cestas de bambu: bolinhos no vapor, rolinhos fritos, pastéis de ovo e muito mais. Normalmente servido no café da manhã e almoço. Nos restaurantes tradicionais, os garçons circulam com carrinhos — aponte o que quiser.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:150px 1fr;gap:0;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid #e8e4d8;background:#fdfaf5;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz5m4fPNTgjZ7K0TvERc03nGkRlT3jHzOSVxUDuHlCtg&s=10" alt="Jianbing" style="width:150px;height:150px;object-fit:cover;display:block;">
+    <div style="padding:16px 18px;">
+      <p style="margin:0 0 6px;font-weight:700;color:#1a1a1a;font-size:1em;">Jianbing — café da manhã do norte</p>
+      <p style="margin:0;color:#555;line-height:1.65;font-size:0.92em;font-weight:400;">A crepe de rua mais popular da China. Uma massa fina de farinha de trigo e feijão mungo é frita numa chapa quente, coberta com ovo, molho apimentado, pasta de gergelim e uma bolacha crocante dobrada dentro. Rápido, barato e delicioso — o café da manhã favorito de milhões de chineses.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:150px 1fr;gap:0;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid #e8e4d8;background:#fdfaf5;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBp26E-wZhbiYFQR4tmli53ZYwPqT7Rary2NCYXi6vqwsZDLiS7Kqoj_o&s=10" alt="Rou Jia Mo" style="width:150px;height:150px;object-fit:cover;display:block;">
+    <div style="padding:16px 18px;">
+      <p style="margin:0 0 6px;font-weight:700;color:#1a1a1a;font-size:1em;">Rou Jia Mo — o "hamburguer chinês" (Shaanxi)</p>
+      <p style="margin:0;color:#555;line-height:1.65;font-size:0.92em;font-weight:400;">Considerado um dos sanduíches mais antigos do mundo, com mais de 2.000 anos de história. Carne de porco (ou cordeiro) cozida por horas em caldo de especiarias e ervas é desfiada e recheada num pão achatado e crocante, assado na hora. Encontrado em todo Xi'an e na região de Shaanxi. Simples, generoso e viciante.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:150px 1fr;gap:0;margin-bottom:16px;border-radius:12px;overflow:hidden;border:1px solid #e8e4d8;background:#fdfaf5;">
+    <img src="https://www.asiaodysseytravel.com/images/china-tours/group-tours/liangpi-2-700.jpg" alt="Liangpi" style="width:150px;height:150px;object-fit:cover;display:block;">
+    <div style="padding:16px 18px;">
+      <p style="margin:0 0 6px;font-weight:700;color:#1a1a1a;font-size:1em;">Liangpi — macarrão frio (Shaanxi)</p>
+      <p style="margin:0;color:#555;line-height:1.65;font-size:0.92em;font-weight:400;">Tiras largas e elásticas de massa de trigo ou arroz, servidas frias com óleo de pimenta, vinagre preto, alho, pepino em tiras, broto de feijão e gergelim. Refrescante, levemente ácido e com aquela dormência característica da pimenta de Sichuan. Perfeito para os dias quentes de verão — e tão bom quanto o Rou Jia Mo para entender a cozinha do noroeste.</p>
+    </div>
+  </div>
+
+</div>
 
 <h2>Como pedir comida na China sem falar mandarim?</h2>
 <p>Esse costuma ser o maior medo de quem nunca viajou para lá, mas na prática é mais simples do que parece com as ferramentas certas.</p>
