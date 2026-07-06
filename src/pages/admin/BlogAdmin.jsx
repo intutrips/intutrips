@@ -253,6 +253,119 @@ const CHINA_POST_CONTENT = `<p class="lead">A China é uma das experiências mai
 
 <div class="signature">旅途愉快 — Boa viagem à China! 🇨🇳</div>`;
 
+const CHINA_FOOD_POST_CONTENT = `<p class="lead">A culinária chinesa tem mais de quatro mil anos de história e varia tanto de região para região que chega a parecer vários países dentro de um só. Para quem nunca visitou a China, a experiência à mesa pode ser tão desafiadora quanto empolgante: cardápios só em mandarim, pratos que não têm tradução direta e costumes bem diferentes dos nossos. Este guia reúne o que você precisa saber para comer bem, com segurança e sem estresse durante a sua viagem.</p>
+
+<h2>Como a culinária chinesa se divide por região?</h2>
+<p>Diferente do que muita gente imagina, não existe "a comida chinesa". O país é dividido em oito grandes escolas culinárias, cada uma moldada pelo clima e pelos ingredientes locais. Para o turista, entender essa divisão ajuda a saber o que esperar em cada destino do roteiro.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Região</th>
+      <th>Perfil de sabor</th>
+      <th>Pratos representativos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Pequim e norte</td>
+      <td>Trigo, massas e assados, sabores mais neutros</td>
+      <td>Pato Laqueado (Pequim), Jianbing, macarrão puxado à mão</td>
+    </tr>
+    <tr>
+      <td>Xangai e leste</td>
+      <td>Sabores delicados, levemente adocicados</td>
+      <td>Xiaolongbao, caranguejo de Xangai, lámiàn</td>
+    </tr>
+    <tr>
+      <td>Cantão e sul</td>
+      <td>Leve, com foco no sabor natural dos ingredientes</td>
+      <td>Dim Sum, arroz frito, frutos do mar no vapor</td>
+    </tr>
+    <tr>
+      <td>Sichuan e sudoeste</td>
+      <td>Picante, com a pimenta que "dorme" a boca</td>
+      <td>Mapo Tofu, Hot Pot de Sichuan, Frango Kung Pao</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Quais pratos chineses eu preciso experimentar?</h2>
+<p>Se o tempo de viagem for curto, vale priorizar esta lista. Ela cobre os pratos mais emblemáticos, com uma dica prática de como comer cada um.</p>
+
+<ul>
+  <li><strong>Pato Laqueado (Pequim)</strong>: pele crocante, carne macia, servido com panquecas finas, cebolinha e molho hoisin. Enrole você mesmo a panqueca, não tente comer o pato sozinho com hashi.</li>
+  <li><strong>Xiaolongbao</strong>: o bolinho recheado com caldo quente por dentro. Morda uma pontinha primeiro para deixar o vapor sair, senão o caldo pode queimar a boca.</li>
+  <li><strong>Hot Pot</strong>: uma panela de caldo fervente no centro da mesa, onde cada um cozinha os próprios ingredientes. Ótimo para grupos, mas peça o caldo "não picante" ou "meio a meio" se não tiver costume com pimenta.</li>
+  <li><strong>Mapo Tofu</strong>: tofu macio com molho picante à base de pimenta e feijão fermentado, típico de Sichuan.</li>
+  <li><strong>Dim Sum</strong>: pequenas porções no vapor, tradicionalmente servidas no café da manhã ou almoço cantonês, acompanhadas de chá.</li>
+  <li><strong>Jianbing</strong>: o "sanduíche chinês" de rua, uma massa fina recheada e dobrada, comum no café da manhã.</li>
+</ul>
+
+<h2>Como pedir comida na China sem falar mandarim?</h2>
+<p>Esse costuma ser o maior medo de quem nunca viajou para lá, mas na prática é mais simples do que parece com as ferramentas certas.</p>
+
+<ul>
+  <li><strong>Apps de tradução com câmera</strong>: aponte a câmera do celular para o cardápio e receba a tradução na hora. É a forma mais rápida de decifrar pratos escritos só em caracteres.</li>
+  <li><strong>Dianping</strong>: versão chinesa do TripAdvisor, útil para ver fotos dos pratos e avaliações antes de escolher o restaurante.</li>
+  <li><strong>Cardápios com fotos</strong>: em cidades grandes, muitos restaurantes já têm cardápio com imagem, o que facilita bastante para quem não lê mandarim.</li>
+</ul>
+
+<div class="callout tip">
+  <div class="callout-title">Dica prática</div>
+  <p>Lembre que o Google e boa parte dos apps ocidentais de tradução ficam bloqueados na China sem VPN. Um eSIM com VPN embutido, como o da Airalo, resolve isso automaticamente e já deixa o app de tradução funcionando assim que você desembarca, sem precisar configurar nada extra.</p>
+</div>
+
+<h2>É seguro comer comida de rua na China?</h2>
+<p>Sim, na maior parte dos casos, desde que alguns cuidados básicos sejam seguidos. As barracas de rua muito movimentadas, com fila de gente local, costumam ser as mais seguras: giro rápido de comida significa ingredientes mais frescos.</p>
+
+<ul>
+  <li>Evite água da torneira, opte sempre por água engarrafada e lacrada.</li>
+  <li>Prefira comidas servidas quentes e recém preparadas na sua frente.</li>
+  <li>Tenha cautela com carnes exóticas vendidas especificamente para turistas em ruas como a Wangfujing, em Pequim: são voltadas para quem busca a experiência, não necessariamente para o paladar local.</li>
+  <li>Leve sempre um antidiarreico na bagagem de mão, por precaução.</li>
+</ul>
+
+<h2>O que fazer se eu for vegetariano ou vegano na China?</h2>
+<p>Essa é, sem dúvida, a maior dificuldade prática para viajantes com restrição alimentar. Caldo de carne e molho de peixe aparecem em pratos que parecem completamente vegetarianos à primeira vista.</p>
+
+<ul>
+  <li>Aprenda ou tenha salva no celular a frase "wǒ chī sù" (eu como comida vegetariana), que já orienta boa parte dos garçons.</li>
+  <li>Templos budistas costumam ter restaurantes vegetarianos anexos, geralmente uma aposta segura em cidades grandes.</li>
+  <li>Fique atento a caldos e molhos: peça para confirmar se o prato leva caldo de carne, mesmo quando parece ser só vegetal.</li>
+  <li>Aplicativos de tradução com câmera ajudam a identificar ingredientes escondidos no cardápio antes de pedir.</li>
+</ul>
+
+<h2>Como funciona a etiqueta à mesa na China?</h2>
+<p>Pequenos costumes fazem diferença e evitam gafes, especialmente em jantares de grupo.</p>
+
+<ul>
+  <li>Os pratos são compartilhados no centro da mesa, não existe a lógica de prato individual como no Ocidente.</li>
+  <li>Nunca crave os hashis verticalmente no arroz: o gesto remete a rituais fúnebres e é considerado de mau gosto.</li>
+  <li>Deixar um pouco de comida no prato ao final da refeição é sinal de que você ficou satisfeito, comer tudo pode sugerir que a porção foi insuficiente.</li>
+  <li>Em grupos, é comum que uma pessoa pague a conta inteira, revezando quem paga a cada refeição, em vez de dividir tudo na calculadora.</li>
+</ul>
+
+<div class="callout">
+  <div class="callout-title">Quer provar tudo isso com quem já testou cada prato?</div>
+  <p>Nas expedições em grupo da Intu Trips pela China, a gastronomia local é parte central do roteiro: dos hot pots de Sichuan ao Pato Laqueado em Pequim, com guias que ajudam a decifrar o cardápio e escolher os pratos certos em cada parada.</p>
+  <a href="/destinos">Conheça nossas expedições para a China</a>
+</div>`;
+
+const CHINA_FOOD_POST = {
+  title: 'O Que Comer na China: Guia Completo de Pratos, Etiqueta e Segurança Alimentar',
+  slug: 'o-que-comer-na-china-guia-completo-pratos-etiqueta-seguranca-alimentar',
+  excerpt: 'Tudo o que o viajante brasileiro precisa saber antes de sentar à mesa no país mais gastronomicamente diverso da Ásia',
+  cover_image_url: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=1200&q=80',
+  category: 'Cultura & Costumes',
+  author: 'Intu Trips',
+  read_time_minutes: 8,
+  meta_description: 'Guia completo de gastronomia chinesa: regiões culinárias, pratos imperdíveis, etiqueta à mesa, segurança alimentar e dicas para vegetarianos.',
+  is_published: true,
+  published_at: '2026-07-06',
+  content: CHINA_FOOD_POST_CONTENT,
+};
+
 const CHINA_POST = {
   title: 'Tudo que um Brasileiro Precisa Saber Antes de Ir à China',
   slug: 'tudo-que-um-brasileiro-precisa-saber-antes-de-ir-a-china',
@@ -448,6 +561,9 @@ export default function BlogAdmin() {
           </Button>
           <Button onClick={() => openCreate(CHINA_POST)} variant="outline" className="gap-2 rounded-xl text-sm border-[#92314D] text-[#92314D] hover:bg-[#92314D]/10">
             🇨🇳 Post: China
+          </Button>
+          <Button onClick={() => openCreate(CHINA_FOOD_POST)} variant="outline" className="gap-2 rounded-xl text-sm border-[#92314D] text-[#92314D] hover:bg-[#92314D]/10">
+            🍜 Post: Gastronomia China
           </Button>
           <Button onClick={() => openCreate()} className="bg-[#bda94c] hover:bg-[#a8943f] text-white gap-2 rounded-xl">
             <Plus className="h-4 w-4" />
