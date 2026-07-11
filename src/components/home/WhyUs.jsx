@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Shield, Heart, Compass, MessageCircle, Star, MapPin } from 'lucide-react';
+import { Users, Shield, Heart, Compass, MessageCircle, Star } from 'lucide-react';
 import { useSiteTexts } from '@/hooks/useSiteTexts';
 
 const CARD_ICONS = [Users, Heart, Shield, Compass, MessageCircle, Star];
@@ -15,7 +15,7 @@ export default function WhyUs() {
       'Viaje com apenas 6 a 12 pessoas. Experiências mais íntimas, autênticas e personalizadas.',
       'Você viaja com compatriotas, facilitando conexões e tornando a experiência mais familiar.',
       'Do planejamento à volta para casa, estamos com você em cada passo da jornada.',
-      'Nossos roteiros não são prontos nem copiados de outras agências. Cada parada foi escolhida depois de meses vivendo nesses destinos — de dentro para fora.',
+      'Experiências autênticas com curadoria in loco feita pessoalmente por nós.',
       'Parceiros locais que conhecem cada cantinho e compartilham a cultura de verdade.',
       'Calendário definido com antecedência para você se programar com tranquilidade.'
     ][i],
@@ -30,7 +30,7 @@ export default function WhyUs() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12">
+          className="text-center mb-16">
           <span className="inline-block px-4 py-2 bg-[#92314D] text-white text-sm tracking-widest uppercase font-bold rounded-full drop-shadow-md mb-2">
             {texts.home_why_tag || 'Por Que Viajar Conosco'}
           </span>
@@ -40,25 +40,6 @@ export default function WhyUs() {
           <p className="text-white max-w-2xl mx-auto font-medium text-lg leading-relaxed drop-shadow-sm">
             {texts.home_why_desc || 'Sabemos que viajar para a Ásia pode parecer desafiador. Por isso, transformamos o complexo em simples e o sonho em realidade.'}
           </p>
-        </motion.div>
-
-        {/* Destaque: curadoria real */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mb-14 bg-white/10 border border-white/20 rounded-2xl px-8 py-7 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
-          <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#92314D] flex items-center justify-center shadow-lg">
-            <MapPin className="h-6 w-6 text-white" />
-          </div>
-          <div>
-            <p className="text-white font-semibold text-lg mb-1 drop-shadow-sm">
-              Roteiros construídos por quem morou lá — não por quem pesquisou na internet
-            </p>
-            <p className="text-white/85 font-light leading-relaxed">
-              Antes de criar cada expedição, os organizadores da Intu Trips viveram meses nesses destinos. Cada parada, restaurante e experiência foi escolhida com vivência real — não são roteiros prontos replicados de outras agências.
-            </p>
-          </div>
         </motion.div>
 
         {/* Features Grid */}
