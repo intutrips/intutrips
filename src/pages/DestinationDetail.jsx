@@ -86,7 +86,7 @@ export default function DestinationDetail() {
   const isComingSoon = destination.availability_status === 'coming_soon';
 
   const whatsappMsg = encodeURIComponent(
-    `Olá! Vi as informações sobre ${destination.name} (${destination.country}) no site da Intu Trips e gostaria de saber mais sobre esta viagem.`
+    `Olá, vi as informações sobre a expedição ${destination.name} no site da Intu Trips e gostaria de mais informações.`
   );
   const whatsappUrl = `https://wa.me/551151233225?text=${whatsappMsg}`;
 
