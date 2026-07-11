@@ -78,8 +78,8 @@ export default function Home() {
   return (
     <div className="min-h-screen">
       <Hero />
-      <FeaturedDestinations destinations={destinations} isLoading={isLoading} />
       <WhyUs />
+      <FeaturedDestinations destinations={destinations} isLoading={isLoading} />
       <Testimonial />
       <TeamSection />
       <ContactSection />

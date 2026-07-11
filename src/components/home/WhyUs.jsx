@@ -1,9 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, Shield, Heart, Compass, MessageCircle, Star } from 'lucide-react';
+import { Users, Shield, Heart, Compass, MessageCircle, Star, MapPin } from 'lucide-react';
 import { useSiteTexts } from '@/hooks/useSiteTexts';
 
-// Ícones fixos por posição — o admin controla título e descrição
 const CARD_ICONS = [Users, Heart, Shield, Compass, MessageCircle, Star];
 
 export default function WhyUs() {
@@ -11,12 +10,12 @@ export default function WhyUs() {
 
   const features = [1, 2, 3, 4, 5, 6].map((n, i) => ({
     icon: CARD_ICONS[i],
-    title: texts[`home_why_card${n}_title`] || ['Grupos Pequenos', '100% Brasileiros', 'Suporte Total', 'Roteiros Exclusivos', 'Guias Locais', 'Datas Fixas'][i],
+    title: texts[`home_why_card${n}_title`] || ['Grupos Pequenos', '100% Brasileiros', 'Suporte Total', 'Curadoria Real', 'Guias Locais', 'Datas Fixas'][i],
     description: texts[`home_why_card${n}_desc`] || [
       'Viaje com apenas 6 a 12 pessoas. Experiências mais íntimas, autênticas e personalizadas.',
       'Você viaja com compatriotas, facilitando conexões e tornando a experiência mais familiar.',
       'Do planejamento à volta para casa, estamos com você em cada passo da jornada.',
-      'Experiências autênticas longe do turismo de massa, com acesso a lugares especiais.',
+      'Nossos roteiros não são prontos nem copiados de outras agências. Cada parada foi escolhida depois de meses vivendo nesses destinos — de dentro para fora.',
       'Parceiros locais que conhecem cada cantinho e compartilham a cultura de verdade.',
       'Calendário definido com antecedência para você se programar com tranquilidade.'
     ][i],
@@ -25,13 +24,13 @@ export default function WhyUs() {
   return (
     <section className="py-24 px-6 bg-[#6b9faf]">
       <div className="max-w-7xl mx-auto">
+
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-16">
-
+          className="text-center mb-12">
           <span className="inline-block px-4 py-2 bg-[#92314D] text-white text-sm tracking-widest uppercase font-bold rounded-full drop-shadow-md mb-2">
             {texts.home_why_tag || 'Por Que Viajar Conosco'}
           </span>
@@ -41,6 +40,25 @@ export default function WhyUs() {
           <p className="text-white max-w-2xl mx-auto font-medium text-lg leading-relaxed drop-shadow-sm">
             {texts.home_why_desc || 'Sabemos que viajar para a Ásia pode parecer desafiador. Por isso, transformamos o complexo em simples e o sonho em realidade.'}
           </p>
+        </motion.div>
+
+        {/* Destaque: curadoria real */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-14 bg-white/10 border border-white/20 rounded-2xl px-8 py-7 flex flex-col md:flex-row items-center gap-6 text-center md:text-left">
+          <div className="flex-shrink-0 w-14 h-14 rounded-full bg-[#92314D] flex items-center justify-center shadow-lg">
+            <MapPin className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <p className="text-white font-semibold text-lg mb-1 drop-shadow-sm">
+              Roteiros construídos por quem morou lá — não por quem pesquisou na internet
+            </p>
+            <p className="text-white/85 font-light leading-relaxed">
+              Antes de criar cada expedição, os organizadores da Intu Trips viveram meses nesses destinos. Cada parada, restaurante e experiência foi escolhida com vivência real — não são roteiros prontos replicados de outras agências.
+            </p>
+          </div>
         </motion.div>
 
         {/* Features Grid */}
@@ -53,7 +71,6 @@ export default function WhyUs() {
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
               className="group p-8 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-300">
-
               <div className="w-12 h-12 rounded-xl bg-[#92314D] flex items-center justify-center mb-6 group-hover:bg-[#7a2840] transition-colors shadow-md">
                 <feature.icon className="h-6 w-6 text-white" />
               </div>
@@ -66,6 +83,7 @@ export default function WhyUs() {
             </motion.div>
           )}
         </div>
+
       </div>
     </section>
   );
