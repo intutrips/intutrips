@@ -62,7 +62,6 @@ export default function IndiaReviewsSection({ destinationId }) {
   return (
     <section className="mb-16">
 
-      {/* Título */}
       <div className="mb-8">
         <h2 className="text-2xl font-light text-[#1A1A1A]">
           Quem já viajou com a gente para a Índia
@@ -72,21 +71,27 @@ export default function IndiaReviewsSection({ destinationId }) {
         </p>
       </div>
 
-      {/* Layout: vídeo vertical + slideshow de reviews */}
-      <div className="flex flex-col md:flex-row gap-6 items-stretch">
+      <div className="flex flex-col md:flex-row gap-6 items-start">
 
         {/* Vídeo vertical 9:16 */}
-        <div
-          className="flex-shrink-0 rounded-2xl overflow-hidden shadow-md bg-black self-start"
-          style={{ width: 260 }}
-        >
-          <div className="relative" style={{ paddingBottom: '177.78%' /* 16/9 */ }}>
+        <div className="flex-shrink-0 rounded-2xl overflow-hidden shadow-md bg-black" style={{ width: 260 }}>
+          <div className="relative" style={{ paddingBottom: '177.78%' }}>
             <iframe
-              src="https://www.youtube.com/embed/7w3Xrs9eSw4"
+              src="https://www.youtube.com/embed/7w3Xrs9eSw4?modestbranding=1&rel=0"
               title="Depoimento Michelle — Expedição Índia"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
               className="absolute inset-0 w-full h-full"
+            />
+            {/* Gradiente para cobrir branding do YouTube no topo */}
+            <div
+              style={{
+                position: 'absolute', top: 0, left: 0, right: 0,
+                height: '22%',
+                background: 'linear-gradient(to bottom, rgba(0,0,0,0.88) 0%, transparent 100%)',
+                pointerEvents: 'none',
+                zIndex: 2,
+              }}
             />
           </div>
           <div className="px-4 py-3 bg-white border-t border-gray-100">
@@ -95,11 +100,10 @@ export default function IndiaReviewsSection({ destinationId }) {
           </div>
         </div>
 
-        {/* Slideshow de reviews */}
-        <div className="flex-1 flex flex-col justify-between bg-[#FAF8F5] rounded-2xl border border-[#6b9faf]/15 p-7 min-h-[300px]">
+        {/* Slideshow de reviews — compacto como a homepage */}
+        <div className="flex-1 flex flex-col gap-4">
 
-          {/* Card animado */}
-          <div className="flex-1 relative overflow-hidden">
+          <div className="relative overflow-hidden" style={{ minHeight: 200 }}>
             <AnimatePresence custom={direction} mode="wait">
               <motion.div
                 key={current}
@@ -109,44 +113,43 @@ export default function IndiaReviewsSection({ destinationId }) {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.3, ease: 'easeInOut' }}
-                className="absolute inset-0 flex flex-col gap-5"
+                className="bg-white rounded-2xl border border-[#6b9faf]/20 p-7 flex flex-col gap-4"
               >
-                {/* Stars */}
-                <div className="flex gap-1">
-                  {[1,2,3,4,5].map(i => (
-                    <Star key={i} className="h-4 w-4 fill-[#bda94c] text-[#bda94c]" />
-                  ))}
-                </div>
-
-                {/* Texto do review */}
-                <p className="text-[#3C3333] font-light leading-relaxed text-base flex-1">
-                  "{t.content}"
-                </p>
-
-                {/* Autor */}
-                <div className="flex items-center gap-3 mt-2">
-                  <div className="w-11 h-11 rounded-full flex-shrink-0 bg-gradient-to-br from-[#92314D] to-[#6b9faf] flex items-center justify-center overflow-hidden">
+                {/* Cabeçalho: foto + nome + estrelas */}
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#92314D] to-[#6b9faf]">
                     {t.photo_url ? (
                       <img src={t.photo_url} alt={t.client_name} className="w-full h-full object-cover" />
                     ) : (
-                      <span className="text-white font-semibold text-xs">{initials}</span>
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="text-white font-semibold text-sm">{initials}</span>
+                      </div>
                     )}
                   </div>
                   <div>
-                    <p className="font-semibold text-[#1A1A1A] text-sm">{t.client_name}</p>
+                    <p className="font-bold text-[#1A1A1A] text-sm">{t.client_name}</p>
                     {t.trip_info && (
-                      <p className="text-xs text-gray-400">{t.trip_info}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{t.trip_info}</p>
                     )}
+                    <div className="flex gap-0.5 mt-1">
+                      {[1,2,3,4,5].map(i => (
+                        <Star key={i} className="h-3.5 w-3.5 fill-[#6b9faf] text-[#6b9faf]" />
+                      ))}
+                    </div>
                   </div>
                 </div>
+
+                {/* Texto */}
+                <p className="text-gray-600 font-light text-sm leading-relaxed">
+                  {t.content}
+                </p>
               </motion.div>
             </AnimatePresence>
           </div>
 
           {/* Navegação */}
           {n > 1 && (
-            <div className="flex items-center justify-between pt-6 mt-auto">
-              {/* Indicadores */}
+            <div className="flex items-center justify-between px-1">
               <div className="flex gap-1.5">
                 {testimonials.map((_, i) => (
                   <button
@@ -158,8 +161,6 @@ export default function IndiaReviewsSection({ destinationId }) {
                   />
                 ))}
               </div>
-
-              {/* Setas */}
               <div className="flex gap-2">
                 <button
                   onClick={() => go(-1)}
@@ -179,7 +180,6 @@ export default function IndiaReviewsSection({ destinationId }) {
 
         </div>
       </div>
-
     </section>
   );
 }
