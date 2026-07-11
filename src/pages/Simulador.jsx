@@ -120,7 +120,7 @@ export default function Simulador() {
           </p>
           <div className="flex justify-center gap-4">
             <a
-              href="https://wa.me/551151233225"
+              href={`https://wa.me/551151233225?text=${encodeURIComponent(selected ? `Olá! Simulei o valor da viagem ${selected.name} (${selected.country}) na página de simulação da Intu Trips e gostaria de saber mais.` : 'Olá! Vim do simulador de viagens da Intu Trips e gostaria de saber mais sobre os destinos disponíveis.')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#25D366] text-white text-sm font-medium rounded-full hover:bg-[#1fba58] transition-colors"

@@ -85,12 +85,10 @@ export default function DestinationDetail() {
   const imageUrl = destination.image_url || countryImages[destination.country] || countryImages["Tailândia"];
   const isComingSoon = destination.availability_status === 'coming_soon';
 
-  const whatsappUrls = {
-    'Tailândia': 'https://wa.me/551151233225?text=Ola,%20vi%20a%20viagem%20da%20Tailandia%20no%20seu%20site%20e%20me%20interessei.%20Gostaria%20de%20mais%20informacoes.',
-    'India': 'https://wa.me/551151233225?text=Ola,%20vi%20a%20viagem%20da%20India%20no%20seu%20site%20e%20me%20interessei.%20Gostaria%20de%20mais%20informacoes.',
-    'China': 'https://wa.me/551151233225?text=Ola,%20vi%20a%20viagem%20da%20China%20no%20seu%20site%20e%20me%20interessei.%20Gostaria%20de%20mais%20informacoes.',
-  };
-  const whatsappUrl = whatsappUrls[destination.country] || `https://wa.me/551151233225?text=Ola,%20vi%20a%20viagem%20${encodeURIComponent(destination.name)}%20no%20seu%20site%20e%20me%20interessei.%20Gostaria%20de%20mais%20informacoes.`;
+  const whatsappMsg = encodeURIComponent(
+    `Olá! Vi as informações sobre ${destination.name} (${destination.country}) no site da Intu Trips e gostaria de saber mais sobre esta viagem.`
+  );
+  const whatsappUrl = `https://wa.me/551151233225?text=${whatsappMsg}`;
 
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
