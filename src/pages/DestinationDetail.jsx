@@ -29,6 +29,7 @@ import TripDaysSection from '@/components/destination/TripDaysSection';
 import TestimonialsSection from '@/components/destination/TestimonialsSection';
 import WaitlistSection from '@/components/destination/WaitlistSection';
 import FAQSection from '@/components/destination/FAQSection';
+import IndiaReviewsSection from '@/components/destination/IndiaReviewsSection';
 
 const countryImages = {
   "India": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920&q=80",
@@ -311,6 +312,11 @@ export default function DestinationDetail() {
               whatsappUrl={whatsappUrl}
               departureDate={destination.departure_start_date}
             />
+
+            {/* Depoimentos da Índia */}
+            {destination.country === 'India' && (
+              <IndiaReviewsSection destinationId={destination.id} />
+            )}
 
             {/* Lista de Espera */}
             {destination.show_waitlist && (
