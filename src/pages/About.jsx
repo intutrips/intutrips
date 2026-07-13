@@ -90,45 +90,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── Diferencial ── */}
-      <section className="py-24 px-6 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-            <span className="text-[#6b9faf] text-sm tracking-widest uppercase">
-              {texts.about_diff_tag || 'Nosso Diferencial'}
-            </span>
-            <h2 className="text-3xl md:text-4xl font-light text-[#3C3333] mt-4 mb-6">
-              {texts.about_diff_title1 || 'O que nos torna'}{' '}
-              <span className="italic text-[#6b9faf]">{texts.about_diff_title2 || 'diferentes'}</span>
-            </h2>
-            <p className="text-gray-600 font-light leading-relaxed">
-              {texts.about_diff_desc || 'A Intu não trabalha com turismo de massa. Não fazemos turismo de vitrine.'}
-            </p>
-          </motion.div>
-
-          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-[#f8eee5] rounded-2xl p-8 md:p-12">
-            <p className="text-gray-600 font-light mb-6">
-              {texts.about_diff_subtitle || 'Nossas expedições são desenhadas com:'}
-            </p>
-            <div className="space-y-4">
-              {diffItems.filter(Boolean).map((item, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <div className="w-6 h-6 rounded-full bg-[#6b9faf] flex items-center justify-center flex-shrink-0">
-                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <span className="text-[#3C3333] font-light">{item}</span>
-                </div>
-              ))}
-            </div>
-            <p className="text-gray-600 font-light mt-8 italic">
-              {texts.about_diff_closing || 'Você vive a experiência. Nós sustentamos o caminho.'}
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
       {/* ── Team ── */}
       <section className="py-24 px-6 bg-[#f8eee5]">
         <div className="max-w-7xl mx-auto">
@@ -170,6 +131,45 @@ export default function About() {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* ── Diferencial ── */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+            <span className="text-[#6b9faf] text-sm tracking-widest uppercase">
+              {texts.about_diff_tag || 'Nosso Diferencial'}
+            </span>
+            <h2 className="text-3xl md:text-4xl font-light text-[#3C3333] mt-4 mb-6">
+              {texts.about_diff_title1 || 'O que nos torna'}{' '}
+              <span className="italic text-[#6b9faf]">{texts.about_diff_title2 || 'diferentes'}</span>
+            </h2>
+            <p className="text-gray-600 font-light leading-relaxed">
+              {texts.about_diff_desc || 'A Intu não trabalha com turismo de massa. Não fazemos turismo de vitrine.'}
+            </p>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="bg-[#f8eee5] rounded-2xl p-8 md:p-12">
+            <p className="text-gray-600 font-light mb-6">
+              {texts.about_diff_subtitle || 'Nossas expedições são desenhadas com:'}
+            </p>
+            <div className="space-y-4">
+              {diffItems.filter(Boolean).map((item, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <div className="w-6 h-6 rounded-full bg-[#6b9faf] flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <span className="text-[#3C3333] font-light">{item}</span>
+                </div>
+              ))}
+            </div>
+            <p className="text-gray-600 font-light mt-8 italic">
+              {texts.about_diff_closing || 'Você vive a experiência. Nós sustentamos o caminho.'}
+            </p>
+          </motion.div>
         </div>
       </section>
 
