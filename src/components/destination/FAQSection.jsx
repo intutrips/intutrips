@@ -35,6 +35,10 @@ const BASE_FAQS = [
     q: 'Qual a data limite para fechar o pacote ou quando encerram as vagas?',
     a: 'As vagas ficarão abertas até 40 dias antes do embarque ou até o encerramento das vagas, o que acontecer primeiro 🙂',
   },
+  {
+    q: 'O valor da viagem é em dólar? Pago em dólar ou em reais?',
+    a: 'A viagem é cotada em dólar, mas o pagamento é sempre feito em reais. O valor em reais é convertido no momento da contratação, com base na cotação do dólar turismo vigente. Uma vez assinado o contrato, o valor fica travado: independentemente de qualquer variação do câmbio ao longo do tempo, o valor mensal das parcelas ou o total à vista não muda. Você paga exatamente o que foi acordado na contratação, sem surpresas.',
+  },
 ];
 
 function FAQItem({ faq, isOpen, onToggle }) {
