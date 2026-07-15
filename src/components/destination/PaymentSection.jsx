@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, MessageCircle, Mail, Check, Users, Lock } from 'lucide-react';
+import { CreditCard, MessageCircle, Mail, Check, Users, Lock, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/utils';
+import { differenceInMonths, startOfMonth } from 'date-fns';
 import PaymentSimulator from './PaymentSimulator';
 
 const SPOTS_PER_LOT = 6;
-
 const EMAIL = "mailto:intutrips@gmail.com";
 
-function PriceTag({ lots, price_from }) {
+const fmtBRL = (val) =>
+  'R$ ' + Number(val).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+function useExchangeRate() {
+  const [rate, setRate] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const fetchRate = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('https://economia.awesomeapi.com.br/json/last/USDT-BRL');
+      const data = await res.json();
+      const ask = parseFloat(data['USDBRLT']?.ask);
+      if (!isNaN(ask)) setRate(ask);
+    } catch { /* silencioso */ } finally { setLoading(false); }
+  };
+  useEffect(() => { fetchRate(); }, []);
+  return { rate, loading, refresh: fetchRate };
+}
+
+function PriceTag({ lots, price_from, rate, rateLoading, departureDate }) {
   const activeLots = lots.filter(l => l.active !== false);
   const currentLot = activeLots.find(l => (SPOTS_PER_LOT - (l.spots_filled || 0)) > 0);
 
@@ -19,16 +38,43 @@ function PriceTag({ lots, price_from }) {
   const spotsLeft = currentLot ? SPOTS_PER_LOT - (currentLot.spots_filled || 0) : null;
   const lotName = currentLot?.name || '1º Lote';
 
+  const today = new Date();
+  const monthsAvailable = departureDate
+    ? Math.max(1, differenceInMonths(startOfMonth(new Date(departureDate)), startOfMonth(today)))
+    : 6;
+
+  const brlTotal = rate ? price * rate : null;
+  const brlPerInstallment = brlTotal ? brlTotal / monthsAvailable : null;
+
   return (
-    <div className="mb-6 flex items-end gap-3 flex-wrap">
-      <div>
-        <span className="text-xs uppercase tracking-widest font-semibold text-[#bda94c]">{lotName} — por pessoa</span>
+    <div className="mb-6">
+      <span className="text-xs uppercase tracking-widest font-semibold text-[#bda94c]">{lotName} — por pessoa</span>
+
+      {/* USD — referência secundária */}
+      <div className="flex items-center gap-2 mt-1.5">
+        <span className="text-sm font-light text-gray-400 tracking-wide">USD {formatCurrency(price)}</span>
+      </div>
+
+      {/* BRL — destaque principal */}
+      {rateLoading ? (
+        <div className="text-3xl font-light text-gray-300 mt-1 animate-pulse">R$ —</div>
+      ) : brlTotal ? (
+        <div className="mt-1">
+          <div className="text-4xl font-semibold text-[#1A1A1A] leading-tight">
+            {fmtBRL(brlTotal)}
+          </div>
+          <p className="text-sm text-[#6b9faf] font-medium mt-1.5">
+            ou {monthsAvailable}x de {fmtBRL(brlPerInstallment)} sem juros no boleto
+          </p>
+        </div>
+      ) : (
         <div className="text-4xl font-light text-[#1A1A1A] mt-0.5">
           USD {formatCurrency(price)}
         </div>
-      </div>
+      )}
+
       {spotsLeft !== null && (
-        <div className="flex items-center gap-1.5 text-sm text-gray-500 mb-1.5">
+        <div className="flex items-center gap-1.5 text-sm text-gray-500 mt-2">
           <Users className="h-4 w-4 text-[#6b9faf]" />
           {spotsLeft} vaga{spotsLeft !== 1 ? 's' : ''} restante{spotsLeft !== 1 ? 's' : ''}
         </div>
@@ -38,6 +84,8 @@ function PriceTag({ lots, price_from }) {
 }
 
 export default function PaymentSection({ price_from, price_lote2, pricing_lots, payment_options, whatsappUrl, departureDate }) {
+  const { rate, loading: rateLoading, refresh } = useExchangeRate();
+
   const defaultPaymentOptions = [
     "PIX",
     "Boleto Parcelado Sem Juros",
@@ -78,7 +126,19 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
       >
         {/* Left — price + payment options */}
         <div className="md:col-span-3 p-7 border-b md:border-b-0 md:border-r border-gray-100">
-          <PriceTag lots={lots} price_from={price_from} />
+          <PriceTag lots={lots} price_from={price_from} rate={rate} rateLoading={rateLoading} departureDate={departureDate} />
+
+          {/* Nota da cotação */}
+          {!rateLoading && rate && (
+            <div className="flex items-center gap-1.5 mb-5 -mt-2">
+              <span className="text-xs text-gray-400">
+                * Dólar turismo a R$ {rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} · estimativa, valor final pode variar
+              </span>
+              <button onClick={refresh} className="text-[#6b9faf] hover:text-[#598491] transition-colors flex-shrink-0">
+                <RefreshCw className="h-3 w-3" />
+              </button>
+            </div>
+          )}
 
           <p className="text-xs text-gray-400 mb-4 uppercase tracking-wider font-semibold">Formas de pagamento</p>
           <div className="space-y-2.5">
@@ -167,7 +227,7 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
         </div>
       </motion.div>
       {/* Simulador de pagamento */}
-      <PaymentSimulator basePrice={price_from} departureDate={departureDate} />
+      <PaymentSimulator basePrice={price_from} departureDate={departureDate} rate={rate} rateLoading={rateLoading} onRefresh={refresh} />
     </section>
   );
 }

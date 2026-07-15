@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { differenceInMonths, startOfMonth, addMonths, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Zap, FileText, CreditCard, Layers, RefreshCw, ChevronDown } from 'lucide-react';
@@ -26,35 +26,13 @@ function ResultBox({ label, value, sub, highlight = false }) {
   );
 }
 
-function useExchangeRate() {
-  const [rate, setRate] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const fetchRate = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('https://economia.awesomeapi.com.br/json/last/USDT-BRL');
-      const data = await res.json();
-      const ask = parseFloat(data['USDBRLT']?.ask);
-      if (!isNaN(ask)) setRate(ask);
-    } catch {
-      // silencioso
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => { fetchRate(); }, []);
-  return { rate, loading, refresh: fetchRate };
-}
-
-export default function PaymentSimulator({ basePrice, departureDate, _defaultOpen = false }) {
+export default function PaymentSimulator({ basePrice, departureDate, rate, rateLoading, onRefresh, _defaultOpen = false }) {
   const [open, setOpen] = useState(_defaultOpen);
   const [method, setMethod] = useState('pix');
   const [cardInstallments, setCardInstallments] = useState(1);
   const [boletoInstallments, setBoletoInstallments] = useState(3);
   const [entryPct, setEntryPct] = useState(30);
-  const { rate, loading: rateLoading, refresh } = useExchangeRate();
+  const refresh = onRefresh;
 
   if (!basePrice || Number(basePrice) <= 0) return null;
 
