@@ -55,16 +55,19 @@ function PriceTag({ lots, price_from, rate, rateLoading, departureDate }) {
         <span className="text-sm font-light text-gray-400 tracking-wide">USD {formatCurrency(price)}</span>
       </div>
 
-      {/* BRL — destaque principal */}
+      {/* Parcelas em destaque + total abaixo */}
       {rateLoading ? (
         <div className="text-3xl font-light text-gray-300 mt-1 animate-pulse">R$ —</div>
       ) : brlTotal ? (
         <div className="mt-1">
-          <div className="text-4xl font-semibold text-[#1A1A1A] leading-tight">
-            {fmtBRL(brlTotal)}
+          <div className="text-xs text-gray-400 font-medium uppercase tracking-wider mb-0.5">
+            {monthsAvailable}x sem juros no boleto
           </div>
-          <p className="text-sm text-[#6b9faf] font-medium mt-1.5">
-            ou {monthsAvailable}x de {fmtBRL(brlPerInstallment)} sem juros no boleto
+          <div className="text-4xl font-semibold text-[#1A1A1A] leading-tight">
+            {fmtBRL(brlPerInstallment)}
+          </div>
+          <p className="text-sm text-gray-400 font-light mt-1">
+            Total: {fmtBRL(brlTotal)}
           </p>
         </div>
       ) : (
@@ -132,7 +135,7 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
           {!rateLoading && rate && (
             <div className="flex items-center gap-1.5 mb-5 -mt-2">
               <span className="text-xs text-gray-400">
-                * Dólar turismo a R$ {rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} · estimativa, valor final pode variar
+                * Esta viagem é cotada em dólar (USD). O valor em reais é uma estimativa com base no dólar turismo a R$ {rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} e pode variar conforme a cotação na data do pagamento.
               </span>
               <button onClick={refresh} className="text-[#6b9faf] hover:text-[#598491] transition-colors flex-shrink-0">
                 <RefreshCw className="h-3 w-3" />
