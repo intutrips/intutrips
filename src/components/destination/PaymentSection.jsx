@@ -60,10 +60,10 @@ function PriceTag({ lots, price_from, rate, rateLoading, departureDate }) {
         <div className="text-3xl font-light text-gray-300 mt-1 animate-pulse">R$ —</div>
       ) : brlTotal ? (
         <div className="mt-1">
-          <div className="text-xs text-gray-400 font-medium uppercase tracking-wider mb-0.5">
+          <div className="text-xs text-[#6b9faf] font-semibold uppercase tracking-wider mb-0.5">
             {monthsAvailable}x sem juros no boleto
           </div>
-          <div className="text-4xl font-semibold text-[#1A1A1A] leading-tight">
+          <div className="text-4xl font-semibold text-[#6b9faf] leading-tight">
             {fmtBRL(brlPerInstallment)}
           </div>
           <p className="text-sm text-gray-400 font-light mt-1">
@@ -135,7 +135,7 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
           {!rateLoading && rate && (
             <div className="flex items-center gap-1.5 mb-5 -mt-2">
               <span className="text-xs text-gray-400">
-                * Esta viagem é cotada em dólar (USD). O valor em reais é uma estimativa com base no dólar turismo a R$ {rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} e pode variar conforme a cotação na data do pagamento.
+                * Esta viagem é cotada em dólar (USD). O valor em reais é uma estimativa com base na cotação atual do dólar turismo a R$ {rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} e pode variar conforme variação natural da moeda.
               </span>
               <button onClick={refresh} className="text-[#6b9faf] hover:text-[#598491] transition-colors flex-shrink-0">
                 <RefreshCw className="h-3 w-3" />
