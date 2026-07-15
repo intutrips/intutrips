@@ -11,6 +11,17 @@ export function formatCurrency(value: any) {
     return isNaN(numberValue) ? '0' : numberValue.toLocaleString('en-US');
 }
 
+const SPOTS_PER_LOT = 6;
+
+export function getSpotsAvailable(pricing_lots: any[]): number | null {
+  if (!pricing_lots || !Array.isArray(pricing_lots) || pricing_lots.length === 0) return null;
+  const active = pricing_lots.filter((l: any) => l.active !== false && l.price);
+  if (active.length === 0) return null;
+  return active.reduce((total: number, lot: any) => {
+    return total + Math.max(0, SPOTS_PER_LOT - (lot.spots_filled || 0));
+  }, 0);
+}
+
 export function generateSlug(text: string) {
     if (!text) return '';
     return text.toString().toLowerCase()

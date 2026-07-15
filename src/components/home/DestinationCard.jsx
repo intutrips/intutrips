@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Users, ArrowUpRight, Venus } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { createPageUrl, formatCurrency, generateSlug } from '@/utils';
+import { createPageUrl, formatCurrency, generateSlug, getSpotsAvailable } from '@/utils';
 
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -17,8 +17,11 @@ const countryImages = {
 
 export default function DestinationCard({ destination, index }) {
   const imageUrl = destination.image_url || countryImages[destination.country] || countryImages["Tailândia"];
-
   const destSlug = destination.slug || (destination.country ? generateSlug(destination.country) : destination.id);
+
+  const spotsAvailable = getSpotsAvailable(destination.pricing_lots);
+  const isAlmostSoldOut = spotsAvailable !== null && spotsAvailable > 0 && spotsAvailable <= 4;
+  const showFewSpots = isAlmostSoldOut || destination.availability_status === 'few_spots';
 
   return (
     <motion.div
@@ -43,9 +46,9 @@ export default function DestinationCard({ destination, index }) {
               Esgotado
             </div>
           )}
-          {destination.availability_status === 'few_spots' && (
-            <div className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-orange-500 text-white text-xs font-medium uppercase rounded-full">
-              Últimas Vagas
+          {showFewSpots && (
+            <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5 px-3 py-1.5 bg-red-500 text-white text-xs font-semibold uppercase rounded-full shadow-md animate-pulse">
+              🔥 Últimas Vagas{spotsAvailable !== null ? ` — ${spotsAvailable} restante${spotsAvailable !== 1 ? 's' : ''}` : ''}
             </div>
           )}
           {/* Overlay escuro sutil para Em Breve */}

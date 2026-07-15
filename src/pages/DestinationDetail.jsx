@@ -15,7 +15,7 @@ const PROFILE_TAG_ICONS = {
 };
 import { Button } from "@/components/ui/button";
 import { Link, useParams } from 'react-router-dom';
-import { createPageUrl, generateSlug } from '@/utils';
+import { createPageUrl, generateSlug, getSpotsAvailable } from '@/utils';
 
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -86,6 +86,10 @@ export default function DestinationDetail() {
   const imageUrl = destination.image_url || countryImages[destination.country] || countryImages["Tailândia"];
   const isComingSoon = destination.availability_status === 'coming_soon';
 
+  const spotsAvailable = getSpotsAvailable(destination.pricing_lots);
+  const isAlmostSoldOut = spotsAvailable !== null && spotsAvailable > 0 && spotsAvailable <= 4;
+  const showFewSpots = isAlmostSoldOut || destination.availability_status === 'few_spots';
+
   const whatsappMsg = encodeURIComponent(
     `Olá, vi as informações sobre a expedição ${destination.name} no site da Intu Trips e gostaria de mais informações.`
   );
@@ -130,9 +134,9 @@ export default function DestinationDetail() {
                     Esgotado
                   </span>
                 )}
-                {destination.availability_status === 'few_spots' && (
-                  <span className="inline-block px-4 py-2 bg-orange-500 text-white text-sm tracking-wider uppercase rounded-full">
-                    Últimas Vagas
+                {showFewSpots && (
+                  <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-red-500 text-white text-sm font-semibold tracking-wider uppercase rounded-full animate-pulse">
+                    🔥 Últimas Vagas{spotsAvailable !== null ? ` — ${spotsAvailable} restante${spotsAvailable !== 1 ? 's' : ''}` : ''}
                   </span>
                 )}
               </div>
