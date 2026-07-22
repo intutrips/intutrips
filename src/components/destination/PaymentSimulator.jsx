@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { differenceInMonths, startOfMonth, addMonths, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Zap, FileText, CreditCard, Layers, RefreshCw, ChevronDown } from 'lucide-react';
@@ -26,13 +26,34 @@ function ResultBox({ label, value, sub, highlight = false }) {
   );
 }
 
-export default function PaymentSimulator({ basePrice, departureDate, rate, rateLoading, onRefresh, _defaultOpen = false }) {
+function useInternalRate() {
+  const [rate, setRate] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const fetchRate = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('https://economia.awesomeapi.com.br/json/last/USDT-BRL');
+      const data = await res.json();
+      const ask = parseFloat(data['USDBRLT']?.ask);
+      if (!isNaN(ask)) setRate(ask);
+    } catch { /* silencioso */ } finally { setLoading(false); }
+  };
+  useEffect(() => { fetchRate(); }, []);
+  return { rate, loading, refresh: fetchRate };
+}
+
+export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, _defaultOpen = false }) {
   const [open, setOpen] = useState(_defaultOpen);
   const [method, setMethod] = useState('pix');
   const [cardInstallments, setCardInstallments] = useState(1);
   const [boletoInstallments, setBoletoInstallments] = useState(3);
   const [entryPct, setEntryPct] = useState(30);
-  const refresh = onRefresh;
+
+  // Usa taxa passada pelo pai (PaymentSection) ou busca internamente (Simulador standalone)
+  const internal = useInternalRate();
+  const rate = rateProp !== undefined ? rateProp : internal.rate;
+  const rateLoading = rateLoadingProp !== undefined ? rateLoadingProp : internal.loading;
+  const refresh = onRefresh || internal.refresh;
 
   if (!basePrice || Number(basePrice) <= 0) return null;
 
