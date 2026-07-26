@@ -35,7 +35,7 @@ export default function ContactCTA() {
               WhatsApp
             </Button>
           </a>
-          <a href="mailto:intutrips@gmail.com">
+          <a href="mailto:contato@intutrips.com">
             <Button
               className="border border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white rounded-full px-8 py-6 text-base backdrop-blur-sm">
               <Mail className="mr-2 h-5 w-5" />

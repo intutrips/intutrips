@@ -128,7 +128,7 @@ export default function Simulador() {
               WhatsApp
             </a>
             <a
-              href="mailto:intutrips@gmail.com"
+              href="mailto:contato@intutrips.com"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#1A1A1A] text-white text-sm font-medium rounded-full hover:bg-[#2D4A3E] transition-colors"
             >
               E-mail

@@ -7,7 +7,7 @@ import { differenceInMonths, startOfMonth } from 'date-fns';
 import PaymentSimulator from './PaymentSimulator';
 
 const SPOTS_PER_LOT = 6;
-const EMAIL = "mailto:intutrips@gmail.com";
+const EMAIL = "mailto:contato@intutrips.com";
 
 const fmtBRL = (val) =>
   'R$ ' + Number(val).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });

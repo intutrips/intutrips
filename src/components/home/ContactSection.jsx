@@ -36,7 +36,7 @@ export default function ContactSection() {
 
       if (error) throw error;
 
-      // Envia email de notificação para intutrips@gmail.com
+      // Envia email de notificação para contato@intutrips.com
       const serviceId  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
       const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
       const publicKey  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
@@ -94,8 +94,8 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <div className="text-sm text-gray-500">Email</div>
-                  <a href={`mailto:${texts.general_email || 'intutrips@gmail.com'}`} className="text-[#1A1A1A] hover:text-[#bda94c] transition-colors">
-                    {texts.general_email || 'intutrips@gmail.com'}
+                  <a href={`mailto:${texts.general_email || 'contato@intutrips.com'}`} className="text-[#1A1A1A] hover:text-[#bda94c] transition-colors">
+                    {texts.general_email || 'contato@intutrips.com'}
                   </a>
                 </div>
               </div>
