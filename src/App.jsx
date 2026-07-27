@@ -21,6 +21,7 @@ import SiteTextsAdmin from '@/pages/admin/SiteTextsAdmin';
 import BlogAdmin from '@/pages/admin/BlogAdmin';
 import Profile from '@/pages/admin/Profile';
 import Simulador from '@/pages/Simulador';
+import Encontro from '@/pages/Encontro';
 
 
 const { Pages, Layout, mainPage } = pagesConfig;
@@ -197,6 +198,16 @@ const AuthenticatedApp = () => {
         element={
           <LayoutWrapper currentPageName="Simulador">
             <Simulador />
+          </LayoutWrapper>
+        }
+      />
+
+      {/* Encontro presencial SP — página oculta, acessível via link direto */}
+      <Route
+        path="/encontro"
+        element={
+          <LayoutWrapper currentPageName="Encontro">
+            <Encontro />
           </LayoutWrapper>
         }
       />
