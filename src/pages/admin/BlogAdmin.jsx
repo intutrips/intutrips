@@ -416,6 +416,200 @@ const CHINA_FOOD_POST_CONTENT = `<p class="lead">A culinária chinesa tem mais d
   <a href="/destinos">Conheça nossas expedições para a China</a>
 </div>`;
 
+const CHINA_ALIPAY_POST_CONTENT = `<p class="lead">A China é um dos países mais cashless do mundo — e o sistema de pagamento deles não tem nada a ver com o nosso. Cartão de crédito internacional funciona em hotéis cinco estrelas e em poucas lojas voltadas para turistas. No resto do país, de barracas de rua a supermercados, a resposta é quase sempre a mesma: QR code ou nada. Para você ter ideia do tamanho da mudança: em muitos bairros de Xangai e Pequim, é mais difícil pagar em dinheiro vivo do que com o celular.</p>
+
+<p>O Alipay (支付宝, Zhīfùbǎo) é um dos dois gigantes que dominam esse sistema. Criado pelo Grupo Alibaba em 2004, é hoje um dos aplicativos de pagamento mais utilizados do mundo, com mais de um bilhão de usuários. Em 2023, a plataforma passou a aceitar cartões internacionais de forma muito mais direta — o que mudou completamente a equação para o viajante estrangeiro. Antes, usar o Alipay exigia um número de telefone chinês e uma conta bancária local. Hoje, você já pode configurar tudo com o seu CPF, passaporte e cartão Visa ou Mastercard.</p>
+
+<p>Este guia cobre o que você precisa fazer antes de embarcar, passo a passo — e o que fazer quando algo não funciona.</p>
+
+<nav class="blog-toc">
+  <p class="toc-title">Neste Guia</p>
+  <ol>
+    <li><a href="#por-que">Por que o Alipay é indispensável na China</a></li>
+    <li><a href="#criar-conta">Como criar a sua conta</a></li>
+    <li><a href="#adicionar-cartao">Como vincular o seu cartão internacional</a></li>
+    <li><a href="#pagar">Como pagar na prática</a></li>
+    <li><a href="#alipay-vs-wechat">Alipay ou WeChat Pay?</a></li>
+    <li><a href="#limites">Limites, taxas e IOF</a></li>
+    <li><a href="#problemas">Problemas comuns e como resolver</a></li>
+    <li><a href="#dicas">Dicas finais antes de embarcar</a></li>
+  </ol>
+</nav>
+
+<div class="section-header" id="por-que"><span class="num">01</span><h2>Por Que o Alipay é Indispensável na China</h2></div>
+
+<p>A China pulou a era do cartão de crédito. Enquanto o Ocidente ainda refinava as máquinas de POS e os chips EMV, a China foi direto para o QR code — e com uma velocidade e escala que transformaram o país inteiro. Hoje, pagar com cartão físico numa farmácia popular, num restaurante local ou no metrô de Xangai é quase impossível. O sistema não está preparado para isso.</p>
+
+<div class="blog-cards">
+  <div class="blog-card"><span class="card-icon">🍜</span><h3>Restaurantes locais</h3><p>Praticamente todos os restaurantes populares, lanchonetes e barracas de rua operam exclusivamente com QR code. Sem o app, você fica dependente de hotéis ou redes internacionais.</p></div>
+  <div class="blog-card"><span class="card-icon">🚇</span><h3>Transporte público</h3><p>Metrô, ônibus e bikes compartilhadas funcionam via app. Algumas cidades aceitam dinheiro em espécie no metrô, mas a fila do QR é sempre menor.</p></div>
+  <div class="blog-card"><span class="card-icon">🛒</span><h3>Comércio em geral</h3><p>Da farmácia à loja de conveniência, o QR code é a forma de pagamento padrão. Lojas maiores costumam ter terminais de cartão, mas é a exceção.</p></div>
+  <div class="blog-card"><span class="card-icon">🏥</span><h3>Emergências</h3><p>Clínicas, farmácias e até algumas taxas de imigração são pagas digitalmente. Ter o app funcionando é segurança — não só conveniência.</p></div>
+</div>
+
+<div class="callout"><div class="callout-title">📌 A boa notícia</div><p>Desde 2023, o Alipay aceita cartões internacionais Visa, Mastercard e bandeiras de cartões de viagem como Wise e Nomad. Você não precisa mais de conta bancária chinesa nem de número de telefone local para usar o app no dia a dia.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="criar-conta"><span class="num">02</span><h2>Como Criar a Sua Conta no Alipay</h2></div>
+
+<p>O processo é simples, mas exige atenção em alguns detalhes — especialmente na parte de verificação de identidade, que é necessária para acessar os pagamentos internacionais.</p>
+
+<div class="callout tip"><div class="callout-title">⚠️ Faça isso no Brasil, antes de embarcar</div><p>Algumas etapas de verificação usam SMS e serviços que podem ser mais lentos ou instáveis na China. Configure tudo com calma antes de viajar — de preferência com uma semana de antecedência, para dar tempo de resolver se algo der errado.</p></div>
+
+<h3>Passo a passo para criar a conta</h3>
+
+<div class="checklist"><ul>
+  <li>Baixe o Alipay na App Store (iOS) ou Google Play (Android)</li>
+  <li>Abra o app e escolha <strong>Inglês</strong> como idioma (ou o idioma de sua preferência)</li>
+  <li>Toque em <strong>"Sign up"</strong> e insira o seu número de telefone brasileiro com o código +55</li>
+  <li>Confirme o código enviado por SMS para o seu celular</li>
+  <li>Crie uma senha de 6 dígitos numéricos (guarde bem — você vai usar sempre)</li>
+  <li>Na seção de identidade, selecione <strong>"Foreigner"</strong> e insira os dados do seu passaporte</li>
+  <li>Tire uma foto do passaporte e faça a verificação facial quando solicitado</li>
+  <li>Aguarde a confirmação — pode levar de alguns minutos a algumas horas</li>
+</ul></div>
+
+<p>Depois disso, o app estará pronto para receber um cartão internacional — que é o próximo passo.</p>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="adicionar-cartao"><span class="num">03</span><h2>Como Vincular o Seu Cartão Internacional</h2></div>
+
+<p>Com a conta criada e verificada, você pode adicionar um ou mais cartões de crédito ou débito internacionais. O app aceita Visa, Mastercard e cartões de viagem como Wise e Nomad.</p>
+
+<div class="checklist"><ul>
+  <li>No app, toque em <strong>"Me"</strong> (ícone no canto inferior direito)</li>
+  <li>Selecione <strong>"Bank Cards"</strong> ou <strong>"Payment Methods"</strong></li>
+  <li>Toque em <strong>"Add Card"</strong></li>
+  <li>Insira o número do cartão, data de validade e CVV</li>
+  <li>Informe seu nome completo como consta no cartão</li>
+  <li>Confirme pelo SMS enviado pelo seu banco</li>
+  <li>O cartão aparecerá nas suas opções de pagamento</li>
+</ul></div>
+
+<div class="callout tip"><div class="callout-title">💡 Dica importante</div><p>Cadastre pelo menos dois cartões diferentes. Cartões de viagem como <strong>Wise</strong> e <strong>Nomad</strong> tendem a ter taxas mais baixas e costumam funcionar melhor para esse tipo de uso internacional. Avise também ao seu banco que vai usar o cartão na China — alguns bloqueiam transações internacionais por padrão por segurança.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="pagar"><span class="num">04</span><h2>Como Pagar na Prática</h2></div>
+
+<p>Na China, existem basicamente dois jeitos de pagar com Alipay: você escaneia o QR code do estabelecimento, ou o estabelecimento escaneia o seu.</p>
+
+<h3>Método 1: Você escaneia o QR do estabelecimento</h3>
+<p>Este é o mais comum em restaurantes, lojas e serviços.</p>
+<div class="checklist"><ul>
+  <li>Abra o Alipay e toque em <strong>"Scan"</strong></li>
+  <li>Aponte a câmera para o QR code do estabelecimento</li>
+  <li>Insira o valor em yuan (CNY) quando solicitado</li>
+  <li>Confirme com a sua senha de 6 dígitos ou biometria (Touch/Face ID)</li>
+  <li>Guarde o comprovante que aparece na tela — é equivalente ao recibo</li>
+</ul></div>
+
+<h3>Método 2: O estabelecimento escaneia o seu código</h3>
+<p>Muito comum em caixas de supermercado, farmácias e alguns restaurantes.</p>
+<div class="checklist"><ul>
+  <li>Abra o Alipay e toque em <strong>"Pay"</strong> (ícone do QR pessoal)</li>
+  <li>Mostre o código na tela para o atendente escanear</li>
+  <li>O débito acontece automaticamente após a leitura</li>
+</ul></div>
+
+<div class="callout"><div class="callout-title">📱 Deixe o app pré-aberto</div><p>Em restaurantes movimentados ou filas rápidas, já abra a tela de pagamento enquanto espera. No metrô, você pode escanear direto na catraca — sem precisar parar para abrir o app do zero.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="alipay-vs-wechat"><span class="num">05</span><h2>Alipay ou WeChat Pay?</h2></div>
+
+<p>Essa é a dúvida mais comum. Os dois dominam os pagamentos na China e, no dia a dia, você vai encontrar QR codes dos dois em praticamente qualquer estabelecimento. Mas existem diferenças importantes para o viajante estrangeiro.</p>
+
+<table>
+  <thead><tr><th>Critério</th><th>Alipay</th><th>WeChat Pay</th></tr></thead>
+  <tbody>
+    <tr><td>Interface em inglês</td><td>✅ Sim, nativo</td><td>⚠️ Parcial</td></tr>
+    <tr><td>Cartão internacional direto</td><td>✅ Sim</td><td>✅ Sim (desde 2023)</td></tr>
+    <tr><td>Verificação de estrangeiro</td><td>✅ Processo mais simples</td><td>⚠️ Exige mais etapas</td></tr>
+    <tr><td>Mini-programas e apps extras</td><td>✅ Metrô, bike, delivery</td><td>✅ Comunicação, mapas, reservas</td></tr>
+    <tr><td>Aceitação geral</td><td>✅ Praticamente universal</td><td>✅ Praticamente universal</td></tr>
+    <tr><td>Suporte ao estrangeiro</td><td>✅ Melhor experiência</td><td>⚠️ Algumas funções travadas</td></tr>
+  </tbody>
+</table>
+
+<p class="pull-quote">"Para quem vai pela primeira vez, o Alipay é o ponto de partida. O WeChat vem logo depois — porque ele é também o WhatsApp e o Google Maps dos chineses ao mesmo tempo."</p>
+
+<div class="callout tip"><div class="callout-title">💡 Estratégia recomendada</div><p>Configure o Alipay como principal. Instale o WeChat como backup e, especialmente, para comunicação — o app é usado para tudo na China, de reservas a conversas com guias locais. Ter os dois funcionando é a combinação ideal.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="limites"><span class="num">06</span><h2>Limites, Taxas e IOF</h2></div>
+
+<p>O Alipay não cobra nenhuma taxa pelo uso do app em si. Os custos que você vai sentir vêm do seu banco e do governo brasileiro — não da plataforma.</p>
+
+<div class="blog-cards">
+  <div class="blog-card"><span class="card-icon">💸</span><h3>IOF</h3><p>Transações internacionais feitas com cartão de crédito têm IOF de 4,38% no Brasil (alíquota vigente para compras no exterior). Cartões de débito têm alíquota diferente.</p></div>
+  <div class="blog-card"><span class="card-icon">🏦</span><h3>Taxa do banco</h3><p>Cada banco cobra uma taxa sobre compras internacionais. Cartões de viagem como Wise e Nomad costumam cobrar muito menos — ou zero — nesse item.</p></div>
+  <div class="blog-card"><span class="card-icon">🔢</span><h3>Limite de saque</h3><p>O Alipay aceita pagamentos com cartão vinculado, mas tem limites por transação e por dia. Consulte os limites no próprio app, em "Me" &gt; "Bank Cards".</p></div>
+  <div class="blog-card"><span class="card-icon">💱</span><h3>Conversão</h3><p>A cotação usada é a da bandeira do cartão (Visa ou Mastercard) na data da transação. Não é a cotação do dólar comercial — costuma ser a cotação dólar turismo ou próxima dela.</p></div>
+</div>
+
+<div class="callout"><div class="callout-title">🔑 Qual cartão usar?</div><p>Para reduzir ao máximo as taxas, prefira cartões de viagem com zero IOF de débito e sem taxa de conversão — como o <strong>Nomad</strong> (0% de IOF na modalidade débito) ou o <strong>Wise</strong>. Compare os custos com o seu cartão de crédito convencional antes de escolher qual vincular no Alipay.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="problemas"><span class="num">07</span><h2>Problemas Comuns e Como Resolver</h2></div>
+
+<table>
+  <thead><tr><th>Problema</th><th>Causa provável</th><th>Solução</th></tr></thead>
+  <tbody>
+    <tr><td>Cartão recusado na hora de vincular</td><td>Banco bloqueou transação internacional</td><td>Ligue para o banco antes de viajar e peça para liberar uso no exterior</td></tr>
+    <tr><td>Pagamento recusado no estabelecimento</td><td>Conexão de internet instável</td><td>Tente o método alternativo (você escanear em vez de mostrar o seu código)</td></tr>
+    <tr><td>App em chinês</td><td>Configuração de idioma</td><td>Vá em "Me" &gt; Settings &gt; General &gt; Language e selecione inglês</td></tr>
+    <tr><td>Verificação de identidade bloqueada</td><td>Documentos rejeitados ou foto ruim</td><td>Refaça com boa iluminação e passaporte totalmente aberto na página da foto</td></tr>
+    <tr><td>App trava na verificação facial</td><td>Versão desatualizada</td><td>Atualize o app e tente de novo — preferencialmente no Brasil, com boa internet</td></tr>
+    <tr><td>Mini-programas de metrô não funcionam</td><td>Versão para estrangeiros tem restrições</td><td>Compre fichas físicas no guichê ou use WeChat Pay como alternativa</td></tr>
+  </tbody>
+</table>
+
+<div class="callout"><div class="callout-title">🚨 Se nada funcionar no momento</div><p>Tenha sempre entre 300 e 500 yuan em espécie como fundo de emergência. Caixas eletrônicos das cidades principais aceitam cartões internacionais — procure os do ICBC, Bank of China ou China Construction Bank. Cada saque costuma cobrar uma taxa fixa, então saque valores maiores de uma vez.</p></div>
+
+<div class="divider-decoration">• • •</div>
+
+<div class="section-header" id="dicas"><span class="num">08</span><h2>Dicas Finais Antes de Embarcar</h2></div>
+
+<div class="checklist"><ul>
+  <li><strong>Configure o Alipay no Brasil,</strong> com calma e boa conexão de internet — não deixe para fazer na China</li>
+  <li><strong>Avise o seu banco</strong> que vai usar o cartão na China para evitar bloqueios inesperados</li>
+  <li><strong>Cadastre dois cartões</strong> — um principal e um backup</li>
+  <li><strong>Leve yuan em espécie</strong> como reserva (300 a 500 CNY é suficiente para emergências)</li>
+  <li><strong>Instale o WeChat</strong> como complemento — não como substituto</li>
+  <li><strong>Baixe uma VPN antes de embarcar</strong> — sem ela, você pode ter dificuldade de acessar sua conta bancária, e-mail e outros serviços de verificação estrangeiros</li>
+  <li><strong>Ative o Touch ID ou Face ID</strong> no Alipay para agilizar as confirmações no caixa</li>
+  <li><strong>Teste uma pequena transação</strong> ainda no Brasil — algumas versões do app permitem simular um pagamento interno ou verificar saldo</li>
+</ul></div>
+
+<div class="intu-callout">
+  <p class="intu-label">✨ Expedição Intu Trips</p>
+  <h3>Prepare-se para a China com quem já esteve lá — e sabe o que funciona</h3>
+  <img src="https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=900&q=80" alt="China - Grande Muralha" style="width:100%;border-radius:8px;margin-bottom:16px;max-height:280px;object-fit:cover;">
+  <p>Organizar uma viagem à China é desafiador: VPN, Alipay, WeChat, trem de alta velocidade, roteiro cultural entre Pequim, Xangai e as cidades milenares. Na expedição da Intu Trips para a China, cuidamos de tudo isso com você — em grupo pequeno, com suporte de verdade e experiências que vão além do roteiro convencional.</p>
+  <a href="/china" class="intu-btn">Ver a expedição para a China →</a>
+</div>
+
+<div class="signature">旅途愉快 — Boa viagem e boas compras! 🇨🇳</div>`;
+
+const CHINA_ALIPAY_POST = {
+  title: 'Como usar o Alipay na China: guia completo para brasileiros',
+  slug: 'como-usar-alipay-na-china-guia-para-brasileiros',
+  excerpt: 'Passo a passo para criar conta, vincular cartão internacional e pagar com Alipay na China — sem cartão de crédito físico, sem complicação.',
+  cover_image_url: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=1200&q=80',
+  category: 'Dicas de Viagem',
+  author: 'Intu Trips',
+  read_time_minutes: 9,
+  meta_description: 'Aprenda a usar o Alipay na China como brasileiro: criação de conta, cartão internacional, como pagar na prática, limites, taxas e o que fazer quando der errado.',
+  is_published: true,
+  published_at: '2026-07-27',
+  content: CHINA_ALIPAY_POST_CONTENT,
+};
+
 const CHINA_FOOD_POST = {
   title: 'O Que Comer na China: Guia Completo de Pratos, Etiqueta e Segurança Alimentar',
   slug: 'o-que-comer-na-china-guia-completo-pratos-etiqueta-seguranca-alimentar',
@@ -628,6 +822,9 @@ export default function BlogAdmin() {
           </Button>
           <Button onClick={() => openCreate(CHINA_FOOD_POST)} variant="outline" className="gap-2 rounded-xl text-sm border-[#92314D] text-[#92314D] hover:bg-[#92314D]/10">
             🍜 Post: Gastronomia China
+          </Button>
+          <Button onClick={() => openCreate(CHINA_ALIPAY_POST)} variant="outline" className="gap-2 rounded-xl text-sm border-[#92314D] text-[#92314D] hover:bg-[#92314D]/10">
+            💳 Post: Alipay China
           </Button>
           <Button onClick={() => openCreate()} className="bg-[#bda94c] hover:bg-[#a8943f] text-white gap-2 rounded-xl">
             <Plus className="h-4 w-4" />
