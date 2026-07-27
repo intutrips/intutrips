@@ -12,29 +12,57 @@ const EMAIL = "mailto:contato@intutrips.com";
 const fmtBRL = (val) =>
   'R$ ' + Number(val).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
+const RATE_CACHE_KEY = 'intu_turismo_rate_v1';
+const RATE_CACHE_TTL = 8 * 60 * 60 * 1000; // 8 horas
+const RATE_FALLBACK = 5.70; // estimativa estática de último recurso
+
 async function fetchTurismoRate() {
+  // Camada 1 — tenta as APIs ao vivo
+  const liveRate = await (async () => {
+    try {
+      const res = await fetch('https://economia.awesomeapi.com.br/json/last/USDT-BRL');
+      const data = await res.json();
+      const ask = parseFloat(data['USDBRLT']?.ask);
+      if (!isNaN(ask) && ask > 0) return ask;
+    } catch {}
+    try {
+      const res = await fetch('https://open.er-api.com/v6/latest/USD');
+      const data = await res.json();
+      const brl = parseFloat(data?.rates?.BRL);
+      if (!isNaN(brl) && brl > 0) return parseFloat((brl * 1.05).toFixed(4));
+    } catch {}
+    return null;
+  })();
+
+  if (liveRate) {
+    try { localStorage.setItem(RATE_CACHE_KEY, JSON.stringify({ rate: liveRate, ts: Date.now() })); } catch {}
+    return liveRate;
+  }
+
+  // Camada 2 — cache local (mesmo expirado, melhor que nada)
   try {
-    const res = await fetch('https://economia.awesomeapi.com.br/json/last/USDT-BRL');
-    const data = await res.json();
-    const ask = parseFloat(data['USDBRLT']?.ask);
-    if (!isNaN(ask) && ask > 0) return ask;
-  } catch { /* continua */ }
-  try {
-    const res = await fetch('https://open.er-api.com/v6/latest/USD');
-    const data = await res.json();
-    const brl = parseFloat(data?.rates?.BRL);
-    if (!isNaN(brl) && brl > 0) return parseFloat((brl * 1.05).toFixed(4));
-  } catch { /* silencioso */ }
-  return null;
+    const cached = JSON.parse(localStorage.getItem(RATE_CACHE_KEY) || 'null');
+    if (cached?.rate > 0) return cached.rate;
+  } catch {}
+
+  // Camada 3 — estimativa estática
+  return RATE_FALLBACK;
 }
 
 function useExchangeRate() {
-  const [rate, setRate] = useState(null);
+  const [rate, setRate] = useState(() => {
+    // Inicializa do cache para não mostrar "Calculando..." na primeira renderização
+    try {
+      const cached = JSON.parse(localStorage.getItem(RATE_CACHE_KEY) || 'null');
+      if (cached?.rate > 0 && (Date.now() - cached.ts) < RATE_CACHE_TTL) return cached.rate;
+    } catch {}
+    return null;
+  });
   const [loading, setLoading] = useState(true);
   const fetchRate = async () => {
     setLoading(true);
     const r = await fetchTurismoRate();
-    if (r) setRate(r);
+    setRate(r);
     setLoading(false);
   };
   useEffect(() => { fetchRate(); }, []);
