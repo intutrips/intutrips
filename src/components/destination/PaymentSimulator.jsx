@@ -26,17 +26,32 @@ function ResultBox({ label, value, sub, highlight = false }) {
   );
 }
 
+async function fetchTurismoRate() {
+  // 1ª tentativa: dólar turismo via AwesomeAPI
+  try {
+    const res = await fetch('https://economia.awesomeapi.com.br/json/last/USDT-BRL');
+    const data = await res.json();
+    const ask = parseFloat(data['USDBRLT']?.ask);
+    if (!isNaN(ask) && ask > 0) return ask;
+  } catch { /* continua */ }
+  // Fallback: taxa comercial via open.er-api + 5% (spread turismo aproximado)
+  try {
+    const res = await fetch('https://open.er-api.com/v6/latest/USD');
+    const data = await res.json();
+    const brl = parseFloat(data?.rates?.BRL);
+    if (!isNaN(brl) && brl > 0) return parseFloat((brl * 1.05).toFixed(4));
+  } catch { /* silencioso */ }
+  return null;
+}
+
 function useInternalRate() {
   const [rate, setRate] = useState(null);
   const [loading, setLoading] = useState(true);
   const fetchRate = async () => {
     setLoading(true);
-    try {
-      const res = await fetch('https://economia.awesomeapi.com.br/json/last/USDT-BRL');
-      const data = await res.json();
-      const ask = parseFloat(data['USDBRLT']?.ask);
-      if (!isNaN(ask)) setRate(ask);
-    } catch { /* silencioso */ } finally { setLoading(false); }
+    const r = await fetchTurismoRate();
+    if (r) setRate(r);
+    setLoading(false);
   };
   useEffect(() => { fetchRate(); }, []);
   return { rate, loading, refresh: fetchRate };
