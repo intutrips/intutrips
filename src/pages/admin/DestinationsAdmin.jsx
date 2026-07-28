@@ -10,6 +10,9 @@ import {
     Loader2,
     Image as ImageIcon,
     GripVertical,
+    ChevronUp,
+    ChevronDown,
+    Copy,
     X,
     Leaf,
     Sparkles,
@@ -169,6 +172,28 @@ export default function DestinationsAdmin() {
         },
         onError: (error) => {
             toast.error('Erro ao remover: ' + error.message);
+        }
+    });
+
+    const duplicateMutation = useMutation({
+        mutationFn: async (dest) => {
+            const { id, created_at, updated_at, ...rest } = dest;
+            const copy = {
+                ...rest,
+                name: rest.name + ' (Cópia)',
+                slug: rest.slug + '-copia-' + Date.now(),
+                is_published: false,
+                display_order: (rest.display_order || 0) + 1,
+            };
+            const { error } = await supabase.from('destinations').insert([copy]);
+            if (error) throw error;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['admin-destinations'] });
+            toast.success('Destino duplicado como rascunho!');
+        },
+        onError: (error) => {
+            toast.error('Erro ao duplicar: ' + error.message);
         }
     });
 
@@ -429,6 +454,15 @@ export default function DestinationsAdmin() {
                                                                             onClick={() => handleOpenDialog(dest)}
                                                                         >
                                                                             <Pencil className="h-4 w-4" />
+                                                                        </Button>
+                                                                        <Button
+                                                                            variant="ghost"
+                                                                            size="icon"
+                                                                            title="Duplicar como rascunho"
+                                                                            className="h-8 w-8 rounded-lg text-purple-500 hover:text-purple-600 hover:bg-purple-50"
+                                                                            onClick={() => duplicateMutation.mutate(dest)}
+                                                                        >
+                                                                            <Copy className="h-4 w-4" />
                                                                         </Button>
                                                                         <Button
                                                                             variant="ghost"
@@ -1045,19 +1079,49 @@ export default function DestinationsAdmin() {
 
                                     {(formData.itinerary || []).map((day, index) => (
                                         <div key={index} className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-3 relative group">
-                                            <Button
-                                                type="button"
-                                                variant="ghost"
-                                                size="icon"
-                                                className="absolute top-2 right-2 h-6 w-6 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity"
-                                                onClick={() => {
-                                                    const newItinerary = [...formData.itinerary];
-                                                    newItinerary.splice(index, 1);
-                                                    setFormData({ ...formData, itinerary: newItinerary });
-                                                }}
-                                            >
-                                                <Trash2 className="h-4 w-4" />
-                                            </Button>
+                                            <div className="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <Button
+                                                    type="button"
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="h-6 w-6 text-gray-400 hover:text-[#2D4A3E] disabled:opacity-20"
+                                                    disabled={index === 0}
+                                                    onClick={() => {
+                                                        const newItinerary = [...formData.itinerary];
+                                                        [newItinerary[index - 1], newItinerary[index]] = [newItinerary[index], newItinerary[index - 1]];
+                                                        setFormData({ ...formData, itinerary: newItinerary });
+                                                    }}
+                                                >
+                                                    <ChevronUp className="h-4 w-4" />
+                                                </Button>
+                                                <Button
+                                                    type="button"
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="h-6 w-6 text-gray-400 hover:text-[#2D4A3E] disabled:opacity-20"
+                                                    disabled={index === (formData.itinerary || []).length - 1}
+                                                    onClick={() => {
+                                                        const newItinerary = [...formData.itinerary];
+                                                        [newItinerary[index], newItinerary[index + 1]] = [newItinerary[index + 1], newItinerary[index]];
+                                                        setFormData({ ...formData, itinerary: newItinerary });
+                                                    }}
+                                                >
+                                                    <ChevronDown className="h-4 w-4" />
+                                                </Button>
+                                                <Button
+                                                    type="button"
+                                                    variant="ghost"
+                                                    size="icon"
+                                                    className="h-6 w-6 text-gray-400 hover:text-red-500"
+                                                    onClick={() => {
+                                                        const newItinerary = [...formData.itinerary];
+                                                        newItinerary.splice(index, 1);
+                                                        setFormData({ ...formData, itinerary: newItinerary });
+                                                    }}
+                                                >
+                                                    <Trash2 className="h-4 w-4" />
+                                                </Button>
+                                            </div>
                                             <div className="grid grid-cols-4 gap-3">
                                                 <Input
                                                     className="col-span-1"
