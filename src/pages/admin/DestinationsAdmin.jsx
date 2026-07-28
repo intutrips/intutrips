@@ -177,13 +177,36 @@ export default function DestinationsAdmin() {
 
     const duplicateMutation = useMutation({
         mutationFn: async (dest) => {
-            const { id, created_at, updated_at, ...rest } = dest;
             const copy = {
-                ...rest,
-                name: rest.name + ' (Cópia)',
-                slug: rest.slug + '-copia-' + Date.now(),
+                name: dest.name + ' (Cópia)',
+                description: dest.description || '',
+                image_url: dest.image_url || '',
+                country: dest.country || '',
+                price_from: dest.price_from || null,
+                price_lote2: dest.price_lote2 || null,
+                duration: dest.duration || '',
+                group_size: dest.group_size || '',
+                availability_status: dest.availability_status || 'available',
+                group_type: dest.group_type || 'misto',
                 is_published: false,
-                display_order: (rest.display_order || 0) + 1,
+                show_waitlist: dest.show_waitlist ?? false,
+                show_testimonials: dest.show_testimonials ?? false,
+                display_order: (dest.display_order || 0) + 1,
+                departure_start_date: dest.departure_start_date || null,
+                departure_end_date: dest.departure_end_date || null,
+                gallery_images: dest.gallery_images || [],
+                hotels: dest.hotels || [],
+                inclusions: dest.inclusions || [],
+                exclusions: dest.exclusions || [],
+                payment_options: dest.payment_options || [],
+                pricing_lots: dest.pricing_lots || [],
+                testimonial_videos: dest.testimonial_videos || [],
+                extra_faqs: dest.extra_faqs || [],
+                first_day_info: dest.first_day_info || null,
+                last_day_info: dest.last_day_info || null,
+                itinerary: dest.itinerary || [],
+                highlights: dest.highlights || [],
+                profile_tags: dest.profile_tags || [],
             };
             const { error } = await supabase.from('destinations').insert([copy]);
             if (error) throw error;
