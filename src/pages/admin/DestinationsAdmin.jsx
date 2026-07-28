@@ -183,7 +183,6 @@ export default function DestinationsAdmin() {
                 image_url: dest.image_url || '',
                 country: dest.country || '',
                 price_from: dest.price_from || null,
-                price_lote2: dest.price_lote2 || null,
                 duration: dest.duration || '',
                 group_size: dest.group_size || '',
                 availability_status: dest.availability_status || 'available',
