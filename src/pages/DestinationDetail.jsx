@@ -50,8 +50,9 @@ export default function DestinationDetail() {
       if (error) throw error;
 
       const found = data.find(d => {
-        const destSlug = d.slug || (d.country ? generateSlug(d.country) : d.id);
-        return destSlug === slug || d.id === slug;
+        const nameSlug = d.slug || generateSlug(d.name);
+        const countrySlug = d.country ? generateSlug(d.country) : null;
+        return nameSlug === slug || countrySlug === slug || d.id === slug;
       });
 
       if (!found) throw new Error("Destination not found");

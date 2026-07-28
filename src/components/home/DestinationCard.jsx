@@ -17,7 +17,7 @@ const countryImages = {
 
 export default function DestinationCard({ destination, index }) {
   const imageUrl = destination.image_url || countryImages[destination.country] || countryImages["Tailândia"];
-  const destSlug = destination.slug || (destination.country ? generateSlug(destination.country) : destination.id);
+  const destSlug = destination.slug || generateSlug(destination.name) || destination.id;
 
   const spotsAvailable = getSpotsAvailable(destination.pricing_lots);
   const isAlmostSoldOut = spotsAvailable !== null && spotsAvailable > 0 && spotsAvailable <= 4;
