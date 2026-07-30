@@ -130,7 +130,7 @@ export default function DestinationDetail() {
                   <img src="/brand/star-4pt-cream.png" alt="" className="w-3 h-3 opacity-80" />
                   {destination.country}
                 </span>
-                {destination.availability_status === 'sold_out' && (
+                {(destination.availability_status === 'sold_out' || spotsAvailable === 0) && (
                   <span className="inline-block px-4 py-2 bg-red-500 text-white text-sm tracking-wider uppercase rounded-full">
                     Esgotado
                   </span>

@@ -41,7 +41,7 @@ export default function DestinationCard({ destination, index }) {
               Em Breve
             </div>
           )}
-          {destination.availability_status === 'sold_out' && (
+          {(destination.availability_status === 'sold_out' || spotsAvailable === 0) && (
             <div className="absolute top-4 left-4 z-10 px-3 py-1.5 bg-red-500 text-white text-xs font-medium uppercase rounded-full">
               Esgotado
             </div>
