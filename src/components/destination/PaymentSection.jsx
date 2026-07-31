@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, MessageCircle, Mail, Check, Users, Lock, RefreshCw } from 'lucide-react';
+import { CreditCard, MessageCircle, Mail, Check, Users, Lock, RefreshCw, Tag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/utils';
 import { differenceInMonths, startOfMonth } from 'date-fns';
@@ -8,6 +8,29 @@ import PaymentSimulator from './PaymentSimulator';
 
 const SPOTS_PER_LOT = 6;
 const EMAIL = "mailto:contato@intutrips.com";
+
+// Promoções temporárias — remover ou ajustar após o vencimento
+const ACTIVE_PROMOS = [
+  {
+    match: 'china',          // nome do destino em minúsculo deve conter esta string
+    discount: 150,           // desconto em USD por pessoa
+    expiresAt: new Date('2026-08-15T23:59:59-03:00'),
+    label: 'Oferta Especial',
+    description: 'Desconto de US$ 150 por pessoa · válido até 15 de agosto',
+  },
+];
+
+function getActivePromo(destinationName) {
+  if (!destinationName) return null;
+  const lower = destinationName.toLowerCase();
+  const promo = ACTIVE_PROMOS.find(p => lower.includes(p.match));
+  if (!promo) return null;
+  return new Date() <= promo.expiresAt ? promo : null;
+}
+
+function daysUntil(date) {
+  return Math.max(0, Math.ceil((date - new Date()) / (1000 * 60 * 60 * 24)));
+}
 
 const fmtBRL = (val) =>
   'R$ ' + Number(val).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -69,13 +92,14 @@ function useExchangeRate() {
   return { rate, loading, refresh: fetchRate };
 }
 
-function PriceTag({ lots, price_from, rate, rateLoading, departureDate }) {
+function PriceTag({ lots, price_from, rate, rateLoading, departureDate, promo }) {
   const activeLots = lots.filter(l => l.active !== false);
   const currentLot = activeLots.find(l => (SPOTS_PER_LOT - (l.spots_filled || 0)) > 0);
 
   if (!currentLot && !price_from) return null;
 
-  const price = currentLot?.price || price_from;
+  const originalPrice = currentLot?.price || price_from;
+  const price = promo ? originalPrice - promo.discount : originalPrice;
   const spotsLeft = currentLot ? SPOTS_PER_LOT - (currentLot.spots_filled || 0) : null;
   const lotName = currentLot?.name || '1º Lote';
 
@@ -93,7 +117,14 @@ function PriceTag({ lots, price_from, rate, rateLoading, departureDate }) {
 
       {/* USD — referência secundária */}
       <div className="flex items-center gap-2 mt-1.5">
-        <span className="text-sm font-light text-gray-400 tracking-wide">USD {formatCurrency(price)}</span>
+        {promo ? (
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-light text-gray-300 line-through tracking-wide">USD {formatCurrency(originalPrice)}</span>
+            <span className="text-sm font-semibold text-[#bda94c] tracking-wide">USD {formatCurrency(price)}</span>
+          </div>
+        ) : (
+          <span className="text-sm font-light text-gray-400 tracking-wide">USD {formatCurrency(price)}</span>
+        )}
       </div>
 
       {/* Parcelas em destaque + total abaixo */}
@@ -127,8 +158,10 @@ function PriceTag({ lots, price_from, rate, rateLoading, departureDate }) {
   );
 }
 
-export default function PaymentSection({ price_from, price_lote2, pricing_lots, payment_options, whatsappUrl, departureDate }) {
+export default function PaymentSection({ price_from, price_lote2, pricing_lots, payment_options, whatsappUrl, departureDate, destinationName }) {
   const { rate, loading: rateLoading, refresh } = useExchangeRate();
+  const promo = getActivePromo(destinationName);
+  const daysLeft = promo ? daysUntil(promo.expiresAt) : 0;
 
   const defaultPaymentOptions = [
     "PIX",
@@ -162,6 +195,21 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
         Valores e Pagamento
       </h2>
 
+      {promo && (
+        <div className="mb-4 flex items-center gap-3 px-5 py-3.5 bg-[#bda94c]/10 border border-[#bda94c]/40 rounded-xl">
+          <Tag className="h-4 w-4 text-[#bda94c] flex-shrink-0" />
+          <div className="flex-1 min-w-0">
+            <span className="text-sm font-semibold text-[#bda94c] uppercase tracking-wider">{promo.label} · </span>
+            <span className="text-sm text-gray-700">{promo.description}</span>
+          </div>
+          {daysLeft > 0 && (
+            <span className="text-xs font-semibold text-[#bda94c] bg-[#bda94c]/10 px-2.5 py-1 rounded-full whitespace-nowrap flex-shrink-0">
+              {daysLeft}d restantes
+            </span>
+          )}
+        </div>
+      )}
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -170,7 +218,7 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
       >
         {/* Left — price + payment options */}
         <div className="md:col-span-3 p-7 border-b md:border-b-0 md:border-r border-gray-100">
-          <PriceTag lots={lots} price_from={price_from} rate={rate} rateLoading={rateLoading} departureDate={departureDate} />
+          <PriceTag lots={lots} price_from={price_from} rate={rate} rateLoading={rateLoading} departureDate={departureDate} promo={promo} />
 
           {/* Nota da cotação */}
           {!rateLoading && rate && (
@@ -271,7 +319,7 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
         </div>
       </motion.div>
       {/* Simulador de pagamento */}
-      <PaymentSimulator basePrice={price_from} departureDate={departureDate} rate={rate} rateLoading={rateLoading} onRefresh={refresh} />
+      <PaymentSimulator basePrice={price_from} departureDate={departureDate} rate={rate} rateLoading={rateLoading} onRefresh={refresh} promo={promo} />
     </section>
   );
 }

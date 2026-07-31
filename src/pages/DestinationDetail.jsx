@@ -316,6 +316,7 @@ export default function DestinationDetail() {
               payment_options={destination.payment_options}
               whatsappUrl={whatsappUrl}
               departureDate={destination.departure_start_date}
+              destinationName={destination.name}
             />
 
             {/* Depoimentos da Índia */}

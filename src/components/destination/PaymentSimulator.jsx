@@ -83,7 +83,7 @@ function useInternalRate() {
   return { rate, loading, refresh: fetchRate };
 }
 
-export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, _defaultOpen = false }) {
+export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, promo, _defaultOpen = false }) {
   const [open, setOpen] = useState(_defaultOpen);
   const [method, setMethod] = useState('pix');
   const [cardInstallments, setCardInstallments] = useState(1);
@@ -98,7 +98,8 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
 
   if (!basePrice || Number(basePrice) <= 0) return null;
 
-  const price = Number(basePrice);
+  const originalPrice = Number(basePrice);
+  const price = promo ? originalPrice - promo.discount : originalPrice;
   const today = new Date();
 
   // Boleto: da parcela do mês vigente até o mês anterior ao embarque
@@ -142,7 +143,10 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
         <div>
           <h3 className="text-base font-semibold text-[#1A1A1A]">Simulador de Pagamento</h3>
           <p className="text-sm text-gray-400 font-light mt-0.5">
-            Veja quanto você pagaria em reais em cada forma de pagamento
+            {promo
+              ? <span>Calculando com <span className="text-[#bda94c] font-semibold">desconto de US$ {promo.discount}</span> por pessoa aplicado</span>
+              : 'Veja quanto você pagaria em reais em cada forma de pagamento'
+            }
           </p>
         </div>
         <ChevronDown className={`h-5 w-5 text-[#bda94c] flex-shrink-0 ml-4 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
@@ -326,6 +330,12 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
             )}
 
             {/* Rodapé com cotação */}
+            {promo && (
+              <div className="flex items-center gap-2 px-3 py-2 bg-[#bda94c]/8 rounded-lg border border-[#bda94c]/20">
+                <span className="text-xs text-[#bda94c] font-semibold">✦ Oferta Especial:</span>
+                <span className="text-xs text-gray-600">{promo.description}</span>
+              </div>
+            )}
             <div className="flex items-center justify-between pt-2 border-t border-gray-100">
               <p className="text-xs text-gray-400">
                 {rateLoading
