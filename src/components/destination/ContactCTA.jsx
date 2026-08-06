@@ -29,13 +29,13 @@ export default function ContactCTA() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="https://api.whatsapp.com/send/?phone=551151233225&text=Ol%C3%A1%2C+gostaria+de+saber+mais+sobre+...&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
+          <a href="https://api.whatsapp.com/send/?phone=551151233225&text=Ol%C3%A1%2C+gostaria+de+saber+mais+sobre+...&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" onClick={() => window.fbq && window.fbq('track', 'Contact')}>
             <Button className="bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full px-8 py-6 text-base">
               <WhatsAppIcon className="mr-2 h-5 w-5" />
               WhatsApp
             </Button>
           </a>
-          <a href="mailto:contato@intutrips.com">
+          <a href="mailto:contato@intutrips.com" onClick={() => window.fbq && window.fbq('track', 'Contact')}>
             <Button
               className="border border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white rounded-full px-8 py-6 text-base backdrop-blur-sm">
               <Mail className="mr-2 h-5 w-5" />

@@ -54,6 +54,7 @@ export default function ContactSection() {
       toast.success('Mensagem enviada! Entraremos em contato em breve.');
       setFormData({ name: '', email: '', phone: '', destination_interest: '', message: '' });
       setIsSuccess(true);
+      if (window.fbq) window.fbq('track', 'Contact');
     } catch (error) {
       console.error('Erro ao enviar contato:', error);
       toast.error('Erro ao enviar mensagem. Tente novamente mais tarde.');

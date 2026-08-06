@@ -237,7 +237,7 @@ export default function DestinationDetail() {
                 </p>
               </div>
               <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-4">
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => window.fbq && window.fbq('track', 'Contact')}>
                   <Button className="w-full bg-[#1A1A1A] hover:bg-[#2D4A3E] text-white rounded-full h-12">
                     Quero Participar
                   </Button>

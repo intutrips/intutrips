@@ -298,13 +298,13 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
           </div>
 
           <div className="flex flex-col gap-3 w-full">
-            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="w-full" onClick={() => window.fbq && window.fbq('track', 'Contact')}>
               <Button className="w-full bg-[#25D366] hover:bg-[#1fba58] text-white rounded-full h-11 gap-2 font-medium">
                 <MessageCircle className="h-4 w-4" />
                 WhatsApp
               </Button>
             </a>
-            <a href={EMAIL} className="w-full">
+            <a href={EMAIL} className="w-full" onClick={() => window.fbq && window.fbq('track', 'Contact')}>
               <Button variant="outline" className="w-full border-white/30 text-white hover:bg-white/10 hover:text-white rounded-full h-11 gap-2 font-medium bg-transparent">
                 <Mail className="h-4 w-4" />
                 Email
