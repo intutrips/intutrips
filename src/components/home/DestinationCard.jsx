@@ -48,7 +48,7 @@ export default function DestinationCard({ destination, index }) {
           )}
           {showFewSpots && (
             <div className="absolute top-4 left-4 z-10 flex items-center gap-1.5 px-3 py-1.5 bg-red-500 text-white text-xs font-semibold uppercase rounded-full shadow-md animate-pulse">
-              🔥 Últimas Vagas{spotsAvailable !== null ? ` — ${spotsAvailable} restante${spotsAvailable !== 1 ? 's' : ''}` : ''}
+              🔥 Últimas Vagas
             </div>
           )}
           {/* Overlay escuro sutil para Em Breve */}

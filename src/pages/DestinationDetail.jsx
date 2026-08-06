@@ -137,7 +137,7 @@ export default function DestinationDetail() {
                 )}
                 {showFewSpots && (
                   <span className="inline-flex items-center gap-1.5 px-4 py-2 bg-red-500 text-white text-sm font-semibold tracking-wider uppercase rounded-full animate-pulse">
-                    🔥 Últimas Vagas{spotsAvailable !== null ? ` — ${spotsAvailable} restante${spotsAvailable !== 1 ? 's' : ''}` : ''}
+                    🔥 Últimas Vagas
                   </span>
                 )}
               </div>
