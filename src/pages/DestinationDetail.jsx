@@ -92,7 +92,7 @@ export default function DestinationDetail() {
   const showFewSpots = isAlmostSoldOut || destination.availability_status === 'few_spots';
 
   const whatsappMsg = encodeURIComponent(
-    `Olá! Vi no site da Intu Trips a expedição *${destination.name}* e tenho interesse em participar. Gostaria de entrar na lista de espera e receber mais informações sobre essa viagem.`
+    `Olá! Vi no site da Intu Trips a expedição *${destination.name}* e tenho interesse em participar. Gostaria de saber mais.`
   );
   const whatsappUrl = `https://wa.me/551151233225?text=${whatsappMsg}`;
 
