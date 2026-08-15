@@ -178,14 +178,21 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
             {method === 'pix' && (
               <>
                 <p className="text-sm text-gray-500 font-light">
-                  Pagamento único via PIX ou transferência. Sem acréscimos.
+                  Pagamento único via PIX ou transferência. <span className="text-[#bda94c] font-semibold">5% de desconto</span> no pagamento à vista.
                 </p>
-                <ResultBox
-                  label="Total à vista"
-                  value={rateLoading ? 'Calculando...' : brl(price)}
-                  sub="sem taxas · confirmação imediata"
-                  highlight
-                />
+                <div className="grid grid-cols-2 gap-3">
+                  <ResultBox
+                    label="Total à vista (com 5% off)"
+                    value={rateLoading ? 'Calculando...' : brl(price * 0.95)}
+                    sub="desconto aplicado · confirmação imediata"
+                    highlight
+                  />
+                  <ResultBox
+                    label="Valor sem desconto"
+                    value={rateLoading ? 'Calculando...' : brl(price)}
+                    sub="referência"
+                  />
+                </div>
               </>
             )}
 
