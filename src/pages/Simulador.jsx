@@ -8,7 +8,7 @@ import PaymentSimulator from '@/components/destination/PaymentSimulator';
 // Viagens privativas — não aparecem no site público, só no simulador
 const PRIVATE_TRIPS = [
   {
-    id: 'private-yago-camila',
+    id: 'private-iago-camila',
     name: 'Tailândia — Iago e Camila',
     country: 'Tailândia',
     price_from: 3344,
