@@ -22,7 +22,15 @@ const PRIVATE_TRIPS = [
 export default function Simulador() {
   const [searchParams] = useSearchParams();
   const slugParam = searchParams.get('destino');
-  const [selectedId, setSelectedId] = useState('');
+
+  // Inicializa direto pelo parâmetro da URL — viagens privativas estão disponíveis imediatamente
+  const [selectedId, setSelectedId] = useState(() => {
+    if (slugParam) {
+      const privateMatch = PRIVATE_TRIPS.find(t => t.id === slugParam);
+      if (privateMatch) return privateMatch.id;
+    }
+    return slugParam || '';
+  });
 
   const { data: destinations = [], isLoading, isError } = useQuery({
     queryKey: ['destinations'],
@@ -42,18 +50,12 @@ export default function Simulador() {
     ...destinations.filter(d => d.availability_status !== 'coming_soon' && d.price_from),
   ];
 
-  // Pré-seleciona pelo ?destino=slug ou seleciona o primeiro disponível
+  // Seleciona o primeiro disponível quando não há parâmetro na URL
   useEffect(() => {
+    if (slugParam) return;
     if (!availableDestinations.length) return;
-    if (slugParam) {
-      const found = availableDestinations.find(d =>
-        d.id === slugParam ||
-        (d.slug || generateSlug(d.name) || generateSlug(d.country)) === slugParam
-      );
-      if (found) { setSelectedId(found.id); return; }
-    }
     setSelectedId(prev => prev || availableDestinations[0]?.id || '');
-  }, [availableDestinations.length, slugParam]);
+  }, [availableDestinations.length]);
 
   const selected = availableDestinations.find(d => d.id === selectedId);
 
