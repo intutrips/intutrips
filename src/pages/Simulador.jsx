@@ -46,7 +46,8 @@ export default function Simulador() {
     if (!availableDestinations.length) return;
     if (slugParam) {
       const found = availableDestinations.find(d =>
-        (d.slug || generateSlug(d.country)) === slugParam
+        d.id === slugParam ||
+        (d.slug || generateSlug(d.name) || generateSlug(d.country)) === slugParam
       );
       if (found) { setSelectedId(found.id); return; }
     }
