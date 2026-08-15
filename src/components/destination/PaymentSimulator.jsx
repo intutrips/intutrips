@@ -83,7 +83,7 @@ function useInternalRate() {
   return { rate, loading, refresh: fetchRate };
 }
 
-export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, promo, minEntryPct = 30, _defaultOpen = false }) {
+export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, promo, minEntryPct = 30, pixDiscount = 0, _defaultOpen = false }) {
   const [open, setOpen] = useState(_defaultOpen);
   const [method, setMethod] = useState('pix');
   const [cardInstallments, setCardInstallments] = useState(1);
@@ -178,21 +178,30 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
             {method === 'pix' && (
               <>
                 <p className="text-sm text-gray-500 font-light">
-                  Pagamento único via PIX ou transferência. <span className="text-[#bda94c] font-semibold">5% de desconto</span> no pagamento à vista.
+                  Pagamento único via PIX ou transferência.{pixDiscount > 0 && <> <span className="text-[#bda94c] font-semibold">{pixDiscount}% de desconto</span> no pagamento à vista.</>}
                 </p>
-                <div className="grid grid-cols-2 gap-3">
+                {pixDiscount > 0 ? (
+                  <div className="grid grid-cols-2 gap-3">
+                    <ResultBox
+                      label={`Total à vista (${pixDiscount}% off)`}
+                      value={rateLoading ? 'Calculando...' : brl(price * (1 - pixDiscount / 100))}
+                      sub="desconto aplicado · confirmação imediata"
+                      highlight
+                    />
+                    <ResultBox
+                      label="Valor sem desconto"
+                      value={rateLoading ? 'Calculando...' : brl(price)}
+                      sub="referência"
+                    />
+                  </div>
+                ) : (
                   <ResultBox
-                    label="Total à vista (com 5% off)"
-                    value={rateLoading ? 'Calculando...' : brl(price * 0.95)}
-                    sub="desconto aplicado · confirmação imediata"
+                    label="Total à vista"
+                    value={rateLoading ? 'Calculando...' : brl(price)}
+                    sub="sem taxas · confirmação imediata"
                     highlight
                   />
-                  <ResultBox
-                    label="Valor sem desconto"
-                    value={rateLoading ? 'Calculando...' : brl(price)}
-                    sub="referência"
-                  />
-                </div>
+                )}
               </>
             )}
 

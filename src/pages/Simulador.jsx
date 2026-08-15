@@ -9,12 +9,13 @@ import PaymentSimulator from '@/components/destination/PaymentSimulator';
 const PRIVATE_TRIPS = [
   {
     id: 'private-yago-camila',
-    name: 'Tailândia — Yago e Camila',
+    name: 'Tailândia — Iago e Camila',
     country: 'Tailândia',
     price_from: 3344,
     departure_start_date: '2026-11-22',
     availability_status: 'available',
     minEntryPct: 40,
+    pixDiscount: 5,
   },
 ];
 
@@ -118,6 +119,7 @@ export default function Simulador() {
               basePrice={selected.price_from}
               departureDate={selected.departure_start_date}
               minEntryPct={selected.minEntryPct || 30}
+              pixDiscount={selected.pixDiscount || 0}
               _defaultOpen={true}
             />
           ) : (
