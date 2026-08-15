@@ -83,12 +83,12 @@ function useInternalRate() {
   return { rate, loading, refresh: fetchRate };
 }
 
-export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, promo, _defaultOpen = false }) {
+export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, promo, minEntryPct = 30, _defaultOpen = false }) {
   const [open, setOpen] = useState(_defaultOpen);
   const [method, setMethod] = useState('pix');
   const [cardInstallments, setCardInstallments] = useState(1);
   const [boletoInstallments, setBoletoInstallments] = useState(3);
-  const [entryPct, setEntryPct] = useState(30);
+  const [entryPct, setEntryPct] = useState(minEntryPct);
 
   // Usa taxa passada pelo pai (PaymentSection) ou busca internamente (Simulador standalone)
   const internal = useInternalRate();
@@ -292,10 +292,10 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
 
                 <div>
                   <label className="text-xs text-gray-500 font-semibold uppercase tracking-wider mb-2 block">
-                    Percentual de entrada (mínimo 30%)
+                    Percentual de entrada (mínimo {minEntryPct}%)
                   </label>
                   <div className="flex flex-wrap gap-2">
-                    {[30, 40, 50, 60, 70].map(pct => (
+                    {[30, 40, 50, 60, 70].filter(pct => pct >= minEntryPct).map(pct => (
                       <button
                         key={pct}
                         onClick={() => setEntryPct(pct)}

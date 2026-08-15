@@ -5,6 +5,19 @@ import { supabase } from '@/lib/supabase';
 import { generateSlug } from '@/utils';
 import PaymentSimulator from '@/components/destination/PaymentSimulator';
 
+// Viagens privativas — não aparecem no site público, só no simulador
+const PRIVATE_TRIPS = [
+  {
+    id: 'private-yago-camila',
+    name: 'Tailândia — Yago e Camila',
+    country: 'Tailândia',
+    price_from: 3344,
+    departure_start_date: '2026-11-22',
+    availability_status: 'available',
+    minEntryPct: 40,
+  },
+];
+
 export default function Simulador() {
   const [searchParams] = useSearchParams();
   const slugParam = searchParams.get('destino');
@@ -23,9 +36,10 @@ export default function Simulador() {
   });
 
   // Só mostra destinos com preço definido e disponíveis (exclui coming_soon)
-  const availableDestinations = destinations.filter(
-    d => d.availability_status !== 'coming_soon' && d.price_from
-  );
+  const availableDestinations = [
+    ...PRIVATE_TRIPS,
+    ...destinations.filter(d => d.availability_status !== 'coming_soon' && d.price_from),
+  ];
 
   // Pré-seleciona pelo ?destino=slug ou seleciona o primeiro disponível
   useEffect(() => {
@@ -102,6 +116,7 @@ export default function Simulador() {
               key={selected.id}
               basePrice={selected.price_from}
               departureDate={selected.departure_start_date}
+              minEntryPct={selected.minEntryPct || 30}
               _defaultOpen={true}
             />
           ) : (
