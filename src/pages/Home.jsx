@@ -9,6 +9,7 @@ import FeaturedDestinations from '@/components/home/FeaturedDestinations';
 import WhyUs from '@/components/home/WhyUs';
 import Testimonial from '@/components/home/Testimonial';
 import ContactSection from '@/components/home/ContactSection';
+import Waitlist2027 from '@/components/home/Waitlist2027';
 
 function TeamSection() {
   const { texts } = useSiteTexts();
@@ -80,6 +81,7 @@ export default function Home() {
       <Hero />
       <WhyUs />
       <FeaturedDestinations destinations={destinations} isLoading={isLoading} />
+      <Waitlist2027 />
       <Testimonial />
       <TeamSection />
       <ContactSection />

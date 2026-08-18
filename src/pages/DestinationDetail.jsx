@@ -228,22 +228,12 @@ export default function DestinationDetail() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            {/* Descrição + CTA lado a lado */}
-            <section className="mb-12 grid md:grid-cols-3 gap-8 items-start">
-              <div className="md:col-span-2">
-                <h2 className="text-2xl font-light text-[#1A1A1A] mb-4">Sobre esta viagem</h2>
-                <p className="text-gray-600 font-light leading-relaxed text-lg">
-                  {destination.description}
-                </p>
-              </div>
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex flex-col gap-4">
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={() => window.fbq && window.fbq('track', 'Contact')}>
-                  <Button className="w-full bg-[#1A1A1A] hover:bg-[#2D4A3E] text-white rounded-full h-12">
-                    Quero Participar
-                  </Button>
-                </a>
-                <p className="text-xs text-gray-400 text-center font-light">Vagas limitadas — garanta a sua</p>
-              </div>
+            {/* Descrição */}
+            <section className="mb-12">
+              <h2 className="text-2xl font-light text-[#1A1A1A] mb-4">Sobre esta viagem</h2>
+              <p className="text-gray-600 font-light leading-relaxed text-lg max-w-3xl">
+                {destination.description}
+              </p>
             </section>
 
             {/* Highlights — chips horizontais compactos */}
