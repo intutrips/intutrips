@@ -5,32 +5,11 @@ import { supabase } from '@/lib/supabase';
 import { generateSlug } from '@/utils';
 import PaymentSimulator from '@/components/destination/PaymentSimulator';
 
-// Viagens privativas — não aparecem no site público, só no simulador
-const PRIVATE_TRIPS = [
-  {
-    id: 'private-iago-camila',
-    name: 'Tailândia — Iago e Camila',
-    country: 'Tailândia',
-    price_from: 3344,
-    departure_start_date: '2026-11-22',
-    availability_status: 'available',
-    minEntryPct: 40,
-    pixDiscount: 5,
-  },
-];
-
 export default function Simulador() {
   const [searchParams] = useSearchParams();
   const slugParam = searchParams.get('destino');
 
-  // Inicializa direto pelo parâmetro da URL — viagens privativas estão disponíveis imediatamente
-  const [selectedId, setSelectedId] = useState(() => {
-    if (slugParam) {
-      const privateMatch = PRIVATE_TRIPS.find(t => t.id === slugParam);
-      if (privateMatch) return privateMatch.id;
-    }
-    return slugParam || '';
-  });
+  const [selectedId, setSelectedId] = useState(slugParam || '');
 
   const { data: destinations = [], isLoading, isError } = useQuery({
     queryKey: ['destinations'],
@@ -44,11 +23,7 @@ export default function Simulador() {
     },
   });
 
-  // Só mostra destinos com preço definido e disponíveis (exclui coming_soon)
-  const availableDestinations = [
-    ...PRIVATE_TRIPS,
-    ...destinations.filter(d => d.availability_status !== 'coming_soon' && d.price_from),
-  ];
+  const availableDestinations = destinations.filter(d => d.availability_status !== 'coming_soon' && d.price_from);
 
   // Seleciona o primeiro disponível quando não há parâmetro na URL
   useEffect(() => {
