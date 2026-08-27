@@ -3,7 +3,7 @@ import PaymentSimulator from '@/components/destination/PaymentSimulator';
 
 const TRIP = {
   name: 'Tailândia — Milena',
-  price_from: 3400,
+  price_from: 6800, // USD 3.400 × 2 pessoas
   departure_start_date: '2026-11-22',
   minEntryPct: 30,
   pixDiscount: 0,
@@ -22,7 +22,7 @@ export default function SimuladorMilena() {
             {TRIP.name}
           </h1>
           <p className="text-white/50 text-sm font-light">
-            Pacote para 2 pessoas · USD {Number(TRIP.price_from).toLocaleString('pt-BR')} por pessoa
+            Pacote para 2 pessoas · USD 3.400 por pessoa · <span className="text-white/80 font-medium">USD 6.800 total do casal</span>
           </p>
         </div>
       </section>
