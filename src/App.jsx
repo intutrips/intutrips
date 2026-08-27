@@ -21,6 +21,7 @@ import SiteTextsAdmin from '@/pages/admin/SiteTextsAdmin';
 import BlogAdmin from '@/pages/admin/BlogAdmin';
 import Profile from '@/pages/admin/Profile';
 import Simulador from '@/pages/Simulador';
+import SimuladorMilena from '@/pages/SimuladorMilena';
 import Encontro from '@/pages/Encontro';
 
 
@@ -198,6 +199,16 @@ const AuthenticatedApp = () => {
         element={
           <LayoutWrapper currentPageName="Simulador">
             <Simulador />
+          </LayoutWrapper>
+        }
+      />
+
+      {/* Simulador privado — Milena */}
+      <Route
+        path="/simulador/milena"
+        element={
+          <LayoutWrapper currentPageName="Simulador">
+            <SimuladorMilena />
           </LayoutWrapper>
         }
       />
