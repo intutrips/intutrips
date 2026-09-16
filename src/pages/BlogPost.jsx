@@ -7,6 +7,7 @@ import { Calendar, Clock, ArrowLeft, BookOpen, User } from 'lucide-react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 import { Button } from '@/components/ui/button';
+import { Helmet } from 'react-helmet-async';
 
 export default function BlogPost() {
   const { slug } = useParams();
@@ -48,8 +49,28 @@ export default function BlogPost() {
     );
   }
 
+  const pageTitle = `${post.title} | Blog Intu Trips`;
+  const pageDesc = post.excerpt || `Leia ${post.title} no blog da Intu Trips — viagens autênticas pela Ásia.`;
+  const pageUrl = `https://www.intutrips.com/blog/${post.slug}`;
+  const pageImage = post.cover_image_url || 'https://www.intutrips.com/logo_intu_trips.png';
+
   return (
     <div className="min-h-screen bg-[#FAF8F5]">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta name="description" content={pageDesc} />
+        <link rel="canonical" href={pageUrl} />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDesc} />
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:image" content={pageImage} />
+        <meta property="og:site_name" content="Intu Trips" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDesc} />
+        <meta name="twitter:image" content={pageImage} />
+      </Helmet>
       {/* Hero */}
       <section className="relative h-[55vh] min-h-[380px]">
         {post.cover_image_url ? (
