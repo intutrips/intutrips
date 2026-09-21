@@ -10,17 +10,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --vinho:#2D4A3E;
+  --vinho:#92314D;
   --azul:#6B9FAF;
   --oliva:#BDA94C;
   --creme:#F8EEE5;
   --bg:#F8EEE5;
-  --surface:#FAFAF7;
-  --ink:#1B2E24;
-  --muted:#607A6E;
-  --line:#D8E3DF;
-  --accent:#2D4A3E;
-  --accent-soft:#E0EBE6;
+  --surface:#FFF9F3;
+  --ink:#2A1A20;
+  --muted:#6E5A61;
+  --line:#E6D6C9;
+  --accent:#92314D;
+  --accent-soft:#F0DCE1;
   --blue-soft:#DCEBEF;
   --olive-soft:#EFE8C9;
   box-sizing:border-box;
@@ -34,20 +34,20 @@
     --ink:#F5E9E0;
     --muted:#BFA9B0;
     --line:#3E2D34;
-    --accent:#6B9FAF;
-    --accent-soft:#1B3028;
+    --accent:#D77F98;
+    --accent-soft:#3C2129;
     --blue-soft:#1E3036;
     --olive-soft:#33301D;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#111E18;
-  --surface:#1B2E24;
-  --ink:#EDF3EF;
-  --muted:#8FAF9F;
-  --line:#2D4A3E;
-  --accent:#6B9FAF;
-  --accent-soft:#1B3028;
+  --bg:#1D1418;
+  --surface:#271B20;
+  --ink:#F5E9E0;
+  --muted:#BFA9B0;
+  --line:#3E2D34;
+  --accent:#D77F98;
+  --accent-soft:#3C2129;
   --blue-soft:#1E3036;
   --olive-soft:#33301D;
 }
@@ -67,19 +67,18 @@ a:focus-visible,button:focus-visible,input:focus-visible + .box{outline:3px soli
 /* barra de progresso */
 .bar{
   position:sticky;top:env(safe-area-inset-top,0px);z-index:10;
-  background:color-mix(in srgb,var(--bg) 88%,transparent);
-  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  border-bottom:1px solid var(--line);
+  background:#1B3028;
+  border-bottom:1px solid rgba(255,255,255,0.08);
 }
 .bar .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px}
 .bar .brand{display:flex;align-items:center;white-space:nowrap}
 .bar .brand img{height:22px;width:auto}
-.meter{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
-.meter span{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .35s ease}
-.count{font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--muted);white-space:nowrap}
+.meter{flex:1;height:8px;background:rgba(255,255,255,0.15);border-radius:99px;overflow:hidden}
+.meter span{display:block;height:100%;width:0;background:#BDA94C;border-radius:99px;transition:width .35s ease}
+.count{font-variant-numeric:tabular-nums;font-size:.85rem;color:rgba(255,255,255,0.55);white-space:nowrap}
 .bar nav{display:flex;gap:4px}
-.bar nav a{font-size:.8rem;font-weight:600;text-decoration:none;padding:5px 10px;border-radius:99px;color:var(--ink);border:1px solid var(--line)}
-.bar nav a:hover{background:var(--surface)}
+.bar nav a{font-size:.8rem;font-weight:600;text-decoration:none;padding:5px 10px;border-radius:99px;color:rgba(255,255,255,0.8);border:1px solid rgba(255,255,255,0.2)}
+.bar nav a:hover{background:rgba(255,255,255,0.1)}
 @media (max-width:560px){.bar .brand{display:none}}
 
 /* abertura */
@@ -115,7 +114,7 @@ header.hero{padding:56px 0 30px}
 section{padding:34px 0 10px}
 h2{
   font-family:"Unbounded",sans-serif;font-weight:600;font-size:clamp(1.4rem,4vw,1.9rem);
-  line-height:1.15;letter-spacing:-.01em;margin:0 0 10px;
+  line-height:1.15;letter-spacing:-.01em;margin:0 0 10px;color:var(--vinho);
 }
 .intro{color:var(--muted);max-width:62ch;margin:0 0 24px}
 h3{font-family:"Unbounded",sans-serif;font-weight:600;font-size:1.02rem;margin:34px 0 4px;line-height:1.3}
@@ -194,6 +193,16 @@ footer .sign{font-family:"Unbounded",sans-serif;color:var(--ink);font-size:1rem;
 .steps li p + p{color:var(--muted);font-size:.95rem;margin-top:2px}
 td.zh{font-size:1rem;white-space:nowrap}
 td small{color:var(--muted)}
+
+/* cores por seção */
+#checklist{--vinho:#92314D;--accent:#92314D;--accent-soft:#F0DCE1}
+#hoteis{--vinho:#3F7A8F;--accent:#3F7A8F;--accent-soft:#DCEBEF}
+#compras{--vinho:#2D4A3E;--accent:#2D4A3E;--accent-soft:#E0EBE6}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) #checklist{--vinho:#D77F98;--accent:#D77F98;--accent-soft:#3C2129}
+  :root:not([data-theme="light"]) #hoteis{--vinho:#6B9FAF;--accent:#6B9FAF;--accent-soft:#1E3036}
+  :root:not([data-theme="light"]) #compras{--vinho:#5A9078;--accent:#5A9078;--accent-soft:#1B3028}
+}
 </style>
 </head>
 <body>
