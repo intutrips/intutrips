@@ -10,17 +10,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --vinho:#92314D;
+  --vinho:#2D4A3E;
   --azul:#6B9FAF;
   --oliva:#BDA94C;
   --creme:#F8EEE5;
   --bg:#F8EEE5;
-  --surface:#FFF9F3;
-  --ink:#2A1A20;
-  --muted:#6E5A61;
-  --line:#E6D6C9;
-  --accent:#92314D;
-  --accent-soft:#F0DCE1;
+  --surface:#FAFAF7;
+  --ink:#1B2E24;
+  --muted:#607A6E;
+  --line:#D8E3DF;
+  --accent:#2D4A3E;
+  --accent-soft:#E0EBE6;
   --blue-soft:#DCEBEF;
   --olive-soft:#EFE8C9;
   box-sizing:border-box;
@@ -34,20 +34,20 @@
     --ink:#F5E9E0;
     --muted:#BFA9B0;
     --line:#3E2D34;
-    --accent:#D77F98;
-    --accent-soft:#3C2129;
+    --accent:#6B9FAF;
+    --accent-soft:#1B3028;
     --blue-soft:#1E3036;
     --olive-soft:#33301D;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#1D1418;
-  --surface:#271B20;
-  --ink:#F5E9E0;
-  --muted:#BFA9B0;
-  --line:#3E2D34;
-  --accent:#D77F98;
-  --accent-soft:#3C2129;
+  --bg:#111E18;
+  --surface:#1B2E24;
+  --ink:#EDF3EF;
+  --muted:#8FAF9F;
+  --line:#2D4A3E;
+  --accent:#6B9FAF;
+  --accent-soft:#1B3028;
   --blue-soft:#1E3036;
   --olive-soft:#33301D;
 }
@@ -72,7 +72,8 @@ a:focus-visible,button:focus-visible,input:focus-visible + .box{outline:3px soli
   border-bottom:1px solid var(--line);
 }
 .bar .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px}
-.bar .brand{font-family:"Unbounded",sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.02em;white-space:nowrap}
+.bar .brand{display:flex;align-items:center;white-space:nowrap}
+.bar .brand img{height:22px;width:auto}
 .meter{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
 .meter span{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .35s ease}
 .count{font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--muted);white-space:nowrap}
@@ -203,7 +204,7 @@ td small{color:var(--muted)}
 
 <div class="bar">
   <div class="wrap">
-    <span class="brand">Intu · China</span>
+    <span class="brand"><img src="https://www.intutrips.com/logo_intutrips.svg" alt="Intu Trips"></span>
     <div class="meter" role="progressbar" aria-label="Progresso do checklist" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="meterFill"></span></div>
     <span class="count" id="count">0 de 0</span>
     <nav aria-label="Seções"><a href="#checklist">Checklist</a><a href="#hoteis">Hotéis</a><a href="#compras">Compras</a></nav>
@@ -433,6 +434,7 @@ td small{color:var(--muted)}
 </section>
 
 <footer>
+  <img src="https://www.intutrips.com/logo_intutrips.svg" alt="Intu Trips" style="height:28px;width:auto;opacity:.7;margin-bottom:18px;display:block">
   <div class="sign">Nos vemos na China.</div>
   <p>Qualquer dúvida sobre este checklist, fale com as líderes da expedição. Regras de entrada e de pagamento mudam com frequência; conferimos tudo em setembro de 2026.</p>
   <button class="reset" id="reset" type="button">Desmarcar tudo</button>
