@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Expedição China | Guia final de embarque</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vinho:#92314D;
+  --azul:#6B9FAF;
+  --oliva:#BDA94C;
+  --creme:#F8EEE5;
+  --bg:#F8EEE5;
+  --surface:#FFF9F3;
+  --ink:#2A1A20;
+  --muted:#6E5A61;
+  --line:#E6D6C9;
+  --accent:#92314D;
+  --accent-soft:#F0DCE1;
+  --blue-soft:#DCEBEF;
+  --olive-soft:#EFE8C9;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1D1418;
+    --surface:#271B20;
+    --ink:#F5E9E0;
+    --muted:#BFA9B0;
+    --line:#3E2D34;
+    --accent:#D77F98;
+    --accent-soft:#3C2129;
+    --blue-soft:#1E3036;
+    --olive-soft:#33301D;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1D1418;
+  --surface:#271B20;
+  --ink:#F5E9E0;
+  --muted:#BFA9B0;
+  --line:#3E2D34;
+  --accent:#D77F98;
+  --accent-soft:#3C2129;
+  --blue-soft:#1E3036;
+  --olive-soft:#33301D;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Figtree",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:1.0625rem;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent);text-underline-offset:3px}
+a:focus-visible,button:focus-visible,input:focus-visible + .box{outline:3px solid var(--azul);outline-offset:3px;border-radius:6px}
+.wrap{max-width:760px;margin:0 auto;padding:0 22px}
+
+/* barra de progresso */
+.bar{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:10;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+}
+.bar .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px}
+.bar .brand{font-family:"Unbounded",sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.02em;white-space:nowrap}
+.meter{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.meter span{display:block;height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .35s ease}
+.count{font-variant-numeric:tabular-nums;font-size:.85rem;color:var(--muted);white-space:nowrap}
+.bar nav{display:flex;gap:4px}
+.bar nav a{font-size:.8rem;font-weight:600;text-decoration:none;padding:5px 10px;border-radius:99px;color:var(--ink);border:1px solid var(--line)}
+.bar nav a:hover{background:var(--surface)}
+@media (max-width:560px){.bar .brand{display:none}}
+
+/* abertura */
+header.hero{padding:56px 0 30px}
+.hero .kicker{color:var(--muted);font-size:.95rem;margin:0 0 14px}
+.hero h1{
+  font-family:"Unbounded",sans-serif;font-weight:800;
+  font-size:clamp(2.2rem,7vw,3.6rem);line-height:1.02;letter-spacing:-.02em;
+  margin:0 0 22px;color:var(--vinho);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .hero h1{color:var(--accent)}}
+:root[data-theme="dark"] .hero h1{color:var(--accent)}
+.hero p.lead{font-size:1.15rem;max-width:60ch;margin:0 0 30px}
+
+/* rota */
+.route{
+  position:relative;display:flex;justify-content:space-between;gap:6px;
+  padding:26px 4px 6px;margin:0 0 8px;overflow-x:auto;
+}
+.route::before{
+  content:"";position:absolute;left:14px;right:14px;top:33px;height:2px;
+  background:repeating-linear-gradient(90deg,var(--azul) 0 8px,transparent 8px 14px);
+}
+.stop{position:relative;display:flex;flex-direction:column;align-items:center;min-width:72px;text-align:center}
+.stop svg{width:16px;height:16px;fill:var(--vinho);background:var(--bg);padding:1px;position:relative}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stop svg{fill:var(--accent)}}
+:root[data-theme="dark"] .stop svg{fill:var(--accent)}
+.stop b{font-family:"Unbounded",sans-serif;font-size:.72rem;font-weight:600;margin-top:10px;line-height:1.2}
+.stop small{font-size:.72rem;color:var(--muted)}
+.dates{font-size:.9rem;color:var(--muted);margin:10px 0 0}
+
+/* seções */
+section{padding:34px 0 10px}
+h2{
+  font-family:"Unbounded",sans-serif;font-weight:600;font-size:clamp(1.4rem,4vw,1.9rem);
+  line-height:1.15;letter-spacing:-.01em;margin:0 0 10px;
+}
+.intro{color:var(--muted);max-width:62ch;margin:0 0 24px}
+h3{font-family:"Unbounded",sans-serif;font-weight:600;font-size:1.02rem;margin:34px 0 4px;line-height:1.3}
+.when{font-size:.9rem;color:var(--muted);margin:0 0 12px}
+
+/* etapas numeradas: é uma sequência de tempo */
+.phase{display:grid;grid-template-columns:44px 1fr;gap:0 16px;margin-top:30px}
+.phase .num{
+  font-family:"Unbounded",sans-serif;font-weight:800;font-size:1.05rem;
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  background:var(--accent-soft);color:var(--accent);
+}
+.phase h3{margin:8px 0 2px}
+
+/* checklist */
+ul.check{list-style:none;margin:0;padding:0}
+ul.check li{border-top:1px solid var(--line)}
+ul.check li:last-child{border-bottom:1px solid var(--line)}
+ul.check label{display:grid;grid-template-columns:28px 1fr;gap:12px;padding:14px 2px;cursor:pointer}
+ul.check input{position:absolute;opacity:0;width:1px;height:1px}
+.box{
+  width:24px;height:24px;margin-top:2px;border-radius:7px;border:2px solid var(--line);
+  display:grid;place-items:center;background:var(--surface);transition:background .2s,border-color .2s;
+}
+.box svg{width:14px;height:14px;fill:#fff;opacity:0;transform:scale(.4) rotate(-45deg);transition:opacity .2s,transform .25s}
+input:checked + .box{background:var(--vinho);border-color:var(--vinho)}
+input:checked + .box svg{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.box svg,.box{transition:none}}
+.txt strong{display:block;font-weight:600}
+.txt span{display:block;color:var(--muted);font-size:.95rem;margin-top:2px}
+input:checked ~ .txt strong{text-decoration:line-through;text-decoration-color:var(--vinho);text-decoration-thickness:2px;color:var(--muted)}
+
+.note{
+  border-left:4px solid var(--oliva);background:var(--olive-soft);
+  padding:14px 18px;border-radius:0 12px 12px 0;margin:22px 0;font-size:.97rem;
+}
+.note.blue{border-left-color:var(--azul);background:var(--blue-soft)}
+.note.vinho{border-left-color:var(--vinho);background:var(--accent-soft)}
+.note p{margin:0}
+.note p + p{margin-top:8px}
+
+/* guia de compras */
+.cat{margin-top:38px;padding-top:26px;border-top:2px solid var(--ink)}
+.cat h3{margin-top:0;font-size:1.25rem}
+.cat .why{color:var(--muted);margin:4px 0 16px;max-width:62ch}
+dl.shops{margin:0}
+dl.shops div{padding:12px 0;border-top:1px dashed var(--line)}
+dl.shops dt{font-weight:700}
+dl.shops dt .zh{font-weight:500;color:var(--muted);margin-left:6px}
+dl.shops dd{margin:2px 0 0;color:var(--ink);font-size:.97rem}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 0}
+.tags span{font-size:.82rem;padding:4px 10px;border-radius:99px;background:var(--blue-soft)}
+
+.tablewrap{overflow-x:auto;margin:18px 0;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.93rem}
+th,td{text-align:left;padding:11px 14px;vertical-align:top;border-bottom:1px solid var(--line)}
+th{font-family:"Unbounded",sans-serif;font-weight:600;font-size:.78rem;background:var(--accent-soft)}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:700;white-space:nowrap}
+
+.rules{display:grid;gap:14px;margin-top:18px}
+.rule{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.rule h4{margin:0 0 4px;font-size:1rem}
+.rule p{margin:0;font-size:.95rem;color:var(--muted)}
+@media (min-width:640px){.rules{grid-template-columns:1fr 1fr}}
+
+footer{padding:50px 0 60px;color:var(--muted);font-size:.9rem}
+footer .sign{font-family:"Unbounded",sans-serif;color:var(--ink);font-size:1rem;margin-bottom:6px}
+.reset{background:none;border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:6px 14px;font:inherit;font-size:.85rem;cursor:pointer;margin-top:14px}
+.reset:hover{color:var(--ink)}
+
+.steps{list-style:none;counter-reset:s;margin:14px 0 0;padding:0}
+.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;padding:12px 0;border-top:1px solid var(--line)}
+.steps li::before{content:counter(s);font-family:"Unbounded",sans-serif;font-weight:600;font-size:.85rem;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--blue-soft);color:var(--ink)}
+.steps li p{margin:0}
+.steps li p + p{color:var(--muted);font-size:.95rem;margin-top:2px}
+td.zh{font-size:1rem;white-space:nowrap}
+td small{color:var(--muted)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="star" viewBox="0 0 24 24"><path d="M12 0C13 8 16 11 24 12C16 13 13 16 12 24C11 16 8 13 0 12C8 11 11 8 12 0Z"/></symbol>
+</svg>
+
+<div class="bar">
+  <div class="wrap">
+    <span class="brand">Intu · China</span>
+    <div class="meter" role="progressbar" aria-label="Progresso do checklist" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="meterFill"></span></div>
+    <span class="count" id="count">0 de 0</span>
+    <nav aria-label="Seções"><a href="#checklist">Checklist</a><a href="#hoteis">Hotéis</a><a href="#compras">Compras</a></nav>
+  </div>
+</div>
+
+<main class="wrap">
+
+<header class="hero">
+  <p class="kicker">Expedição China, 18 de outubro a 1º de novembro de 2026</p>
+  <h1>Malas quase prontas.</h1>
+  <p class="lead">Este é o último material antes do embarque. Primeiro, um checklist para você ir marcando até a véspera do voo, com tudo o que precisa estar na mão na imigração. Depois, a lista dos nossos hotéis e um guia de compras com as lojas que viajantes estão recomendando agora.</p>
+
+  <div class="route" aria-label="Rota da expedição">
+    <div class="stop"><svg><use href="#star"/></svg><b>Pequim</b><small>18 a 20/10</small></div>
+    <div class="stop"><svg><use href="#star"/></svg><b>Xi'an</b><small>20 a 22/10</small></div>
+    <div class="stop"><svg><use href="#star"/></svg><b>Chengdu</b><small>22 a 24/10</small></div>
+    <div class="stop"><svg><use href="#star"/></svg><b>Chongqing</b><small>24 a 26/10</small></div>
+    <div class="stop"><svg><use href="#star"/></svg><b>Zhangjiajie</b><small>26 a 28/10</small></div>
+    <div class="stop"><svg><use href="#star"/></svg><b>Furong</b><small>28 a 29/10</small></div>
+    <div class="stop"><svg><use href="#star"/></svg><b>Xangai</b><small>29/10 a 1/11</small></div>
+  </div>
+  <p class="dates">Seu progresso fica salvo neste aparelho. Pode fechar e voltar quando quiser.</p>
+</header>
+
+<!-- ===================== CHECKLIST ===================== -->
+<section id="checklist">
+  <h2>Checklist final de embarque</h2>
+  <p class="intro">Organizado por momento. Se você marcar tudo daqui até o dia do voo, chega na China sem nenhuma pendência.</p>
+
+  <div class="phase">
+    <div class="num" aria-hidden="true">1</div>
+    <div>
+      <h3>Para resolver agora</h3>
+      <p class="when">Falta cerca de um mês. Faça com calma, ainda no Brasil, com seu chip funcionando</p>
+    </div>
+  </div>
+  <ul class="check">
+    <li><label><input type="checkbox" data-id="doc-passaporte"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Passaporte com 6 meses de validade e 2 páginas em branco</strong><span>Lembre que ele também é seu ingresso em quase todas as atrações, então vai andar com você a viagem inteira. Passaporte de emergência não vale para a entrada sem visto.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="doc-visto"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Entrada sem visto: nada a fazer</strong><span>Brasileiros entram na China sem visto para turismo por até 30 dias, regra válida até 31/12/2026. Nossa viagem tem 15 dias, então você está dentro da regra.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="doc-seguro"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Seguro viagem contratado</strong><span>Cobertura mínima de US$ 50.000, cobrindo do dia em que você sai do Brasil até o dia em que volta. O passo a passo da SafetyWing está no guia pré-embarque que já enviamos.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="doc-febre"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Certificado Internacional de Vacinação (CIVP) de febre amarela</strong><span>A China pode exigir de quem chega do Brasil. Na prática quase nunca pedem, mas é grátis: emita pelo app Conecte SUS. Se ainda não tomou a vacina, ela precisa ser aplicada pelo menos 10 dias antes do embarque.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="doc-dados"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Dados dos seus voos enviados para a equipe Intu</strong><span>Número do voo e horários de chegada e de partida. Cada viajante chega em um horário diferente, e é com isso que organizamos os transfers.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="pay-banco"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Dois cartões internacionais, de bandeiras diferentes</strong><span>O ideal é um Visa e um Mastercard. Nomad e Wise (Visa) funcionam muito bem por lá; para Mastercard, vale um cartão de crédito ou a Avenue. Avise seus bancos da viagem: bloqueio por segurança é o motivo mais comum de pagamento recusado.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="pay-alipay"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Alipay instalado, verificado e com os cartões vinculados</strong><span>É o app mais importante da viagem: paga quase tudo, chama carro e preenche o cartão de chegada. Faça a verificação com passaporte e rosto e vincule os dois cartões.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="pay-wechat"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>WeChat instalado, com conta criada e WeChat Pay ativo</strong><span>É o plano B do pagamento e o "WhatsApp" da China. Alguns lugares aceitam só um dos dois apps.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="net-esim"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>eSIM comprado e instalado</strong><span>Precisa ser comprado antes de chegar na China. É ele que libera WhatsApp, Instagram e Google por lá. Recomendamos a Airalo, com 10% de desconto no cupom CASALMALASPRONTAS.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="net-amap"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Amap instalado (novidade!)</strong><span>É o "Google Maps da China" e funciona muito melhor que o Google por lá: mostra metrô, lojas, restaurantes e rotas a pé. Tem versão em inglês. Vamos usar bastante no guia de compras.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="net-tradutor"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Tradutor com chinês e português baixados para uso offline</strong><span>Google Tradutor, o Traduzir do iPhone ou o Pleco. Em qualquer um, baixe os dois idiomas dentro do app, para traduzir mesmo quando estiver sem sinal (metrô, montanhas de Zhangjiajie). Teste com o celular em modo avião.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="net-powerbank"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Power bank só se tiver o selo 3C (CCC)</strong><span>Em voos domésticos dentro da China, carregador portátil sem o selo oval "CCC" impresso no aparelho é confiscado na segurança, mesmo que seja de marca conhecida. Se o seu não tem, dá para comprar um lá (Xiaomi, Miniso e Huawei vendem com o selo).</span></span></label></li>
+  </ul>
+
+  <div class="phase">
+    <div class="num" aria-hidden="true">2</div>
+    <div>
+      <h3>Semana do voo e preparo para a imigração</h3>
+      <p class="when">A imigração chinesa tem cobrado bastante o voo de saída. Deixe tudo abaixo fácil de mostrar</p>
+    </div>
+  </div>
+  <ul class="check">
+    <li><label><input type="checkbox" data-id="sem-cdac"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Arrival Card preenchido pelo Alipay, antes de embarcar</strong><span>Alguns aeroportos já não oferecem mais o formulário de papel, então faça antes. Vamos enviar para vocês um vídeo mostrando o passo a passo de como fazer dentro do Alipay. Pode ser feito nas 72 horas antes do pouso. Confira tudo antes de enviar, porque depois não dá para editar. No endereço, coloque o primeiro hotel da viagem (lista abaixo).</span></span></label></li>
+    <li><label><input type="checkbox" data-id="sem-qr"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Print do QR code do Arrival Card</strong><span>Ao enviar, o sistema gera um QR code. Tire print e deixe na galeria, sem depender de internet.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="doc-volta"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Voo de saída da China: print, PDF offline e cópia impressa</strong><span>É o documento mais pedido pelos agentes. Tenha a confirmação com número do voo e data à mão, não perdida no e-mail.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="sem-hotel"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Lista de hotéis salva no celular e impressa</strong><span>Com nome em chinês, endereço e telefone. Está logo abaixo, na seção Hotéis.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="sem-copias"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Pasta da imigração no celular</strong><span>Uma pasta ou álbum só com: foto do passaporte, QR do Arrival Card, voo de saída, lista de hotéis, apólice do seguro e CIVP. Faça uma cópia na nuvem também.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="sem-checkin"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Check-in online do voo feito</strong><span>Assim que a companhia liberar.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="sem-teste"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Teste final dos apps</strong><span>Abra Alipay, WeChat, eSIM, Amap e tradutor um por um. Se algo pedir atualização ou nova verificação, resolva ainda no Brasil.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="sem-caneta"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Uma caneta na bagagem de mão</strong><span>Plano B, caso precise preencher algo em papel.</span></span></label></li>
+  </ul>
+
+  <h3>Na chegada, a ordem é esta</h3>
+  <ol class="steps">
+    <li><div><p><strong>Coleta de digitais</strong></p><p>Uma máquina lê seu passaporte e suas digitais. É só seguir as instruções na tela.</p></div></li>
+    <li><div><p><strong>Fila de estrangeiros</strong></p><p>Entregue o passaporte e tenha no celular o QR do Arrival Card e o voo de saída. Podem perguntar o motivo da viagem e as cidades: turismo, com as cidades do roteiro.</p></div></li>
+    <li><div><p><strong>Bagagens e saída</strong></p><p>Sem nada a declarar, saia por "Nothing to declare".</p></div></li>
+    <li><div><p><strong>Encontre o motorista</strong></p><p>Ele estará com uma placa com seu nome e/ou o logo da Intu Trips e já sabe para qual hotel levar você.</p></div></li>
+  </ol>
+
+  <div class="phase">
+    <div class="num" aria-hidden="true">3</div>
+    <div>
+      <h3>Na mala</h3>
+      <p class="when">Outono em todo o roteiro: dias amenos, noites frias em Pequim e Xi'an, umidade e chuva em Chongqing</p>
+    </div>
+  </div>
+  <ul class="check">
+    <li><label><input type="checkbox" data-id="mala-camadas"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Roupas em camadas</strong><span>Camisetas, blusas de manga longa, casaco reforçado, jaqueta leve ou corta-vento, calças confortáveis, shorts, pijama, roupa íntima, meias, chinelo e 1 roupa de banho.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="mala-tenis"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Tênis confortável e com boa aderência</strong><span>Zhangjiajie tem muitos degraus e a Muralha também cobra dos joelhos. Nada de sapato novo sem amaciar.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="mala-chuva"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Guarda-chuva compacto ou capa de chuva leve</strong><span>Chongqing é a cidade mais chuvosa do roteiro nesta época.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="mala-tomada"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Carregador e adaptador de tomada universal</strong><span>As tomadas chinesas não são iguais às brasileiras. A voltagem (220V) é a mesma, então basta o adaptador.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="mala-higiene"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Higiene pessoal</strong><span>Escova e pasta de dentes, desodorante, shampoo e condicionador, sabonete, hidratante, protetor labial, protetor solar, escova de cabelo e lenços umedecidos.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="mala-remedios"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Remédios na embalagem original</strong><span>Uso contínuo (com receita), analgésico, antialérgico, remédio para enjoo se precisar, protetor gástrico, sal de frutas e curativos. Leve só a quantidade da viagem.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="mala-kit"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Mochila de passeio</strong><span>Óculos de sol, boné ou chapéu, lenço de papel e álcool em gel. Muitos banheiros públicos não têm papel nem sabonete.</span></span></label></li>
+    <li><label><input type="checkbox" data-id="mala-espaco"><span class="box"><svg><use href="#star"/></svg></span><span class="txt"><strong>Espaço sobrando na mala (ou uma bolsa dobrável)</strong><span>Leia o guia de compras abaixo e você vai entender por quê.</span></span></label></li>
+  </ul>
+</section>
+
+<!-- ===================== HOTÉIS ===================== -->
+<section id="hoteis">
+  <h2>Nossos hotéis</h2>
+  <p class="intro">A mesma lista que já enviamos, reforçada aqui. Guarde no celular: serve para o Arrival Card, para a imigração e para mostrar ao taxista o nome em chinês.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Cidade</th><th>Check-in e check-out</th><th>Hotel</th><th>Nome em chinês</th><th>Endereço e telefone</th></tr></thead>
+      <tbody>
+        <tr><td>Pequim</td><td style="white-space:nowrap">18/10 a 20/10<br><small>2 noites</small></td><td>The Yard Hotel Beijing, BianyiFang</td><td class="zh">北京天安门广场便宜坊酒店(前门地铁站店)</td><td>No. 65-77 Xianyukou Street, Dongcheng District, Beijing<br><small>+86 10 6701 4648</small></td></tr>
+        <tr><td>Xi'an</td><td style="white-space:nowrap">20/10 a 22/10<br><small>2 noites</small></td><td>Meihao Lizhi Hotel (Xi'an Zhonggulou Huimin Street Branch)</td><td class="zh">美豪丽致酒店(西安钟鼓楼回民街店)</td><td>No. 79 West Street, Lianhu District, Xi'an, Shaanxi<br><small>+86 29 6565 1111 · +86 181 4900 5863</small></td></tr>
+        <tr><td>Chengdu</td><td style="white-space:nowrap">22/10 a 24/10<br><small>2 noites</small></td><td>Kew Green Hotel Chengdu</td><td class="zh">成都睿景酒店(天府广场宽窄巷子店)</td><td>Building 13, No. 8 Shaocheng Road, Shudu Avenue, Qingyang District, Chengdu, Sichuan<br><small>+86 28 6207 2888 · +86 180 8110 6492</small></td></tr>
+        <tr><td>Chongqing</td><td style="white-space:nowrap">24/10 a 26/10<br><small>2 noites</small></td><td>Walling Hotel (Jiefangbei Hongyadong)</td><td class="zh">沃林净旅酒店(解放碑洪崖洞店)</td><td>No. 68 Linjiang Road, Yuzhong District, Chongqing<br><small>+86 23 6330 1666</small></td></tr>
+        <tr><td>Zhangjiajie</td><td style="white-space:nowrap">26/10 a 28/10<br><small>2 noites</small></td><td>Thousand Hotel</td><td class="zh">天门山仟酒店</td><td>Apartment Building 2, Dingtai Phase III Jinse Jiayuan, Longmen Community, Guanliping Office, Yongding District, Zhangjiajie, Hunan<br><small>+86 744 829 5588 · +86 744 830 1999</small></td></tr>
+        <tr><td>Furong Town</td><td style="white-space:nowrap">28/10 a 29/10<br><small>1 noite</small></td><td>Baihe River Valley (Furong Town Waterfall Store)</td><td class="zh">白河溪谷客栈(芙蓉镇大瀑布店)</td><td>No. 240 Hepan Community, Furong Town, Yongshun, Hunan<br><small>+86 181 7439 9188</small></td></tr>
+        <tr><td>Xangai</td><td style="white-space:nowrap">29/10 a 01/11<br><small>3 noites</small></td><td>JI Hotel (Shanghai The Bund Jinling East Road)</td><td class="zh">全季酒店(上海外滩金陵东路店)</td><td>No. 33 Henan South Road, Huangpu District, Shanghai<br><small>+86 21 6191 9978</small></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note blue">
+    <p lang="zh" style="font-size:1.1rem"><strong>以上酒店均已通过携程预订。</strong></p>
+    <p>Em português: "Todos os hotéis acima foram reservados pelo Ctrip." Se algum agente ou funcionário perguntar pela reserva, mostre esta frase.</p>
+  </div>
+  <p class="when">As datas são as do grupo. Quem chega antes ou sai depois tem as noites extras combinadas à parte com a gente.</p>
+</section>
+
+<!-- ===================== COMPRAS ===================== -->
+<section id="compras">
+  <h2>Guia de compras</h2>
+  <p class="intro">Levantamos o que viajantes estão recomendando agora no TikTok, em fóruns e em blogs de viagem. A regra que aparece em quase todo lugar: na China, vale a pena comprar marcas chinesas. Marcas internacionais costumam custar o mesmo ou mais do que no Brasil.</p>
+
+  <div class="note blue">
+    <p><strong>Como achar qualquer loja:</strong> digite o nome em chinês (que colocamos ao lado de cada uma) no Amap e ele mostra a unidade mais perto de você.</p>
+  </div>
+
+  <div class="cat">
+    <h3>Maquiagem e skincare</h3>
+    <p class="why">A categoria mais comentada nas redes. As marcas chinesas (o chamado "C-beauty") são baratas, bonitas e muitas nem são vendidas fora da China. E dá para testar tudo nas lojas.</p>
+    <dl class="shops">
+      <div><dt>The Colorist <span class="zh">调色师</span></dt><dd>A "Sephora chinesa" que viralizou: centenas de marcas numa loja toda rosa, e você pode testar tudo sem ninguém em cima. Tem centenas de unidades pelo país, inclusive em Chengdu.</dd></div>
+      <div><dt>WOW Colour <span class="zh">WOW COLOUR</span></dt><dd>Mesmo estilo da Colorist, misturando marcas chinesas e importadas de nicho. Há unidade na Nanjing Road, em Xangai.</dd></div>
+      <div><dt>Harmay <span class="zh">话梅</span></dt><dd>Loja com cara de galpão, com marcas de luxo e muitos tamanhos de viagem e miniaturas. A unidade de Xintiandi, em Xangai, é a mais famosa. Vale fazer o cadastro de membro na loja para ganhar descontos.</dd></div>
+      <div><dt>KKV <span class="zh">KKV</span></dt><dd>Megaloja de variedades: pincéis, organizadores, acessórios de cabelo e tudo que é "de apoio" para a maquiagem.</dd></div>
+    </dl>
+    <div class="note">
+      <p><strong>Atalho em Xangai:</strong> o shopping Jing'an Joy City reúne The Colorist, KKV e WOW Colour no mesmo lugar.</p>
+    </div>
+    <div class="tags" aria-label="Marcas para procurar">
+      <span>Florasis 花西子</span><span>Judydoll 橘朵</span><span>Flower Knows 花知晓</span><span>Joocyee 酵色</span><span>Perfect Diary 完美日记</span><span>Winona 薇诺娜 (pele sensível)</span><span>To Summer 观夏 (perfumes)</span>
+    </div>
+  </div>
+
+  <div class="cat">
+    <h3>Tênis e artigos esportivos</h3>
+    <p class="why">As marcas chinesas de esporte deram um salto de qualidade e hoje patrocinam atletas da NBA. Os preços lá são bem menores do que um tênis de performance equivalente no Brasil.</p>
+    <dl class="shops">
+      <div><dt>Anta <span class="zh">安踏</span></dt><dd>A maior marca esportiva da China. Tênis de corrida, basquete e lifestyle. Lojas-conceito nas principais ruas comerciais.</dd></div>
+      <div><dt>Li-Ning <span class="zh">李宁</span></dt><dd>A mais "fashion" das chinesas, com coleções que misturam esporte e streetwear.</dd></div>
+      <div><dt>Xtep, 361° e Peak <span class="zh">特步 · 361度 · 匹克</span></dt><dd>Fortes em tênis de corrida com boa tecnologia e preço mais baixo. Boas para quem corre.</dd></div>
+    </dl>
+    <div class="note">
+      <p><strong>Onde:</strong> Wangfujing (Pequim), Chunxi Road (Chengdu) e Nanjing Road (Xangai) têm lojas grandes dessas marcas lado a lado. Experimente antes: a numeração chinesa costuma vir em milímetros ou em tamanho europeu.</p>
+    </div>
+  </div>
+
+  <div class="cat">
+    <h3>Eletrônicos</h3>
+    <p class="why">Aqui vale mais visitar as lojas oficiais das marcas chinesas do que se aventurar nos grandes mercados de eletrônicos, onde é preciso saber exatamente o que se quer e pechinchar.</p>
+    <dl class="shops">
+      <div><dt>Lojas oficiais Xiaomi, Huawei, DJI e Insta360</dt><dd>Fones, relógios, câmeras de ação, drones, carregadores. Em Xangai, o shopping MixC de Minhang (1599 Wuzhong Road) reúne as quatro marcas num só lugar. A Xiaomi tem ainda lojas com seus carros elétricos em exposição, uma visita divertida por si só.</dd></div>
+      <div><dt>Zhongguancun <span class="zh">中关村</span>, Pequim</dt><dd>O "vale do silício" de Pequim, com vários prédios de eletrônicos. Bom para acessórios, carregadores e fones. Metrô linha 4, estação Zhongguancun.</dd></div>
+      <div><dt>Buynow e Pacific Digital Plaza, Xujiahui (Xangai)</dt><dd>Shoppings de eletrônicos frequentados por locais, com várias lojas comparando preço no mesmo andar. Aqui se negocia.</dd></div>
+    </dl>
+    <div class="note vinho">
+      <p><strong>Não compre iPhone na China continental.</strong> Os modelos vendidos lá têm restrições que não saem depois, como eSIM desativado.</p>
+      <p><strong>Celular de marca chinesa:</strong> confira se o modelo é a versão global. A versão chinesa pode vir sem os serviços do Google e sem as frequências das operadoras brasileiras.</p>
+      <p><strong>Power bank:</strong> se for comprar, escolha um com o selo CCC impresso. Aí ele passa em qualquer voo doméstico.</p>
+    </div>
+  </div>
+
+  <div class="cat">
+    <h3>Moda e roupas</h3>
+    <p class="why">A moda chinesa vive um momento forte, com marcas que usam referências da própria cultura em vez de copiar o Ocidente. Dá para achar de fast fashion barato a grife de design.</p>
+    <dl class="shops">
+      <div><dt>Urban Revivo <span class="zh">UR</span></dt><dd>Chamada nas redes de "a Zara chinesa": tendência, preço acessível e lojas em todas as grandes cidades.</dd></div>
+      <div><dt>Peacebird <span class="zh">太平鸟</span></dt><dd>Fast fashion com design mais ousado e coleções com artistas. Boa para peças jovens e jaquetas.</dd></div>
+      <div><dt>JNBY <span class="zh">江南布衣</span></dt><dd>Marca de design, com cortes amplos, linho e algodão e uma estética limpa, meio japonesa. Preço mais alto, qualidade alta.</dd></div>
+      <div><dt>ICICLE <span class="zh">之禾</span></dt><dd>Moda minimalista em fibras naturais, na linha do "luxo silencioso". Para investir em peças atemporais.</dd></div>
+      <div><dt>Bosideng <span class="zh">波司登</span></dt><dd>A referência chinesa em jaquetas de pluma. Útil já na viagem, para as noites frias de Pequim, e ótima compra para quem vai viajar para o frio depois.</dd></div>
+      <div><dt>Songmont <span class="zh">山下有松</span></dt><dd>Bolsas de couro minimalistas, a marca de acessórios que mais viraliza entre estrangeiros. É uma grife, então os preços são mais altos. Loja em Xangai na Huaihai Middle Road, 817-821.</dd></div>
+      <div><dt>Hanfu e roupas de inspiração tradicional <span class="zh">汉服 · 新中式</span></dt><dd>Em Xi'an você vai ver muita gente vestida de hanfu, a roupa tradicional. Além de alugar para fotos, dá para comprar peças do chamado "novo estilo chinês", que adaptam golas e botões tradicionais para o dia a dia.</dd></div>
+    </dl>
+    <div class="note">
+      <p><strong>Onde:</strong> Chunxi Road, Taikoo Li e IFS em Chengdu; Nanjing Road e Huaihai Road em Xangai; Wangfujing em Pequim; Jiefangbei em Chongqing. A numeração chinesa costuma ser menor: experimente tudo antes de pagar.</p>
+    </div>
+  </div>
+
+  <div class="cat">
+    <h3>Colecionáveis</h3>
+    <p class="why">Para quem entrou na febre dos bonequinhos, ou quer um presente que não se acha no Brasil.</p>
+    <dl class="shops">
+      <div><dt>Pop Mart <span class="zh">泡泡玛特</span></dt><dd>A casa dos Labubu e de outras figuras em caixas-surpresa. As lojas grandes da China têm séries que não chegam ao Brasil.</dd></div>
+      <div><dt>Top Toy <span class="zh">TOP TOY</span></dt><dd>Megaloja de colecionáveis, blocos de montar e figuras de anime.</dd></div>
+    </dl>
+  </div>
+
+  <div class="cat">
+    <h3>Souvenirs e tranqueirinhas</h3>
+    <p class="why">Chá, panda, papelaria, comidinhas e aquelas coisinhas baratas que a gente sempre acaba levando.</p>
+    <dl class="shops">
+      <div><dt>Lojas dos museus <span class="zh">文创</span></dt><dd>Os museus chineses levam a sério seus produtos culturais: marcadores, leques, cadernos e ímãs com design caprichado. As lojas da Cidade Proibida e dos museus de Xi'an estão entre as melhores.</dd></div>
+      <div><dt>Miniso e KKV <span class="zh">名创优品 · KKV</span></dt><dd>Presentinhos baratos, papelaria, pelúcias e utilidades. Perfeitas para a lista de lembrancinhas.</dd></div>
+      <div><dt>Chá</dt><dd>Em Pequim, a rua Maliandao <span class="zh">马连道</span> é inteira dedicada ao chá, com degustação nas lojas. Em Chengdu, as casas de chá também vendem folhas.</dd></div>
+      <div><dt>Arte e papelaria tradicional</dt><dd>Liulichang <span class="zh">琉璃厂</span>, em Pequim: pincéis, papel de arroz, carimbos com seu nome em chinês.</dd></div>
+      <div><dt>Bazar e barganha</dt><dd>Bairro Muçulmano <span class="zh">回民街</span>, em Xi'an, para lembranças e comida de rua. Jardim Yuyuan <span class="zh">豫园</span> e Tianzifang <span class="zh">田子坊</span>, em Xangai.</dd></div>
+      <div><dt>Tudo de panda</dt><dd>Kuanzhai Xiangzi <span class="zh">宽窄巷子</span> (bem perto do nosso hotel) e Jinli <span class="zh">锦里</span>, em Chengdu, além do bordado de Sichuan.</dd></div>
+      <div><dt>Base de hotpot e pimenta</dt><dd>Chongqing e Chengdu: pacotes de tempero de hotpot e pimenta de Sichuan viajam bem e fazem sucesso na volta.</dd></div>
+    </dl>
+    <div class="note">
+      <p><strong>Jade:</strong> é onde mais há imitação. Compre apenas em loja que emita certificado de autenticidade.</p>
+    </div>
+  </div>
+
+  <h3 style="margin-top:46px">Regras de ouro das compras</h3>
+  <div class="rules">
+    <div class="rule"><h4>Peça a devolução de imposto</h4><p>Gastou pelo menos 200 yuan na mesma loja, no mesmo dia, numa loja com o selo de tax refund (退税)? Você recebe de volta cerca de 9% do valor. Leve o passaporte. Muitas lojas já devolvem na hora; em outras, o reembolso é feito no aeroporto, com os produtos lacrados.</p></div>
+    <div class="rule"><h4>Pechinche só em mercado</h4><p>Em bazar e mercado de eletrônicos, negociar é esperado. Em shopping e loja oficial, o preço é fixo.</p></div>
+    <div class="rule"><h4>Fique de olho na cota da Receita</h4><p>Na volta de avião, cada viajante pode trazer até US$ 1.000 em compras sem imposto. Acima disso, é preciso declarar e pagar imposto sobre o que passar.</p></div>
+    <div class="rule"><h4>Guarde as notas</h4><p>Principalmente de eletrônicos: servem para garantia, para a devolução de imposto e para a declaração na volta.</p></div>
+  </div>
+</section>
+
+<footer>
+  <div class="sign">Nos vemos na China.</div>
+  <p>Qualquer dúvida sobre este checklist, fale com as líderes da expedição. Regras de entrada e de pagamento mudam com frequência; conferimos tudo em setembro de 2026.</p>
+  <button class="reset" id="reset" type="button">Desmarcar tudo</button>
+</footer>
+
+</main>
+
+<script>
+(function(){
+  var KEY = "intu-china-checklist-2026";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll('ul.check input[type="checkbox"]'));
+  var fill = document.getElementById("meterFill");
+  var count = document.getElementById("count");
+  var meter = document.querySelector(".meter");
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e){ saved = {}; }
+
+  function update(){
+    var done = boxes.filter(function(b){return b.checked;}).length;
+    var pct = boxes.length ? Math.round(done/boxes.length*100) : 0;
+    fill.style.width = pct + "%";
+    meter.setAttribute("aria-valuenow", pct);
+    count.textContent = done + " de " + boxes.length;
+  }
+  function save(){
+    var state = {};
+    boxes.forEach(function(b){ if(b.checked) state[b.dataset.id] = 1; });
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  }
+  boxes.forEach(function(b){
+    if (saved[b.dataset.id]) b.checked = true;
+    b.addEventListener("change", function(){ save(); update(); });
+  });
+  document.getElementById("reset").addEventListener("click", function(){
+    boxes.forEach(function(b){ b.checked = false; });
+    save(); update();
+  });
+  update();
+})();
+</script>
+</body>
+</html>

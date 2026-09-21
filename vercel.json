@@ -1,6 +1,10 @@
 {
     "rewrites": [
         {
+            "source": "/china-embarque-final",
+            "destination": "/china-embarque-final.html"
+        },
+        {
             "source": "/(.*)",
             "destination": "/index.html"
         }
