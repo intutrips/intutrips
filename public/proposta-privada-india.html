@@ -125,6 +125,17 @@ tfoot td{border-bottom:none;font-weight:700}
 .no li::before{content:"";position:absolute;left:2px;top:17px;width:9px;height:2px;background:var(--muted)}
 .inc small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
 
+/* Restaurantes */
+.rest-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.rcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.rcard h3{margin:0 0 14px;font-size:18px}
+.rlist{list-style:none;margin:0;padding:0}
+.rlist li{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:9px 0;border-top:1px solid var(--line);font-size:15px}
+.rlist li:first-child{border-top:none}
+.rlist .rname{flex:1;min-width:0}
+.rlist .rnote{display:block;font-size:12px;color:var(--muted);margin-top:2px;font-style:italic}
+.rlist .rprice{font-size:13px;font-weight:600;color:var(--oliva);white-space:nowrap;letter-spacing:.02em}
+
 /* Logo no header */
 .brand-logo{height:28px;width:auto}
 
@@ -136,7 +147,7 @@ tfoot td{border-bottom:none;font-weight:700}
 
 @media (max-width:680px){
   body{font-size:16px}
-  .split,.hotels,.prices,.pay,.inc{grid-template-columns:1fr}
+  .split,.hotels,.prices,.pay,.inc,.rest-grid{grid-template-columns:1fr}
   .days::before{left:23px}
   .day{grid-template-columns:48px 1fr;gap:12px}
   .num{width:48px;height:48px}
@@ -368,6 +379,86 @@ tfoot td{border-bottom:none;font-weight:700}
       </div>
     </li>
   </ol>
+</section>
+
+<section id="restaurantes">
+  <h2>Sugestões de restaurantes</h2>
+  <p class="lead">Para os almoços e jantares livres. Não estão incluídos no pacote.</p>
+  <div class="rest-grid">
+
+    <div class="rcard">
+      <h3>Delhi</h3>
+      <ul class="rlist">
+        <li>
+          <span class="rname">Kwality</span>
+          <span class="rprice">$$</span>
+        </li>
+        <li>
+          <span class="rname">Bukhara</span>
+          <span class="rprice">$$$$</span>
+        </li>
+        <li>
+          <span class="rname">Cafe Sandoz — L Block, CP</span>
+          <span class="rprice">$$</span>
+        </li>
+        <li>
+          <span class="rname">Cedar House</span>
+          <span class="rprice">$$</span>
+        </li>
+        <li>
+          <span class="rname">Bomba — Pizzeria &amp; Taqueria, Greater Kailash</span>
+          <span class="rprice">$$</span>
+        </li>
+        <li>
+          <span class="rname">SIDECAR<span class="rnote">Drinks</span></span>
+          <span class="rprice">$$$</span>
+        </li>
+        <li>
+          <span class="rname">Mr Button Residence</span>
+          <span class="rprice">$$$$</span>
+        </li>
+        <li>
+          <span class="rname">FIO Cookhouse &amp; Bar</span>
+          <span class="rprice">$$$</span>
+        </li>
+        <li>
+          <span class="rname">Hauz Khas SOCIAL<span class="rnote">Mais perto do hotel, ótimo para ir à noite</span></span>
+          <span class="rprice">$$$</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="rcard">
+      <h3>Jaipur</h3>
+      <ul class="rlist">
+        <li>
+          <span class="rname">Bar Palladio Jaipur</span>
+          <span class="rprice">$$$</span>
+        </li>
+        <li>
+          <span class="rname">Sura — Cocktails &amp; Cuisine<span class="rnote">Favorito da Luiza</span></span>
+          <span class="rprice">$$$</span>
+        </li>
+        <li>
+          <span class="rname">The Curry Spoon</span>
+          <span class="rprice">$$$</span>
+        </li>
+        <li>
+          <span class="rname">Swapna Mahal — The Raj Palace</span>
+          <span class="rprice">$$$$</span>
+        </li>
+        <li>
+          <span class="rname">Govindam Retreat<span class="rnote">100% vegetariano</span></span>
+          <span class="rprice">$$</span>
+        </li>
+        <li>
+          <span class="rname">Wind View Cafe, Jaipur Vista Cafe ou The Tattoo Cafe &amp; Lounge<span class="rnote">Cafés em frente ao Hawa Mahal — venha pela foto do palácio dos ventos, não pela comida ou bebida</span></span>
+          <span class="rprice">$$</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
 </section>
 
 <section id="hoteis">
