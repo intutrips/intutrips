@@ -5,6 +5,10 @@
             "destination": "/china-embarque-final.html"
         },
         {
+            "source": "/proposta-privada-india",
+            "destination": "/proposta-privada-india.html"
+        },
+        {
             "source": "/(.*)",
             "destination": "/index.html"
         }

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Índia Privativo | Intu Trips | Outubro 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vinho:#92314D; --azul:#6B9FAF; --oliva:#BDA94C; --creme:#F8EEE5;
+  --bg:#F8EEE5; --paper:#FFFBF7; --ink:#2E1A20; --muted:#6E5A60; --line:#E6D6CB;
+  --accent:var(--vinho); --accent-ink:#F8EEE5; --soft:#F1E1D6;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1E1216; --paper:#27181D; --ink:#F4E6DC; --muted:#C2A9A0; --line:#44303A;
+    --accent:#C45A78; --accent-ink:#F8EEE5; --soft:#321F26;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1E1216; --paper:#27181D; --ink:#F4E6DC; --muted:#C2A9A0; --line:#44303A;
+  --accent:#C45A78; --accent-ink:#F8EEE5; --soft:#321F26;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img,svg{max-width:100%}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+
+/* Capa */
+.cover{background:var(--vinho);color:var(--creme);position:relative;overflow:hidden}
+.cover .wrap{padding-top:56px;padding-bottom:64px;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;letter-spacing:.02em}
+.brand svg{width:22px;height:22px;fill:var(--oliva)}
+.cover h1{font-weight:800;font-size:clamp(72px,17vw,168px);line-height:.9;margin:72px 0 18px;letter-spacing:-.02em}
+.cover .sub{font-size:20px;max-width:30ch;margin:0 0 40px;color:#F3DCCF}
+.pax{display:flex;flex-wrap:wrap;gap:12px}
+.pax span{border:1px solid rgba(248,238,229,.45);border-radius:999px;padding:8px 16px;font-weight:600;font-size:15px}
+.bigstar{position:absolute;right:-90px;top:40px;width:430px;height:430px;fill:var(--oliva);opacity:.9}
+.cover .tagline{margin-top:56px;font-weight:300;font-size:15px;color:#E9C9BD}
+
+section{padding:64px 0 16px}
+h2{font-weight:600;font-size:clamp(26px,4.5vw,34px);line-height:1.15;margin:0 0 8px;color:var(--accent)}
+.lead{color:var(--muted);margin:0 0 32px;max-width:62ch}
+
+/* Legenda */
+.legend{display:flex;flex-wrap:wrap;gap:14px 22px;margin:0 0 28px;font-size:14px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.g-full{background:var(--vinho)} .g-half{background:var(--oliva)} .g-none{background:var(--azul)} .g-free{background:transparent;border:1.5px solid var(--muted)}
+
+/* Linha do tempo */
+.days{list-style:none;margin:0;padding:0;position:relative}
+.days::before{content:"";position:absolute;left:31px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.day{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:0 0 30px;position:relative}
+.num{width:64px;height:64px;border-radius:50%;background:var(--paper);border:2px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:1;line-height:1}
+.num b{font-size:22px;font-weight:600;color:var(--accent)}
+.num small{font-size:10px;color:var(--muted);margin-top:3px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+.dhead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 14px;margin-bottom:6px}
+.dhead h3{margin:0;font-size:19px;font-weight:700}
+.date{color:var(--muted);font-size:14px}
+.tag{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:10px}
+.tag i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.card ul{margin:6px 0 0;padding-left:20px}
+.card li{margin:3px 0}
+.card p{margin:4px 0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+.split > div{background:var(--soft);border-radius:10px;padding:12px 14px}
+.split h4{margin:0 0 4px;font-size:14px;font-weight:700;color:var(--accent)}
+.split ul{margin:2px 0 0}
+.end{font-weight:600;color:var(--accent)}
+
+/* Hotéis */
+.hotels{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.hcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.hcard h3{margin:0 0 2px;font-size:18px}
+.hcard .note{color:var(--muted);font-size:14px;margin:0 0 12px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:12px;font-weight:600;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--line)}
+td{padding:10px 8px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.n,th.n{text-align:right;padding-right:0;white-space:nowrap}
+td a{color:var(--accent);text-decoration:none;font-size:13px;word-break:break-word;display:block}
+td a:hover{text-decoration:underline}
+td .city{display:block;font-size:12px;color:var(--muted)}
+tfoot td{border-bottom:none;font-weight:700}
+.or{display:block;font-size:12px;color:var(--muted);margin:2px 0}
+
+/* Investimento */
+.invest{background:var(--vinho);color:var(--creme);border-radius:18px;padding:34px 30px;position:relative;overflow:hidden}
+.invest h2{color:var(--creme)}
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0}
+.price{border:1px solid rgba(248,238,229,.35);border-radius:12px;padding:18px 20px}
+.price .who{font-size:15px;color:#F0D5C9}
+.price .val{font-weight:600;font-size:clamp(28px,5vw,38px);line-height:1.1;margin:6px 0 2px}
+.price .per{font-size:13px;color:#E9C9BD}
+.supp{background:rgba(189,169,76,.18);border-left:3px solid var(--oliva);padding:12px 16px;border-radius:0 10px 10px 0;font-size:15px}
+.invest .star{position:absolute;right:-40px;bottom:-40px;width:180px;height:180px;fill:var(--oliva);opacity:.25}
+
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.pay div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.pay h3{margin:0 0 4px;font-size:16px;color:var(--accent)}
+.pay p{margin:0;font-size:15px}
+.fine{font-size:14px;color:var(--muted);margin-top:16px}
+.fine a{color:var(--accent)}
+
+/* Incluso */
+.inc{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.inc > div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.inc h3{margin:0 0 10px;font-size:18px}
+.inc ul{list-style:none;margin:0;padding:0}
+.inc li{padding:8px 0 8px 26px;position:relative;border-top:1px solid var(--line);font-size:15px}
+.inc li:first-child{border-top:none}
+.yes li::before{content:"";position:absolute;left:0;top:14px;width:12px;height:12px;background:var(--oliva);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+.no li::before{content:"";position:absolute;left:2px;top:17px;width:9px;height:2px;background:var(--muted)}
+.inc small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+
+/* Logo no header */
+.brand-logo{height:28px;width:auto}
+
+/* Fechamento */
+.close{margin:72px 0 0;background:var(--azul);color:#fff;padding:64px 0}
+.close h2{color:#fff;font-size:clamp(28px,5vw,42px);max-width:18ch}
+.close p{max-width:52ch;margin:10px 0 0;font-size:18px}
+.close .brand{margin-top:40px;color:#fff}
+
+@media (max-width:680px){
+  body{font-size:16px}
+  .split,.hotels,.prices,.pay,.inc{grid-template-columns:1fr}
+  .days::before{left:23px}
+  .day{grid-template-columns:48px 1fr;gap:12px}
+  .num{width:48px;height:48px}
+  .num b{font-size:18px}
+  .num small{display:none}
+  .card{padding:16px}
+  .bigstar{width:300px;height:300px;right:-110px;top:20px;opacity:.55}
+  .invest{padding:28px 20px}
+}
+@media print{
+  @page{size:A4;margin:14mm}
+  :root{padding:0}
+  body{background:#fff;font-size:13px}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact;page-break-after:always;min-height:260mm}
+  .invest,.close,.split > div,.num,.g-full,.g-half,.g-none,.tag i,.yes li::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .day,.hcard,.pay div,.inc > div{break-inside:avoid}
+  section{padding-top:28px}
+  #hoteis,#investimento{break-before:page}
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="star" viewBox="0 0 100 100"><path d="M50 0C53 36 64 47 100 50C64 53 53 64 50 100C47 64 36 53 0 50C36 47 47 36 50 0Z"/></symbol>
+</svg>
+
+<header class="cover">
+  <svg class="bigstar" aria-hidden="true"><use href="#star"/></svg>
+  <div class="wrap">
+    <div class="brand">
+      <img src="https://www.intutrips.com/logo_intutrips.svg" alt="Intu Trips" class="brand-logo" style="filter:brightness(0) invert(1)">
+    </div>
+    <h1>Índia</h1>
+    <p class="sub">Roteiro privativo por Delhi, Agra, Jaipur e Jodhpur. Outubro de 2026.</p>
+    <div class="pax"><span>Gabi e Vini</span><span>Matheus e Sara</span></div>
+    <p class="tagline">Viaje até se sentir pequeno.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="roteiro">
+  <h2>Roteiro</h2>
+  <p class="lead">De 7 a 21 de outubro. Os dois casais se encontram em Delhi, seguem juntos até Jaipur e depois cada um segue seu caminho.</p>
+  <div class="legend">
+    <span><i class="g-full"></i>Com guia</span>
+    <span><i class="g-half"></i>Guia em parte do dia</span>
+    <span><i class="g-none"></i>Sem guia</span>
+    <span><i class="g-free"></i>Dia livre</span>
+  </div>
+
+  <ol class="days">
+    <li class="day">
+      <div class="num"><b>1</b><small>07/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Chegada a Delhi</h3><span class="date">Quarta-feira, 07/10</span></div>
+        <ul>
+          <li>Chegada de Gabi e Vini às 22h30.</li>
+          <li>Recepção e transfer do aeroporto para o hotel.</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>2</b><small>08/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Delhi</h3><span class="date">Quinta-feira, 08/10</span></div>
+        <div class="tag"><i class="g-free"></i>Dia livre</div>
+        <ul>
+          <li>Dia livre para Gabi e Vini.</li>
+          <li>Chegada de Matheus e Sara às 20h30.</li>
+          <li>Recepção e transfer do aeroporto para o hotel.</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>3</b><small>09/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Delhi</h3><span class="date">Sexta-feira, 09/10</span></div>
+        <div class="tag"><i class="g-free"></i>Dia livre</div>
+        <p>Dia livre em Delhi.</p>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>4</b><small>10/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Passeio guiado por Delhi</h3><span class="date">Sábado, 10/10</span></div>
+        <div class="tag"><i class="g-full"></i>Com guia</div>
+        <ul>
+          <li>Manhã: Jama Masjid, com subida ao minarete sul.</li>
+          <li>Passeio de rickshaw pelos becos de Chandni Chowk: Kinari Bazaar, Dariba Kalan, Nai Sarak e mercado de especiarias.</li>
+          <li>Almoço: Karim's.</li>
+          <li>Tarde: Gurudwara Bangla Sahib, com participação na cozinha comunitária.</li>
+          <li>Templo de Lótus.</li>
+          <li>Qutub Minar.</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>5</b><small>11/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Delhi</h3><span class="date">Domingo, 11/10</span></div>
+        <div class="tag"><i class="g-free"></i>Dia livre</div>
+        <p>Dia livre em Delhi.</p>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>6</b><small>12/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Delhi para Agra</h3><span class="date">Segunda-feira, 12/10</span></div>
+        <div class="tag"><i class="g-none"></i>Sem guia</div>
+        <ul>
+          <li>Trem de Delhi para Agra no Gatimaan Express, com chegada às 9h45.</li>
+          <li>Tarde: Forte de Agra.</li>
+          <li>Oficina de pietra dura.</li>
+          <li>Pôr do sol: Mehtab Bagh.</li>
+          <li>Opcional: Sheroes Hangout.</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>7</b><small>13/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Agra para Jaipur</h3><span class="date">Terça-feira, 13/10</span></div>
+        <div class="tag"><i class="g-half"></i>Guia apenas no Taj Mahal</div>
+        <ul>
+          <li>Taj Mahal ao nascer do sol, com guia.</li>
+          <li>Café da manhã no hotel e saída às 9h30.</li>
+          <li>Fatehpur Sikri.</li>
+          <li>Chand Baori, em Abhaneri.</li>
+          <li>Chegada em Jaipur no fim da tarde.</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>8</b><small>14/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Jaipur</h3><span class="date">Quarta-feira, 14/10</span></div>
+        <div class="tag"><i class="g-full"></i>Com guia</div>
+        <ul>
+          <li>Visita ao Amber Fort, subindo a pé: Sheesh Mahal e Sukh Niwas.</li>
+          <li>Panna Meena ka Kund.</li>
+          <li>Almoço no Amber Fort.</li>
+          <li>Tarde: City Palace, Jantar Mantar e Hawa Mahal.</li>
+          <li>Noite: jantar no Chokhi Dhani.</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>9</b><small>15/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Jaipur</h3><span class="date">Quinta-feira, 15/10</span></div>
+        <div class="tag"><i class="g-half"></i>Guia apenas de manhã</div>
+        <ul>
+          <li>Manhã, com guia: Bagru, a vila dos impressores. Block printing com tinta natural e técnica dabu, com estampagem da própria peça.</li>
+          <li>Tarde livre.</li>
+          <li>Pôr do sol: Nahargarh Fort.</li>
+          <li>Noite: Garba ou Dandiya, dança do Navratri.</li>
+        </ul>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>10</b><small>16/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Jaipur para Jodhpur e Delhi</h3><span class="date">Sexta-feira, 16/10</span></div>
+        <div class="tag"><i class="g-none"></i>Sem guia</div>
+        <ul><li>Manhã: Galtaji, o Templo dos Macacos.</li></ul>
+        <div class="split">
+          <div><h4>Gabi e Vini</h4><ul><li>Traslado de carro para Jodhpur. Resto do dia livre.</li></ul></div>
+          <div><h4>Matheus e Sara</h4><ul><li>Traslado de carro para Delhi. Resto do dia livre.</li></ul></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>11</b><small>17/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Jodhpur e Delhi</h3><span class="date">Sábado, 17/10</span></div>
+        <div class="tag"><i class="g-full"></i>Com guia em Jodhpur</div>
+        <div class="split">
+          <div><h4>Gabi e Vini</h4>
+            <p>Visita guiada:</p>
+            <ul>
+              <li>Manhã: Mehrangarh Fort, Phool Mahal e Moti Mahal.</li>
+              <li>Jaswant Thada.</li>
+              <li>Almoço.</li>
+              <li>Caminhada pelos becos azuis de Navchokiya.</li>
+              <li>Fim de tarde: Toorji ka Jhalra, Sardar Market e Clock Tower.</li>
+            </ul>
+          </div>
+          <div><h4>Matheus e Sara</h4><ul><li>Dia livre e pernoite em Delhi.</li></ul></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>12</b><small>18/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Jodhpur e deserto</h3><span class="date">Domingo, 18/10</span></div>
+        <div class="tag"><i class="g-half"></i>Guia apenas de manhã</div>
+        <div class="split">
+          <div><h4>Gabi e Vini</h4><ul><li>Jodhpur para o Manowar Desert Camp, com traslado até o acampamento.</li></ul></div>
+          <div><h4>Matheus e Sara</h4><ul><li>Traslado para o aeroporto de Delhi.</li></ul></div>
+        </div>
+      </div>
+    </li>
+
+    <li class="day">
+      <div class="num"><b>13</b><small>21/10</small></div>
+      <div class="card">
+        <div class="dhead"><h3>Jaisalmer</h3><span class="date">Segunda-feira, 21/10</span></div>
+        <ul>
+          <li>Transfer para Jaisalmer.</li>
+          <li>Pernoite (hotel não incluído).</li>
+        </ul>
+        <p class="end">Fim dos serviços.</p>
+      </div>
+    </li>
+  </ol>
+</section>
+
+<section id="hoteis">
+  <h2>Hospedagem</h2>
+  <p class="lead">Hotéis previstos para cada casal, com o número de noites em cada cidade.</p>
+  <div class="hotels">
+    <div class="hcard">
+      <h3>Gabi e Vini</h3>
+      <p class="note">11 noites</p>
+      <table>
+        <thead><tr><th>Hotel</th><th class="n">Noites</th></tr></thead>
+        <tbody>
+          <tr><td>Africa Avenue GK 1<span class="city">Delhi, Greater Kailash</span></td><td class="n">5</td></tr>
+          <tr><td>Howard Plaza The Fern<span class="city">Agra</span></td><td class="n">1</td></tr>
+          <tr><td>Alsisar Haveli<span class="city">Jaipur</span><a href="https://www.alsisarhaveli.com/" target="_blank" rel="noopener noreferrer">alsisarhaveli.com</a></td><td class="n">3</td></tr>
+          <tr><td>Indana Palace<span class="city">Jodhpur</span><a href="https://jodhpur.indanahotels.com/" target="_blank" rel="noopener noreferrer">jodhpur.indanahotels.com</a></td><td class="n">2</td></tr>
+        </tbody>
+        <tfoot><tr><td>Total</td><td class="n">11 noites</td></tr></tfoot>
+      </table>
+    </div>
+    <div class="hcard">
+      <h3>Matheus e Sara</h3>
+      <p class="note">Hotéis 4 e 5 estrelas, 10 noites</p>
+      <table>
+        <thead><tr><th>Hotel</th><th class="n">Noites</th></tr></thead>
+        <tbody>
+          <tr><td>Africa Avenue GK 1<span class="city">Delhi, Greater Kailash</span></td><td class="n">4</td></tr>
+          <tr><td>Howard Plaza The Fern<span class="city">Agra</span></td><td class="n">1</td></tr>
+          <tr><td>Alsisar Haveli<span class="city">Jaipur</span><a href="https://www.alsisarhaveli.com/" target="_blank" rel="noopener noreferrer">alsisarhaveli.com</a></td><td class="n">3</td></tr>
+          <tr><td>ITC Dwarka<span class="city">Delhi</span><a href="https://www.itchotels.com/in/en/welcomhoteldwarka" target="_blank" rel="noopener noreferrer">itchotels.com</a>
+              <span class="or">ou</span>
+              Park Inn by Radisson Lajpat Nagar<a href="https://www.radissonhotels.com/en-us/hotels/park-inn-new-delhi-lajpat-nagar" target="_blank" rel="noopener noreferrer">radissonhotels.com</a></td><td class="n">2</td></tr>
+        </tbody>
+        <tfoot><tr><td>Total</td><td class="n">10 noites</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="investimento">
+  <div class="invest">
+    <svg class="star" aria-hidden="true"><use href="#star"/></svg>
+    <h2>Investimento</h2>
+    <div class="prices">
+      <div class="price"><div class="who">Casal 1, Gabi e Vini</div><div class="val">USD 1.590,00</div><div class="per">por pessoa</div></div>
+      <div class="price"><div class="who">Casal 2, Matheus e Sara</div><div class="val">USD 1.279,00</div><div class="per">por pessoa</div></div>
+    </div>
+    <div class="supp">Suplemento para carro Innova Crysta nos trechos com as 4 pessoas juntas: USD 180,00 para os 4 viajantes.</div>
+  </div>
+
+  <div class="pay">
+    <div><h3>Cartão de crédito</h3><p>Taxa fixa de 4%, à vista ou parcelado. Em até 12x sem juros. Sem IOF.</p></div>
+    <div><h3>Boleto bancário</h3><p>Parcelado de acordo com a data da viagem. A última parcela vence pelo menos 10 dias antes do embarque.</p></div>
+    <div><h3>PIX</h3><p>Pagamento à vista.</p></div>
+    <div><h3>Conta global</h3><p>Pagamento à vista ou parcelado via Wise, em dólares.</p></div>
+  </div>
+  <p class="fine">Nos pagamentos por cartão, boleto e PIX, os valores em dólar são convertidos para reais pela cotação de venda do dólar turismo, usando como referência o site <a href="https://dolarhoje.com/dolar-turismo/" target="_blank" rel="noopener noreferrer">dolarhoje.com/dolar-turismo</a>.</p>
+</section>
+
+<section id="incluso">
+  <h2>O que está incluído</h2>
+  <p class="lead">Para você saber exatamente o que já está resolvido e o que fica por sua conta.</p>
+  <div class="inc">
+    <div class="yes">
+      <h3>Incluído</h3>
+      <ul>
+        <li>Suporte humano via WhatsApp em tempo integral, antes e durante a viagem.</li>
+        <li>Guias locais em espanhol nos passeios indicados.</li>
+        <li>Ingressos para todas as visitas e atividades mencionadas.</li>
+        <li>Motorista em carro privado com ar-condicionado.</li>
+        <li>Água mineral: 2 garrafas por pessoa por dia no carro.</li>
+        <li>Guia de Viagem exclusivo, com orientações sobre visto, dinheiro, saúde, internet, vestimenta, o que levar na mala, culinária e mais.</li>
+      </ul>
+    </div>
+    <div class="no">
+      <h3>Não incluído</h3>
+      <ul>
+        <li>Voos internacionais de ida e volta.</li>
+        <li>Visto para a Índia, obrigatório e feito com antecedência.<small>Oferecemos assessoria: USD 75 por pessoa para o visto de turismo de 30 dias, já com a assessoria.</small></li>
+        <li>Seguro viagem e saúde (altamente recomendado).</li>
+        <li>Alimentação: almoço e jantar.</li>
+        <li>Guia e motorista nos dias ou períodos descritos como livres.</li>
+        <li>Gorjetas e despesas pessoais, como bebidas, telefone e lavanderia.<small>Gorjetas sugeridas, não obrigatórias: USD 2 por pessoa por dia para o motorista e USD 3 por pessoa por dia para o guia.</small></li>
+        <li>Qualquer item não mencionado no roteiro e na lista de inclusos.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="close">
+  <div class="wrap">
+    <h2>A Índia não se visita. Ela te atravessa.</h2>
+    <p>Confirme sua jornada com a gente e prepare-se para voltar diferente de quando chegou.</p>
+    <div class="brand" style="margin-top:40px">
+      <img src="https://www.intutrips.com/logo_intutrips.svg" alt="Intu Trips" class="brand-logo">
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
