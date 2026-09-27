@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { LogOut, ChevronRight } from 'lucide-react';
 import { getSpotsAvailable } from '@/utils';
 
-const SPOTS_PER_LOT = 6;
+export const SPOTS_PER_LOT = 6;
 
 export function getCurrentLot(pricing_lots) {
   if (!pricing_lots || !Array.isArray(pricing_lots)) return null;
@@ -147,24 +147,26 @@ export default function Time() {
 
                       {dest.active && dbDest && (
                         <div className="mt-4 flex flex-wrap gap-2">
-                          {currentLot && (
-                            <span className="inline-flex items-center text-xs font-semibold bg-[#F1E1D6] text-[#92314D] px-2.5 py-1 rounded-full">
-                              {currentLot.name || 'Lote atual'}: USD {Number(currentLot.price).toLocaleString('pt-BR')}
-                            </span>
-                          )}
-                          {soldOut ? (
-                            <span className="inline-flex items-center text-xs font-semibold bg-red-100 text-red-600 px-2.5 py-1 rounded-full">
-                              Esgotado
-                            </span>
-                          ) : spots !== null ? (
-                            <span className={`inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full ${
-                              spots <= 3
-                                ? 'bg-red-100 text-red-600'
-                                : 'bg-[#E0EBE6] text-[#2D4A3E]'
-                            }`}>
-                              {spots} {spots === 1 ? 'vaga' : 'vagas'} disponíveis
-                            </span>
-                          ) : null}
+                          {(dbDest.pricing_lots || [])
+                            .filter(l => l.active !== false && l.price)
+                            .map((lot, i) => {
+                              const avail = SPOTS_PER_LOT - (lot.spots_filled || 0);
+                              const isOut = avail <= 0;
+                              return (
+                                <span
+                                  key={i}
+                                  className={`inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full ${
+                                    isOut
+                                      ? 'bg-gray-100 text-gray-400 line-through'
+                                      : avail <= 3
+                                        ? 'bg-red-100 text-red-600'
+                                        : 'bg-[#E0EBE6] text-[#2D4A3E]'
+                                  }`}
+                                >
+                                  {lot.name || `Lote ${i + 1}`}: {isOut ? 'esgotado' : `${avail} ${avail === 1 ? 'vaga' : 'vagas'}`}
+                                </span>
+                              );
+                            })}
                         </div>
                       )}
                     </div>

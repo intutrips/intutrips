@@ -9,8 +9,7 @@ import {
   MessageSquare, ChevronDown, ChevronUp, AlertTriangle, FileDown, ListChecks, Search
 } from 'lucide-react';
 import PaymentSimulator from '@/components/destination/PaymentSimulator';
-import { DESTINATIONS_CONFIG, getCurrentLot } from './Time';
-import { getSpotsAvailable } from '@/utils';
+import { DESTINATIONS_CONFIG, getCurrentLot, SPOTS_PER_LOT } from './Time';
 
 const TABS = [
   { id: 'comece-aqui', label: 'Comece aqui', icon: ListChecks },
@@ -524,28 +523,34 @@ export default function TimeDestino() {
             <div className="flex-1 min-w-0">
               <h1 className="text-2xl font-semibold text-[#2E1A20]">{config.name}</h1>
               <p className="text-[#6E5A60] text-sm">{config.subtitle}</p>
-              {destination && (() => {
-                const spots = getSpotsAvailable(destination.pricing_lots);
-                const lot = getCurrentLot(destination.pricing_lots);
-                const soldOut = destination.availability_status === 'sold_out' || spots === 0;
+              {destination?.pricing_lots && (() => {
+                const activeLots = (destination.pricing_lots || []).filter(l => l.active !== false && l.price);
+                if (!activeLots.length) return null;
                 return (
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {lot && (
-                      <span className="inline-flex items-center text-xs font-semibold bg-[#F1E1D6] text-[#92314D] px-2.5 py-1 rounded-full">
-                        {lot.name || 'Lote atual'}: USD {Number(lot.price).toLocaleString('pt-BR')}
-                      </span>
-                    )}
-                    {soldOut ? (
-                      <span className="inline-flex items-center text-xs font-semibold bg-red-100 text-red-600 px-2.5 py-1 rounded-full">
-                        Esgotado
-                      </span>
-                    ) : spots !== null ? (
-                      <span className={`inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full ${
-                        spots <= 3 ? 'bg-red-100 text-red-600' : 'bg-[#E0EBE6] text-[#2D4A3E]'
-                      }`}>
-                        {spots} {spots === 1 ? 'vaga' : 'vagas'} disponíveis
-                      </span>
-                    ) : null}
+                  <div className="mt-3 space-y-1.5">
+                    {activeLots.map((lot, i) => {
+                      const avail = SPOTS_PER_LOT - (lot.spots_filled || 0);
+                      const isOut = avail <= 0;
+                      return (
+                        <div key={i} className="flex items-center gap-2">
+                          <span className="text-xs font-semibold text-[#6E5A60] w-16 shrink-0">
+                            {lot.name || `Lote ${i + 1}`}
+                          </span>
+                          <span className={`inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full ${
+                            isOut
+                              ? 'bg-gray-100 text-gray-400'
+                              : avail <= 3
+                                ? 'bg-red-100 text-red-600'
+                                : 'bg-[#E0EBE6] text-[#2D4A3E]'
+                          }`}>
+                            {isOut ? 'esgotado' : `${avail} ${avail === 1 ? 'vaga' : 'vagas'}`}
+                          </span>
+                          <span className="text-xs text-[#6E5A60]">
+                            USD {Number(lot.price).toLocaleString('pt-BR')}
+                          </span>
+                        </div>
+                      );
+                    })}
                   </div>
                 );
               })()}
