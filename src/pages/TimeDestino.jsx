@@ -25,7 +25,7 @@ const TABS = [
 // Adicione o caminho do PDF em "href" quando o arquivo estiver em /public.
 const PDFS = {
   india: [
-    // { title: 'Proposta de viagem — Índia 2026', href: '/pdfs/proposta-india-2026.pdf' },
+    { title: 'Expedição Índia 2027 — INTU TRIPS', subtitle: 'Material de apoio para envio ao cliente', href: '/pdfs/expedicao-india-2027.pdf' },
   ],
   china: [],
   japao: [],
