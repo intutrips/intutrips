@@ -6,10 +6,10 @@ import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
 import {
   LogOut, ArrowLeft, FileText, Download, Calculator,
-  MessageSquare, ChevronDown, ChevronUp, AlertTriangle, FileDown, ListChecks, Search
+  MessageSquare, ChevronDown, ChevronUp, AlertTriangle, FileDown, ListChecks, Search, Target
 } from 'lucide-react';
 import PaymentSimulator from '@/components/destination/PaymentSimulator';
-import { DESTINATIONS_CONFIG, getCurrentLot, SPOTS_PER_LOT } from './Time';
+import { DESTINATIONS_CONFIG, getCurrentLot, SPOTS_PER_LOT, TEAM_GOALS } from './Time';
 
 const TABS = [
   { id: 'comece-aqui', label: 'Comece aqui', icon: ListChecks },
@@ -557,6 +557,46 @@ export default function TimeDestino() {
             </div>
           </div>
         </motion.div>
+
+        {/* Meta ativa para este destino */}
+        {TEAM_GOALS.filter(g => g.active && g.destination === destino).map((goal, gi) => {
+          const lot = destination?.pricing_lots?.[goal.lotIndex];
+          const filled = lot ? (lot.spots_filled || 0) : 0;
+          const pct = Math.round((filled / SPOTS_PER_LOT) * 100);
+          return (
+            <div key={gi} className="mb-8 bg-[#1B3028] rounded-2xl p-5 text-white">
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <div className="flex items-center gap-2">
+                  <Target className="h-4 w-4 text-[#BDA94C] shrink-0" />
+                  <span className="text-xs font-semibold text-[#BDA94C] uppercase tracking-wide">{goal.title}</span>
+                </div>
+                <span className="text-white/50 text-xs shrink-0">até {goal.deadline}</span>
+              </div>
+              <p className="text-sm font-semibold mb-1">{goal.description}</p>
+              {lot && (
+                <>
+                  <div className="flex items-center justify-between text-xs text-white/60 mb-1.5 mt-3">
+                    <span>{lot.name || `Lote ${goal.lotIndex + 1}`} — {filled} de {SPOTS_PER_LOT} vagas preenchidas</span>
+                    <span className="font-semibold text-white">{pct}%</span>
+                  </div>
+                  <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                    <div
+                      className="h-full rounded-full transition-all duration-500"
+                      style={{
+                        width: `${pct}%`,
+                        background: pct >= 100 ? '#4ade80' : pct >= 60 ? '#BDA94C' : '#92314D',
+                      }}
+                    />
+                  </div>
+                </>
+              )}
+              <div className="mt-3 flex items-center gap-2 text-xs text-white/70">
+                <span>🏆</span>
+                <span>{goal.prize}</span>
+              </div>
+            </div>
+          );
+        })}
 
         {/* Tabs */}
         <div className="flex gap-1.5 mb-6 bg-white border border-[#E6D6CB] rounded-xl p-1.5 overflow-x-auto">

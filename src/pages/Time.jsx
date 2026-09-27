@@ -4,10 +4,24 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
-import { LogOut, ChevronRight } from 'lucide-react';
+import { LogOut, ChevronRight, Target } from 'lucide-react';
 import { getSpotsAvailable } from '@/utils';
 
 export const SPOTS_PER_LOT = 6;
+
+// ─── Meta do time ─────────────────────────────────────────────────────────────
+// Edite aqui para atualizar a meta mensal. Deixe active: false para ocultar.
+export const TEAM_GOALS = [
+  {
+    active: true,
+    destination: 'india',      // slug do destino (deve existir em DESTINATIONS_CONFIG)
+    lotIndex: 0,               // índice do lote alvo (0 = Lote 1)
+    title: 'Meta de outubro',
+    description: 'Esgotar todas as vagas do Lote 1',
+    deadline: '31/10/2026',
+    prize: 'R$ 500 adicionais no final do mês',
+  },
+];
 
 export function getCurrentLot(pricing_lots) {
   if (!pricing_lots || !Array.isArray(pricing_lots)) return null;
@@ -119,7 +133,49 @@ export default function Time() {
       <div className="max-w-4xl mx-auto px-5 py-10">
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
           <h1 className="text-2xl font-semibold text-[#2E1A20] mb-1">Olá, time 👋</h1>
-          <p className="text-[#6E5A60] text-sm mb-10">Selecione a viagem para acessar o material de vendas.</p>
+          <p className="text-[#6E5A60] text-sm mb-8">Selecione a viagem para acessar o material de vendas.</p>
+
+          {/* Metas ativas */}
+          {TEAM_GOALS.filter(g => g.active).map((goal, gi) => {
+            const destConfig = DESTINATIONS_CONFIG[goal.destination];
+            const dbDest = byCountry[destConfig?.country];
+            const lot = dbDest?.pricing_lots?.[goal.lotIndex];
+            const filled = lot ? (lot.spots_filled || 0) : 0;
+            const pct = Math.round((filled / SPOTS_PER_LOT) * 100);
+            return (
+              <div key={gi} className="mb-8 bg-[#1B3028] rounded-2xl p-5 text-white">
+                <div className="flex items-start justify-between gap-3 mb-3">
+                  <div className="flex items-center gap-2">
+                    <Target className="h-4 w-4 text-[#BDA94C] shrink-0" />
+                    <span className="text-xs font-semibold text-[#BDA94C] uppercase tracking-wide">{goal.title}</span>
+                  </div>
+                  <span className="text-white/50 text-xs shrink-0">até {goal.deadline}</span>
+                </div>
+                <p className="text-sm font-semibold mb-1">{goal.description}</p>
+                {lot && (
+                  <>
+                    <div className="flex items-center justify-between text-xs text-white/60 mb-1.5 mt-3">
+                      <span>{lot.name || `Lote ${goal.lotIndex + 1}`} — {filled} de {SPOTS_PER_LOT} vagas preenchidas</span>
+                      <span className="font-semibold text-white">{pct}%</span>
+                    </div>
+                    <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+                      <div
+                        className="h-full rounded-full transition-all duration-500"
+                        style={{
+                          width: `${pct}%`,
+                          background: pct >= 100 ? '#4ade80' : pct >= 60 ? '#BDA94C' : '#92314D',
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+                <div className="mt-3 flex items-center gap-2 text-xs text-white/70">
+                  <span>🏆</span>
+                  <span>{goal.prize}</span>
+                </div>
+              </div>
+            );
+          })}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {Object.entries(DESTINATIONS_CONFIG).map(([slug, dest]) => {
