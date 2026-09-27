@@ -644,28 +644,55 @@ export default function TimeDestino() {
               {destination?.pricing_lots && (() => {
                 const activeLots = (destination.pricing_lots || []).filter(l => l.active !== false && l.price);
                 if (!activeLots.length) return null;
+                const activeGoals = TEAM_GOALS.filter(g => g.active && g.destination === destino);
                 return (
-                  <div className="mt-3 space-y-1.5">
+                  <div className="mt-3 space-y-2">
+                    {/* Linha por lote */}
                     {activeLots.map((lot, i) => {
                       const avail = SPOTS_PER_LOT - (lot.spots_filled || 0);
                       const isOut = avail <= 0;
+                      const goal = activeGoals.find(g => g.lotIndex === i);
+                      const filled = lot.spots_filled || 0;
+                      const pct = Math.round((filled / SPOTS_PER_LOT) * 100);
                       return (
-                        <div key={i} className="flex items-center gap-2">
-                          <span className="text-xs font-semibold text-[#6E5A60] w-16 shrink-0">
-                            {lot.name || `Lote ${i + 1}`}
-                          </span>
-                          <span className={`inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full ${
-                            isOut
-                              ? 'bg-gray-100 text-gray-400'
-                              : avail <= 3
-                                ? 'bg-red-100 text-red-600'
-                                : 'bg-[#E0EBE6] text-[#2D4A3E]'
-                          }`}>
-                            {isOut ? 'esgotado' : `${avail} ${avail === 1 ? 'vaga' : 'vagas'}`}
-                          </span>
-                          <span className="text-xs text-[#6E5A60]">
-                            USD {Number(lot.price).toLocaleString('pt-BR')}
-                          </span>
+                        <div key={i}>
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs font-semibold text-[#6E5A60] w-16 shrink-0">
+                              {lot.name || `Lote ${i + 1}`}
+                            </span>
+                            <span className={`inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full ${
+                              isOut
+                                ? 'bg-gray-100 text-gray-400'
+                                : avail <= 3
+                                  ? 'bg-red-100 text-red-600'
+                                  : 'bg-[#E0EBE6] text-[#2D4A3E]'
+                            }`}>
+                              {isOut ? 'esgotado' : `${avail} ${avail === 1 ? 'vaga' : 'vagas'}`}
+                            </span>
+                            <span className="text-xs text-[#6E5A60]">
+                              USD {Number(lot.price).toLocaleString('pt-BR')}
+                            </span>
+                          </div>
+                          {goal && (
+                            <div className="mt-1.5 ml-0">
+                              <div className="flex items-center justify-between text-xs text-[#6E5A60] mb-1">
+                                <span className="flex items-center gap-1">
+                                  <Target className="h-3 w-3 text-[#BDA94C]" />
+                                  {goal.title}
+                                </span>
+                                <span className="font-semibold text-[#2E1A20]">{filled}/{SPOTS_PER_LOT} vagas preenchidas</span>
+                              </div>
+                              <div className="h-2 bg-[#E6D6CB] rounded-full overflow-hidden">
+                                <div
+                                  className="h-full rounded-full transition-all duration-500"
+                                  style={{
+                                    width: `${pct}%`,
+                                    background: pct >= 100 ? '#4ade80' : pct >= 60 ? '#BDA94C' : '#92314D',
+                                  }}
+                                />
+                              </div>
+                            </div>
+                          )}
                         </div>
                       );
                     })}
