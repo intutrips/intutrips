@@ -4,24 +4,29 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
-import { LogOut, ArrowLeft, FileText, Link2, Calculator, ExternalLink, ChevronDown, ChevronUp, AlertTriangle } from 'lucide-react';
+import {
+  LogOut, ArrowLeft, FileText, Download, Calculator,
+  MessageSquare, ChevronDown, ChevronUp, AlertTriangle, FileDown, ListChecks
+} from 'lucide-react';
 import PaymentSimulator from '@/components/destination/PaymentSimulator';
-import { DESTINATIONS_CONFIG } from './Time';
+import { DESTINATIONS_CONFIG, getCurrentLot } from './Time';
+import { getSpotsAvailable } from '@/utils';
 
 const TABS = [
-  { id: 'script', label: 'Script de vendas', icon: FileText },
-  { id: 'material', label: 'Material', icon: Link2 },
-  { id: 'simulador', label: 'Simulador', icon: Calculator },
+  { id: 'comece-aqui', label: 'Comece aqui', icon: ListChecks },
+  { id: 'script',      label: 'Script',      icon: MessageSquare },
+  { id: 'material',    label: 'Material',    icon: Download },
+  { id: 'faq',         label: 'FAQ',         icon: FileText },
+  { id: 'simulador',   label: 'Simulador',   icon: Calculator },
 ];
 
-// ─── Links de material por destino ──────────────────────────────────────────
-const MATERIALS = {
+// ─── PDFs por destino ────────────────────────────────────────────────────────
+// Adicione o caminho do PDF em "href" quando o arquivo estiver em /public.
+const PDFS = {
   india: [
-    { flag: '🇮🇳', title: 'Proposta privativa — Gabi, Vini, Matheus e Sara', subtitle: 'Outubro 2026 · Delhi, Agra, Jaipur, Jodhpur', href: '/proposta-privada-india' },
+    // { title: 'Proposta de viagem — Índia 2026', href: '/pdfs/proposta-india-2026.pdf' },
   ],
-  china: [
-    { flag: '🇨🇳', title: 'Guia de embarque — China', subtitle: 'Expedição em grupo · 2026', href: '/china-embarque-final' },
-  ],
+  china: [],
   japao: [],
   indonesia: [],
   vietna: [],
@@ -34,17 +39,130 @@ const SCRIPTS = {
     { title: 'Objeções comuns', content: null },
     { title: 'Fechamento', content: null },
   ],
-  china: [
-    { title: 'Abordagem inicial', content: null },
-    { title: 'Objeções comuns', content: null },
-    { title: 'Fechamento', content: null },
-  ],
+  china: [{ title: 'Conteúdo em breve', content: null }],
   japao: [{ title: 'Conteúdo em breve', content: null }],
   indonesia: [{ title: 'Conteúdo em breve', content: null }],
   vietna: [{ title: 'Conteúdo em breve', content: null }],
 };
 
-function Accordion({ title, children }) {
+// ─── FAQ por destino ──────────────────────────────────────────────────────────
+const FAQS = {
+  india: [
+    {
+      q: 'Quais são as datas da viagem?',
+      a: 'A expedição acontece de 14 a 26 de março, durante o Festival das Cores. Passamos por 5 cidades: Delhi, Agra, Jaipur (que compõem o triângulo dourado), Varanasi e Rishikesh.',
+    },
+    {
+      q: 'Qual o mínimo e máximo de participantes?',
+      a: 'Trabalhamos com grupos pequenos para promover uma experiência mais próxima e confortável. O mínimo é 6 e o máximo é 12 participantes.',
+    },
+    {
+      q: 'Qual a forma de pagamento?',
+      a: 'Trabalhamos com quatro formas de pagamento:\n1. PIX à vista\n2. Boleto parcelado até fevereiro (sem juros)\n3. Pagamento fracionado: 30% de entrada e restante 30 dias antes do embarque\n4. Cartão de crédito em até 12 vezes (taxas se aplicam)',
+    },
+    {
+      q: 'Preciso de visto? Quais são os requisitos?',
+      a: 'Sim, visto é necessário. Caso queiram nossa assessoria, o custo é de USD 75 por pessoa (já incluindo a assessoria e a aplicação).',
+    },
+    {
+      q: 'Qual a data limite para fechar o pacote?',
+      a: 'As vagas ficam abertas até 40 dias antes do embarque, ou até o encerramento das vagas, o que acontecer primeiro.',
+    },
+    {
+      q: 'O grupo é misto?',
+      a: 'Sim, o grupo é misto. Aceitamos casais, viajantes solo e grupos de amigos. Todos são bem-vindos. Nosso foco é reunir pessoas com objetivos e perfis em comum, independentemente de gênero ou idade.',
+    },
+    {
+      q: 'Possui desconto para casal?',
+      a: 'Sim, podemos fazer uma proposta especial para casais. Conseguimos dar um desconto de USD 100 para cada pessoa do casal.',
+    },
+    {
+      q: 'Existe desconto para pagamento à vista?',
+      a: 'Sim, temos 5% de desconto para pagamentos à vista via PIX.',
+    },
+    {
+      q: 'O que está incluso no pacote?',
+      a: 'O pacote de 15 dias contempla:\n✅ 13 noites de acomodação dupla com café da manhã\n✅ Todos os passeios e atividades previstos no roteiro\n✅ Locomoção interna (trem, avião e van privada com AC)\n✅ Um jantar tradicional do Rajastão\n✅ Guias locais que falam espanhol em todos os pontos turísticos\n✅ Transfer no aeroporto\n✅ Líderes da expedição brasileiros que acompanham durante toda a viagem\n✅ Acompanhamento pré-embarque e durante a viagem',
+    },
+    {
+      q: 'Passagem aérea internacional está inclusa?',
+      a: 'Não. Como cada viajante parte de uma cidade diferente, deixamos essa etapa livre e personalizável. Assim cada um pode escolher a melhor combinação de origem, data e horário, ou até estender a viagem. A gente auxilia nesse processo também.',
+    },
+    {
+      q: 'De onde sai o grupo?',
+      a: 'A viagem tem início e fim em Delhi. Você pega o voo partindo da sua cidade de preferência e nos encontra no destino. Nossa assessoria pré-embarque te ajuda a entender as melhores opções.',
+    },
+    {
+      q: 'Qual a média do custo das passagens aéreas?',
+      a: 'As passagens para a Índia costumam ter o melhor custo-benefício quando compradas cerca de 4 meses antes. Partindo de GRU, ficam por volta de R$ 6.500 ida e volta.',
+    },
+    {
+      q: 'Qual a rota de voo internacional mais viável?',
+      a: 'Nossa equipe estuda caso a caso, mas em geral os voos mais otimizados são via Europa, Etiópia ou Oriente Médio.',
+    },
+    {
+      q: 'Qual o preço médio do seguro viagem?',
+      a: 'Ao entrar na expedição, compartilhamos um guia de boas-vindas com todas estas informações, incluindo descontos em parceiros. Para uma estimativa, fica por volta de R$ 350.',
+    },
+    {
+      q: 'Qual o preço médio das refeições?',
+      a: 'A Índia tem ótimo custo-benefício. Considere em média R$ 50 por refeição. Sugerimos levar por volta de USD 750 para cobrir alimentação, compras e outras atividades.',
+    },
+    {
+      q: 'Quanto dinheiro levar para demais gastos?',
+      a: 'Sugerimos levar por volta de USD 600 para cobrir gastos com alimentação, compras e demais atividades de interesse.',
+    },
+    {
+      q: 'Como funciona a divisão de quartos?',
+      a: 'Todos os quartos são duplos com camas twin e café da manhã incluído. A divisão é feita próxima à véspera da viagem e não misturamos homem e mulher. Quarto privado é possível mediante pagamento adicional de USD 480.',
+    },
+    {
+      q: 'Quero um quarto privado. Quanto custa a mais?',
+      a: 'Para quarto privado, o valor adicional é de USD 480.',
+    },
+    {
+      q: 'Como funciona o quarto para casal?',
+      a: 'Como os quartos são duplos, vocês já teriam um quarto privado.',
+    },
+    {
+      q: 'Posso estender a viagem ou ir para outros lugares?',
+      a: 'Sim! Podemos fazer uma programação personalizada como extra da expedição. Temos a possibilidade de extensão para o Nepal, por exemplo. Para isso, peço que preencha o formulário: https://forms.gle/wF2xq1mirir3edwJA',
+    },
+    {
+      q: 'Como funciona em caso de cancelamento?',
+      a: 'A viagem pode ser cancelada com reembolso integral até 91 dias antes. A partir daí:\n• 90 a 60 dias antes: taxa de 30%\n• 59 a 30 dias antes: taxa de 50%\n• Menos de 30 dias: sem reembolso',
+    },
+  ],
+  china: [],
+  japao: [],
+  indonesia: [],
+  vietna: [],
+};
+
+// ─── Componentes auxiliares ───────────────────────────────────────────────────
+function Accordion({ question, answer }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="border border-[#E6D6CB] rounded-xl overflow-hidden">
+      <button
+        onClick={() => setOpen(!open)}
+        className="w-full flex items-start justify-between gap-4 px-5 py-4 bg-white hover:bg-[#FAF8F5] transition-colors text-left"
+      >
+        <span className="font-semibold text-[#2E1A20] text-[15px] leading-snug">{question}</span>
+        {open
+          ? <ChevronUp className="h-4 w-4 text-[#6E5A60] flex-shrink-0 mt-0.5" />
+          : <ChevronDown className="h-4 w-4 text-[#6E5A60] flex-shrink-0 mt-0.5" />}
+      </button>
+      {open && (
+        <div className="px-5 pb-5 pt-3 bg-white border-t border-[#E6D6CB] text-[#2E1A20] text-[15px] leading-relaxed whitespace-pre-line">
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ScriptAccordion({ title, content }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border border-[#E6D6CB] rounded-xl overflow-hidden">
@@ -56,70 +174,179 @@ function Accordion({ title, children }) {
         {open ? <ChevronUp className="h-4 w-4 text-[#6E5A60]" /> : <ChevronDown className="h-4 w-4 text-[#6E5A60]" />}
       </button>
       {open && (
-        <div className="px-5 pb-5 pt-3 bg-white border-t border-[#E6D6CB] text-[#2E1A20] text-[15px] leading-relaxed whitespace-pre-wrap">
-          {children}
+        <div className="px-5 pb-5 pt-3 bg-white border-t border-[#E6D6CB] text-[#2E1A20] text-[15px] leading-relaxed whitespace-pre-line">
+          {content
+            ? content
+            : <span className="text-[#6E5A60] italic text-sm">Conteúdo a ser adicionado.</span>}
         </div>
       )}
     </div>
   );
 }
 
-// ─── Aba: Script ─────────────────────────────────────────────────────────────
+// ─── Abas ─────────────────────────────────────────────────────────────────────
+const FUNNEL_PHASES = [
+  { label: 'Validação',    color: 'bg-[#E0EBE6] text-[#2D4A3E]',   desc: 'Enviei o áudio e estou aguardando a validação do cliente.' },
+  { label: 'Introdução',   color: 'bg-[#F1E1D6] text-[#7A4030]',   desc: 'Cliente validou o áudio — enviei o PDF e contexto geral da viagem.' },
+  { label: 'Envolvimento', color: 'bg-[#EDE9D5] text-[#5A4A10]',   desc: 'Cliente começa a querer saber mais informações.' },
+  { label: 'Consideração', color: 'bg-[#F5E8D0] text-[#6B4A1A]',   desc: 'Está consultando alguém, checando passagens ou dias de férias.' },
+  { label: 'Negociação',   color: 'bg-[#F0D8D8] text-[#92314D]',   desc: 'Cliente quer fechar e está seguindo com a contratação.' },
+  { label: 'Cliente',      color: 'bg-[#1B3028] text-white',        desc: 'Confirmação realizada — cliente seguiu com a compra.' },
+];
+
+function ComecaAquiTab() {
+  return (
+    <div className="space-y-6">
+
+      {/* Por onde começar */}
+      <div className="bg-white border border-[#E6D6CB] rounded-2xl p-6">
+        <h2 className="text-base font-semibold text-[#2E1A20] mb-4">Início do turno — ordem de prioridades</h2>
+        <ol className="space-y-4">
+          {[
+            {
+              n: 1,
+              title: 'Follow-up das 24h',
+              desc: 'As conversas fecham automaticamente em 24h. Antes das últimas mensagens fecharem, faça o follow-up. Retome a conversa ou cheque se a pessoa analisou suas últimas mensagens — avalie caso a caso.',
+            },
+            {
+              n: 2,
+              title: 'Respostas a contatos antigos',
+              desc: 'Após finalizar o tópico 1, responda às pessoas que retornaram com dúvidas ou buscando mais informações em conversas já iniciadas.',
+            },
+            {
+              n: 3,
+              title: 'Novos contatos',
+              desc: 'Inicie as respostas das pessoas que nos acionaram buscando informações novas sobre a viagem.',
+            },
+          ].map(({ n, title, desc }) => (
+            <li key={n} className="flex gap-4">
+              <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[#1B3028] text-white text-sm font-bold flex items-center justify-center mt-0.5">
+                {n}
+              </span>
+              <div>
+                <p className="font-semibold text-[#2E1A20] text-[15px]">{title}</p>
+                <p className="text-[#6E5A60] text-sm mt-0.5 leading-relaxed">{desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      {/* Fluxo de atendimento */}
+      <div className="bg-white border border-[#E6D6CB] rounded-2xl p-6">
+        <h2 className="text-base font-semibold text-[#2E1A20] mb-4">Fluxo de atendimento</h2>
+        <div className="space-y-4">
+          {[
+            {
+              step: 'Categorize o lead',
+              desc: 'Entenda qual destino a pessoa deseja visitar e categorize o lead de acordo. Exemplo: lead Índia, lead China.',
+            },
+            {
+              step: 'Inicie a conversa',
+              desc: 'Siga o script de mensagens considerando o destino, mas leia o contexto e a situação do passageiro — nem sempre faz sentido seguir o script na íntegra.',
+            },
+            {
+              step: 'Avalie o lead',
+              desc: 'Para clientes com alto potencial e interesse, adicione a tag "Alto potencial". Isso ajuda a saber onde há maior oportunidade.',
+            },
+          ].map(({ step, desc }) => (
+            <div key={step} className="flex gap-3">
+              <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[#BDA94C] mt-2" />
+              <div>
+                <p className="font-semibold text-[#2E1A20] text-[15px]">{step}</p>
+                <p className="text-[#6E5A60] text-sm mt-0.5 leading-relaxed">{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Fases do funil */}
+      <div className="bg-white border border-[#E6D6CB] rounded-2xl p-6">
+        <h2 className="text-base font-semibold text-[#2E1A20] mb-1">Fases do funil</h2>
+        <p className="text-[#6E5A60] text-sm mb-4">Ao finalizar o turno, marque a fase do lead na conversa.</p>
+        <div className="space-y-2.5">
+          {FUNNEL_PHASES.map(({ label, color, desc }) => (
+            <div key={label} className="flex items-start gap-3">
+              <span className={`flex-shrink-0 text-xs font-bold px-2.5 py-1 rounded-full whitespace-nowrap ${color}`}>
+                {label}
+              </span>
+              <p className="text-[#6E5A60] text-sm leading-relaxed pt-0.5">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  );
+}
+
 function ScriptTab({ slug }) {
   const scripts = SCRIPTS[slug] || [];
   return (
     <div className="space-y-3">
       {scripts.map((s) => (
-        <Accordion key={s.title} title={s.title}>
-          {s.content
-            ? <p>{s.content}</p>
-            : <p className="text-[#6E5A60] italic text-sm">Conteúdo a ser adicionado.</p>
-          }
-        </Accordion>
+        <ScriptAccordion key={s.title} title={s.title} content={s.content} />
       ))}
     </div>
   );
 }
 
-// ─── Aba: Material ───────────────────────────────────────────────────────────
 function MaterialTab({ slug }) {
-  const items = MATERIALS[slug] || [];
+  const pdfs = PDFS[slug] || [];
   return (
     <div className="space-y-3">
-      {items.length === 0 ? (
-        <p className="text-[#6E5A60] italic text-sm py-4">Nenhum material disponível ainda.</p>
-      ) : items.map((item) => (
+      {pdfs.length === 0 ? (
+        <div className="py-10 text-center">
+          <FileDown className="h-10 w-10 text-[#E6D6CB] mx-auto mb-3" />
+          <p className="text-[#6E5A60] text-sm">Nenhum PDF disponível ainda.</p>
+          <p className="text-[#6E5A60] text-xs mt-1">Os materiais aparecerão aqui quando forem adicionados.</p>
+        </div>
+      ) : pdfs.map((pdf) => (
         <a
-          key={item.href}
-          href={item.href}
-          target="_blank"
-          rel="noopener noreferrer"
+          key={pdf.href}
+          href={pdf.href}
+          download
           className="flex items-center justify-between p-4 bg-white border border-[#E6D6CB] rounded-xl hover:border-[#BDA94C] hover:shadow-sm transition-all group"
         >
-          <div>
-            <div className="flex items-center gap-2 mb-0.5">
-              <span className="text-lg">{item.flag}</span>
-              <span className="font-semibold text-[#2E1A20] text-[15px]">{item.title}</span>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-[#F1E1D6] flex items-center justify-center flex-shrink-0">
+              <FileDown className="h-5 w-5 text-[#92314D]" />
             </div>
-            {item.subtitle && <p className="text-xs text-[#6E5A60] ml-7">{item.subtitle}</p>}
+            <div>
+              <p className="font-semibold text-[#2E1A20] text-[15px]">{pdf.title}</p>
+              {pdf.subtitle && <p className="text-xs text-[#6E5A60] mt-0.5">{pdf.subtitle}</p>}
+            </div>
           </div>
-          <ExternalLink className="h-4 w-4 text-[#6E5A60] group-hover:text-[#BDA94C] transition-colors flex-shrink-0 ml-3" />
+          <Download className="h-4 w-4 text-[#6E5A60] group-hover:text-[#BDA94C] transition-colors flex-shrink-0 ml-3" />
         </a>
       ))}
     </div>
   );
 }
 
-// ─── Aba: Simulador ──────────────────────────────────────────────────────────
+function FaqTab({ slug }) {
+  const faqs = FAQS[slug] || [];
+  if (faqs.length === 0) {
+    return <p className="text-[#6E5A60] italic text-sm py-4">FAQ em breve.</p>;
+  }
+  return (
+    <div className="space-y-3">
+      {faqs.map((item) => (
+        <Accordion key={item.q} question={item.q} answer={item.a} />
+      ))}
+    </div>
+  );
+}
+
 function SimuladorTab({ slug, destination }) {
   const config = DESTINATIONS_CONFIG[slug];
-  const maxDiscountPct = config?.maxDiscountPct ?? 0;
+  const maxDiscountUSD = config?.maxDiscountUSD ?? 0;
 
-  const [discountUSD, setDiscountUSD] = useState(0);
+  const [discountUSD, setDiscountUSD] = useState('');
   const raw = Number(discountUSD) || 0;
   const basePrice = destination?.price_from ? Number(destination.price_from) : null;
-  const discountPct = basePrice && raw > 0 ? (raw / basePrice) * 100 : 0;
-  const overLimit = maxDiscountPct > 0 && discountPct > maxDiscountPct;
+  const overLimit = maxDiscountUSD > 0 && raw > maxDiscountUSD;
 
   if (!basePrice) {
     return (
@@ -134,40 +361,55 @@ function SimuladorTab({ slug, destination }) {
       {/* Campo de desconto */}
       <div className="bg-white border border-[#E6D6CB] rounded-2xl p-5">
         <label className="block text-xs font-semibold text-[#6E5A60] uppercase tracking-wider mb-3">
-          Simular desconto
+          Simular desconto por pessoa
         </label>
         <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-[#6E5A60]">USD</span>
+          <span className="text-sm font-semibold text-[#6E5A60] whitespace-nowrap">USD</span>
           <input
             type="number"
             min={0}
             max={basePrice}
-            value={discountUSD === 0 ? '' : discountUSD}
+            value={discountUSD}
             onChange={(e) => setDiscountUSD(e.target.value)}
             placeholder="0"
             className="flex-1 h-11 px-4 rounded-xl border-2 border-[#E6D6CB] bg-[#FAF8F5] text-[#2E1A20] text-base font-semibold focus:outline-none focus:border-[#BDA94C] transition-colors"
           />
-          {basePrice && raw > 0 && (
-            <span className="text-sm text-[#6E5A60] whitespace-nowrap">
-              = {discountPct.toFixed(1)}% off
+        </div>
+
+        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-[#6E5A60]">
+          <span>Preço base: <strong className="text-[#2E1A20]">USD {basePrice.toLocaleString('pt-BR')}</strong> / pessoa</span>
+          {maxDiscountUSD > 0 && (
+            <span className="ml-auto text-right">
+              Limite permitido: <strong className="text-[#2E1A20]">USD {maxDiscountUSD}</strong>
             </span>
           )}
         </div>
 
-        {/* Referência */}
-        <div className="mt-3 flex items-center gap-3 text-xs text-[#6E5A60]">
-          <span>Preço base: <strong className="text-[#2E1A20]">USD {basePrice.toLocaleString('pt-BR')}</strong> por pessoa</span>
-          {maxDiscountPct > 0 && (
-            <span className="ml-auto">Limite: <strong className="text-[#2E1A20]">{maxDiscountPct}%</strong></span>
-          )}
-        </div>
+        {/* Atalhos rápidos */}
+        {maxDiscountUSD > 0 && (
+          <div className="mt-3 flex gap-2 flex-wrap">
+            {[25, 50, maxDiscountUSD].filter((v, i, a) => a.indexOf(v) === i && v <= maxDiscountUSD).map((val) => (
+              <button
+                key={val}
+                onClick={() => setDiscountUSD(String(val))}
+                className={`px-3 h-8 rounded-lg text-sm font-medium transition-colors ${
+                  raw === val
+                    ? 'bg-[#BDA94C] text-white'
+                    : 'bg-[#F1E1D6] text-[#6E5A60] hover:bg-[#E6D6CB]'
+                }`}
+              >
+                USD {val}
+              </button>
+            ))}
+          </div>
+        )}
 
-        {/* Aviso de limite excedido */}
+        {/* Aviso */}
         {overLimit && (
           <div className="mt-3 flex items-start gap-2.5 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
             <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" />
             <span>
-              Desconto acima do limite permitido para esta viagem ({maxDiscountPct}%).
+              Desconto acima do limite permitido (USD {maxDiscountUSD} por pessoa).
               Consulte a Luiza antes de oferecer este valor ao cliente.
             </span>
           </div>
@@ -179,8 +421,11 @@ function SimuladorTab({ slug, destination }) {
         basePrice={basePrice}
         departureDate={destination?.departure_start_date}
         minEntryPct={destination?.minEntryPct || 30}
-        pixDiscount={destination?.pixDiscount || 0}
-        promo={raw > 0 ? { discount: raw, description: `Desconto especial de USD ${raw.toLocaleString('pt-BR')} por pessoa aplicado` } : undefined}
+        pixDiscount={destination?.pixDiscount || 5}
+        promo={raw > 0 ? {
+          discount: raw,
+          description: `Desconto de USD ${raw.toLocaleString('pt-BR')} por pessoa aplicado`,
+        } : undefined}
         _defaultOpen={true}
       />
     </div>
@@ -192,7 +437,7 @@ export default function TimeDestino() {
   const { destino } = useParams();
   const { isAuthenticated, isLoadingAuth, user, logout } = useAuth();
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('script');
+  const [activeTab, setActiveTab] = useState('comece-aqui');
 
   const config = DESTINATIONS_CONFIG[destino];
 
@@ -202,7 +447,7 @@ export default function TimeDestino() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from('destinations')
-        .select('id, name, price_from, departure_start_date, minEntryPct, pixDiscount')
+        .select('id, name, price_from, departure_start_date, minEntryPct, pixDiscount, pricing_lots, availability_status')
         .eq('country', config.country)
         .maybeSingle();
       if (error) throw error;
@@ -228,26 +473,22 @@ export default function TimeDestino() {
 
   return (
     <div className="min-h-screen bg-[#F8EEE5]">
-      {/* Header */}
       <header className="bg-[#1B3028] sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-5 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate('/time')}
-              className="flex items-center gap-1.5 text-white/70 hover:text-white text-sm transition-colors mr-1"
+              className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors mr-1"
             >
               <ArrowLeft className="h-4 w-4" />
             </button>
             <img src="https://www.intutrips.com/logo_intutrips.svg" alt="Intu Trips" className="h-6" />
-            <span className="text-white/50 text-sm hidden sm:block">/</span>
+            <span className="text-white/40 text-sm hidden sm:block">/</span>
             <span className="text-white/80 text-sm hidden sm:block">{config.name}</span>
           </div>
           <div className="flex items-center gap-4">
             <span className="text-white/50 text-xs hidden sm:block">{user?.email}</span>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-1.5 text-white/70 hover:text-white text-sm transition-colors"
-            >
+            <button onClick={handleLogout} className="text-white/70 hover:text-white transition-colors">
               <LogOut className="h-4 w-4" />
             </button>
           </div>
@@ -255,19 +496,43 @@ export default function TimeDestino() {
       </header>
 
       <div className="max-w-4xl mx-auto px-5 py-8">
-        {/* Cabeçalho do destino */}
         <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <div className="flex items-center gap-3">
+          <div className="flex items-start gap-3">
             <span className="text-4xl">{config.flag}</span>
-            <div>
+            <div className="flex-1 min-w-0">
               <h1 className="text-2xl font-semibold text-[#2E1A20]">{config.name}</h1>
               <p className="text-[#6E5A60] text-sm">{config.subtitle}</p>
+              {destination && (() => {
+                const spots = getSpotsAvailable(destination.pricing_lots);
+                const lot = getCurrentLot(destination.pricing_lots);
+                const soldOut = destination.availability_status === 'sold_out' || spots === 0;
+                return (
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {lot && (
+                      <span className="inline-flex items-center text-xs font-semibold bg-[#F1E1D6] text-[#92314D] px-2.5 py-1 rounded-full">
+                        {lot.name || 'Lote atual'}: USD {Number(lot.price).toLocaleString('pt-BR')}
+                      </span>
+                    )}
+                    {soldOut ? (
+                      <span className="inline-flex items-center text-xs font-semibold bg-red-100 text-red-600 px-2.5 py-1 rounded-full">
+                        Esgotado
+                      </span>
+                    ) : spots !== null ? (
+                      <span className={`inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full ${
+                        spots <= 3 ? 'bg-red-100 text-red-600' : 'bg-[#E0EBE6] text-[#2D4A3E]'
+                      }`}>
+                        {spots} {spots === 1 ? 'vaga' : 'vagas'} disponíveis
+                      </span>
+                    ) : null}
+                  </div>
+                );
+              })()}
             </div>
           </div>
         </motion.div>
 
         {/* Tabs */}
-        <div className="flex gap-2 mb-6 bg-white border border-[#E6D6CB] rounded-xl p-1.5 overflow-x-auto">
+        <div className="flex gap-1.5 mb-6 bg-white border border-[#E6D6CB] rounded-xl p-1.5 overflow-x-auto">
           {TABS.map(({ id, label, icon: Icon }) => (
             <button
               key={id}
@@ -279,21 +544,22 @@ export default function TimeDestino() {
               }`}
             >
               <Icon className="h-4 w-4" />
-              {label}
+              <span className="hidden sm:block">{label}</span>
             </button>
           ))}
         </div>
 
-        {/* Conteúdo da aba ativa */}
         <motion.div
           key={activeTab}
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.15 }}
         >
-          {activeTab === 'script' && <ScriptTab slug={destino} />}
-          {activeTab === 'material' && <MaterialTab slug={destino} />}
-          {activeTab === 'simulador' && <SimuladorTab slug={destino} destination={destination} />}
+          {activeTab === 'comece-aqui' && <ComecaAquiTab />}
+          {activeTab === 'script'      && <ScriptTab slug={destino} />}
+          {activeTab === 'material'    && <MaterialTab slug={destino} />}
+          {activeTab === 'faq'         && <FaqTab slug={destino} />}
+          {activeTab === 'simulador'   && <SimuladorTab slug={destino} destination={destination} />}
         </motion.div>
       </div>
     </div>

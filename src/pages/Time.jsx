@@ -1,36 +1,46 @@
 import React from 'react';
 import { useAuth } from '@/lib/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
 import { LogOut, ChevronRight } from 'lucide-react';
+import { getSpotsAvailable } from '@/utils';
 
-// ─── Configuração de destinos ───────────────────────────────────────────────
-// Para adicionar um novo destino, basta incluir uma entrada neste objeto.
-// "maxDiscountPct" é o desconto máximo permitido (em %) para cada viagem.
-// Altere esse valor conforme a margem de cada expedição.
+const SPOTS_PER_LOT = 6;
+
+export function getCurrentLot(pricing_lots) {
+  if (!pricing_lots || !Array.isArray(pricing_lots)) return null;
+  const active = pricing_lots.filter(l => l.active !== false && l.price);
+  return active.find(l => (SPOTS_PER_LOT - (l.spots_filled || 0)) > 0) || active[active.length - 1] || null;
+}
+
+// ─── Configuração de destinos ────────────────────────────────────────────────
+// "maxDiscountUSD" = desconto máximo permitido em dólares por pessoa.
+// Altere conforme a margem de cada expedição.
 export const DESTINATIONS_CONFIG = {
   india: {
     flag: '🇮🇳',
     name: 'Índia',
     subtitle: 'Expedição em grupo',
     country: 'India',
-    maxDiscountPct: 0, // ATUALIZAR: % máximo de desconto permitido
+    maxDiscountUSD: 100,
     active: true,
   },
   china: {
     flag: '🇨🇳',
     name: 'China',
-    subtitle: 'Expedição em grupo',
+    subtitle: 'Em breve',
     country: 'China',
-    maxDiscountPct: 0, // ATUALIZAR
-    active: true,
+    maxDiscountUSD: 0,
+    active: false,
   },
   japao: {
     flag: '🇯🇵',
     name: 'Japão',
     subtitle: 'Em breve',
     country: 'Japão',
-    maxDiscountPct: 0,
+    maxDiscountUSD: 0,
     active: false,
   },
   indonesia: {
@@ -38,7 +48,7 @@ export const DESTINATIONS_CONFIG = {
     name: 'Indonésia',
     subtitle: 'Em breve',
     country: 'Indonésia',
-    maxDiscountPct: 0,
+    maxDiscountUSD: 0,
     active: false,
   },
   vietna: {
@@ -46,7 +56,7 @@ export const DESTINATIONS_CONFIG = {
     name: 'Vietnã',
     subtitle: 'Em breve',
     country: 'Vietnã',
-    maxDiscountPct: 0,
+    maxDiscountUSD: 0,
     active: false,
   },
 };
@@ -54,6 +64,21 @@ export const DESTINATIONS_CONFIG = {
 export default function Time() {
   const { isAuthenticated, isLoadingAuth, user, logout } = useAuth();
   const navigate = useNavigate();
+
+  const { data: destinationsData = [] } = useQuery({
+    queryKey: ['destinations-time'],
+    enabled: isAuthenticated,
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('destinations')
+        .select('id, name, country, pricing_lots, availability_status, price_from');
+      if (error) throw error;
+      return data || [];
+    },
+  });
+
+  // Mapeia country → dados do Supabase
+  const byCountry = Object.fromEntries(destinationsData.map(d => [d.country, d]));
 
   const handleLogout = async () => {
     await logout();
@@ -75,7 +100,6 @@ export default function Time() {
 
   return (
     <div className="min-h-screen bg-[#F8EEE5]">
-      {/* Header */}
       <header className="bg-[#1B3028] sticky top-0 z-10">
         <div className="max-w-4xl mx-auto px-5 h-14 flex items-center justify-between">
           <img src="https://www.intutrips.com/logo_intutrips.svg" alt="Intu Trips" className="h-6" />
@@ -98,34 +122,64 @@ export default function Time() {
           <p className="text-[#6E5A60] text-sm mb-10">Selecione a viagem para acessar o material de vendas.</p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {Object.entries(DESTINATIONS_CONFIG).map(([slug, dest]) => (
-              <motion.button
-                key={slug}
-                onClick={() => dest.active && navigate(`/time/${slug}`)}
-                whileHover={dest.active ? { y: -2 } : {}}
-                className={`text-left p-6 rounded-2xl border transition-all ${
-                  dest.active
-                    ? 'bg-white border-[#E6D6CB] hover:border-[#BDA94C] hover:shadow-md cursor-pointer'
-                    : 'bg-white/50 border-[#E6D6CB] opacity-50 cursor-not-allowed'
-                }`}
-              >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <span className="text-4xl mb-3 block">{dest.flag}</span>
-                    <h2 className="text-lg font-semibold text-[#2E1A20]">{dest.name}</h2>
-                    <p className="text-sm text-[#6E5A60] mt-0.5">{dest.subtitle}</p>
+            {Object.entries(DESTINATIONS_CONFIG).map(([slug, dest]) => {
+              const dbDest = byCountry[dest.country];
+              const spots = dbDest ? getSpotsAvailable(dbDest.pricing_lots) : null;
+              const currentLot = dbDest ? getCurrentLot(dbDest.pricing_lots) : null;
+              const soldOut = dbDest?.availability_status === 'sold_out' || spots === 0;
+
+              return (
+                <motion.button
+                  key={slug}
+                  onClick={() => dest.active && navigate(`/time/${slug}`)}
+                  whileHover={dest.active ? { y: -2 } : {}}
+                  className={`text-left p-6 rounded-2xl border transition-all ${
+                    dest.active
+                      ? 'bg-white border-[#E6D6CB] hover:border-[#BDA94C] hover:shadow-md cursor-pointer'
+                      : 'bg-white/50 border-[#E6D6CB] opacity-50 cursor-not-allowed'
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1 min-w-0">
+                      <span className="text-4xl mb-3 block">{dest.flag}</span>
+                      <h2 className="text-lg font-semibold text-[#2E1A20]">{dest.name}</h2>
+                      <p className="text-sm text-[#6E5A60] mt-0.5">{dest.subtitle}</p>
+
+                      {dest.active && dbDest && (
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {currentLot && (
+                            <span className="inline-flex items-center text-xs font-semibold bg-[#F1E1D6] text-[#92314D] px-2.5 py-1 rounded-full">
+                              {currentLot.name || 'Lote atual'}: USD {Number(currentLot.price).toLocaleString('pt-BR')}
+                            </span>
+                          )}
+                          {soldOut ? (
+                            <span className="inline-flex items-center text-xs font-semibold bg-red-100 text-red-600 px-2.5 py-1 rounded-full">
+                              Esgotado
+                            </span>
+                          ) : spots !== null ? (
+                            <span className={`inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full ${
+                              spots <= 3
+                                ? 'bg-red-100 text-red-600'
+                                : 'bg-[#E0EBE6] text-[#2D4A3E]'
+                            }`}>
+                              {spots} {spots === 1 ? 'vaga' : 'vagas'} disponíveis
+                            </span>
+                          ) : null}
+                        </div>
+                      )}
+                    </div>
+                    {dest.active && (
+                      <ChevronRight className="h-5 w-5 text-[#BDA94C] mt-1 flex-shrink-0 ml-3" />
+                    )}
                   </div>
-                  {dest.active && (
-                    <ChevronRight className="h-5 w-5 text-[#BDA94C] mt-1 flex-shrink-0" />
+                  {!dest.active && (
+                    <span className="inline-block mt-3 text-xs font-semibold text-[#6E5A60] bg-[#E6D6CB] px-2 py-0.5 rounded-full">
+                      Em breve
+                    </span>
                   )}
-                </div>
-                {!dest.active && (
-                  <span className="inline-block mt-3 text-xs font-semibold text-[#6E5A60] bg-[#E6D6CB] px-2 py-0.5 rounded-full">
-                    Em breve
-                  </span>
-                )}
-              </motion.button>
-            ))}
+                </motion.button>
+              );
+            })}
           </div>
         </motion.div>
       </div>
