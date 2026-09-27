@@ -83,7 +83,7 @@ const FAQS = {
     },
     {
       q: 'O que está incluso no pacote?',
-      a: 'O pacote de 15 dias contempla:\n✅ 13 noites de acomodação dupla com café da manhã\n✅ Todos os passeios e atividades previstos no roteiro\n✅ Locomoção interna (trem, avião e van privada com AC)\n✅ Um jantar tradicional do Rajastão\n✅ Guias locais que falam espanhol em todos os pontos turísticos\n✅ Transfer no aeroporto\n✅ Líderes da expedição brasileiros que acompanham durante toda a viagem\n✅ Acompanhamento pré-embarque e durante a viagem',
+      a: 'O pacote de 13 dias e 12 noites contempla:\n✅ 12 noites de acomodação dupla com café da manhã\n✅ Todos os passeios e atividades previstos no roteiro\n✅ Locomoção interna (trem, avião e van privada com AC)\n✅ Um jantar tradicional do Rajastão\n✅ Guias locais que falam espanhol em todos os pontos turísticos\n✅ Transfer no aeroporto\n✅ Líderes da expedição brasileiros que acompanham durante toda a viagem\n✅ Acompanhamento pré-embarque e durante a viagem',
     },
     {
       q: 'Passagem aérea internacional está inclusa?',
