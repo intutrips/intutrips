@@ -23,6 +23,8 @@ import Profile from '@/pages/admin/Profile';
 import Simulador from '@/pages/Simulador';
 import SimuladorMilena from '@/pages/SimuladorMilena';
 import Encontro from '@/pages/Encontro';
+import LoginTime from '@/pages/LoginTime';
+import Time from '@/pages/Time';
 
 
 const { Pages, Layout, mainPage } = pagesConfig;
@@ -222,6 +224,10 @@ const AuthenticatedApp = () => {
           </LayoutWrapper>
         }
       />
+
+      {/* Área interna do time comercial */}
+      <Route path="/login-time" element={<LoginTime />} />
+      <Route path="/time" element={<Time />} />
 
       {/* Rota dinâmica para os Destinos Individuais usando slug */}
       <Route
