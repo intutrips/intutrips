@@ -6,13 +6,15 @@ import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
 import {
   LogOut, ArrowLeft, FileText, Download, Calculator,
-  MessageSquare, ChevronDown, ChevronUp, AlertTriangle, FileDown, ListChecks, Search, Target
+  MessageSquare, ChevronDown, ChevronUp, AlertTriangle, FileDown, ListChecks, Search, Target,
+  PartyPopper, Copy, Check, ExternalLink
 } from 'lucide-react';
 import PaymentSimulator from '@/components/destination/PaymentSimulator';
 import { DESTINATIONS_CONFIG, getCurrentLot, SPOTS_PER_LOT, TEAM_GOALS } from './Time';
 
 const TABS = [
   { id: 'comece-aqui', label: 'Comece aqui', icon: ListChecks },
+  { id: 'pos-venda',   label: 'Pós-venda',   icon: PartyPopper },
   { id: 'script',      label: 'Script',      icon: MessageSquare },
   { id: 'material',    label: 'Material',    icon: Download },
   { id: 'faq',         label: 'FAQ',         icon: FileText },
@@ -276,6 +278,122 @@ function ComecaAquiTab() {
         </div>
       </div>
 
+    </div>
+  );
+}
+
+function CopyButton({ text }) {
+  const [copied, setCopied] = useState(false);
+  const handleCopy = () => {
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+  return (
+    <button
+      onClick={handleCopy}
+      className="flex items-center gap-1.5 text-xs font-medium text-[#6E5A60] hover:text-[#2E1A20] transition-colors"
+    >
+      {copied
+        ? <><Check className="h-3.5 w-3.5 text-green-600" /><span className="text-green-600">Copiado!</span></>
+        : <><Copy className="h-3.5 w-3.5" /><span>Copiar</span></>}
+    </button>
+  );
+}
+
+const EXAMPLE_MESSAGE = `Perfeito [NOME]! Será um prazer ter você com a gente nesta viagem! Então ficou assim: USD [VALOR_USD] x [CÂMBIO] (taxa turismo atual) = R$[VALOR_BRL]. Este valor será [FORMA_PAGAMENTO] e estas informações estarão descritas no contrato, conforme combinamos.`;
+
+function PosVendaTab() {
+  const steps = [
+    {
+      n: 1,
+      title: 'Formalize o valor na conversa',
+      desc: 'Confirme para o cliente o valor final negociado em reais e dólares e a forma de pagamento. Use o modelo abaixo como base.',
+      extra: (
+        <div className="mt-3 bg-[#FAF8F5] border border-[#E6D6CB] rounded-xl p-4">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-semibold text-[#6E5A60] uppercase tracking-wide">Modelo de mensagem</span>
+            <CopyButton text={EXAMPLE_MESSAGE} />
+          </div>
+          <p className="text-sm text-[#2E1A20] leading-relaxed italic">
+            "{EXAMPLE_MESSAGE}"
+          </p>
+        </div>
+      ),
+    },
+    {
+      n: 2,
+      title: 'Consulte o câmbio',
+      desc: 'Use o site de referência ou o nosso simulador para pegar a taxa turismo atualizada.',
+      extra: (
+        <div className="mt-3 flex flex-wrap gap-2">
+          <a
+            href="https://dolarhoje.com/dolar-turismo/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#92314D] bg-[#F1E1D6] px-3 py-1.5 rounded-lg hover:bg-[#E6D6CB] transition-colors"
+          >
+            <ExternalLink className="h-3.5 w-3.5" />
+            Dólar turismo hoje
+          </a>
+        </div>
+      ),
+    },
+    {
+      n: 3,
+      title: 'Envie o formulário de inscrição',
+      desc: 'Peça para o cliente preencher o formulário assim que fechar. Ele serve para elaboração do contrato e para conhecermos o perfil do viajante (contato de emergência, alergias, etc.).',
+      extra: (
+        <div className="mt-3 flex flex-wrap gap-2">
+          <a
+            href="https://forms.gle/mcSohUeRfdA8rBNz9"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#92314D] bg-[#F1E1D6] px-3 py-1.5 rounded-lg hover:bg-[#E6D6CB] transition-colors"
+          >
+            <ExternalLink className="h-3.5 w-3.5" />
+            Formulário de inscrição
+          </a>
+        </div>
+      ),
+    },
+    {
+      n: 4,
+      title: 'Avise a Luiza',
+      desc: 'Nos informe em paralelo que o cliente fechou, passando o valor acordado em dólar e em reais. O preenchimento do formulário chega diretamente no nosso e-mail.',
+    },
+    {
+      n: 5,
+      title: 'Aguarde e envie o contrato',
+      desc: 'Com os dados do formulário em mãos, montamos o contrato em até 48h (normalmente mais rápido). Enviaremos o documento para você repassar ao cliente via WhatsApp. O envio por e-mail também será feito pela nossa equipe.',
+    },
+    {
+      n: 6,
+      title: 'Pós-vendas',
+      desc: 'Após a assinatura, o acompanhamento dos pagamentos é feito pela nossa equipe. Você pode acionar caso o cliente tenha dúvidas.',
+    },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <div className="bg-[#E0EBE6] border border-[#C5D9CF] rounded-xl px-4 py-3 flex items-start gap-3">
+        <PartyPopper className="h-4 w-4 text-[#2D4A3E] shrink-0 mt-0.5" />
+        <p className="text-sm text-[#2D4A3E] font-medium">Cliente fechou! Siga os passos abaixo na ordem.</p>
+      </div>
+      <div className="bg-white border border-[#E6D6CB] rounded-2xl p-6 space-y-6">
+        {steps.map(({ n, title, desc, extra }) => (
+          <div key={n} className="flex gap-4">
+            <span className="flex-shrink-0 w-7 h-7 rounded-full bg-[#1B3028] text-white text-sm font-bold flex items-center justify-center mt-0.5">
+              {n}
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-[#2E1A20] text-[15px]">{title}</p>
+              <p className="text-[#6E5A60] text-sm mt-0.5 leading-relaxed">{desc}</p>
+              {extra}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -623,6 +741,7 @@ export default function TimeDestino() {
           transition={{ duration: 0.15 }}
         >
           {activeTab === 'comece-aqui' && <ComecaAquiTab />}
+          {activeTab === 'pos-venda'   && <PosVendaTab />}
           {activeTab === 'script'      && <ScriptTab slug={destino} />}
           {activeTab === 'material'    && <MaterialTab slug={destino} />}
           {activeTab === 'faq'         && <FaqTab slug={destino} />}
