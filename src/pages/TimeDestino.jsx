@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
 import {
   LogOut, ArrowLeft, FileText, Download, Calculator,
-  MessageSquare, ChevronDown, ChevronUp, AlertTriangle, FileDown, ListChecks
+  MessageSquare, ChevronDown, ChevronUp, AlertTriangle, FileDown, ListChecks, Search
 } from 'lucide-react';
 import PaymentSimulator from '@/components/destination/PaymentSimulator';
 import { DESTINATIONS_CONFIG, getCurrentLot } from './Time';
@@ -106,7 +106,7 @@ const FAQS = {
     },
     {
       q: 'Qual o preço médio das refeições?',
-      a: 'A Índia tem ótimo custo-benefício. Considere em média R$ 50 por refeição. Sugerimos levar por volta de USD 750 para cobrir alimentação, compras e outras atividades.',
+      a: 'A Índia tem ótimo custo-benefício. Considere em média R$ 50 por refeição. Sugerimos levar por volta de USD 600 para cobrir alimentação, compras e outras atividades.',
     },
     {
       q: 'Quanto dinheiro levar para demais gastos?',
@@ -327,14 +327,36 @@ function MaterialTab({ slug }) {
 
 function FaqTab({ slug }) {
   const faqs = FAQS[slug] || [];
+  const [query, setQuery] = useState('');
+
   if (faqs.length === 0) {
     return <p className="text-[#6E5A60] italic text-sm py-4">FAQ em breve.</p>;
   }
+
+  const q = query.trim().toLowerCase();
+  const filtered = q
+    ? faqs.filter(f => f.q.toLowerCase().includes(q) || f.a.toLowerCase().includes(q))
+    : faqs;
+
   return (
     <div className="space-y-3">
-      {faqs.map((item) => (
-        <Accordion key={item.q} question={item.q} answer={item.a} />
-      ))}
+      <div className="relative">
+        <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#6E5A60] pointer-events-none" />
+        <input
+          type="text"
+          value={query}
+          onChange={e => setQuery(e.target.value)}
+          placeholder="Buscar pergunta..."
+          className="w-full h-11 pl-10 pr-4 rounded-xl border border-[#E6D6CB] bg-white text-[#2E1A20] text-sm focus:outline-none focus:border-[#BDA94C] transition-colors"
+        />
+      </div>
+      {filtered.length === 0 ? (
+        <p className="text-center text-[#6E5A60] text-sm py-6">Nenhum resultado para "{query}".</p>
+      ) : (
+        filtered.map((item) => (
+          <Accordion key={item.q} question={item.q} answer={item.a} />
+        ))
+      )}
     </div>
   );
 }
