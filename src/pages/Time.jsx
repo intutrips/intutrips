@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
-import { LogOut, ChevronRight } from 'lucide-react';
+import { LogOut, ChevronRight, Target } from 'lucide-react';
 import { getSpotsAvailable } from '@/utils';
 
 export const SPOTS_PER_LOT = 6;
@@ -160,27 +160,58 @@ export default function Time() {
                       <p className="text-sm text-[#6E5A60] mt-0.5">{dest.subtitle}</p>
 
                       {dest.active && dbDest && (
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          {(dbDest.pricing_lots || [])
-                            .filter(l => l.active !== false && l.price)
-                            .map((lot, i) => {
-                              const avail = SPOTS_PER_LOT - (lot.spots_filled || 0);
-                              const isOut = avail <= 0;
-                              return (
-                                <span
-                                  key={i}
-                                  className={`inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full ${
-                                    isOut
-                                      ? 'bg-gray-100 text-gray-400 line-through'
-                                      : avail <= 3
-                                        ? 'bg-red-100 text-red-600'
-                                        : 'bg-[#E0EBE6] text-[#2D4A3E]'
-                                  }`}
-                                >
-                                  {lot.name || `Lote ${i + 1}`}: {isOut ? 'esgotado' : `${avail} ${avail === 1 ? 'vaga' : 'vagas'}`}
-                                </span>
-                              );
-                            })}
+                        <div className="mt-4 space-y-3">
+                          {/* Badges de vagas por lote */}
+                          <div className="flex flex-wrap gap-2">
+                            {(dbDest.pricing_lots || [])
+                              .filter(l => l.active !== false && l.price)
+                              .map((lot, i) => {
+                                const avail = SPOTS_PER_LOT - (lot.spots_filled || 0);
+                                const isOut = avail <= 0;
+                                return (
+                                  <span
+                                    key={i}
+                                    className={`inline-flex items-center text-xs font-semibold px-2.5 py-1 rounded-full ${
+                                      isOut
+                                        ? 'bg-gray-100 text-gray-400 line-through'
+                                        : avail <= 3
+                                          ? 'bg-red-100 text-red-600'
+                                          : 'bg-[#E0EBE6] text-[#2D4A3E]'
+                                    }`}
+                                  >
+                                    {lot.name || `Lote ${i + 1}`}: {isOut ? 'esgotado' : `${avail} ${avail === 1 ? 'vaga' : 'vagas'}`}
+                                  </span>
+                                );
+                              })}
+                          </div>
+
+                          {/* Barra de progresso da meta ativa */}
+                          {TEAM_GOALS.filter(g => g.active && g.destination === slug).map((goal, gi) => {
+                            const lot = dbDest.pricing_lots?.[goal.lotIndex];
+                            if (!lot) return null;
+                            const filled = lot.spots_filled || 0;
+                            const pct = Math.round((filled / SPOTS_PER_LOT) * 100);
+                            return (
+                              <div key={gi} className="pt-1">
+                                <div className="flex items-center justify-between text-xs mb-1.5">
+                                  <span className="flex items-center gap-1 text-[#6E5A60] font-medium">
+                                    <Target className="h-3 w-3 text-[#BDA94C]" />
+                                    {goal.title} — {lot.name || `Lote ${goal.lotIndex + 1}`}
+                                  </span>
+                                  <span className="font-semibold text-[#2E1A20]">{filled}/{SPOTS_PER_LOT}</span>
+                                </div>
+                                <div className="h-1.5 bg-[#E6D6CB] rounded-full overflow-hidden">
+                                  <div
+                                    className="h-full rounded-full transition-all duration-500"
+                                    style={{
+                                      width: `${pct}%`,
+                                      background: pct >= 100 ? '#4ade80' : pct >= 60 ? '#BDA94C' : '#92314D',
+                                    }}
+                                  />
+                                </div>
+                              </div>
+                            );
+                          })}
                         </div>
                       )}
                     </div>
