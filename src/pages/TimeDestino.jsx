@@ -584,13 +584,26 @@ export default function TimeDestino() {
     queryKey: ['destination-time', destino],
     enabled: !!config?.country && isAuthenticated,
     queryFn: async () => {
-      const { data, error } = await supabase
+      // Busca todos os destinos publicados e encontra o correto por slug, country ou nome
+      const { data: all, error } = await supabase
         .from('destinations')
-        .select('id, name, price_from, departure_start_date, minEntryPct, pixDiscount, pricing_lots, availability_status')
-        .eq('country', config.country)
-        .maybeSingle();
+        .select('id, name, slug, country, price_from, departure_start_date, minEntryPct, pixDiscount, pricing_lots, availability_status')
+        .eq('is_published', true);
       if (error) throw error;
-      return data;
+      if (!all?.length) return null;
+
+      // 1º: tenta pelo slug exato (ex: 'india')
+      const bySlug = all.find(d => d.slug === destino);
+      if (bySlug) return bySlug;
+
+      // 2º: tenta pelo country exato
+      const byCountry = all.find(d => d.country === config.country);
+      if (byCountry) return byCountry;
+
+      // 3º: tenta pelo country sem acentos (ex: 'Índia' → 'india')
+      const normalize = (s = '') => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+      const byCountryNorm = all.find(d => normalize(d.country) === normalize(config.country));
+      return byCountryNorm || null;
     },
   });
 
