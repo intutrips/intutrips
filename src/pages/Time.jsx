@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth } from '@/lib/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
@@ -108,8 +108,7 @@ export default function Time() {
   }
 
   if (!isAuthenticated) {
-    navigate('/login-time');
-    return null;
+    return <Navigate to="/login-time" replace />;
   }
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '@/lib/AuthContext';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Navigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
@@ -620,8 +620,8 @@ export default function TimeDestino() {
     );
   }
 
-  if (!isAuthenticated) { navigate('/login-time'); return null; }
-  if (!config) { navigate('/time'); return null; }
+  if (!isAuthenticated) return <Navigate to="/login-time" replace />;
+  if (!config) return <Navigate to="/time" replace />;
 
   return (
     <div className="min-h-screen bg-[#F8EEE5]">
