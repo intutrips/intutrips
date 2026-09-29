@@ -9,6 +9,10 @@
             "destination": "/proposta-privada-india.html"
         },
         {
+            "source": "/iago-e-camila",
+            "destination": "/iago-e-camila.html"
+        },
+        {
             "source": "/(.*)",
             "destination": "/index.html"
         }

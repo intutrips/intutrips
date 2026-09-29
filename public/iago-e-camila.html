@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Tailândia | Camila e Iago | Intu Trips</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --vinho:#92314D; --azul:#6B9FAF; --oliva:#BDA94C; --creme:#F8EEE5;
+  --bg:#F8EEE5; --paper:#FFFBF7; --ink:#2E1A20; --muted:#6E5A60; --line:#E6D6CB;
+  --accent:var(--vinho); --accent-ink:#F8EEE5; --soft:#F1E1D6;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1E1216; --paper:#27181D; --ink:#F4E6DC; --muted:#C2A9A0; --line:#44303A;
+    --accent:#C45A78; --accent-ink:#F8EEE5; --soft:#321F26;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1E1216; --paper:#27181D; --ink:#F4E6DC; --muted:#C2A9A0; --line:#44303A;
+  --accent:#C45A78; --accent-ink:#F8EEE5; --soft:#321F26;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body.locked > *:not(#pw-gate){visibility:hidden}
+img,svg{max-width:100%}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+
+/* ── Portão de senha ─────────────────────────────────────────── */
+#pw-gate{
+  position:fixed;inset:0;z-index:9999;background:#F8EEE5;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:24px;transition:opacity .25s;
+}
+#pw-gate .logo{height:36px;width:auto;margin-bottom:36px;display:block}
+#pw-gate h1{
+  font-family:"Figtree",sans-serif;font-size:clamp(24px,5vw,34px);
+  font-weight:700;color:#2E1A20;margin:0 0 6px;text-align:center;letter-spacing:-.01em;
+}
+#pw-gate p{color:#6E5A60;font-size:15px;margin:0 0 32px;text-align:center}
+#pw-gate .field{
+  width:100%;max-width:320px;display:flex;flex-direction:column;gap:10px;
+}
+#pw-gate input[type=password]{
+  width:100%;height:48px;padding:0 16px;border-radius:12px;
+  border:1.5px solid #E6D6CB;background:#FFFBF7;
+  font-family:inherit;font-size:16px;color:#2E1A20;outline:none;
+  transition:border-color .15s;
+}
+#pw-gate input[type=password]:focus{border-color:#BDA94C}
+#pw-gate button{
+  width:100%;height:48px;border-radius:12px;border:none;background:#92314D;
+  color:#F8EEE5;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;
+  transition:background .15s;
+}
+#pw-gate button:hover{background:#7A2840}
+#pw-err{display:none;color:#92314D;font-size:14px;margin-top:2px;text-align:center}
+#pw-gate .tag{
+  margin-top:32px;font-size:13px;color:#BDA94C;font-weight:600;
+  letter-spacing:.04em;text-transform:uppercase;
+}
+
+/* ── Layout ──────────────────────────────────────────────────── */
+.cover{background:var(--vinho);color:var(--creme);position:relative;overflow:hidden}
+.cover .wrap{padding-top:56px;padding-bottom:64px;position:relative;z-index:1}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;letter-spacing:.02em}
+.brand img{height:22px;width:auto;filter:brightness(0) invert(1) sepia(1) saturate(2) hue-rotate(5deg);opacity:.85}
+.cover h1{font-family:"Figtree",sans-serif;font-weight:800;font-size:clamp(72px,17vw,168px);line-height:.9;margin:72px 0 18px;letter-spacing:-.02em}
+.cover .sub{font-size:20px;max-width:30ch;margin:0 0 40px;color:#F3DCCF}
+.pax{display:flex;flex-wrap:wrap;gap:12px}
+.pax span{border:1px solid rgba(248,238,229,.45);border-radius:999px;padding:8px 16px;font-weight:600;font-size:15px}
+.bigstar{position:absolute;right:-90px;top:40px;width:430px;height:430px;fill:var(--oliva);opacity:.9}
+.cover .tagline{margin-top:56px;font-weight:300;font-size:15px;color:#E9C9BD}
+
+section{padding:64px 0 16px}
+h2{font-weight:700;font-size:clamp(26px,4.5vw,34px);line-height:1.15;margin:0 0 8px;color:var(--accent)}
+.lead{color:var(--muted);margin:0 0 32px;max-width:62ch}
+
+.legend{display:flex;flex-wrap:wrap;gap:14px 22px;margin:0 0 28px;font-size:14px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.g-full{background:var(--vinho)} .g-half{background:var(--oliva)} .g-none{background:var(--azul)} .g-free{background:transparent;border:1.5px solid var(--muted)}
+
+.days{list-style:none;margin:0;padding:0;position:relative}
+.days::before{content:"";position:absolute;left:31px;top:8px;bottom:8px;width:2px;background:var(--line)}
+.day{display:grid;grid-template-columns:64px 1fr;gap:18px;padding:0 0 30px;position:relative}
+.num{width:64px;height:64px;border-radius:50%;background:var(--paper);border:2px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:1;line-height:1}
+.num b{font-size:22px;font-weight:700;color:var(--accent)}
+.num small{font-size:10px;color:var(--muted);margin-top:3px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 22px}
+.dhead{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 14px;margin-bottom:6px}
+.dhead h3{margin:0;font-size:19px;font-weight:700}
+.date{color:var(--muted);font-size:14px}
+.tag{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:var(--muted);margin-bottom:10px}
+.tag i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.card ul{margin:6px 0 0;padding-left:20px}
+.card li{margin:3px 0}
+.card p{margin:4px 0}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:10px}
+.split > div{background:var(--soft);border-radius:10px;padding:12px 14px}
+.split h4{margin:0 0 4px;font-size:14px;font-weight:700;color:var(--accent)}
+.split ul{margin:2px 0 0}
+.end{font-weight:600;color:var(--accent)}
+
+.hotels{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.hcard{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.hcard h3{margin:0 0 2px;font-size:18px}
+.hcard .note{color:var(--muted);font-size:14px;margin:0 0 12px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{text-align:left;font-size:12px;font-weight:600;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--line)}
+td{padding:10px 8px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td.n,th.n{text-align:right;padding-right:0;white-space:nowrap}
+td a{color:var(--accent);text-decoration:none;font-size:13px;word-break:break-word}
+td a:hover{text-decoration:underline}
+td .city{display:block;font-size:12px;color:var(--muted)}
+tfoot td{border-bottom:none;font-weight:700}
+.or{display:block;font-size:12px;color:var(--muted);margin:2px 0}
+
+.invest{background:var(--vinho);color:var(--creme);border-radius:18px;padding:34px 30px;position:relative;overflow:hidden}
+.invest h2{color:var(--creme)}
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:22px 0}
+.price{border:1px solid rgba(248,238,229,.35);border-radius:12px;padding:18px 20px}
+.price .who{font-size:15px;color:#F0D5C9}
+.price .val{font-weight:700;font-size:clamp(28px,5vw,38px);line-height:1.1;margin:6px 0 2px}
+.price .per{font-size:13px;color:#E9C9BD}
+.supp{background:rgba(189,169,76,.18);border-left:3px solid var(--oliva);padding:12px 16px;border-radius:0 10px 10px 0;font-size:15px}
+.invest .star{position:absolute;right:-40px;bottom:-40px;width:180px;height:180px;fill:var(--oliva);opacity:.25}
+
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.pay div{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.pay h3{margin:0 0 4px;font-size:16px;color:var(--accent)}
+.pay p{margin:0;font-size:15px}
+.fine{font-size:14px;color:var(--muted);margin-top:16px}
+.fine a{color:var(--accent)}
+
+.inc{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.inc > div{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.inc h3{margin:0 0 10px;font-size:18px}
+.inc ul{list-style:none;margin:0;padding:0}
+.inc li{padding:8px 0 8px 26px;position:relative;border-top:1px solid var(--line);font-size:15px}
+.inc li:first-child{border-top:none}
+.yes li::before{content:"";position:absolute;left:0;top:14px;width:12px;height:12px;background:var(--oliva);clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+.no li::before{content:"";position:absolute;left:2px;top:17px;width:9px;height:2px;background:var(--muted)}
+.inc small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+
+.close{margin:72px 0 0;background:var(--azul);color:#fff;padding:64px 0}
+.close h2{color:#fff;font-size:clamp(28px,5vw,42px);max-width:18ch}
+.close p{max-width:52ch;margin:10px 0 0;font-size:18px}
+.close .brand{margin-top:40px;color:#fff}
+.close .brand img{filter:brightness(0) invert(1);opacity:.9}
+
+@media (max-width:680px){
+  body{font-size:16px}
+  .split,.hotels,.prices,.pay,.inc{grid-template-columns:1fr}
+  .days::before{left:23px}
+  .day{grid-template-columns:48px 1fr;gap:12px}
+  .num{width:48px;height:48px}
+  .num b{font-size:18px}
+  .num small{display:none}
+  .card{padding:16px}
+  .bigstar{width:300px;height:300px;right:-110px;top:20px;opacity:.55}
+  .invest{padding:28px 20px}
+}
+@media print{
+  @page{size:A4;margin:14mm}
+  :root{padding:0}
+  body{background:#fff;font-size:13px}
+  body.locked > *:not(#pw-gate){visibility:visible}
+  #pw-gate{display:none!important}
+  .cover{-webkit-print-color-adjust:exact;print-color-adjust:exact;page-break-after:always;min-height:260mm}
+  .invest,.close,.split > div,.num,.g-full,.g-half,.g-none,.tag i,.yes li::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .day,.hcard,.pay div,.inc > div{break-inside:avoid}
+  section{padding-top:28px}
+}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:14px;padding-top:10px;padding-bottom:10px;overflow-x:auto}
+.topbar .logo-nav{height:20px;width:auto;margin-right:6px;flex-shrink:0}
+.topbar a{color:var(--ink);text-decoration:none;font-size:14px;font-weight:600;white-space:nowrap}
+.topbar a:hover{color:var(--accent)}
+.topbar .prog{margin-left:auto;font-size:13px;color:var(--muted);white-space:nowrap}
+.topbar .prog b{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.chips span{font-size:12.5px;background:var(--soft);border-radius:999px;padding:4px 11px}
+.meal{font-size:13px;font-weight:600;color:var(--muted);margin-top:10px}
+.meal b{color:var(--accent)}
+.hint{margin-top:10px;font-size:14.5px;background:var(--soft);border-left:3px solid var(--oliva);padding:9px 13px;border-radius:0 8px 8px 0}
+.alert{margin:12px 0 4px;background:var(--vinho);color:var(--creme);border-radius:12px;padding:14px 16px;font-size:15px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.alert strong{color:#fff}
+.alert a{color:var(--creme);font-weight:700}
+.route{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px}
+.route span{font-size:13px;font-weight:600;padding:6px 12px;border-radius:8px;background:var(--paper);border:1px solid var(--line);color:var(--accent)}
+.tools{display:flex;justify-content:flex-end;margin:-8px 0 16px}
+.btn{font:inherit;font-size:14px;font-weight:600;color:var(--accent);background:transparent;border:1.5px solid var(--accent);border-radius:999px;padding:7px 16px;cursor:pointer}
+.btn:hover{background:var(--accent);color:var(--accent-ink)}
+details.card{padding:0}
+details.card > summary{list-style:none;cursor:pointer;padding:16px 48px 14px 22px;position:relative}
+details.card > summary::-webkit-details-marker{display:none}
+details.card > summary::after,details.pre > summary::after{content:"";position:absolute;right:20px;top:24px;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:rotate(45deg);transition:transform .2s}
+details[open].card > summary::after,details[open].pre > summary::after{transform:rotate(-135deg);top:28px}
+details.card > summary .tag{margin-bottom:0}
+details.card .body{padding:0 22px 18px}
+details.card .body > :first-child{margin-top:0}
+.hgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.hotel{background:var(--paper);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.hphoto{margin:0;aspect-ratio:3/2;background:var(--vinho);position:relative;overflow:hidden}
+.hphoto img{width:100%;height:100%;object-fit:cover;display:block}
+.hphoto .ph{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;gap:8px;color:var(--creme);text-align:center;padding:16px;font-weight:600;font-size:15px}
+.hphoto .ph svg{width:30px;height:30px;fill:var(--oliva)}
+.hphoto.fail img{display:none}.hphoto.fail .ph{display:flex}
+.hinfo{padding:16px 18px 18px;display:flex;flex-direction:column;gap:4px;flex:1}
+.hinfo .when{font-size:12.5px;font-weight:600;color:var(--oliva);letter-spacing:.02em}
+.hinfo h3{margin:0;font-size:18px;line-height:1.25}
+.hinfo p{margin:4px 0 0;font-size:14.5px;color:var(--muted)}
+.hinfo .addr{font-size:13px;margin-top:8px;color:var(--ink)}
+.hinfo a{color:var(--accent);font-size:13.5px;font-weight:600;text-decoration:none;margin-top:auto;padding-top:8px}
+.nights{margin-top:14px;font-size:14px;color:var(--muted)}
+details.pre{background:var(--paper);border:1px solid var(--line);border-radius:16px;margin-bottom:16px}
+details.pre > summary{list-style:none;cursor:pointer;padding:20px 52px 20px 22px;position:relative;display:grid;grid-template-columns:46px 1fr;gap:14px;align-items:center}
+details.pre > summary::-webkit-details-marker{display:none}
+.pn{width:46px;height:46px;border-radius:50%;background:var(--vinho);color:var(--creme);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pt h3{margin:0;font-size:20px;line-height:1.2;color:var(--accent)}
+.pt p{margin:3px 0 0;font-size:14px;color:var(--muted)}
+.pt .sc{font-size:12.5px;font-weight:600;color:var(--oliva)}
+.pbody{padding:0 22px 22px}
+.ck{display:grid;grid-template-columns:26px 1fr;gap:12px;padding:13px 0;border-top:1px solid var(--line);cursor:pointer}
+.ck input{appearance:none;-webkit-appearance:none;width:22px;height:22px;border:2px solid var(--muted);border-radius:6px;margin:2px 0 0;cursor:pointer;display:grid;place-content:center;background:var(--paper)}
+.ck input:checked{background:var(--vinho);border-color:var(--vinho)}
+.ck input:checked::after{content:"";width:6px;height:11px;border-right:2.5px solid #fff;border-bottom:2.5px solid #fff;transform:rotate(45deg) translate(-1px,-1px)}
+.ck strong{display:block;font-size:16px}
+.ck span{font-size:14.5px;color:var(--muted);display:block;margin-top:2px}
+.ck input:checked ~ div strong{text-decoration:line-through;text-decoration-color:var(--oliva)}
+.ck a{color:var(--accent)}
+.steps{counter-reset:s;list-style:none;padding:0;margin:18px 0 0}
+.steps li{counter-increment:s;position:relative;padding:10px 0 10px 44px;border-top:1px solid var(--line);font-size:15px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:10px;width:30px;height:30px;border-radius:50%;background:var(--soft);color:var(--accent);font-weight:700;display:flex;align-items:center;justify-content:center}
+.box{background:var(--soft);border-radius:12px;padding:16px 18px;margin-top:18px}
+.box h4{margin:0 0 6px;font-size:16px;color:var(--accent)}
+.box p{margin:4px 0;font-size:15px}
+.shop h4{font-size:17px;font-weight:700;color:var(--accent);margin:26px 0 4px}
+.shop > p{font-size:15px;color:var(--muted);margin:0 0 10px}
+.stores{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.store{border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.store b{display:block;font-size:15px}
+.store em{font-style:normal;font-size:12px;font-weight:600;color:var(--oliva)}
+.store span{display:block;font-size:14px;color:var(--muted);margin-top:3px}
+.rules{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.rules div{background:var(--soft);border-radius:10px;padding:13px 15px}
+.rules h5{margin:0 0 4px;font-size:15px}
+.rules p{margin:0;font-size:14px;color:var(--muted)}
+.foot-tools{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:8px;font-size:13.5px;color:var(--muted)}
+@media (max-width:680px){.stores,.rules{grid-template-columns:1fr}details.card > summary{padding:14px 42px 12px 16px}details.card .body{padding:0 16px 16px}details.pre > summary{grid-template-columns:38px 1fr;padding:16px 44px 16px 16px}.pn{width:38px;height:38px;font-size:15px}.pbody{padding:0 16px 18px}}
+@media print{.topbar,.tools,.btn{display:none}#hoteis,#pre-embarque{break-before:page}details.card > summary::after,details.pre > summary::after{display:none}.hotel,.ck,.store{break-inside:avoid}}
+.contacts{display:grid;grid-template-columns:1.2fr 1fr;gap:16px}
+.ct{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;flex-direction:column;gap:4px}
+.ct .k{font-size:12px;font-weight:600;color:var(--oliva);letter-spacing:.04em;text-transform:uppercase}
+.ct h3{margin:0;font-size:20px}
+.ct p{margin:2px 0 8px;font-size:15px;color:var(--muted)}
+.ct a{margin-top:auto;align-self:flex-start;text-decoration:none;font-weight:700;font-size:15px;color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:8px 16px}
+.ct.main{background:var(--vinho);border-color:var(--vinho);color:var(--creme);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.ct.main .k{color:var(--oliva)}.ct.main p{color:#F0D5C9}
+.ct.main a{color:var(--creme);border-color:var(--creme)}
+.ct.main a:hover{background:var(--creme);color:var(--vinho)}
+.ct a:hover{background:var(--accent);color:var(--accent-ink)}
+@media (max-width:680px){.contacts{grid-template-columns:1fr}}
+</style>
+</head>
+<body class="locked">
+
+<!-- ── Portão de senha ─────────────────────────────────────────────────────── -->
+<div id="pw-gate" role="dialog" aria-modal="true" aria-label="Acesso restrito">
+  <img class="logo" src="https://www.intutrips.com/logo_intutrips.svg" alt="Intu Trips">
+  <h1>Tailândia</h1>
+  <p>Camila e Iago · Acesso exclusivo</p>
+  <div class="field">
+    <input type="password" id="pw-input" placeholder="Senha" autocomplete="current-password" autofocus>
+    <button type="button" onclick="checkPw()">Entrar</button>
+    <span id="pw-err">Senha incorreta. Tente novamente.</span>
+  </div>
+  <span class="tag">Intu Trips · Expedições Privadas</span>
+</div>
+
+<!-- ── Conteúdo da página ──────────────────────────────────────────────────── -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="star" viewBox="0 0 100 100">
+    <path d="M50 0C53 36 64 47 100 50C64 53 53 64 50 100C47 64 36 53 0 50C36 47 47 36 50 0Z"/>
+  </symbol>
+</svg>
+
+<header class="cover">
+  <svg class="bigstar" aria-hidden="true"><use href="#star"/></svg>
+  <div class="wrap">
+    <div class="brand">
+      <img src="https://www.intutrips.com/logo_intutrips.svg" alt="Intu Trips">
+    </div>
+    <h1>Tailândia</h1>
+    <p class="sub">Roteiro pelo norte, por Bangkok e pelo Mar de Andaman. De 22 de novembro a 4 de dezembro de 2026.</p>
+    <div class="pax"><span>Camila e Iago</span></div>
+    <p class="tagline">Viaje até se sentir pequeno.</p>
+  </div>
+</header>
+
+<nav class="topbar">
+  <div class="wrap">
+    <img class="logo-nav" src="https://www.intutrips.com/logo_intutrips.svg" alt="Intu Trips">
+    <a href="#roteiro">Roteiro</a>
+    <a href="#hoteis">Hotéis</a>
+    <a href="#contatos">Contatos</a>
+    <a href="#incluso">Incluso</a>
+    <a href="#pre-embarque">Pré-embarque</a>
+    <span class="prog"><b id="done">0</b> de <span id="total">0</span> itens</span>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section id="roteiro">
+<h2>Roteiro</h2>
+<p class="lead">Das montanhas e templos do norte ao Festival das Lanternas, passando pela comida de rua de Bangkok e terminando entre ilhas, lagoas e mergulhos no Mar de Andaman. Toquem em cada dia para ver os detalhes.</p>
+<div class="route"><span>Chiang Mai</span><span>Chiang Rai</span><span>Bangkok</span><span>Krabi</span><span>Phi Phi</span><span>Phuket</span></div>
+<div class="legend"><span><i class="g-full"></i>Com guia</span><span><i class="g-none"></i>Motorista, barco ou traslado</span><span><i class="g-free"></i>Tempo livre</span></div>
+<div class="tools"><button class="btn" id="toggleDays" type="button">Abrir todos os dias</button></div>
+<ol class="days">
+<li class="day"><div class="num"><b>1</b><small>22/11</small></div>
+<details class="card"><summary><div class="dhead"><h3>Chegada em Chiang Mai</h3><span class="date">Domingo, 22/11</span></div><div class="tag"><i class="g-none"></i>Traslado</div></summary>
+<div class="body"><p>Chegada ao aeroporto de Chiang Mai. O motorista recebe vocês e leva até o hotel.</p><div class="hint">Sugestão: caminhem pela Old Town à noite. Aos domingos acontece a Sunday Walking Street, a feira noturna do centro, a uns 12 minutos a pé do hotel.</div><div class="chips"><span>Traslado em van do aeroporto até o hotel</span></div><p class="meal">Refeições: <b>não incluídas</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>2</b><small>23/11</small></div>
+<details class="card"><summary><div class="dhead"><h3>Elephant Nature Park e Baan Kang Wat</h3><span class="date">Segunda-feira, 23/11</span></div><div class="tag"><i class="g-none"></i>Motorista, atividade com a equipe do parque</div></summary>
+<div class="body"><ul><li>Das 7h50 às 14h: saída do hotel para o santuário.</li><li>Na chegada, troca de roupa pelos uniformes fornecidos pelo parque e explicação introdutória.</li><li>Alimentação, observação e interação com os elefantes, com caminhada ao lado deles até mirantes.</li><li>Almoço caseiro preparado no acampamento.</li><li>Visita a Baan Kang Wat, a vila de artistas.</li><li>Retorno ao hotel e tarde livre em Chiang Mai.</li></ul><div class="chips"><span>Carro sedan o dia todo</span><span>Entrada no Elephant Nature Park, meio dia</span></div><p class="meal">Refeições: <b>almoço</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>3</b><small>24/11</small></div>
+<details class="card"><summary><div class="dhead"><h3>Monges, Doi Suthep e city tour</h3><span class="date">Terça-feira, 24/11</span></div><div class="tag"><i class="g-full"></i>Guia em inglês</div></summary>
+<div class="body"><ul><li>Café da manhã bem cedo no hotel.</li><li>Wat Chedi Luang para acompanhar a ronda de esmolas dos monges.</li><li>Doi Suthep, um dos templos mais importantes do norte da Tailândia.</li><li>Vila da tribo Hmong, para conhecer sua cultura e costumes, com opção de comprar artesanato local.</li><li>Almoço em restaurante local.</li><li>City tour: antigas muralhas e fosso da cidade, portão Tha Phae, Monumento dos Três Reis e Wat Chedi Luang, entre outros.</li><li>Fim do passeio em um mercado local, com comida de rua e artesanato.</li><li>Retorno ao hotel e tarde livre.</li></ul><div class="chips"><span>Guia em inglês</span><span>Ingresso Doi Suthep</span><span>Ingresso Vila Hmong</span><span>Ingresso Wat Chedi Luang</span><span>Almoço em restaurante local</span><span>Transporte, 8 horas</span></div><p class="meal">Refeições: <b>almoço</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>4</b><small>25/11</small></div>
+<details class="card"><summary><div class="dhead"><h3>Festival das Lanternas Yi Peng</h3><span class="date">Quarta-feira, 25/11</span></div><div class="tag"><i class="g-free"></i>Manhã livre, festival à tarde</div></summary>
+<div class="body"><ul><li>Manhã livre em Chiang Mai.</li><li>À tarde, Festival Yi Peng, com apresentações, jantar buffet e celebrações.</li></ul><div class="chips"><span>Transfer de ida e volta</span><span>E-ticket com QR code, 1 por pessoa</span><span>Setor padrão, a partir do palco</span><span>Bolsa pequena (A5)</span><span>2 lanternas</span><span>1 krathong</span><span>Show e atividades</span><span>Jantar buffet Lanna Thai e refrigerante</span></div><p class="meal">Refeições: <b>jantar</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>5</b><small>26/11</small></div>
+<details class="card"><summary><div class="dhead"><h3>Dia inteiro em Chiang Rai</h3><span class="date">Quinta-feira, 26/11</span></div><div class="tag"><i class="g-full"></i>Guia em inglês</div></summary>
+<div class="body"><ul><li>Café da manhã bem cedo e saída com motorista e guia, num trajeto panorâmico de cerca de 3 horas.</li><li>Parada nas fontes termais de Mae Kachan, onde os moradores cozinham ovos na água quente.</li><li>Templo Branco (Wat Rong Khun), budista e contemporâneo, com fragmentos de espelho incrustados que brilham ao sol.</li><li>Templo Azul (Wat Rong Suea Ten), todo em azul vibrante, com entalhes e arte budista contemporânea.</li><li>Almoço em restaurante local com culinária do norte.</li><li>Vila Karen, para conhecer o modo de vida e as tradições desse povo das montanhas.</li><li>Baan Dam, a Casa Preta: museu e instalação do artista Thawan Duchanee, com construções tradicionais pintadas de preto.</li><li>Retorno ao hotel em Chiang Mai.</li></ul><div class="chips"><span>Guia em inglês</span><span>Carro sedan, ida e volta</span><span>Templo Branco</span><span>Casa Preta</span><span>Vila Karen</span><span>Almoço em restaurante local</span></div><p class="meal">Refeições: <b>almoço</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>6</b><small>27/11</small></div>
+<details class="card"><summary><div class="dhead"><h3>Chiang Mai para Bangkok</h3><span class="date">Sexta-feira, 27/11</span></div><div class="tag"><i class="g-none"></i>Traslados e voo doméstico</div></summary>
+<div class="body"><ul><li>Café da manhã e check-out.</li><li>Traslado até o aeroporto de Chiang Mai e voo para Bangkok (voo doméstico incluído).</li><li>Traslado até o hotel, de 30 minutos a 1 hora conforme o trânsito.</li><li>Check-in e resto do dia livre.</li></ul><div class="chips"><span>Voo Chiang Mai para Bangkok</span><span>Traslado em van do aeroporto BKK até o hotel</span></div><p class="meal">Refeições: <b>não incluídas</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>7</b><small>28/11</small></div>
+<details class="card"><summary><div class="dhead"><h3>Templos de Bangkok e comida de rua em Chinatown</h3><span class="date">Sábado, 28/11</span></div><div class="tag"><i class="g-full"></i>Guia em espanhol ou inglês e guia gastronômico</div></summary>
+<div class="body"><ul><li>Café da manhã e saída com motorista e guia.</li><li>Wat Phra Kaew (Templo do Buda de Esmeralda) e Grande Palácio, antiga residência dos reis.</li><li>Wat Pho, o maior templo de Bangkok, com o Buda reclinado de 46 metros.</li><li>Almoço em restaurante local, retorno ao hotel e tarde livre.</li></ul><p style="margin-top:12px"><strong>Tour noturno de tuk tuk: o melhor da comida de rua do Guia Michelin</strong></p><ul><li>17h: saída do hotel com guia gastronômico e tuk tuk.</li><li>17h30: primeira degustação no Elvis Suki, recomendado pelo Guia Michelin.</li><li>18h30: segunda parada, macarrão frito na chapa com frango.</li><li>19h15: passeio a pé pela Yaowarat Road, a Chinatown de Bangkok.</li><li>20h30: terceira parada, Guay Jub, também do Guia Michelin.</li><li>20h45: sobremesa sino-tailandesa e passeio panorâmico pela cidade antiga.</li><li>21h: retorno ao hotel.</li></ul><div class="chips"><span>Guia em espanhol ou inglês</span><span>Carro sedan</span><span>Ingresso Grande Palácio e Buda de Esmeralda</span><span>Ingresso Wat Pho</span><span>Almoço em restaurante local</span><span>Guia gastronômico profissional</span><span>Tuk tuk</span><span>Toda comida e bebida do tour noturno</span><span>Seguro pessoal básico</span><span>Folheto com o roteiro</span></div><p class="meal">Refeições: <b>almoço e jantar</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>8</b><small>29/11</small></div>
+<details class="card"><summary><div class="dhead"><h3>Bangkok para Krabi e 4 Ilhas ao pôr do sol</h3><span class="date">Domingo, 29/11</span></div><div class="tag"><i class="g-none"></i>Barco longtail de luxo, com assistência</div></summary>
+<div class="body"><ul><li>Voo pela manhã saindo de Bangkok (BKK). Chegada a Krabi e traslado até o hotel para o check-in.</li><li>14h: saída do hotel para o píer.</li><li>14h30: barco longtail de luxo rumo às 4 Ilhas.</li><li>Praia de Railay, com seus penhascos e areia fina, e visita opcional à Phra Nang Cave Beach.</li><li>Ilha Poda, para nadar e fazer snorkel em águas cristalinas.</li><li>Ilha Tup, com caminhada pelo banco de areia que a liga à Chicken Island, se a maré permitir.</li><li>Chicken Island, batizada pela formação rochosa, ótima para snorkel e fotos.</li><li>Volta de barco com o pôr do sol no Mar de Andaman.</li><li>18h30: chegada ao píer e traslado até os mercados noturnos de Krabi. Depois, retorno ao hotel.</li></ul><div class="chips"><span>Assistência pessoal</span><span>Caixa de som Marshall</span><span>Kit de comida</span><span>Esteira e almofadas</span><span>Deck para sol</span><span>Água, água com gás e refrigerante</span><span>Coco fresco</span><span>Drink de boas-vindas</span><span>Suco, cold brew ou chá tailandês</span><span>Prato de frutas</span><span>Toalha refrescante e toalhas</span><span>Gelo e balde</span><span>Máscara e snorkel</span><span>Colete salva-vidas</span><span>Boias</span><span>Power bank</span><span>Seguro contra acidentes de até 1 milhão de baht</span><span>Carro do píer aos mercados e ao hotel</span></div><p class="meal">Refeições: <b>almoço</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>9</b><small>30/11</small></div>
+<details class="card"><summary><div class="dhead"><h3>Ilha Hong de lancha rápida</h3><span class="date">Segunda-feira, 30/11</span></div><div class="tag"><i class="g-none"></i>Lancha rápida com traslados</div></summary>
+<div class="body"><ul><li>8h: saída do hotel com o motorista até o píer.</li><li>10h: Ilha Pakbia, tranquila, de praias bonitas e águas claras, ótima para snorkel.</li><li>Ilha Lading, a Ilha do Paraíso, com praias isoladas e recifes de coral.</li><li>Lagoa da Ilha Hong, um lago marinho dentro da baía, para nadar, fazer snorkel e almoçar.</li><li>15h: retorno ao píer e traslado até o hotel.</li></ul><div class="chips"><span>Traslados de ida e volta</span><span>Almoço e frutas</span><span>Água</span><span>Colete salva-vidas</span><span>Máscara de snorkel</span><span>Taxas do parque nacional</span></div><p class="meal">Refeições: <b>almoço</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>10</b><small>01/12</small></div>
+<details class="card"><summary><div class="dhead"><h3>Krabi para Phi Phi e volta pela ilha</h3><span class="date">Terça-feira, 01/12</span></div><div class="tag"><i class="g-full"></i>Guia local e barco longtail</div></summary>
+<div class="body"><ul><li>Café da manhã, check-out e traslado até o píer.</li><li>Ferry até Phi Phi e check-in no resort. O traslado do píer ao hotel não está incluído.</li><li>Saída de barco longtail da praia do hotel para os lugares mais bonitos ao redor da ilha.</li><li>Maya Bay, Lagoa Phi Leh e Praia dos Macacos.</li><li>Retorno ao hotel e resto do dia livre.</li></ul><div class="hint">Não circulam carros em Phi Phi Don: do píer até o hotel o trajeto é a pé, com carregadores de mala disponíveis no píer.</div><div class="alert"><strong>Hoje, antes de escurecer:</strong> passem na Princess Divers, bem ao lado do hotel, para confirmar o mergulho de amanhã. Contato: Thiago, WhatsApp <a href="https://wa.me/5544999120255">+55 44 99912-0255</a>.</div><div class="chips"><span>Traslado em van do hotel em Ao Nang ao píer</span><span>Ferry Krabi para Phi Phi</span><span>Barco longtail</span><span>Guia local</span><span>Equipamento de snorkel</span><span>Água e refrigerantes</span><span>Taxas do parque nacional</span></div><p class="meal">Refeições: <b>não incluídas</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>11</b><small>02/12</small></div>
+<details class="card"><summary><div class="dhead"><h3>Dois mergulhos em Phi Phi</h3><span class="date">Quarta-feira, 02/12</span></div><div class="tag"><i class="g-full"></i>Mergulho recreativo com guia PADI, para certificados</div></summary>
+<div class="body"><div class="alert" style="margin-top:0"><strong>Atenção:</strong> no dia anterior (01/12), vocês precisam ir até a escola de mergulho <strong>Princess Divers</strong>, que fica bem ao lado do hotel, para fazer o cadastro, apresentar a certificação e confirmar horário e equipamento. Ponto de contato: <strong>Thiago</strong>, WhatsApp <a href="https://wa.me/5544999120255">+55 44 99912-0255</a>.</div><p>Os recifes de Phi Phi têm corais moles e duros, jardins de gorgônias e grandes cardumes de barracudas e peixes-cirurgião. É comum ver tartarugas, tubarões, cavalos-marinhos, peixes-fantasma e nudibrânquios, além de peixes-palhaço, peixes-anjo, baiacus, moreias e arraias-pintadas. Com sorte, aparecem arraias-águia ou até um tubarão-baleia. Atenção aos animais venenosos, como peixes-leão, peixes-escorpião e cobras-do-mar.</p><div class="chips"><span>2 mergulhos</span><span>Equipamento</span><span>Guia PADI, proporção 4 para 1</span><span>Almoço, frutas e água</span><span>Seguro do governo tailandês</span><span>Taxas do parque nacional</span><span>Fotografia sob solicitação</span><span>Aluguel de GoPro</span><span>Aluguel de computador de mergulho</span></div><p class="meal">Refeições: <b>almoço</b></p></div></details></li>
+
+<li class="day"><div class="num"><b>12</b><small>03/12</small></div>
+<details class="card"><summary><div class="dhead"><h3>Phi Phi para Phuket</h3><span class="date">Quinta-feira, 03/12</span></div><div class="tag"><i class="g-free"></i>Manhã livre e traslado</div></summary>
+<div class="body"><ul><li>Manhã livre.</li><li>Check-out e lancha rápida de Phi Phi até Phuket, com cerca de 1h30 a 2h de duração.</li></ul></div></details></li>
+
+<li class="day"><div class="num"><b>13</b><small>04/12</small></div>
+<details class="card"><summary><div class="dhead"><h3>Retorno ao Brasil</h3><span class="date">Sexta-feira, 04/12</span></div><div class="tag"><i class="g-none"></i>Traslado</div></summary>
+<div class="body"><p>Transfer do hotel para o aeroporto para o voo de volta ao Brasil.</p><p class="end">Fim dos serviços.</p></div></details></li>
+</ol>
+</section>
+
+<section id="hoteis">
+<h2>Hospedagem</h2>
+<p class="lead">Onde vocês vão dormir em cada parada. Guardem esta lista no celular: ela serve para o TDAC, para a imigração e para mostrar a motoristas.</p>
+<div class="hgrid">
+<article class="hotel"><figure class="hphoto"><img src="https://cloud-1de12d.becdn.net/media/iW=555&iH=833&oX=0&oY=256&cW=555&cH=520/e201080e774513d5e11070e9df9327a2/JK6A5115.jpg" alt="Huen Hug Guest House" loading="lazy" referrerpolicy="no-referrer"><div class="ph"><svg aria-hidden="true"><use href="#star"/></svg>Huen Hug Guest House</div></figure>
+<div class="hinfo"><span class="when">CHIANG MAI | 22/11 a 27/11, 5 noites</span><h3>Huen Hug Guest House</h3><p>Guest house familiar na Old City, a 200 m do mercado do Chiang Mai Gate e a cerca de 1 km do portão Tha Phae. Café da manhã servido no café ao lado.</p><p class="addr">39/1 Prapokkloa Road Soi 2, Prasingha, Muang, Chiang Mai 50200. Tel. +66 53 276 569</p><a href="https://www.huenhug.com/en/" target="_blank" rel="noopener">huenhug.com ↗</a></div></article>
+
+<article class="hotel"><figure class="hphoto"><img src="https://www.pipahotelbangkok.com/wp-content/uploads/2025/06/lobby_converted.jpg" alt="Pipa Bangkok Sukhumvit 11" loading="lazy" referrerpolicy="no-referrer"><div class="ph"><svg aria-hidden="true"><use href="#star"/></svg>Pipa Bangkok Sukhumvit 11</div></figure>
+<div class="hinfo"><span class="when">BANGKOK | 27/11 a 29/11, 2 noites</span><h3>Pipa Bangkok Sukhumvit 11</h3><p>Hotel 4 estrelas na Sukhumvit Soi 11 (antigo Grand President), perto do BTS Nana, com piscina no rooftop e shuttle gratuito para o BTS Nana e o shopping Terminal 21.</p><p class="addr">16 Soi Sukhumvit 11, Khlong Toei Nuea, Watthana, Bangkok 10110</p><a href="https://www.pipahotelbangkok.com" target="_blank" rel="noopener">pipahotelbangkok.com ↗</a></div></article>
+
+<article class="hotel"><figure class="hphoto"><img src="https://www.pakasai.com/wp-content/uploads/2024/12/pakasai-resort-ao-nang-boutique-4-star-krabi-hotel.webp" alt="Pakasai Resort" loading="lazy" referrerpolicy="no-referrer"><div class="ph"><svg aria-hidden="true"><use href="#star"/></svg>Pakasai Resort</div></figure>
+<div class="hinfo"><span class="when">KRABI | 29/11 a 01/12, 2 noites</span><h3>Pakasai Resort</h3><p>Resort boutique em Ao Nang, a cerca de 300 m da praia e a poucos minutos a pé do centrinho, com piscina de borda infinita no rooftop.</p><p class="addr">88 Moo 3, T. Ao Nang, A. Muang, Krabi 81180. Tel. +66 75 637 777</p><a href="https://www.pakasai.com" target="_blank" rel="noopener">pakasai.com ↗</a></div></article>
+
+<article class="hotel"><figure class="hphoto"><img src="https://static.wixstatic.com/media/87d95c_6aa33645441745baa26774fad92caed9~mv2.jpg/v1/fill/w_980,h_735,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/87d95c_6aa33645441745baa26774fad92caed9~mv2.jpg" alt="PP Princess Resort" loading="lazy" referrerpolicy="no-referrer"><div class="ph"><svg aria-hidden="true"><use href="#star"/></svg>PP Princess Resort</div></figure>
+<div class="hinfo"><span class="when">ILHA PHI PHI | 01/12 a 03/12, 2 noites</span><h3>PP Princess Resort</h3><p>Na baía de Loh Dalum, com todos os quartos a no máximo 30 m da praia. A Princess Divers, escola do mergulho, fica bem ao lado.</p><p class="addr">103 Phi Phi Island, Moo 7, Ao Nang, Muang, Krabi 81210. Tel. +66 75 601 166</p><a href="https://www.ppprincess.com" target="_blank" rel="noopener">ppprincess.com ↗</a></div></article>
+
+<article class="hotel"><figure class="hphoto"><img src="https://www.panwaburibeachfrontphuket.com/wp-content/uploads/2022/03/panwapuri-pool-villa-02.jpg" alt="Panwaburi Beachfront Resort" loading="lazy" referrerpolicy="no-referrer"><div class="ph"><svg aria-hidden="true"><use href="#star"/></svg>Panwaburi Beachfront Resort</div></figure>
+<div class="hinfo"><span class="when">PHUKET | 03/12 a 04/12, 1 noite</span><h3>Panwaburi Beachfront Resort</h3><p>Resort pé na areia na praia de Ao Yon, no sul da ilha, a cerca de 11 km da Old Town. Fica longe do aeroporto: confiram com a gente o horário do transfer do dia 04/12.</p><p class="addr">8/2 Moo 8, Ao Yon Khaokhad Road, Wichit, Mueang, Phuket 83000. Tel. +66 76 212 968</p><a href="https://www.panwaburibeachfrontphuket.com" target="_blank" rel="noopener">panwaburibeachfrontphuket.com ↗</a></div></article>
+</div>
+<p class="nights">Total: 12 noites.</p>
+</section>
+
+<section id="contatos">
+<h2>Contatos durante a viagem</h2>
+<p class="lead">Salvem estes números no celular antes de embarcar.</p>
+<div class="contacts">
+<div class="ct main"><span class="k">Emergência</span><h3>Julia Nogueira</h3><p>Mora na Tailândia e pode ajudar vocês em qualquer situação de emergência durante a viagem.</p><a href="https://wa.me/5511940081161" target="_blank" rel="noopener">WhatsApp +55 11 94008-1161</a></div>
+<div class="ct"><span class="k">Mergulho em Phi Phi</span><h3>Thiago, Princess Divers</h3><p>Ponto de contato para o mergulho do dia 02/12 e para a visita à escola no dia 01/12.</p><a href="https://wa.me/5544999120255" target="_blank" rel="noopener">WhatsApp +55 44 99912-0255</a></div>
+</div>
+</section>
+
+<section id="incluso">
+<h2>O que está incluído</h2>
+<p class="lead">Para vocês saberem exatamente o que já está resolvido e o que fica por conta de vocês.</p>
+<div class="inc">
+<div class="yes"><h3>Incluído</h3><ul><li>Todos os passeios e traslados mencionados no roteiro.</li><li>Refeições conforme indicado em cada dia.</li><li>Todas as autorizações e ingressos mencionados no roteiro.</li><li>Todas as taxas e encargos de serviço.</li><li>Guias locais conforme indicado em cada dia.</li></ul></div>
+<div class="no"><h3>Não incluído</h3><ul><li>Refeições além das indicadas no roteiro.</li><li>Passagem aérea internacional e voos domésticos não mencionados.</li><li>Qualquer serviço não mencionado como incluído.</li><li>Despesas causadas por fatores fora do nosso controle, como atraso de voo, cancelamento de ferry ou mau tempo.</li></ul></div>
+</div>
+</section>
+
+<section id="pre-embarque">
+<h2>Guia de pré-embarque</h2>
+<p class="lead">Organizado por momento. Marquem cada item conforme forem resolvendo: o progresso fica salvo neste aparelho, então dá para fechar e voltar quando quiserem.</p>
+
+<details class="pre"><summary><span class="pn">1</span><div class="pt"><h3>Para resolver agora</h3><p>Faltam menos de dois meses. Façam com calma, ainda no Brasil.</p><span class="sc" data-sc></span></div></summary><div class="pbody"><label class="ck"><input type="checkbox"><div><strong>Passaporte com 6 meses de validade e páginas em branco</strong><span>A validade conta a partir da data de entrada na Tailândia (22/11). Passaporte de emergência pode dar problema: evitem.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Entrada sem visto: nada a fazer</strong><span>Brasileiros entram na Tailândia sem visto para turismo por até 90 dias, por acordo bilateral. A mudança nas regras de setembro de 2026 não afetou o Brasil. Nossa viagem tem 13 dias.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Vacina de febre amarela e CIVP emitido</strong><span>Aqui é obrigatório de verdade: a Tailândia confere o Certificado Internacional de Vacinação de quem sai do Brasil, num balcão de saúde antes da imigração. O CIVP é grátis e sai pelo app Conecte SUS. Quem ainda não tomou a vacina precisa tomar pelo menos 10 dias antes do embarque, ou seja, até 12/11.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Seguro viagem com cobertura para mergulho</strong><span>Cobrindo do dia em que vocês saem do Brasil até a volta. Confirmem na apólice que mergulho recreativo está incluído, por causa do dia 02/12.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Dados dos voos enviados para a equipe Intu</strong><span>Número do voo e horários de chegada em Chiang Mai e de saída de Phuket. É com isso que organizamos os transfers.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Certificação de mergulho à mão</strong><span>Carteirinha física ou digital (app da PADI ou da certificadora de vocês). Se o último mergulho foi há muito tempo, avisem o Thiago: pode valer uma revisão antes.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Dois cartões internacionais e avisos aos bancos</strong><span>Wise e Nomad funcionam muito bem; levem também um cartão de crédito de outra bandeira. Avisem os bancos da viagem para evitar bloqueio.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Dólares em espécie para trocar por baht</strong><span>Trocar reais direto é difícil. Levem dólares em notas novas (as de 100 têm cotação melhor) e troquem nas casas de câmbio da cidade, que pagam mais que o aeroporto.</span></div></label><label class="ck"><input type="checkbox"><div><strong>eSIM comprado e instalado</strong><span>Internet desde o pouso. Recomendamos a Airalo, com 10% de desconto no cupom CASALMALASPRONTAS.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Grab instalado, com cartão vinculado</strong><span>É o app de transporte e delivery mais usado no país, com preço fechado antes da corrida.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Tradutor com tailandês baixado para uso offline</strong><span>Google Tradutor ou o Traduzir do iPhone. Baixem o idioma dentro do app e testem em modo avião.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Power bank só na bagagem de mão</strong><span>Nos voos na Tailândia, power bank não pode ir despachado e não pode ser usado durante o voo. Confiram se a capacidade está impressa no aparelho.</span></div></label></div></details>
+
+<details class="pre"><summary><span class="pn">2</span><div class="pt"><h3>Semana do voo e preparo para a imigração</h3><p>A Tailândia confere vacina, TDAC e voo de saída. Deixem tudo fácil de mostrar.</p><span class="sc" data-sc></span></div></summary><div class="pbody"><label class="ck"><input type="checkbox"><div><strong>TDAC preenchido entre 20 e 22/11</strong><span>O Thailand Digital Arrival Card é obrigatório, gratuito e só é liberado nos 3 dias antes da chegada. Façam apenas no site oficial, <a href="https://tdac.immigration.go.th" target="_blank" rel="noopener">tdac.immigration.go.th</a>: existem sites falsos que cobram taxa. No endereço, coloquem o Huen Hug Guest House (lista de hotéis acima).</span></div></label><label class="ck"><input type="checkbox"><div><strong>Print do QR code do TDAC</strong><span>O comprovante chega por e-mail. Tirem print e deixem na galeria, sem depender de internet.</span></div></label><label class="ck"><input type="checkbox"><div><strong>CIVP impresso e no celular</strong><span>É o primeiro documento pedido depois do desembarque, antes mesmo da fila da imigração.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Voo de saída da Tailândia: print e cópia impressa</strong><span>A passagem de volta (04/12, saindo de Phuket) pode ser pedida pelo agente de imigração.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Lista de hotéis salva no celular</strong><span>Com nome e endereço. Serve para o TDAC, para a imigração e para mostrar a motoristas.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Contatos de emergência salvos</strong><span>Julia Nogueira (emergências, WhatsApp +55 11 94008-1161) e Thiago (mergulho, WhatsApp +55 44 99912-0255). Estão também na seção Contatos, acima.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Pasta da imigração no celular</strong><span>Um álbum só com: foto do passaporte, QR do TDAC, CIVP, voo de saída, lista de hotéis e apólice do seguro. Façam uma cópia na nuvem também.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Check-in online feito</strong><span>Assim que a companhia liberar. Confiram também a franquia de bagagem dos voos domésticos, que costuma ser menor que a do internacional.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Teste final dos apps</strong><span>Abram eSIM, Grab, tradutor e apps dos cartões um por um. Se algo pedir atualização ou nova verificação, resolvam ainda no Brasil.</span></div></label><div class="box"><h4>Onde vocês passam pela imigração</h4><p>A imigração acontece no primeiro aeroporto tailandês em que vocês pousarem. Se o voo para Chiang Mai tiver conexão em Bangkok, é lá em Bangkok que vocês fazem o controle de saúde, a imigração e, em muitos casos, a retirada e o novo despacho das malas. Confiram isso no bilhete antes de viajar.</p></div>
+<h4 style="margin:22px 0 0;font-size:17px;color:var(--accent)">Na chegada, a ordem é esta</h4>
+<ol class="steps"><li><strong>Controle de saúde:</strong> apresentem o certificado de vacina de febre amarela no balcão antes da imigração.</li><li><strong>Imigração:</strong> passaporte e QR code do TDAC. Tiram foto e digitais. Se perguntarem, o motivo é turismo, com as cidades do roteiro.</li><li><strong>Bagagens e alfândega:</strong> sem nada a declarar, saiam pela fila verde.</li><li><strong>Encontrem o motorista:</strong> ele estará com uma placa com o nome de vocês e já sabe para qual hotel levar.</li></ol></div></details>
+
+<details class="pre"><summary><span class="pn">3</span><div class="pt"><h3>Na mala</h3><p>Norte fresco, Bangkok quente e quatro dias seguidos de mar.</p><span class="sc" data-sc></span></div></summary><div class="pbody"><label class="ck"><input type="checkbox"><div><strong>Roupas leves e respiráveis</strong><span>Camisetas, bermudas, vestidos, roupa íntima e pijama. Fim de novembro é começo da estação seca: calor em Bangkok e nas ilhas.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Roupas para os templos</strong><span>Peças que cubram ombros e joelhos, sem transparência. No Grande Palácio (28/11) a regra é rígida e barram quem não estiver adequado. Uma calça leve e uma camisa de manga resolvem.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Casaco leve para Chiang Mai</strong><span>As manhãs e noites no norte são frescas, especialmente no Yi Peng e na ronda dos monges, bem cedo.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Roupas de banho e saída de praia</strong><span>Pelo menos duas por pessoa: são quatro dias seguidos de barco, praia e mergulho.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Calçados</strong><span>Um tênis confortável, uma sandália ou chinelo e um sapato fácil de tirar: nos templos, tira e põe o tempo todo.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Bolsa estanque (dry bag)</strong><span>Para celular e documentos nos passeios de barco e lancha.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Protetor solar sem oxibenzona</strong><span>Os parques nacionais marinhos da Tailândia proíbem protetores com oxibenzona e outros componentes que agridem os corais. Levem um "reef safe".</span></div></label><label class="ck"><input type="checkbox"><div><strong>Repelente</strong><span>Principalmente para o fim de tarde e para as áreas de mata no norte.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Remédios na embalagem original</strong><span>Uso contínuo (com receita), analgésico, antialérgico, remédio para enjoo (os barcos balançam), protetor gástrico e curativos.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Adaptador de tomada universal</strong><span>A voltagem é 220V e os plugues variam entre os hotéis.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Mala fácil de carregar</strong><span>Em Phi Phi não circulam carros e há trechos de barco com malas. Mala de rodinhas média e mochila funcionam melhor que malas grandes.</span></div></label><label class="ck"><input type="checkbox"><div><strong>Espaço sobrando na mala</strong><span>Leiam o guia de compras abaixo e vocês vão entender por quê.</span></div></label></div></details>
+
+<details class="pre"><summary><span class="pn">4</span><div class="pt"><h3>Guia de compras</h3><p>Onde comprar e o que vale trazer, nos momentos livres do roteiro.</p></div></summary><div class="pbody"><div class="shop">
+<p style="color:var(--ink);font-size:15.5px">Uma curadoria de onde comprar e o que vale trazer, organizada para caber nos momentos livres do roteiro. A dica geral: na Tailândia, artesanato e produtos locais compensam muito mais que marcas internacionais.</p>
+<h4>Feiras e mercados no caminho de vocês</h4><p>Todos encaixam em noites ou tardes livres do roteiro.</p>
+<div class="stores"><div class="store"><em>Chiang Mai | domingo, 22/11</em><b>Sunday Walking Street</b><span>A maior feira de rua do norte, na Ratchadamnoen Road, a uns 12 minutos a pé do hotel. Artesanato, roupas e comida. Funciona só aos domingos à noite: é na noite da chegada.</span></div><div class="store"><em>Chiang Mai | todas as noites</em><b>Chiang Mai Night Bazaar</b><span>Na Chang Klan Road. Mais turístico e maior variedade. Pechinchem.</span></div><div class="store"><em>Chiang Mai | durante o dia</em><b>Warorot Market (Kad Luang)</b><span>O mercado dos moradores: petiscos do norte, chás, tecidos e utilidades a preço local.</span></div><div class="store"><em>Chiang Mai | 23/11</em><b>Baan Kang Wat</b><span>Vila de artistas no roteiro: cerâmica, papelaria e peças autorais feitas ali mesmo.</span></div><div class="store"><em>Bangkok | 28/11</em><b>Chatuchak Weekend Market</b><span>Um dos maiores mercados do mundo, só aos sábados e domingos. Opção para a tarde livre, antes do tour gastronômico.</span></div><div class="store"><em>Krabi | 29/11</em><b>Mercados noturnos de Krabi</b><span>Já incluídos no fim do passeio das 4 Ilhas. Bom para lembrancinhas e comida.</span></div></div>
+<h4>Artesanato e casa</h4><p>O norte é o melhor lugar do país para isso.</p>
+<div class="stores"><div class="store"><b>Tecidos das tribos Hmong e Karen</b><span>Bordados, bolsas e mantas. Comprem nas próprias vilas (24 e 26/11): o dinheiro fica com quem faz.</span></div><div class="store"><b>Cerâmica celadon</b><span>A cerâmica verde-água tradicional do norte, em pratos, xícaras e vasos.</span></div><div class="store"><b>Sombrinhas de Bo Sang</b><span>Sombrinhas de papel pintadas à mão, símbolo de Chiang Mai.</span></div><div class="store"><b>Prata e madeira talhada</b><span>Joias de prata e peças de madeira, mais baratas no norte que em Bangkok.</span></div></div>
+<h4>Beleza e bem-estar</h4><p>Farmácias Boots e Watsons, supermercados e até o 7-Eleven têm quase tudo.</p>
+<div class="stores"><div class="store"><b>Inaladores e bálsamos de ervas</b><span>O inalador "ya dom" (a marca Poy-Sian é a clássica) e os bálsamos de ervas são o souvenir que todo mundo pede.</span></div><div class="store"><b>Marcas tailandesas de skincare</b><span>Mistine, Snail White, Srichand e Beauty Buffet: baratas e fáceis de achar.</span></div><div class="store"><b>Spa premium para presentear</b><span>Thann, Harnn, Karmakamet e Erb: óleos, velas e aromas tailandeses com embalagem caprichada.</span></div><div class="store"><b>Sabonetes e óleos de massagem</b><span>Nos mercados, em versões artesanais e muito baratas.</span></div></div>
+<h4>Roupas</h4>
+<div class="stores"><div class="store"><b>Calças tailandesas e peças de algodão e linho</b><span>Leves, baratas e ótimas para os templos. Vale comprar logo nos primeiros dias.</span></div><div class="store"><em>Bangkok</em><b>Shoppings</b><span>O Terminal 21 fica a um shuttle gratuito do hotel. Siam Paragon e CentralWorld para marcas; MBK para barganha.</span></div></div>
+<h4>Comidinhas para levar</h4>
+<div class="stores"><div class="store"><b>Manga seca e frutas desidratadas</b><span>As versões seladas viajam bem.</span></div><div class="store"><b>Chás e cafés do norte</b><span>Oolong de Chiang Rai e cafés das montanhas de Chiang Mai.</span></div><div class="store"><b>Pastas de curry e temperos</b><span>Em embalagem industrializada e lacrada.</span></div><div class="store"><b>Salgadinhos do 7-Eleven</b><span>Sabores que não existem no Brasil. Presente barato que faz sucesso.</span></div></div>
+<h4>Regras de ouro das compras</h4>
+<div class="rules"><div><h5>Peçam a devolução de imposto</h5><p>Em lojas com o selo "VAT Refund for Tourists", compras a partir de 2.000 baht na mesma loja, no mesmo dia, dão direito a reaver parte dos 7% de imposto. Peçam o formulário com o passaporte e, no aeroporto de Phuket, passem na alfândega com os produtos antes do check-in.</p></div><div><h5>Pechinchem só em mercado</h5><p>Em feiras e bazares, negociar é esperado e faz parte da graça. Em shoppings e lojas, o preço é fixo.</p></div><div><h5>Cuidado com imagens de Buda</h5><p>A lei tailandesa restringe a saída do país de imagens de Buda e antiguidades. Evitem peças grandes ou antigas.</p></div><div><h5>Dinheiro vivo nas feiras</h5><p>A maioria das barracas não aceita cartão. Tenham baht em notas pequenas.</p></div><div><h5>Fiquem de olho na cota da Receita</h5><p>Na volta de avião, cada viajante pode trazer até US$ 1.000 em compras sem imposto. Acima disso, é preciso declarar.</p></div><div><h5>Comida só industrializada e lacrada</h5><p>Frutas frescas, carnes e plantas não podem entrar no Brasil. Guardem as notas fiscais de tudo.</p></div></div>
+</div></div></details>
+
+<div class="foot-tools">
+  <span>Regras de entrada mudam com frequência. Conferimos tudo em setembro de 2026.</span>
+  <button class="btn" id="resetCk" type="button">Desmarcar tudo</button>
+</div>
+</section>
+</main>
+
+<footer class="close">
+  <div class="wrap">
+    <h2>A Tailândia não se visita. Ela te atravessa.</h2>
+    <p>Qualquer dúvida antes ou durante a viagem, é só chamar a gente. Em uma emergência na Tailândia, falem com a Julia Nogueira pelo WhatsApp <a href="https://wa.me/5511940081161" style="color:#fff;font-weight:700">+55 11 94008-1161</a>.</p>
+    <div class="brand" style="margin-top:40px">
+      <img src="https://www.intutrips.com/logo_intutrips.svg" alt="Intu Trips">
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var PW='intutailandia', SK='intu-tl-ci-v1';
+  var gate=document.getElementById('pw-gate');
+  var inp=document.getElementById('pw-input');
+  var err=document.getElementById('pw-err');
+
+  function unlock(){
+    gate.style.opacity='0';
+    gate.style.pointerEvents='none';
+    setTimeout(function(){gate.style.display='none';},260);
+    document.body.classList.remove('locked');
+    try{sessionStorage.setItem(SK,'1');}catch(e){}
+  }
+
+  try{if(sessionStorage.getItem(SK)==='1'){unlock();}}catch(e){}
+
+  window.checkPw=function(){
+    if(inp.value===PW){err.style.display='none';unlock();}
+    else{err.style.display='block';inp.value='';inp.focus();}
+  };
+  inp.addEventListener('keydown',function(e){if(e.key==='Enter')window.checkPw();});
+
+  /* ── Checkboxes ── */
+  var KEY='intu-tailandia-camila-iago-v1', state={};
+  try{state=JSON.parse(localStorage.getItem(KEY)||'{}')||{};}catch(e){state={};}
+  var boxes=[].slice.call(document.querySelectorAll('.ck input'));
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+  function update(){
+    var done=boxes.filter(function(b){return b.checked;}).length;
+    document.getElementById('done').textContent=done;
+    document.getElementById('total').textContent=boxes.length;
+    document.querySelectorAll('details.pre').forEach(function(d){
+      var sc=d.querySelector('[data-sc]');if(!sc)return;
+      var bs=d.querySelectorAll('.ck input'),c=0;bs.forEach(function(b){if(b.checked)c++;});
+      sc.textContent=c+' de '+bs.length+' feitos';
+    });
+  }
+  boxes.forEach(function(b,i){var id='c'+i;b.checked=!!state[id];
+    b.addEventListener('change',function(){state[id]=b.checked;save();update();});});
+  document.getElementById('resetCk').addEventListener('click',function(){state={};boxes.forEach(function(b){b.checked=false;});save();update();});
+  update();
+
+  /* ── Toggle dias ── */
+  var tBtn=document.getElementById('toggleDays'),days=[].slice.call(document.querySelectorAll('details.card'));
+  function syncBtn(){tBtn.textContent=days.every(function(d){return d.open;})?'Fechar todos os dias':'Abrir todos os dias';}
+  tBtn.addEventListener('click',function(){var open=!days.every(function(d){return d.open;});days.forEach(function(d){d.open=open;});syncBtn();});
+  days.forEach(function(d){d.addEventListener('toggle',syncBtn);});
+  window.addEventListener('beforeprint',function(){document.querySelectorAll('details').forEach(function(d){d.open=true;});});
+
+  /* ── Fotos de hotel ── */
+  document.querySelectorAll('.hphoto img').forEach(function(img){
+    function fail(){img.parentNode.classList.add('fail');}
+    img.addEventListener('error',fail);
+    if(img.complete&&img.naturalWidth===0)fail();
+  });
+})();
+</script>
+</body>
+</html>
