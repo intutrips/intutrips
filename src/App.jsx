@@ -26,6 +26,8 @@ import Encontro from '@/pages/Encontro';
 import LoginTime from '@/pages/LoginTime';
 import Time from '@/pages/Time';
 import TimeDestino from '@/pages/TimeDestino';
+import LoginFin from '@/pages/LoginFin';
+import Financeiro from '@/pages/Financeiro';
 
 
 const { Pages, Layout, mainPage } = pagesConfig;
@@ -230,6 +232,10 @@ const AuthenticatedApp = () => {
       <Route path="/login-time" element={<LoginTime />} />
       <Route path="/time" element={<Time />} />
       <Route path="/time/:destino" element={<TimeDestino />} />
+
+      {/* Área financeira e administrativa */}
+      <Route path="/login-fin" element={<LoginFin />} />
+      <Route path="/financeiro" element={<Financeiro />} />
 
       {/* Rota dinâmica para os Destinos Individuais usando slug */}
       <Route
