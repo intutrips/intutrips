@@ -35,16 +35,138 @@ const PDFS = {
 };
 
 // ─── Scripts por destino ─────────────────────────────────────────────────────
+// type: 'rules' | 'messages' | 'objection' | 'handoff' | 'checklist'
 const SCRIPTS = {
   india: [
-    { title: 'Abordagem inicial', content: null },
-    { title: 'Objeções comuns', content: null },
-    { title: 'Fechamento', content: null },
+    {
+      type: 'rules',
+      title: 'Regras gerais do atendimento',
+      items: [
+        'Preço nunca fica refém: ele aparece logo no Passo 2, já com a justificativa junto (lógica e emocional).',
+        'Nas objeções: reconhece o sentimento da pessoa sem confirmar a afirmação. "Entendo que essa expectativa é comum" valida sem admitir que está caro. Varia a abertura de cada objeção.',
+        'Linguagem neutra de gênero: usa "com mais alguém" no lugar de "acompanhado(a)" e "sem companhia" no lugar de "sozinho(a)".',
+        'Áudio só entra quando a atendente humana assume a conversa, nunca no fluxo automático inicial.',
+        'Cada passo é dividido em 2 a 4 blocos — cada bloco é uma mensagem separada. Ideia por ideia, do jeito que a gente naturalmente digita.',
+      ],
+    },
+    {
+      type: 'messages',
+      title: 'Passo 1 · Abertura + qualificação',
+      messages: [
+        {
+          label: 'Mensagem 1 — apresentação',
+          text: 'Oi, [nome]! Aqui é a Luiza, vou te ajudar com os detalhes da viagem. Vi aqui seu interesse para nossa viagem da Índia, né? Que demais!! 🙏🏼🕉️',
+        },
+        {
+          label: 'Mensagem 2 — proposta da viagem',
+          text: 'Essa é uma viagem de 13 dias para quem busca conhecer mais sobre a cultura local, se interessa por espiritualidade, quer ter contato com a autenticidade do país, mas sem perder o conforto e segurança.\n\nPor isso escolhemos hotéis de 4 e 5 estrelas e fazemos questão de trazer diversas experiências culturais ao longo da viagem com o acompanhamento dos guias locais, por exemplo:\n\n🌸 Festa das cores (Holi Festival)\n🧘‍♂️ Yoga em Rishikesh (berço da prática)\n🔥 Varanasi e os rituais de cremação\n☀️ Nascer do sol navegando no Ganges\n💃 Jantar com danças típicas do Rajastão\n🙏 Celebrações locais\n\nE muito mais! 🧡',
+        },
+        {
+          label: 'Mensagem 3 — qualificação',
+          text: 'Me conta, essa viagem seria pra você, ou você iria com mais alguém?',
+        },
+      ],
+      note: '⚠️ Aguardar a resposta antes de seguir pro Passo 2. A resposta aqui já indica se vale se preparar pra objeção de "ir sem companhia" ou "voo internacional" mais adiante.',
+    },
+    {
+      type: 'messages',
+      title: 'Passo 2 · Investimento + materiais',
+      messages: [
+        {
+          label: 'Mensagem 1 — tranquiliza',
+          text: 'A Índia é um país que divide bastante opinião, tem gente que já nasce querendo ir, e tem gente que carrega alguns receios também, o que é super normal 🙂 Mas quero te tranquilizar: você não vai estar por conta própria em nenhum momento, a gente cuida de tudo, do suporte ao conforto, exatamente pra isso nunca pesar na sua experiência.',
+        },
+        {
+          label: 'Mensagem 2 — investimento',
+          text: 'O investimento funciona em lotes: o Lote 1 é o valor promocional, USD 2.780 por pessoa, com um número limitado de 6 vagas. Assim que essas vagas se esgotam, a venda passa automaticamente pro Lote 2, que já sai por USD 2.900. Ou seja, quem garante a vaga primeiro paga menos 🙂. Atualmente temos mais [X] vagas no lote [X].',
+        },
+        {
+          label: 'Mensagem 3 — PDF',
+          text: 'Vou te mandar agora o material completo, com o roteiro dia a dia e todos os detalhes 📄\n[PDF]',
+        },
+        {
+          label: 'Mensagem 4 — simulador',
+          text: 'Também tem o link do nosso simulador, pra você ver os valores em real e comparar as formas de pagamento 👇\nhttps://www.intutrips.com/simulador?destino=india',
+        },
+        {
+          label: 'Mensagem 5 — abertura pra dúvidas',
+          text: 'Dá uma olhada com calma 🙂 Ficou alguma dúvida que eu possa te ajudar a esclarecer?',
+        },
+      ],
+      note: '⚠️ O simulador usa a cotação do dia — deixar claro que o valor final é fechado na data do contrato.',
+    },
+    {
+      type: 'messages',
+      title: 'Passo 3 · Follow-up',
+      messages: [
+        {
+          label: 'Mensagem — se não responder em algumas horas',
+          text: 'Oi, [nome]! Conseguiu dar uma olhada no material? Fico à disposição pra qualquer dúvida 🙏',
+        },
+      ],
+    },
+    {
+      type: 'objection',
+      title: 'Objeção · Achei caro',
+      text: 'Entendo! Muita gente chega com essa expectativa, porque a Índia tem fama de destino mais econômico.\n\nMas vale a pena olhar o que está incluso: 12 noites em hotéis 4 e 5 estrelas, toda a locomoção interna, guias locais, acompanhantes brasileiros e a gente com você em tempo integral. O simulador mostra tudo em real e por forma de pagamento.\n\nE se quiser ver como foi pra quem já foi, te mando os feedbacks do último grupo, que fechou com 100% de aprovação.',
+      tip: 'Se a pessoa insistir só no preço: "Se o critério principal for economia, provavelmente tem opções mais em conta por aí."',
+    },
+    {
+      type: 'objection',
+      title: 'Objeção · Medo / insegurança',
+      text: 'Imagino, é bem comum sentir isso antes de conhecer a Índia de perto.\n\nA gente vai junto do início ao fim, cuidando de cada detalhe, e o último grupo fechou com 100% de aprovação, com gente que chegou com o mesmo receio que você. Quer que eu te mande alguns feedbacks?',
+    },
+    {
+      type: 'objection',
+      title: 'Objeção · Perrengue / desconforto',
+      text: 'Saquei! A Índia realmente é intensa.\n\nMas a estrutura foi pensada exatamente pra isso: hotéis 4 e 5 estrelas, van privativa, guias locais e a gente resolvendo os detalhes. Pra você fica só a parte boa.',
+    },
+    {
+      type: 'objection',
+      title: 'Objeção · Dúvida se deveria ir pra Índia',
+      text: 'Boa pergunta! A Índia realmente não é um destino óbvio pra todo mundo.\n\nO que mais te chamou atenção no vídeo? Assim eu te conto como isso acontece na prática.',
+      tip: 'Aqui a resposta é uma pergunta, não uma afirmação. Quem duvida do destino precisa verbalizar o que a atraiu — é isso que convence.',
+    },
+    {
+      type: 'objection',
+      title: 'Objeção · Ir sem companhia',
+      text: 'Muita gente topa essa viagem sem companhia, o grupo é pequeno exatamente pra isso funcionar bem.\n\nTem alguém te esperando assim que você chega, e você não fica em nenhum momento por conta própria. No último grupo teve gente que foi assim, posso te mandar o relato depois se quiser.',
+    },
+    {
+      type: 'objection',
+      title: 'Objeção · Grupo misto',
+      text: 'Show, deixa eu te explicar como isso funciona.\n\nO grupo é curado, a gente conversa com cada pessoa antes pra garantir que todo mundo está alinhado com a proposta. Perfis diferentes com o mesmo interesse costumam render as melhores conexões da viagem.',
+    },
+    {
+      type: 'objection',
+      title: 'Objeção · Voo internacional sem companhia',
+      text: 'Isso é bem comum de perguntar, principalmente pra quem nunca fez esse trecho sem companhia antes.\n\nA gente te ajuda na compra da passagem e na orientação de conexão, e assim que você chega em Delhi já tem alguém te esperando com transfer privado.',
+    },
+    {
+      type: 'handoff',
+      title: 'Quando a atendente humana assume',
+      note: 'O áudio pode voltar (curto e pessoal, respondendo a algo que a pessoa acabou de dizer) quando a atendente humana assume.',
+      items: [
+        'A pessoa pede uma call',
+        'A pessoa levanta uma objeção que pede conversa mais próxima (medo, dúvida sobre o destino)',
+        'A pessoa pergunta sobre pagamento ou contrato',
+        'A pessoa demonstra que já está decidida',
+      ],
+    },
+    {
+      type: 'checklist',
+      title: '✅ Antes de colocar pra rodar',
+      items: [
+        'Feedbacks do último grupo (100% de aprovação) prontos e organizados — prints ou vídeos curtos — pra mandar em segundos.',
+        'Confirmar o número de vagas restantes em cada lote.',
+        'Revisar o PDF: a descrição de Delhi repete o texto de Rishikesh, a de Kathmandu também repete, a página "Onde iremos" mostra 14 e 15 de março no mesmo título, e o hotel de Rishikesh aparece como "The Holi River".',
+      ],
+    },
   ],
-  china: [{ title: 'Conteúdo em breve', content: null }],
-  japao: [{ title: 'Conteúdo em breve', content: null }],
-  indonesia: [{ title: 'Conteúdo em breve', content: null }],
-  vietna: [{ title: 'Conteúdo em breve', content: null }],
+  china: [],
+  japao: [],
+  indonesia: [],
+  vietna: [],
 };
 
 // ─── FAQ por destino ──────────────────────────────────────────────────────────
@@ -164,22 +286,112 @@ function Accordion({ question, answer }) {
   );
 }
 
-function ScriptAccordion({ title, content }) {
+function ScriptMessage({ label, text }) {
+  return (
+    <div className="mb-4 last:mb-0">
+      <div className="flex items-center justify-between mb-1.5">
+        <span className="text-xs font-semibold text-[#6E5A60] uppercase tracking-wide">{label}</span>
+        <CopyButton text={text} />
+      </div>
+      <div className="bg-[#F8EEE5] rounded-xl p-4 text-[15px] text-[#2E1A20] leading-relaxed whitespace-pre-line">
+        {text}
+      </div>
+    </div>
+  );
+}
+
+function ScriptAccordion({ title, content, section }) {
   const [open, setOpen] = useState(false);
+  const displayTitle = section ? section.title : title;
+
+  const renderSectionContent = (s) => {
+    if (s.type === 'rules') return (
+      <div className="space-y-3">
+        {s.items.map((rule, i) => (
+          <div key={i} className="flex gap-3">
+            <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#1B3028] text-white text-xs font-bold flex items-center justify-center mt-0.5">{i + 1}</span>
+            <p className="text-sm text-[#2E1A20] leading-relaxed">{rule}</p>
+          </div>
+        ))}
+      </div>
+    );
+
+    if (s.type === 'messages') return (
+      <div>
+        <div className="space-y-4">
+          {s.messages.map((msg, i) => <ScriptMessage key={i} label={msg.label} text={msg.text} />)}
+        </div>
+        {s.note && (
+          <div className="mt-4 flex items-start gap-2 p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-700 text-sm">
+            <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" />
+            <span>{s.note}</span>
+          </div>
+        )}
+      </div>
+    );
+
+    if (s.type === 'objection') return (
+      <div>
+        <div className="flex items-center justify-between mb-1.5">
+          <span className="text-xs font-semibold text-[#6E5A60] uppercase tracking-wide">Resposta</span>
+          <CopyButton text={s.text} />
+        </div>
+        <div className="bg-[#F8EEE5] rounded-xl p-4 text-[15px] text-[#2E1A20] leading-relaxed whitespace-pre-line mb-3">
+          {s.text}
+        </div>
+        {s.tip && (
+          <div className="flex items-start gap-2 p-3 bg-[#E0EBE6] border border-[#C5D9CF] rounded-xl text-[#2D4A3E] text-sm">
+            <span className="flex-shrink-0">💡</span>
+            <span>{s.tip}</span>
+          </div>
+        )}
+      </div>
+    );
+
+    if (s.type === 'handoff') return (
+      <div>
+        {s.note && <p className="text-sm text-[#6E5A60] mb-3 italic">{s.note}</p>}
+        <ul className="space-y-2">
+          {s.items.map((item, i) => (
+            <li key={i} className="flex items-start gap-2 text-sm text-[#2E1A20]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#BDA94C] flex-shrink-0 mt-2" />
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
+
+    if (s.type === 'checklist') return (
+      <ul className="space-y-3">
+        {s.items.map((item, i) => (
+          <li key={i} className="flex items-start gap-2.5 text-sm text-[#2E1A20] leading-relaxed">
+            <AlertTriangle className="h-4 w-4 text-[#92314D] flex-shrink-0 mt-0.5" />
+            {item}
+          </li>
+        ))}
+      </ul>
+    );
+
+    return null;
+  };
+
   return (
     <div className="border border-[#E6D6CB] rounded-xl overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
         className="w-full flex items-center justify-between px-5 py-4 bg-white hover:bg-[#FAF8F5] transition-colors text-left"
       >
-        <span className="font-semibold text-[#2E1A20] text-[15px]">{title}</span>
+        <span className="font-semibold text-[#2E1A20] text-[15px]">{displayTitle}</span>
         {open ? <ChevronUp className="h-4 w-4 text-[#6E5A60]" /> : <ChevronDown className="h-4 w-4 text-[#6E5A60]" />}
       </button>
       {open && (
-        <div className="px-5 pb-5 pt-3 bg-white border-t border-[#E6D6CB] text-[#2E1A20] text-[15px] leading-relaxed whitespace-pre-line">
-          {content
-            ? content
-            : <span className="text-[#6E5A60] italic text-sm">Conteúdo a ser adicionado.</span>}
+        <div className="px-5 pb-5 pt-3 bg-white border-t border-[#E6D6CB]">
+          {section
+            ? renderSectionContent(section)
+            : content
+              ? <div className="text-[#2E1A20] text-[15px] leading-relaxed whitespace-pre-line">{content}</div>
+              : <span className="text-[#6E5A60] italic text-sm">Conteúdo a ser adicionado.</span>}
         </div>
       )}
     </div>
@@ -400,11 +612,14 @@ function PosVendaTab() {
 }
 
 function ScriptTab({ slug }) {
-  const scripts = SCRIPTS[slug] || [];
+  const sections = SCRIPTS[slug];
+  if (!sections || !Array.isArray(sections) || sections.length === 0) {
+    return <p className="text-[#6E5A60] italic text-sm py-4">Script em breve.</p>;
+  }
   return (
     <div className="space-y-3">
-      {scripts.map((s) => (
-        <ScriptAccordion key={s.title} title={s.title} content={s.content} />
+      {sections.map((section, i) => (
+        <ScriptAccordion key={i} section={section} />
       ))}
     </div>
   );
