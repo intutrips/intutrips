@@ -621,25 +621,30 @@ export default function TimeDestino() {
   const { data: destination, refetch: refetchDestination } = useQuery({
     queryKey: ['destination-time', destino],
     enabled: !!config?.country && isAuthenticated,
+    staleTime: 0, // sempre busca dado fresco no sistema interno
     queryFn: async () => {
-      // Busca todos os destinos publicados e encontra o correto por slug, country ou nome
+      // Área interna: busca sem filtro de publicação para o time ver mesmo destinos não publicados
       const { data: all, error } = await supabase
         .from('destinations')
-        .select('id, name, slug, country, price_from, departure_start_date, minEntryPct, pixDiscount, pricing_lots, availability_status')
-        .eq('is_published', true);
+        .select('id, name, slug, country, price_from, departure_start_date, minEntryPct, pixDiscount, pricing_lots, availability_status');
       if (error) throw error;
       if (!all?.length) return null;
 
-      // 1º: tenta pelo slug exato (ex: 'india')
+      const normalize = (s = '') => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+
+      // 1º: slug exato
       const bySlug = all.find(d => d.slug === destino);
       if (bySlug) return bySlug;
 
-      // 2º: tenta pelo country exato
+      // 2º: slug normalizado (ex: rota 'india' bate em slug 'índia' ou 'India')
+      const bySlugNorm = all.find(d => normalize(d.slug) === normalize(destino));
+      if (bySlugNorm) return bySlugNorm;
+
+      // 3º: country exato
       const byCountry = all.find(d => d.country === config.country);
       if (byCountry) return byCountry;
 
-      // 3º: tenta pelo country sem acentos (ex: 'Índia' → 'india')
-      const normalize = (s = '') => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+      // 4º: country sem acentos
       const byCountryNorm = all.find(d => normalize(d.country) === normalize(config.country));
       return byCountryNorm || null;
     },
