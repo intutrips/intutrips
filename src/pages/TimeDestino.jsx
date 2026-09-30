@@ -686,72 +686,95 @@ export default function TimeDestino() {
       </header>
 
       <div className="max-w-4xl mx-auto px-5 py-8">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <div className="flex items-start gap-3">
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mb-6">
+
+          {/* Título do destino */}
+          <div className="flex items-center gap-3 mb-5">
             <span className="text-4xl">{config.flag}</span>
-            <div className="flex-1 min-w-0">
-              <h1 className="text-2xl font-semibold text-[#2E1A20]">{config.name}</h1>
+            <div>
+              <h1 className="text-2xl font-semibold text-[#2E1A20] leading-tight">{config.name}</h1>
               <p className="text-[#6E5A60] text-sm">{config.subtitle}</p>
-              {destination?.pricing_lots && (() => {
-                const activeLots = (destination.pricing_lots || []).filter(l => l.active !== false && l.price);
-                if (!activeLots.length) return null;
-                const activeGoals = TEAM_GOALS.filter(g => g.active && g.destination === destino);
-                return (
-                  <div className="mt-3 space-y-2">
-                    {/* Linha por lote */}
-                    {activeLots.map((lot, i) => {
-                      const avail = SPOTS_PER_LOT - (lot.spots_filled || 0);
-                      const isOut = avail <= 0;
-                      const goal = activeGoals.find(g => g.lotIndex === i);
-                      const filled = lot.spots_filled || 0;
-                      const pct = Math.round((filled / SPOTS_PER_LOT) * 100);
-                      return (
-                        <div key={i}>
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs font-semibold text-[#6E5A60] w-16 shrink-0">
-                              {lot.name || `Lote ${i + 1}`}
-                            </span>
-                            <span className={`inline-flex items-center text-xs font-semibold px-2.5 py-0.5 rounded-full ${
-                              isOut
-                                ? 'bg-gray-100 text-gray-400'
-                                : avail <= 3
-                                  ? 'bg-red-100 text-red-600'
-                                  : 'bg-[#E0EBE6] text-[#2D4A3E]'
-                            }`}>
-                              {isOut ? 'esgotado' : `${avail} ${avail === 1 ? 'vaga' : 'vagas'}`}
-                            </span>
-                            <span className="text-xs text-[#6E5A60]">
-                              USD {Number(lot.price).toLocaleString('pt-BR')}
-                            </span>
-                          </div>
-                          {goal && (
-                            <div className="mt-1.5 ml-0">
-                              <div className="flex items-center justify-between text-xs text-[#6E5A60] mb-1">
-                                <span className="flex items-center gap-1">
-                                  <Target className="h-3 w-3 text-[#BDA94C]" />
-                                  {goal.title}
-                                </span>
-                                <span className="font-semibold text-[#2E1A20]">{filled}/{SPOTS_PER_LOT} vagas preenchidas</span>
-                              </div>
-                              <div className="h-2 bg-[#E6D6CB] rounded-full overflow-hidden">
-                                <div
-                                  className="h-full rounded-full transition-all duration-500"
-                                  style={{
-                                    width: `${pct}%`,
-                                    background: pct >= 100 ? '#4ade80' : pct >= 60 ? '#BDA94C' : '#92314D',
-                                  }}
-                                />
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })()}
             </div>
           </div>
+
+          {/* Cards de lotes ─────────────────────────────────────── */}
+          {(() => {
+            const allLots = (destination?.pricing_lots || []).filter(l => l.active !== false && l.price);
+            if (!allLots.length) return null;
+            // lote ativo = primeiro com vagas disponíveis
+            const activeLotIndex = allLots.findIndex(l => (SPOTS_PER_LOT - (l.spots_filled || 0)) > 0);
+            return (
+              <div className={`grid gap-3 ${allLots.length === 1 ? 'grid-cols-1' : 'grid-cols-2'}`}>
+                {allLots.map((lot, i) => {
+                  const filled  = lot.spots_filled || 0;
+                  const avail   = SPOTS_PER_LOT - filled;
+                  const isOut   = avail <= 0;
+                  const isCurr  = i === activeLotIndex;
+                  const pct     = Math.min(100, Math.round((filled / SPOTS_PER_LOT) * 100));
+                  const barColor = isOut ? '#D1D5DB' : pct >= 80 ? '#92314D' : pct >= 50 ? '#BDA94C' : '#4ade80';
+
+                  return (
+                    <div
+                      key={i}
+                      className={`rounded-2xl border p-4 transition-all ${
+                        isOut
+                          ? 'bg-gray-50 border-gray-200 opacity-70'
+                          : isCurr
+                            ? 'bg-white border-[#BDA94C] shadow-sm'
+                            : 'bg-white border-[#E6D6CB]'
+                      }`}
+                    >
+                      {/* Cabeçalho do card */}
+                      <div className="flex items-start justify-between gap-2 mb-3">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-bold text-[#2E1A20]">
+                              {lot.name || `Lote ${i + 1}`}
+                            </span>
+                            {isCurr && !isOut && (
+                              <span className="text-[10px] font-bold uppercase tracking-wide bg-[#BDA94C] text-white px-2 py-0.5 rounded-full">
+                                ativo
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-xs text-[#6E5A60] mt-0.5 block">
+                            USD {Number(lot.price).toLocaleString('pt-BR')} / pessoa
+                          </span>
+                        </div>
+                        <span className={`text-lg font-bold leading-none ${
+                          isOut ? 'text-gray-400' : avail <= 2 ? 'text-[#92314D]' : 'text-[#2D4A3E]'
+                        }`}>
+                          {isOut ? '—' : avail}
+                        </span>
+                      </div>
+
+                      {/* Barra de progresso */}
+                      <div className="h-2 bg-[#F1E1D6] rounded-full overflow-hidden mb-2">
+                        <div
+                          className="h-full rounded-full transition-all duration-500"
+                          style={{ width: `${pct}%`, background: barColor }}
+                        />
+                      </div>
+
+                      {/* Rodapé */}
+                      <div className="flex items-center justify-between text-xs text-[#6E5A60]">
+                        <span>{filled} de {SPOTS_PER_LOT} preenchidas</span>
+                        <span className={`font-semibold ${
+                          isOut ? 'text-gray-400' : avail <= 2 ? 'text-[#92314D]' : 'text-[#2D4A3E]'
+                        }`}>
+                          {isOut
+                            ? 'Esgotado'
+                            : avail <= 2
+                              ? `${avail} ${avail === 1 ? 'vaga' : 'vagas'} restante${avail > 1 ? 's' : ''}`
+                              : `${avail} vagas disponíveis`}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
         </motion.div>
 
         {/* Meta ativa para este destino */}
