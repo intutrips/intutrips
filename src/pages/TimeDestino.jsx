@@ -624,10 +624,10 @@ export default function TimeDestino() {
     enabled: !!config?.country && isAuthenticated,
     staleTime: 0, // sempre busca dado fresco no sistema interno
     queryFn: async () => {
-      // Área interna: busca sem filtro de publicação para o time ver mesmo destinos não publicados
+      // Área interna: busca todos os campos (igual à página pública) sem filtro de publicação
       const { data: all, error } = await supabase
         .from('destinations')
-        .select('id, name, slug, country, price_from, departure_start_date, minEntryPct, pixDiscount, pricing_lots, availability_status');
+        .select('*');
       if (error) throw error;
       if (!all?.length) return null;
 
