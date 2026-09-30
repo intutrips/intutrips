@@ -632,13 +632,15 @@ export default function TimeDestino() {
 
       const normalize = (s = '') => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
-      // 1º: slug exato
+      // 1º: slug explícito do config (ex: 'o-coracao-da-india')
+      if (config.supabaseSlug) {
+        const byConfigSlug = all.find(d => d.slug === config.supabaseSlug);
+        if (byConfigSlug) return byConfigSlug;
+      }
+
+      // 2º: slug igual à rota (ex: 'india')
       const bySlug = all.find(d => d.slug === destino);
       if (bySlug) return bySlug;
-
-      // 2º: slug normalizado (ex: rota 'india' bate em slug 'índia' ou 'India')
-      const bySlugNorm = all.find(d => normalize(d.slug) === normalize(destino));
-      if (bySlugNorm) return bySlugNorm;
 
       // 3º: country exato
       const byCountry = all.find(d => d.country === config.country);

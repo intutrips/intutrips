@@ -38,6 +38,7 @@ export const DESTINATIONS_CONFIG = {
     name: 'Índia',
     subtitle: 'Expedição em grupo',
     country: 'India',
+    supabaseSlug: 'o-coracao-da-india', // slug real do destino no Supabase
     maxDiscountUSD: 100,
     active: true,
     // Descontos especiais que o time pode oferecer (em BRL, aplicados só no PIX/à vista)
