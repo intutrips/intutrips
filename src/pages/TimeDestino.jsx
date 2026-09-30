@@ -286,7 +286,22 @@ function Accordion({ question, answer }) {
   );
 }
 
+// Renderiza texto com [placeholders] em vermelho para alertar o time
+function HighlightedText({ text }) {
+  const parts = text.split(/(\[[^\]]+\])/g);
+  return (
+    <>
+      {parts.map((part, i) =>
+        /^\[.+\]$/.test(part)
+          ? <span key={i} className="text-[#C0392B] font-bold">{part}</span>
+          : part
+      )}
+    </>
+  );
+}
+
 function ScriptMessage({ label, text }) {
+  const hasPlaceholders = /\[[^\]]+\]/.test(text);
   return (
     <div className="mb-4 last:mb-0">
       <div className="flex items-center justify-between mb-1.5">
@@ -294,8 +309,13 @@ function ScriptMessage({ label, text }) {
         <CopyButton text={text} />
       </div>
       <div className="bg-[#F8EEE5] rounded-xl p-4 text-[15px] text-[#2E1A20] leading-relaxed whitespace-pre-line">
-        {text}
+        <HighlightedText text={text} />
       </div>
+      {hasPlaceholders && (
+        <p className="mt-1.5 text-xs text-[#C0392B] font-medium flex items-center gap-1">
+          <span>⚠</span> Ajuste os campos em vermelho antes de enviar.
+        </p>
+      )}
     </div>
   );
 }
