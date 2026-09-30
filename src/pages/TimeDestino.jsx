@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import PaymentSimulator from '@/components/destination/PaymentSimulator';
 import { DESTINATIONS_CONFIG, getCurrentLot, SPOTS_PER_LOT, TEAM_GOALS } from './Time';
+import { generateSlug } from '@/utils';
 
 const TABS = [
   { id: 'comece-aqui', label: 'Comece aqui', icon: ListChecks },
@@ -630,23 +631,25 @@ export default function TimeDestino() {
       if (error) throw error;
       if (!all?.length) return null;
 
-      const normalize = (s = '') => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
+      // Slug efectivo de um registro: campo slug ou slug gerado do nome (igual ao DestinationDetail)
+      const effectiveSlug = (d) => d.slug || generateSlug(d.name);
 
       // 1º: slug explícito do config (ex: 'o-coracao-da-india')
       if (config.supabaseSlug) {
-        const byConfigSlug = all.find(d => d.slug === config.supabaseSlug);
+        const byConfigSlug = all.find(d => effectiveSlug(d) === config.supabaseSlug);
         if (byConfigSlug) return byConfigSlug;
       }
 
       // 2º: slug igual à rota (ex: 'india')
-      const bySlug = all.find(d => d.slug === destino);
+      const bySlug = all.find(d => effectiveSlug(d) === destino);
       if (bySlug) return bySlug;
 
       // 3º: country exato
       const byCountry = all.find(d => d.country === config.country);
       if (byCountry) return byCountry;
 
-      // 4º: country sem acentos
+      // 4º: country normalizado (sem acentos)
+      const normalize = (s = '') => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
       const byCountryNorm = all.find(d => normalize(d.country) === normalize(config.country));
       return byCountryNorm || null;
     },
