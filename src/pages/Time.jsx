@@ -40,6 +40,11 @@ export const DESTINATIONS_CONFIG = {
     country: 'India',
     maxDiscountUSD: 100,
     active: true,
+    // Descontos especiais que o time pode oferecer (em BRL, aplicados só no PIX/à vista)
+    teamDiscounts: [
+      { id: 'solo',  label: 'Solo + à vista',  brl: 300, hint: 'R$ 300 de desconto no valor final à vista' },
+      { id: 'casal', label: 'Casal + à vista', brl: 600, hint: 'R$ 600 de desconto por pessoa no valor final à vista' },
+    ],
   },
   china: {
     flag: '🇨🇳',

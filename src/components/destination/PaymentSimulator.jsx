@@ -83,7 +83,7 @@ function useInternalRate() {
   return { rate, loading, refresh: fetchRate };
 }
 
-export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, promo, minEntryPct = 30, pixDiscount = 0, _defaultOpen = false }) {
+export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, promo, promoBRL = 0, minEntryPct = 30, pixDiscount = 0, _defaultOpen = false }) {
   const [open, setOpen] = useState(_defaultOpen);
   const [method, setMethod] = useState('pix');
   const [cardInstallments, setCardInstallments] = useState(1);
@@ -179,22 +179,27 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
               <>
                 <p className="text-sm text-gray-500 font-light">
                   Pagamento único via PIX ou transferência.{pixDiscount > 0 && <> <span className="text-[#bda94c] font-semibold">{pixDiscount}% de desconto</span> no pagamento à vista.</>}
+                  {promoBRL > 0 && <> <span className="text-[#bda94c] font-semibold">+R$ {promoBRL.toLocaleString('pt-BR')} de desconto</span> exclusivo à vista.</>}
                 </p>
-                {pixDiscount > 0 ? (
-                  <div className="grid grid-cols-2 gap-3">
-                    <ResultBox
-                      label={`Total à vista (${pixDiscount}% off)`}
-                      value={rateLoading ? 'Calculando...' : brl(price * (1 - pixDiscount / 100))}
-                      sub="desconto aplicado · confirmação imediata"
-                      highlight
-                    />
-                    <ResultBox
-                      label="Valor sem desconto"
-                      value={rateLoading ? 'Calculando...' : brl(price)}
-                      sub="referência"
-                    />
-                  </div>
-                ) : (
+                {(pixDiscount > 0 || promoBRL > 0) ? (() => {
+                  const pixFinal = rate ? Math.max(0, price * (1 - pixDiscount / 100) * rate - promoBRL) : null;
+                  const pixSem = rate ? price * rate : null;
+                  return (
+                    <div className="grid grid-cols-2 gap-3">
+                      <ResultBox
+                        label={pixDiscount > 0 ? `Total à vista (${pixDiscount}% off${promoBRL > 0 ? ' + R$'+promoBRL.toLocaleString('pt-BR') : ''})` : `Total à vista (-R$ ${promoBRL.toLocaleString('pt-BR')})`}
+                        value={rateLoading ? 'Calculando...' : (pixFinal !== null ? fmtBRL(pixFinal) : '—')}
+                        sub="desconto aplicado · confirmação imediata"
+                        highlight
+                      />
+                      <ResultBox
+                        label="Valor sem desconto"
+                        value={rateLoading ? 'Calculando...' : (pixSem !== null ? fmtBRL(pixSem) : '—')}
+                        sub="referência"
+                      />
+                    </div>
+                  );
+                })() : (
                   <ResultBox
                     label="Total à vista"
                     value={rateLoading ? 'Calculando...' : brl(price)}
@@ -346,10 +351,14 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
             )}
 
             {/* Rodapé com cotação */}
-            {promo && (
+            {(promo || promoBRL > 0) && (
               <div className="flex items-center gap-2 px-3 py-2 bg-[#bda94c]/8 rounded-lg border border-[#bda94c]/20">
                 <span className="text-xs text-[#bda94c] font-semibold">✦ Oferta Especial:</span>
-                <span className="text-xs text-gray-600">{promo.description}</span>
+                <span className="text-xs text-gray-600">
+                  {promo?.description}
+                  {promo && promoBRL > 0 && ' · '}
+                  {promoBRL > 0 && `R$ ${promoBRL.toLocaleString('pt-BR')} de desconto no PIX (à vista)`}
+                </span>
               </div>
             )}
             <div className="flex items-center justify-between pt-2 border-t border-gray-100">

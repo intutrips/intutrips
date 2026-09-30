@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import {
   LogOut, ArrowLeft, FileText, Download, Calculator,
   MessageSquare, ChevronDown, ChevronUp, AlertTriangle, FileDown, ListChecks, Search, Target,
-  PartyPopper, Copy, Check, ExternalLink
+  PartyPopper, Copy, Check, ExternalLink, RefreshCw
 } from 'lucide-react';
 import PaymentSimulator from '@/components/destination/PaymentSimulator';
 import { DESTINATIONS_CONFIG, getCurrentLot, SPOTS_PER_LOT, TEAM_GOALS } from './Time';
@@ -478,14 +478,18 @@ function FaqTab({ slug }) {
   );
 }
 
-function SimuladorTab({ slug, destination }) {
+function SimuladorTab({ slug, destination, refetchDestination }) {
   const config = DESTINATIONS_CONFIG[slug];
-  const maxDiscountUSD = config?.maxDiscountUSD ?? 0;
+  const [selectedDiscount, setSelectedDiscount] = useState(null); // id do desconto selecionado
 
-  const [discountUSD, setDiscountUSD] = useState('');
-  const raw = Number(discountUSD) || 0;
-  const basePrice = destination?.price_from ? Number(destination.price_from) : null;
-  const overLimit = maxDiscountUSD > 0 && raw > maxDiscountUSD;
+  // Lote ativo: primeiro com vagas disponíveis
+  const activeLots = (destination?.pricing_lots || []).filter(l => l.active !== false && l.price);
+  const activeLot = activeLots.find(l => (SPOTS_PER_LOT - (l.spots_filled || 0)) > 0) || activeLots[activeLots.length - 1] || null;
+  const basePrice = activeLot ? Number(activeLot.price) : (destination?.price_from ? Number(destination.price_from) : null);
+
+  const teamDiscounts = config?.teamDiscounts || [];
+  const chosen = teamDiscounts.find(d => d.id === selectedDiscount);
+  const promoBRL = chosen ? chosen.brl : 0;
 
   if (!basePrice) {
     return (
@@ -495,76 +499,110 @@ function SimuladorTab({ slug, destination }) {
     );
   }
 
+  const spotsLeft = activeLot ? SPOTS_PER_LOT - (activeLot.spots_filled || 0) : null;
+  const isSoldOut = spotsLeft !== null && spotsLeft <= 0;
+
   return (
     <div className="space-y-4">
-      {/* Campo de desconto */}
-      <div className="bg-white border border-[#E6D6CB] rounded-2xl p-5">
-        <label className="block text-xs font-semibold text-[#6E5A60] uppercase tracking-wider mb-3">
-          Simular desconto por pessoa
-        </label>
-        <div className="flex items-center gap-3">
-          <span className="text-sm font-semibold text-[#6E5A60] whitespace-nowrap">USD</span>
-          <input
-            type="number"
-            min={0}
-            max={basePrice}
-            value={discountUSD}
-            onChange={(e) => setDiscountUSD(e.target.value)}
-            placeholder="0"
-            className="flex-1 h-11 px-4 rounded-xl border-2 border-[#E6D6CB] bg-[#FAF8F5] text-[#2E1A20] text-base font-semibold focus:outline-none focus:border-[#BDA94C] transition-colors"
-          />
-        </div>
 
-        <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-[#6E5A60]">
-          <span>Preço base: <strong className="text-[#2E1A20]">USD {basePrice.toLocaleString('pt-BR')}</strong> / pessoa</span>
-          {maxDiscountUSD > 0 && (
-            <span className="ml-auto text-right">
-              Limite permitido: <strong className="text-[#2E1A20]">USD {maxDiscountUSD}</strong>
-            </span>
+      {/* Status ao vivo do lote ─────────────────────────────────── */}
+      <div className="bg-white border border-[#E6D6CB] rounded-2xl p-5">
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-xs font-semibold text-[#6E5A60] uppercase tracking-wider">Status ao vivo</span>
+          {refetchDestination && (
+            <button
+              onClick={refetchDestination}
+              className="flex items-center gap-1 text-xs text-[#6B9FAF] hover:text-[#598491] transition-colors"
+            >
+              <RefreshCw className="h-3 w-3" />
+              Atualizar
+            </button>
           )}
         </div>
 
-        {/* Atalhos rápidos */}
-        {maxDiscountUSD > 0 && (
-          <div className="mt-3 flex gap-2 flex-wrap">
-            {[25, 50, maxDiscountUSD].filter((v, i, a) => a.indexOf(v) === i && v <= maxDiscountUSD).map((val) => (
-              <button
-                key={val}
-                onClick={() => setDiscountUSD(String(val))}
-                className={`px-3 h-8 rounded-lg text-sm font-medium transition-colors ${
-                  raw === val
-                    ? 'bg-[#BDA94C] text-white'
-                    : 'bg-[#F1E1D6] text-[#6E5A60] hover:bg-[#E6D6CB]'
-                }`}
-              >
-                USD {val}
-              </button>
-            ))}
+        {activeLots.length > 0 ? (
+          <div className="space-y-3">
+            {activeLots.map((lot, i) => {
+              const filled = lot.spots_filled || 0;
+              const avail = SPOTS_PER_LOT - filled;
+              const isOut = avail <= 0;
+              const isCurrent = lot === activeLot;
+              return (
+                <div key={i} className={`flex items-center justify-between p-3 rounded-xl border transition-colors ${isCurrent ? 'border-[#BDA94C] bg-[#BDA94C]/5' : 'border-[#E6D6CB]'}`}>
+                  <div className="flex items-center gap-2">
+                    {isCurrent && <span className="w-2 h-2 rounded-full bg-[#BDA94C] shrink-0" />}
+                    <span className="text-sm font-semibold text-[#2E1A20]">{lot.name || `Lote ${i + 1}`}</span>
+                    {isCurrent && <span className="text-xs bg-[#BDA94C]/15 text-[#8A7A2C] font-semibold px-2 py-0.5 rounded-full">ativo</span>}
+                  </div>
+                  <div className="flex items-center gap-3 text-sm">
+                    <span className="text-[#6E5A60]">USD {Number(lot.price).toLocaleString('pt-BR')}</span>
+                    <span className={`font-semibold px-2 py-0.5 rounded-full text-xs ${
+                      isOut ? 'bg-gray-100 text-gray-400' : avail <= 2 ? 'bg-red-100 text-red-600' : 'bg-[#E0EBE6] text-[#2D4A3E]'
+                    }`}>
+                      {isOut ? 'esgotado' : `${avail} ${avail === 1 ? 'vaga' : 'vagas'}`}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
+        ) : (
+          <p className="text-sm text-[#6E5A60]">Dados de lotes não disponíveis.</p>
         )}
 
-        {/* Aviso */}
-        {overLimit && (
-          <div className="mt-3 flex items-start gap-2.5 p-3 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
+        {isSoldOut && (
+          <div className="mt-3 flex items-start gap-2.5 p-3 bg-amber-50 border border-amber-200 rounded-xl text-amber-700 text-sm">
             <AlertTriangle className="h-4 w-4 flex-shrink-0 mt-0.5" />
-            <span>
-              Desconto acima do limite permitido (USD {maxDiscountUSD} por pessoa).
-              Consulte a Luiza antes de oferecer este valor ao cliente.
-            </span>
+            <span>Lote atual esgotado. Consulte a Luiza sobre abertura do próximo lote antes de simular com o cliente.</span>
           </div>
         )}
       </div>
 
-      {/* Simulador de pagamento */}
+      {/* Desconto especial do time ──────────────────────────────── */}
+      {teamDiscounts.length > 0 && (
+        <div className="bg-white border border-[#E6D6CB] rounded-2xl p-5">
+          <div className="mb-3">
+            <span className="text-xs font-semibold text-[#6E5A60] uppercase tracking-wider">Desconto exclusivo do time</span>
+            <p className="text-xs text-[#6E5A60] mt-1">Aplicado apenas no pagamento à vista (PIX). Não cumulativo com outros descontos.</p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => setSelectedDiscount(null)}
+              className={`px-4 h-9 rounded-xl text-sm font-medium transition-colors ${
+                selectedDiscount === null
+                  ? 'bg-[#1B3028] text-white'
+                  : 'bg-[#F1E1D6] text-[#6E5A60] hover:bg-[#E6D6CB]'
+              }`}
+            >
+              Sem desconto
+            </button>
+            {teamDiscounts.map((d) => (
+              <button
+                key={d.id}
+                onClick={() => setSelectedDiscount(d.id === selectedDiscount ? null : d.id)}
+                className={`px-4 h-9 rounded-xl text-sm font-medium transition-colors ${
+                  selectedDiscount === d.id
+                    ? 'bg-[#92314D] text-white'
+                    : 'bg-[#F1E1D6] text-[#6E5A60] hover:bg-[#E6D6CB]'
+                }`}
+              >
+                {d.label}
+              </button>
+            ))}
+          </div>
+          {chosen && (
+            <p className="mt-2 text-xs text-[#92314D] font-medium">✦ {chosen.hint}</p>
+          )}
+        </div>
+      )}
+
+      {/* Simulador de pagamento ─────────────────────────────────── */}
       <PaymentSimulator
         basePrice={basePrice}
         departureDate={destination?.departure_start_date}
         minEntryPct={destination?.minEntryPct || 30}
         pixDiscount={destination?.pixDiscount || 5}
-        promo={raw > 0 ? {
-          discount: raw,
-          description: `Desconto de USD ${raw.toLocaleString('pt-BR')} por pessoa aplicado`,
-        } : undefined}
+        promoBRL={promoBRL}
         _defaultOpen={true}
       />
     </div>
@@ -580,7 +618,7 @@ export default function TimeDestino() {
 
   const config = DESTINATIONS_CONFIG[destino];
 
-  const { data: destination } = useQuery({
+  const { data: destination, refetch: refetchDestination } = useQuery({
     queryKey: ['destination-time', destino],
     enabled: !!config?.country && isAuthenticated,
     queryFn: async () => {
@@ -785,7 +823,7 @@ export default function TimeDestino() {
           {activeTab === 'script'      && <ScriptTab slug={destino} />}
           {activeTab === 'material'    && <MaterialTab slug={destino} />}
           {activeTab === 'faq'         && <FaqTab slug={destino} />}
-          {activeTab === 'simulador'   && <SimuladorTab slug={destino} destination={destination} />}
+          {activeTab === 'simulador'   && <SimuladorTab slug={destino} destination={destination} refetchDestination={refetchDestination} />}
         </motion.div>
       </div>
     </div>
