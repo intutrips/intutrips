@@ -56,7 +56,7 @@ const ScrollToTop = () => {
 };
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin, isAuthenticated } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin, isAuthenticated, isAdmin, isComercial } = useAuth();
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
@@ -81,97 +81,17 @@ const AuthenticatedApp = () => {
 
       <Route path="/login" element={<Login />} />
 
-      {/* Admin Routes */}
-      <Route path="/admin" element={
-        isAuthenticated ? (
-          <AdminLayout>
-            <Dashboard />
-          </AdminLayout>
-        ) : (
-          <Login />
-        )
-      } />
-      <Route path="/admin/destinations" element={
-        isAuthenticated ? (
-          <AdminLayout>
-            <DestinationsAdmin />
-          </AdminLayout>
-        ) : (
-          <Login />
-        )
-      } />
-      <Route path="/admin/guides" element={
-        isAuthenticated ? (
-          <AdminLayout>
-            <GuidesAdmin />
-          </AdminLayout>
-        ) : (
-          <Login />
-        )
-      } />
-      <Route path="/admin/contacts" element={
-        isAuthenticated ? (
-          <AdminLayout>
-            <ContactRequestsAdmin />
-          </AdminLayout>
-        ) : (
-          <Login />
-        )
-      } />
-      <Route path="/admin/testimonials" element={
-        isAuthenticated ? (
-          <AdminLayout>
-            <TestimonialsAdmin />
-          </AdminLayout>
-        ) : (
-          <Login />
-        )
-      } />
-      <Route path="/admin/countries" element={
-        isAuthenticated ? (
-          <AdminLayout>
-            <CountriesAdmin />
-          </AdminLayout>
-        ) : (
-          <Login />
-        )
-      } />
-      <Route path="/admin/users" element={
-        isAuthenticated ? (
-          <AdminLayout>
-            <UsersAdmin />
-          </AdminLayout>
-        ) : (
-          <Login />
-        )
-      } />
-      <Route path="/admin/site-texts" element={
-        isAuthenticated ? (
-          <AdminLayout>
-            <SiteTextsAdmin />
-          </AdminLayout>
-        ) : (
-          <Login />
-        )
-      } />
-      <Route path="/admin/profile" element={
-        isAuthenticated ? (
-          <AdminLayout>
-            <Profile />
-          </AdminLayout>
-        ) : (
-          <Login />
-        )
-      } />
-      <Route path="/admin/blog" element={
-        isAuthenticated ? (
-          <AdminLayout>
-            <BlogAdmin />
-          </AdminLayout>
-        ) : (
-          <Login />
-        )
-      } />
+      {/* Admin Routes — acesso restrito a emails admin */}
+      <Route path="/admin" element={isAdmin ? <AdminLayout><Dashboard /></AdminLayout> : <Login />} />
+      <Route path="/admin/destinations" element={isAdmin ? <AdminLayout><DestinationsAdmin /></AdminLayout> : <Login />} />
+      <Route path="/admin/guides" element={isAdmin ? <AdminLayout><GuidesAdmin /></AdminLayout> : <Login />} />
+      <Route path="/admin/contacts" element={isAdmin ? <AdminLayout><ContactRequestsAdmin /></AdminLayout> : <Login />} />
+      <Route path="/admin/testimonials" element={isAdmin ? <AdminLayout><TestimonialsAdmin /></AdminLayout> : <Login />} />
+      <Route path="/admin/countries" element={isAdmin ? <AdminLayout><CountriesAdmin /></AdminLayout> : <Login />} />
+      <Route path="/admin/users" element={isAdmin ? <AdminLayout><UsersAdmin /></AdminLayout> : <Login />} />
+      <Route path="/admin/site-texts" element={isAdmin ? <AdminLayout><SiteTextsAdmin /></AdminLayout> : <Login />} />
+      <Route path="/admin/profile" element={isAdmin ? <AdminLayout><Profile /></AdminLayout> : <Login />} />
+      <Route path="/admin/blog" element={isAdmin ? <AdminLayout><BlogAdmin /></AdminLayout> : <Login />} />
 
 
       {Object.entries(Pages)

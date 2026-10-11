@@ -3,11 +3,22 @@ import { supabase } from '@/lib/supabase';
 
 const AuthContext = createContext();
 
+const ADMIN_EMAILS = ['intutrips@gmail.com', 'contato@intutrips.com'];
+const COMERCIAL_EMAILS = ['comercial@intutrips.com'];
+
+function getRoleFromEmail(email) {
+  if (!email) return null;
+  if (ADMIN_EMAILS.includes(email)) return 'admin';
+  if (COMERCIAL_EMAILS.includes(email)) return 'comercial';
+  return null;
+}
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoadingAuth, setIsLoadingAuth] = useState(true);
   const [authError, setAuthError] = useState(null);
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     // Check initial session
@@ -21,6 +32,7 @@ export const AuthProvider = ({ children }) => {
         if (session) {
           setUser(session.user);
           setIsAuthenticated(true);
+          setUserRole(getRoleFromEmail(session.user?.email));
         }
       } catch (error) {
         console.error('Erro ao verificar sessão:', error);
@@ -36,6 +48,7 @@ export const AuthProvider = ({ children }) => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       setUser(session?.user ?? null);
       setIsAuthenticated(!!session);
+      setUserRole(getRoleFromEmail(session?.user?.email));
       setIsLoadingAuth(false);
     });
 
@@ -59,6 +72,7 @@ export const AuthProvider = ({ children }) => {
 
     setUser(data.user);
     setIsAuthenticated(true);
+    setUserRole(getRoleFromEmail(data.user?.email));
     setIsLoadingAuth(false);
     return data;
   };
@@ -68,6 +82,7 @@ export const AuthProvider = ({ children }) => {
     if (error) console.error('Erro ao fazer logout:', error);
     setUser(null);
     setIsAuthenticated(false);
+    setUserRole(null);
   };
 
   const navigateToLogin = () => {
@@ -80,6 +95,9 @@ export const AuthProvider = ({ children }) => {
       user,
       isAuthenticated,
       isLoadingAuth,
+      userRole,
+      isAdmin: userRole === 'admin',
+      isComercial: userRole === 'comercial',
       // Mantendo compatibilidade com campos antigos da Base44 para não quebrar o layout
       isLoadingPublicSettings: false,
       appPublicSettings: { id: 'supabase' },

@@ -82,12 +82,12 @@ export const DESTINATIONS_CONFIG = {
 };
 
 export default function Time() {
-  const { isAuthenticated, isLoadingAuth, user, logout } = useAuth();
+  const { isAuthenticated, isLoadingAuth, isComercial, user, logout } = useAuth();
   const navigate = useNavigate();
 
   const { data: destinationsData = [] } = useQuery({
     queryKey: ['destinations-time'],
-    enabled: isAuthenticated,
+    enabled: isComercial,
     queryFn: async () => {
       const { data, error } = await supabase
         .from('destinations')
@@ -113,7 +113,7 @@ export default function Time() {
     );
   }
 
-  if (!isAuthenticated) {
+  if (!isAuthenticated || !isComercial) {
     return <Navigate to="/login-time" replace />;
   }
 

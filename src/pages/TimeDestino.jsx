@@ -848,7 +848,7 @@ function SimuladorTab({ slug, destination, refetchDestination }) {
 // ─── Página principal ─────────────────────────────────────────────────────────
 export default function TimeDestino() {
   const { destino } = useParams();
-  const { isAuthenticated, isLoadingAuth, user, logout } = useAuth();
+  const { isAuthenticated, isLoadingAuth, isComercial, user, logout } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('comece-aqui');
 
@@ -856,7 +856,7 @@ export default function TimeDestino() {
 
   const { data: destination, refetch: refetchDestination } = useQuery({
     queryKey: ['destination-time', destino],
-    enabled: !!config?.country && isAuthenticated,
+    enabled: !!config?.country && isComercial,
     staleTime: 0, // sempre busca dado fresco no sistema interno
     queryFn: async () => {
       // Área interna: busca todos os campos (igual à página pública) sem filtro de publicação
@@ -903,7 +903,7 @@ export default function TimeDestino() {
     );
   }
 
-  if (!isAuthenticated) return <Navigate to="/login-time" replace />;
+  if (!isAuthenticated || !isComercial) return <Navigate to="/login-time" replace />;
   if (!config) return <Navigate to="/time" replace />;
 
   return (
