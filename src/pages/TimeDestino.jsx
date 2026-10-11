@@ -167,6 +167,191 @@ const SCRIPTS = {
   japao: [],
   indonesia: [],
   vietna: [],
+  'raizes-china': [
+    {
+      type: 'rules',
+      title: '⚠️ RASCUNHO — informações em revisão',
+      items: [
+        'Este roteiro está em fase de cotação com o parceiro local. A logística e a ordem de algumas atividades ainda podem mudar.',
+        'As datas ainda não estão fechadas: março ou setembro de 2027.',
+        'O foco da expedição não muda: China do interior, minorias étnicas e vida local.',
+        'Não use essas informações em materiais definitivos ou conversas de venda sem confirmar com a Luiza.',
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'Resumo da expedição',
+      items: [
+        'Duração: 14 dias e 13 noites.',
+        'Rota: Pequim (3n) → Dali (1n) → Lijiang (2n) → Shangri-La (2n) → Guilin (1n) → Yangshuo (3n) → Pequim (1n). Chegada e saída por Pequim.',
+        'Grupo: 6 a 12 viajantes, com 2 líderes da Intu.',
+        'Em uma frase: a China do interior e das minorias étnicas — povos bai, naxi, tibetano e yao, com oficinas e encontros com comunidades locais.',
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'Destaques para usar na venda',
+      items: [
+        'Muralha da China em Mutianyu e Cidade Proibida (para quem nunca foi à China)',
+        'Passeio de bicicleta à beira do Lago Erhai + oficina de tie dye com artesãs bai em Dali',
+        'Show Impression Lijiang ao pé da Montanha do Dragão de Jade',
+        'Shangri-La e a cultura tibetana: Mosteiro Songzanlin, cidade antiga de Dukezong, visita a família tibetana (se possível)',
+        'Vila das mulheres yao de cabelos longos — apresentação tradicional',
+        'Balsa de bambu no Rio Li: a paisagem da nota de 20 yuans',
+        'Show Impression Liu Sanjie em Yangshuo, encenado sobre o rio com as montanhas iluminadas',
+        'Três noites em Yangshuo com um dia livre',
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'Roteiro dia a dia',
+      items: [
+        'Dia 1 — Chegada em Pequim: transfer ao hotel, noite livre.',
+        'Dia 2 — Pequim: Hutong de Shichahai + Muralha em Mutianyu (teleférico + tobogã).',
+        'Dia 3 — Pequim: Cidade Proibida, Praça Tiananmen, Templo do Céu.',
+        'Dia 4 — Pequim a Dali: voo + bicicleta no Lago Erhai + oficina tie dye em Zhoucheng.',
+        'Dia 5 — Dali a Lijiang: Três Pagodes + cidade antiga de Dali → trem-bala → noite livre em Lijiang.',
+        'Dia 6 — Lijiang: Montanha do Dragão de Jade (teleférico + geleira), Vale da Lua Azul, Show Impression Lijiang.',
+        'Dia 7 — Lijiang a Shangri-La: vila de Baisha (murais naxi + oficina) → viagem para Shangri-La.',
+        'Dia 8 — Shangri-La: Mosteiro Songzanlin, Lago Napa, Dukezong, visita família tibetana.',
+        'Dia 9 — Shangri-La a Guilin: voo + passeio noturno pelos rios e Pagodes do Sol e da Lua.',
+        'Dia 10 — Guilin a Yangshuo: vila yao de Huangluo + apresentação → estrada para Yangshuo.',
+        'Dia 11 — Yangshuo: balsa no Rio Li até Xingping + balsa no Rio Yulong + bicicleta.',
+        'Dia 12 — Yangshuo: dia livre + Show Impression Liu Sanjie (noite).',
+        'Dia 13 — Yangshuo a Pequim: voo via Guilin → noite em Pequim.',
+        'Dia 14 — Partida de Pequim.',
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'O que está incluso',
+      items: [
+        'Hospedagem 13 noites em quarto duplo com café da manhã',
+        '2 líderes da Intu em português durante toda a viagem',
+        'Guias locais em espanhol nos passeios guiados',
+        'Todos os deslocamentos: voos domésticos, trens-bala, traslados de carro privativo',
+        'Transfers de chegada e saída em Pequim',
+        'Todos os ingressos: teleférico + tobogã da Muralha, bicicleta no Erhai, oficina tie dye, oficina naxi, teleférico Montanha do Dragão de Jade, Mosteiro Songzanlin, vila de Huangluo + apresentação, balsas nos rios Li e Yulong, shows Impression Lijiang e Liu Sanjie',
+        'Gorjetas dos guias e motoristas locais + transporte de 1 mala por pessoa',
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'O que NÃO está incluso',
+      items: [
+        'Passagens aéreas internacionais',
+        'Visto e documentação + Seguro viagem',
+        'Refeições (só café da manhã incluso)',
+        'Atividades opcionais e gastos pessoais',
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'Pontos de atenção na venda',
+      items: [
+        'Altitude: Shangri-La ~3.300m; geleira da Montanha do Dragão de Jade passa de 4.500m. Perguntar sobre restrições de saúde.',
+        'Frio: se for em março, noites em Shangri-La ficam abaixo de zero.',
+        'Ritmo: 3 voos internos + 1 trem, alguns dias com saída cedo.',
+        'Perfil: expedição para quem quer vida local e cultura, não só cartões-postais.',
+        'Tobogã da Muralha: proibido acima de 60 anos — há alternativa de descida.',
+        'Passagem internacional: chegada e saída por Pequim — bilhete ida e volta para a mesma cidade.',
+      ],
+    },
+  ],
+  'melhor-china': [
+    {
+      type: 'rules',
+      title: '⚠️ RASCUNHO — informações em revisão',
+      items: [
+        'Este roteiro está em fase de cotação com o parceiro local. A ordem de algumas atividades ainda pode sofrer ajustes de logística.',
+        'As datas ainda não estão fechadas: março ou setembro de 2027.',
+        'O conteúdo da expedição não muda.',
+        'Não use essas informações em materiais definitivos ou conversas de venda sem confirmar com a Luiza.',
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'Resumo da expedição',
+      items: [
+        'Duração: 16 dias e 15 noites.',
+        "Rota: Pequim (2n) → Xi'an (2n) → Chengdu (2n) → Chongqing (2n) → Zhangjiajie (2n) → Furong (1n) → Fenghuang (1n) → Xangai (3n). Chegada em Pequim, saída por Xangai.",
+        'Grupo: 6 a 12 viajantes, com 2 líderes da Intu.',
+        "Em uma frase: a China imperial e a China do futuro na mesma viagem — das cidades históricas às megacidades, passando pelas montanhas de Zhangjiajie e pelas vilas antigas de Hunan.",
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'Destaques para usar na venda',
+      items: [
+        'Muralha da China em Mutianyu (teleférico + tobogã)',
+        'Cidade Proibida, Praça Tiananmen e Templo do Céu',
+        "Guerreiros de Terracota em Xi'an",
+        'Parque Florestal de Zhangjiajie — as montanhas que inspiraram o Avatar, com elevador Bailong',
+        'Montanha Tianmen com passarela de vidro sobre o penhasco',
+        'Furong — a vila construída sobre uma cachoeira',
+        'NOVIDADE 2027: uma noite em Fenghuang (Cidade da Fênix) para ver a vila iluminada à beira do rio',
+        "Dias livres em Xi'an, Chengdu, Chongqing e Xangai para explorar no próprio ritmo",
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'Roteiro dia a dia',
+      items: [
+        'Dia 1 — Chegada em Pequim: transfer ao hotel, noite livre.',
+        'Dia 2 — Pequim: Hutong de Shichahai + Muralha em Mutianyu (teleférico + tobogã).',
+        "Dia 3 — Pequim a Xi'an: Cidade Proibida, Tiananmen, Templo do Céu → trem-bala para Xi'an.",
+        "Dia 4 — Xi'an: dia livre.",
+        "Dia 5 — Xi'an a Chengdu: Guerreiros de Terracota → trem-bala para Chengdu.",
+        'Dia 6 — Chengdu: dia livre.',
+        'Dia 7 — Chengdu a Chongqing: trem-bala → dia livre em Chongqing.',
+        'Dia 8 — Chongqing: dia livre.',
+        'Dia 9 — Chongqing a Zhangjiajie: trem-bala → noite: 72 Wonder Tower.',
+        'Dia 10 — Zhangjiajie: Parque Florestal Nacional (elevador Bailong, Yuanjiajie, teleférico Montanha Tianzi).',
+        'Dia 11 — Zhangjiajie a Furong: Montanha Tianmen (teleférico + passarela de vidro) → estrada para Furong.',
+        'Dia 12 — Furong a Fenghuang: cidade antiga de Fenghuang, barco, Ponte Arco-Íris, noite livre iluminada.',
+        'Dia 13 — Fenghuang a Xangai: manhã livre → transfer ao aeroporto de Zhangjiajie → voo noturno para Xangai.',
+        'Dia 14 — Xangai: dia livre.',
+        'Dia 15 — Xangai: dia livre.',
+        'Dia 16 — Partida de Xangai.',
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'O que está incluso',
+      items: [
+        'Hospedagem 15 noites em quarto duplo com café da manhã',
+        '2 líderes da Intu em português durante toda a viagem',
+        'Guias locais em espanhol nos passeios guiados',
+        'Todos os deslocamentos: trens-bala, voo doméstico Zhangjiajie→Xangai, traslados de carro privativo',
+        'Transfers de chegada em Pequim e saída em Xangai',
+        'Ingressos: teleférico + tobogã da Muralha, Guerreiros de Terracota, elevador Bailong, teleféricos de Tianzi e Tianmen, passarela de vidro, 72 Wonder Tower, barco em Fenghuang',
+        'Gorjetas dos guias e motoristas locais + transporte de 1 mala por pessoa',
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'O que NÃO está incluso',
+      items: [
+        'Passagens aéreas internacionais',
+        'Visto e documentação + Seguro viagem',
+        'Refeições (só café da manhã incluso)',
+        'Ingressos internos de Furong e barco em Furong',
+        'Atividades opcionais e gastos pessoais',
+      ],
+    },
+    {
+      type: 'rules',
+      title: 'Pontos de atenção na venda',
+      items: [
+        'Ritmo: 5 trens + 1 voo interno, equilibrado com dias livres nas cidades grandes.',
+        'Caminhadas: Cidade Proibida e montanhas de Zhangjiajie/Tianmen têm nível moderado.',
+        'Frio nas montanhas: Zhangjiajie e Tianmen — recomendar casaco impermeável.',
+        'Tobogã da Muralha: proibido acima de 60 anos — há alternativa de descida.',
+        'Hotéis em Zhangjiajie e Furong são mais simples do que nas cidades grandes.',
+        'Passagem internacional: chegada em Pequim e saída em Xangai — bilhete de ida e volta por cidades diferentes.',
+      ],
+    },
+  ],
 };
 
 // ─── FAQ por destino ──────────────────────────────────────────────────────────
@@ -941,6 +1126,24 @@ export default function TimeDestino() {
               <p className="text-[#6E5A60] text-sm">{config.subtitle}</p>
             </div>
           </div>
+
+          {/* Banner RASCUNHO ────────────────────────────────────── */}
+          {config.isDraft && (
+            <div className="mb-5 rounded-2xl border-2 border-amber-400 bg-amber-50 p-5">
+              <div className="flex items-start gap-3">
+                <span className="text-3xl leading-none mt-0.5">⚠️</span>
+                <div>
+                  <p className="text-lg font-bold text-amber-800 uppercase tracking-wide mb-1">
+                    RASCUNHO — não finalizado
+                  </p>
+                  <p className="text-sm text-amber-700 leading-relaxed">
+                    As informações desta viagem <strong>ainda estão em revisão</strong>. Datas, preços e roteiro podem mudar.
+                    Não use esses dados em conversas de venda ou materiais definitivos sem confirmar com a Luiza.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Cards de lotes ─────────────────────────────────────── */}
           {(() => {
