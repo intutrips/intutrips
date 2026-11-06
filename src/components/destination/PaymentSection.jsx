@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, MessageCircle, Mail, Check, Users, Lock, RefreshCw, Tag } from 'lucide-react';
+import { CreditCard, MessageCircle, Mail, Check, Users, Lock, RefreshCw, Tag, BedDouble } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/utils';
 import { differenceInMonths, startOfMonth } from 'date-fns';
@@ -19,6 +19,18 @@ const ACTIVE_PROMOS = [
     description: 'Desconto de US$ 150 por pessoa · válido até 15 de agosto',
   },
 ];
+
+const SINGLE_SUPPLEMENTS = [
+  { match: 'india', supplement: 600 },
+  { match: 'china', supplement: 750 },
+];
+
+function getSingleSupplement(destinationName) {
+  if (!destinationName) return null;
+  const lower = destinationName.toLowerCase();
+  const found = SINGLE_SUPPLEMENTS.find(s => lower.includes(s.match));
+  return found ? found.supplement : null;
+}
 
 function getActivePromo(destinationName) {
   if (!destinationName) return null;
@@ -160,6 +172,7 @@ function PriceTag({ lots, price_from, rate, rateLoading, departureDate, promo })
 export default function PaymentSection({ price_from, price_lote2, pricing_lots, payment_options, whatsappUrl, departureDate, destinationName }) {
   const { rate, loading: rateLoading, refresh } = useExchangeRate();
   const promo = getActivePromo(destinationName);
+  const singleSupplement = getSingleSupplement(destinationName);
   const daysLeft = promo ? daysUntil(promo.expiresAt) : 0;
 
   const defaultPaymentOptions = [
@@ -284,6 +297,22 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
               <p className="text-xs text-gray-400 mt-3">
                 Vagas limitadas por lote. Quando o lote atual esgotar, o preço do próximo lote se aplica.
               </p>
+            </div>
+          )}
+
+          {/* Suplemento quarto individual */}
+          {singleSupplement && (
+            <div className="mt-5 pt-5 border-t border-gray-100">
+              <div className="flex items-start gap-3 px-4 py-3 rounded-xl bg-gray-50 border border-gray-100">
+                <BedDouble className="h-4 w-4 text-gray-400 flex-shrink-0 mt-0.5" />
+                <div>
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-0.5">Quarto individual</p>
+                  <p className="text-sm text-gray-700">
+                    Suplemento de <span className="font-semibold">USD {formatCurrency(singleSupplement)}</span> por pessoa para acomodação individual.
+                  </p>
+                  <p className="text-xs text-gray-400 mt-1">Sujeito à disponibilidade. Entre em contato para reservar.</p>
+                </div>
+              </div>
             </div>
           )}
         </div>

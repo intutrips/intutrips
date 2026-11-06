@@ -287,6 +287,7 @@ export default function DestinationDetail() {
             <ItinerarySection
               itinerary={destination.itinerary}
               fallbackImage={imageUrl}
+              startDate={destination.departure_start_date}
             />
 
             {/* Hotéis */}

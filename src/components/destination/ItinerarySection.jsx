@@ -47,7 +47,27 @@ function DayCarousel({ images, dayIndex, fallbackImage }) {
   );
 }
 
-export default function ItinerarySection({ itinerary, fallbackImage }) {
+const WEEKDAYS_PT = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+const MONTHS_PT   = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+
+function getDayDate(startDate, dayNumber) {
+  if (!startDate || !dayNumber) return null;
+  const base = new Date(startDate + 'T12:00:00');
+  if (isNaN(base.getTime())) return null;
+  const d = new Date(base);
+  d.setDate(d.getDate() + (Number(dayNumber) - 1));
+  return d;
+}
+
+function formatDayLabel(date) {
+  if (!date) return null;
+  const wd  = WEEKDAYS_PT[date.getDay()];
+  const day = String(date.getDate()).padStart(2, '0');
+  const mon = MONTHS_PT[date.getMonth()];
+  return `${wd}, ${day}/${mon}`;
+}
+
+export default function ItinerarySection({ itinerary, fallbackImage, startDate }) {
   if (!itinerary || itinerary.length === 0) return null;
 
   const sortedItinerary = [...itinerary].sort((a, b) => (Number(a.day) || 0) - (Number(b.day) || 0));
@@ -74,8 +94,18 @@ export default function ItinerarySection({ itinerary, fallbackImage }) {
               <div className="absolute inset-0">
                 <DayCarousel images={day.images} dayIndex={index} fallbackImage={fallbackImage} />
               </div>
-              <div className="absolute top-3 left-3 w-9 h-9 rounded-xl bg-[#bda94c] flex items-center justify-center shadow z-10">
-                <span className="text-white text-sm font-bold">{day.day}</span>
+              <div className="absolute top-3 left-3 flex flex-col items-start gap-1 z-10">
+                <div className="w-9 h-9 rounded-xl bg-[#bda94c] flex items-center justify-center shadow">
+                  <span className="text-white text-sm font-bold">{day.day}</span>
+                </div>
+                {(() => {
+                  const label = formatDayLabel(getDayDate(startDate, day.day));
+                  return label ? (
+                    <span className="text-white text-[10px] font-semibold bg-black/40 backdrop-blur-sm rounded-md px-1.5 py-0.5 leading-tight">
+                      {label}
+                    </span>
+                  ) : null;
+                })()}
               </div>
             </div>
 
