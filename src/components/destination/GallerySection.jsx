@@ -1,106 +1,137 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { X, ChevronLeft, ChevronRight, Images } from 'lucide-react';
 
 export default function GallerySection({ images }) {
-  const [selectedImage, setSelectedImage] = useState(null);
+  const [lightboxIndex, setLightboxIndex] = useState(null);
 
-  if (!images || images.length === 0) return null;
+  const validImages = (images || []).filter(url => typeof url === 'string' && url.trim());
+  if (validImages.length === 0) return null;
 
-  const handlePrevious = () => {
-    const currentIndex = images.indexOf(selectedImage);
-    const newIndex = currentIndex > 0 ? currentIndex - 1 : images.length - 1;
-    setSelectedImage(images[newIndex]);
-  };
+  const openLightbox  = (i) => setLightboxIndex(i);
+  const closeLightbox = () => setLightboxIndex(null);
+  const prev = () => setLightboxIndex(i => (i - 1 + validImages.length) % validImages.length);
+  const next = () => setLightboxIndex(i => (i + 1) % validImages.length);
 
-  const handleNext = () => {
-    const currentIndex = images.indexOf(selectedImage);
-    const newIndex = currentIndex < images.length - 1 ? currentIndex + 1 : 0;
-    setSelectedImage(images[newIndex]);
+  // Keyboard navigation
+  useEffect(() => {
+    if (lightboxIndex === null) return;
+    const handler = (e) => {
+      if (e.key === 'ArrowLeft')  prev();
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'Escape')     closeLightbox();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [lightboxIndex]);
+
+  // Grid layout: every 5th item spans 2 cols or 2 rows for visual rhythm
+  const getSpan = (i) => {
+    if (validImages.length <= 2) return '';
+    if (i % 7 === 0) return 'col-span-2';
+    if (i % 7 === 3) return 'row-span-2';
+    return '';
   };
 
   return (
     <section className="mb-16">
-      <div className="flex items-center gap-3 mb-6">
-        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gray-200" />
-        <h2 className="text-2xl font-light text-[#3C3333]">
-          Galeria de <span className="text-[#6b9faf] italic">Fotos</span>
-        </h2>
-        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gray-200" />
+      {/* Cabeçalho da seção */}
+      <div className="mb-6">
+        <div className="flex items-center gap-3 mb-2">
+          <Images className="h-6 w-6 text-[#bda94c]" />
+          <h2 className="text-2xl font-light text-[#1A1A1A]">
+            Fotos de <span className="text-[#bda94c] italic">quem já foi</span>
+          </h2>
+        </div>
+        <p className="text-gray-500 text-sm font-light max-w-xl">
+          Essas fotos foram tiradas nas nossas expedições. A viagem é real — clique em qualquer imagem para ver em tela cheia.
+        </p>
       </div>
 
-      <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: 'none' }}>
-        {images.map((image, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.04 }}
-            className="flex-shrink-0 w-48 h-36 rounded-xl overflow-hidden cursor-pointer group"
-            onClick={() => setSelectedImage(image)}
-          >
-            <img
-              src={image}
-              alt={`Galeria ${index + 1}`}
-              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-            />
-          </motion.div>
-        ))}
+      {/* Grade assimétrica */}
+      <div
+        className="grid gap-2"
+        style={{
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridAutoRows: '160px',
+        }}
+      >
+        {validImages.map((url, i) => {
+          const span = getSpan(i);
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.97 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: Math.min(i * 0.04, 0.3) }}
+              className={`relative overflow-hidden rounded-xl cursor-pointer group ${span}`}
+              onClick={() => openLightbox(i)}
+            >
+              <img
+                src={url}
+                alt={`Expedição — foto ${i + 1}`}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+            </motion.div>
+          );
+        })}
       </div>
 
       {/* Lightbox */}
       <AnimatePresence>
-        {selectedImage && (
+        {lightboxIndex !== null && (
           <motion.div
+            key="lightbox"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedImage(null)}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
+            onClick={closeLightbox}
           >
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute top-4 right-4 text-white hover:bg-white/20"
-              onClick={() => setSelectedImage(null)}
+            {/* Fechar */}
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
             >
               <X className="h-6 w-6" />
-            </Button>
+            </button>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute left-4 text-white hover:bg-white/20"
-              onClick={(e) => {
-                e.stopPropagation();
-                handlePrevious();
-              }}
+            {/* Anterior */}
+            <button
+              onClick={(e) => { e.stopPropagation(); prev(); }}
+              className="absolute left-4 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
             >
               <ChevronLeft className="h-8 w-8" />
-            </Button>
+            </button>
 
-            <Button
-              variant="ghost"
-              size="icon"
-              className="absolute right-4 text-white hover:bg-white/20"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleNext();
-              }}
-            >
-              <ChevronRight className="h-8 w-8" />
-            </Button>
-
+            {/* Imagem */}
             <motion.img
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              src={selectedImage}
-              alt="Galeria ampliada"
-              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              key={lightboxIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.2 }}
+              src={validImages[lightboxIndex]}
+              alt={`Foto ${lightboxIndex + 1} de ${validImages.length}`}
+              className="max-w-full max-h-[88vh] object-contain rounded-lg shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             />
+
+            {/* Próxima */}
+            <button
+              onClick={(e) => { e.stopPropagation(); next(); }}
+              className="absolute right-4 text-white/70 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors"
+            >
+              <ChevronRight className="h-8 w-8" />
+            </button>
+
+            {/* Contador */}
+            <span className="absolute bottom-5 left-1/2 -translate-x-1/2 text-white/50 text-sm">
+              {lightboxIndex + 1} / {validImages.length}
+            </span>
           </motion.div>
         )}
       </AnimatePresence>

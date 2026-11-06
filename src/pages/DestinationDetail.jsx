@@ -272,9 +272,6 @@ export default function DestinationDetail() {
               </section>
             )}
 
-            {/* Galeria compacta */}
-            <GallerySection images={destination.images} />
-
             {/* Início e Fim da Viagem */}
             <TripDaysSection
               tripStartInfo={destination.first_day_info}
@@ -298,6 +295,9 @@ export default function DestinationDetail() {
               inclusions={destination.inclusions}
               exclusions={destination.exclusions}
             />
+
+            {/* Galeria de quem já foi — prova social antes da seção de preços */}
+            <GallerySection images={destination.gallery_images} />
 
             {/* Valores e Pagamento */}
             <PaymentSection
