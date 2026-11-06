@@ -71,6 +71,7 @@ export default function DestinationsAdmin() {
         group_size: '',
         availability_status: 'available',
         group_type: 'misto',
+        trip_intensity: 'moderate',
         is_published: false,
         show_waitlist: false,
         show_testimonials: false,
@@ -187,6 +188,7 @@ export default function DestinationsAdmin() {
                 group_size: dest.group_size || '',
                 availability_status: dest.availability_status || 'available',
                 group_type: dest.group_type || 'misto',
+                trip_intensity: dest.trip_intensity || 'moderate',
                 is_published: false,
                 show_waitlist: dest.show_waitlist ?? false,
                 show_testimonials: dest.show_testimonials ?? false,
@@ -267,6 +269,7 @@ export default function DestinationsAdmin() {
                 group_size: destination.group_size || '',
                 availability_status: destination.availability_status || 'available',
                 group_type: destination.group_type || 'misto',
+                trip_intensity: destination.trip_intensity || 'moderate',
                 is_published: destination.is_published ?? false,
                 show_waitlist: destination.show_waitlist ?? false,
                 show_testimonials: destination.show_testimonials ?? false,
@@ -614,6 +617,18 @@ export default function DestinationsAdmin() {
                                         >
                                             <option value="misto">Grupo Misto</option>
                                             <option value="mulheres">Apenas Mulheres</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label className="text-sm font-medium text-gray-700 mb-1 block">Intensidade da Viagem</label>
+                                        <select
+                                            className="w-full h-10 rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                            value={formData.trip_intensity}
+                                            onChange={(e) => setFormData({ ...formData, trip_intensity: e.target.value })}
+                                        >
+                                            <option value="relaxed">Tranquila</option>
+                                            <option value="moderate">Moderada</option>
+                                            <option value="intense">Intensa</option>
                                         </select>
                                     </div>
                                     <div className="space-y-2 col-span-2">
