@@ -529,7 +529,7 @@ export default function DestinationsAdmin() {
                         <Tabs defaultValue="geral" className="w-full">
                             <TabsList className="mb-4 flex-wrap h-auto gap-1">
                                 <TabsTrigger value="geral">Geral</TabsTrigger>
-                                <TabsTrigger value="detalhes">Detalhes</TabsTrigger>
+                                <TabsTrigger value="detalhes">Galeria & Pagamento</TabsTrigger>
                                 <TabsTrigger value="lotes">Vagas & Lotes</TabsTrigger>
                                 <TabsTrigger value="highlights">Destaques</TabsTrigger>
                                 <TabsTrigger value="hoteis">Acomodações</TabsTrigger>
