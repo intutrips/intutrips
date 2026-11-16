@@ -29,7 +29,7 @@ export default function ContactCTA() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="https://api.whatsapp.com/send/?phone=551151233225&text=Ol%C3%A1%2C+gostaria+de+saber+mais+sobre+...&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" onClick={() => window.fbq && window.fbq('track', 'Contact')}>
+          <a href="https://api.whatsapp.com/send/?phone=551151921264&text=Ol%C3%A1%2C+gostaria+de+saber+mais+sobre+...&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer" onClick={() => window.fbq && window.fbq('track', 'Contact')}>
             <Button className="bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full px-8 py-6 text-base">
               <WhatsAppIcon className="mr-2 h-5 w-5" />
               WhatsApp
@@ -47,7 +47,7 @@ export default function ContactCTA() {
         <div className="mt-8 pt-8 border-t border-white/10">
           <div className="flex items-center justify-center gap-2 text-white/60">
             <Phone className="h-4 w-4" />
-            <a href="https://wa.me/551151233225" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-white transition-colors">+55 (11) 5123-3225</a>
+            <a href="https://wa.me/551151921264" target="_blank" rel="noopener noreferrer" className="text-sm hover:text-white transition-colors">+55 (11) 5192-1264</a>
           </div>
         </div>
       </motion.div>

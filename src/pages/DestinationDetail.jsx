@@ -95,7 +95,7 @@ export default function DestinationDetail() {
   const whatsappMsg = encodeURIComponent(
     `Olá! Vi no site da Intu Trips a expedição *${destination.name}* e tenho interesse em participar. Gostaria de saber mais.`
   );
-  const whatsappUrl = `https://wa.me/551151233225?text=${whatsappMsg}`;
+  const whatsappUrl = `https://wa.me/551151921264?text=${whatsappMsg}`;
 
   return (
     <div className="min-h-screen bg-[#FAF8F5]">

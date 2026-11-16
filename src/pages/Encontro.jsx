@@ -9,7 +9,7 @@ const EVENTO = {
   horario: '19h às 22h30',
   local: 'Pinheiros, São Paulo',      // bairro — endereço exato revelado após inscrição
   vagas: 20,
-  whatsapp: 'https://wa.me/551151233225?text=Ol%C3%A1%2C+quero+saber+mais+sobre+o+Encontro+Intu+em+janeiro!',
+  whatsapp: 'https://wa.me/551151921264?text=Ol%C3%A1%2C+quero+saber+mais+sobre+o+Encontro+Intu+em+janeiro!',
   linkIngresso: '#ingresso',          // substitua pelo link da plataforma (Sympla, etc.)
   lotePrimeiroValor: 'R$ 290',
   loteSegundoValor: 'R$ 350',

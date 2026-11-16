@@ -40,7 +40,7 @@ export default function SimuladorMilena() {
           <p className="text-xs text-gray-400 font-light">Tem dúvidas? Fale com a gente.</p>
           <div className="flex justify-center gap-4">
             <a
-              href={`https://wa.me/551151233225?text=${encodeURIComponent('Olá! Estou simulando o valor da nossa viagem para a Tailândia e gostaria de mais informações.')}`}
+              href={`https://wa.me/551151921264?text=${encodeURIComponent('Olá! Estou simulando o valor da nossa viagem para a Tailândia e gostaria de mais informações.')}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#25D366] text-white text-sm font-medium rounded-full hover:bg-[#1fba58] transition-colors"

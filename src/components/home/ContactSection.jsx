@@ -108,8 +108,8 @@ export default function ContactSection() {
                   </div>
                   <div>
                     <div className="text-sm text-gray-500">WhatsApp</div>
-                    <a href={`https://wa.me/${(texts.general_phone || '+5511512332225').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-[#1A1A1A] hover:text-[#bda94c] transition-colors">
-                      {texts.general_phone || '+55 (11) 5123-3225'}
+                    <a href={`https://wa.me/${(texts.general_phone || '+5511551921264').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-[#1A1A1A] hover:text-[#bda94c] transition-colors">
+                      {texts.general_phone || '+55 (11) 5192-1264'}
                     </a>
                   </div>
                 </div>
