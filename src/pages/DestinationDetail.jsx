@@ -230,8 +230,8 @@ export default function DestinationDetail() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            {/* Alerta dólar congelado — apenas Coração da Índia */}
-            {slug === 'coracao-da-india' && <DollarFreezeAlert />}
+            {/* Alerta dólar congelado — apenas O Coração da Índia */}
+            {slug === 'o-coracao-da-india' && <DollarFreezeAlert />}
 
             {/* Descrição */}
             <section className="mb-12">
