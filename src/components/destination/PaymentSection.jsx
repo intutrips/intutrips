@@ -25,9 +25,14 @@ const FROZEN_RATE_VALUE = 5.90;
 const FROZEN_RATE_DEADLINE = new Date('2026-12-05T23:59:59-03:00');
 const FROZEN_RATE_MATCHES = ['india'];
 
+function normalizeStr(s) {
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+}
+
 function getFrozenRate(destinationName) {
   if (!destinationName || new Date() > FROZEN_RATE_DEADLINE) return null;
-  return FROZEN_RATE_MATCHES.some(m => destinationName.toLowerCase().includes(m))
+  const norm = normalizeStr(destinationName);
+  return FROZEN_RATE_MATCHES.some(m => norm.includes(m))
     ? FROZEN_RATE_VALUE
     : null;
 }
@@ -39,15 +44,15 @@ const SINGLE_SUPPLEMENTS = [
 
 function getSingleSupplement(destinationName) {
   if (!destinationName) return null;
-  const lower = destinationName.toLowerCase();
-  const found = SINGLE_SUPPLEMENTS.find(s => lower.includes(s.match));
+  const norm = normalizeStr(destinationName);
+  const found = SINGLE_SUPPLEMENTS.find(s => norm.includes(s.match));
   return found ? found.supplement : null;
 }
 
 function getActivePromo(destinationName) {
   if (!destinationName) return null;
-  const lower = destinationName.toLowerCase();
-  const promo = ACTIVE_PROMOS.find(p => lower.includes(p.match));
+  const norm = normalizeStr(destinationName);
+  const promo = ACTIVE_PROMOS.find(p => norm.includes(p.match));
   if (!promo) return null;
   return new Date() <= promo.expiresAt ? promo : null;
 }
