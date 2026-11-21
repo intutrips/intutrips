@@ -161,21 +161,22 @@ function PriceTag({ lots, price_from, rate, rateLoading, departureDate, promo, f
         )}
       </div>
 
-      {/* Parcelas em destaque + total abaixo */}
+      {/* Total em destaque */}
       {rateLoading ? (
         <div className="text-3xl font-light text-gray-300 mt-1 animate-pulse">R$ —</div>
       ) : brlTotal ? (
         <div className="mt-1">
           <div className="text-xs text-[#6b9faf] font-semibold uppercase tracking-wider mb-0.5">
-            {monthsAvailable}x sem juros no boleto
+            Total por pessoa
           </div>
           <div className="text-4xl font-semibold text-[#6b9faf] leading-tight">
-            {fmtBRL(brlPerInstallment)}
+            {fmtBRL(brlTotal)}
           </div>
-          <p className="text-sm text-gray-400 font-light mt-1">
-            Total: {fmtBRL(brlTotal)}
-            {frozenRate && <span className="text-[#2D4A3E] font-semibold"> · câmbio R$ {frozenRate.toFixed(2)}</span>}
-          </p>
+          {frozenRate && (
+            <p className="text-sm font-light mt-1 text-[#2D4A3E]">
+              câmbio congelado a R$ {frozenRate.toFixed(2)}
+            </p>
+          )}
           {/* Economia com câmbio congelado */}
           {savings !== null && savings > 0 && (
             <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#2D4A3E]/10 border border-[#2D4A3E]/30 rounded-full">
@@ -185,6 +186,9 @@ function PriceTag({ lots, price_from, rate, rateLoading, departureDate, promo, f
               </span>
             </div>
           )}
+          <p className="text-xs text-gray-400 font-light mt-1.5">
+            Veja as formas de pagamento no simulador abaixo
+          </p>
         </div>
       ) : (
         <div className="text-4xl font-light text-[#1A1A1A] mt-0.5">
