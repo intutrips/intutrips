@@ -31,6 +31,7 @@ import WaitlistSection from '@/components/destination/WaitlistSection';
 import FAQSection from '@/components/destination/FAQSection';
 import IndiaReviewsSection from '@/components/destination/IndiaReviewsSection';
 import TripIntensityBadge from '@/components/destination/TripIntensityBadge';
+import DollarFreezeAlert from '@/components/destination/DollarFreezeAlert';
 
 const countryImages = {
   "India": "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1920&q=80",
@@ -229,6 +230,9 @@ export default function DestinationDetail() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
+            {/* Alerta dólar congelado — apenas Coração da Índia */}
+            {slug === 'coracao-da-india' && <DollarFreezeAlert />}
+
             {/* Descrição */}
             <section className="mb-12">
               <h2 className="text-2xl font-light text-[#1A1A1A] mb-4">Sobre esta viagem</h2>
