@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { CreditCard, MessageCircle, Mail, Check, Users, Lock, RefreshCw, Tag, BedDouble } from 'lucide-react';
+import { CreditCard, MessageCircle, Mail, Check, Users, Lock, RefreshCw, Tag, BedDouble, Snowflake } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { formatCurrency } from '@/utils';
 import { differenceInMonths, startOfMonth } from 'date-fns';
@@ -19,6 +19,18 @@ const ACTIVE_PROMOS = [
     description: 'Desconto de US$ 150 por pessoa · válido até 15 de agosto',
   },
 ];
+
+// Câmbio congelado — remover ou ajustar após o vencimento
+const FROZEN_RATE_VALUE = 5.90;
+const FROZEN_RATE_DEADLINE = new Date('2026-12-05T23:59:59-03:00');
+const FROZEN_RATE_MATCHES = ['india'];
+
+function getFrozenRate(destinationName) {
+  if (!destinationName || new Date() > FROZEN_RATE_DEADLINE) return null;
+  return FROZEN_RATE_MATCHES.some(m => destinationName.toLowerCase().includes(m))
+    ? FROZEN_RATE_VALUE
+    : null;
+}
 
 const SINGLE_SUPPLEMENTS = [
   { match: 'india', supplement: 600 },
@@ -104,7 +116,7 @@ function useExchangeRate() {
   return { rate, loading, refresh: fetchRate };
 }
 
-function PriceTag({ lots, price_from, rate, rateLoading, departureDate, promo }) {
+function PriceTag({ lots, price_from, rate, rateLoading, departureDate, promo, frozenRate }) {
   const activeLots = lots.filter(l => l.active !== false);
   const currentLot = activeLots.find(l => (SPOTS_PER_LOT - (l.spots_filled || 0)) > 0);
 
@@ -120,8 +132,13 @@ function PriceTag({ lots, price_from, rate, rateLoading, departureDate, promo })
     ? Math.max(1, differenceInMonths(startOfMonth(new Date(departureDate)), startOfMonth(today)))
     : 6;
 
-  const brlTotal = rate ? price * rate : null;
+  const effectiveRate = frozenRate || rate;
+  const brlTotal = effectiveRate ? price * effectiveRate : null;
   const brlPerInstallment = brlTotal ? brlTotal / monthsAvailable : null;
+
+  // Para comparação quando câmbio está congelado
+  const brlTotalLive = (frozenRate && rate) ? price * rate : null;
+  const savings = (brlTotalLive && brlTotal) ? brlTotalLive - brlTotal : null;
 
   return (
     <div className="mb-6">
@@ -152,7 +169,17 @@ function PriceTag({ lots, price_from, rate, rateLoading, departureDate, promo })
           </div>
           <p className="text-sm text-gray-400 font-light mt-1">
             Total: {fmtBRL(brlTotal)}
+            {frozenRate && <span className="text-[#2D4A3E] font-semibold"> · câmbio R$ {frozenRate.toFixed(2)}</span>}
           </p>
+          {/* Economia com câmbio congelado */}
+          {savings !== null && savings > 0 && (
+            <div className="mt-2 inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#2D4A3E]/10 border border-[#2D4A3E]/30 rounded-full">
+              <Snowflake className="h-3.5 w-3.5 text-[#2D4A3E]" />
+              <span className="text-xs font-semibold text-[#2D4A3E]">
+                Economia de {fmtBRL(savings)} vs cotação do dia
+              </span>
+            </div>
+          )}
         </div>
       ) : (
         <div className="text-4xl font-light text-[#1A1A1A] mt-0.5">
@@ -174,6 +201,7 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
   const promo = getActivePromo(destinationName);
   const singleSupplement = getSingleSupplement(destinationName);
   const daysLeft = promo ? daysUntil(promo.expiresAt) : 0;
+  const frozenRate = getFrozenRate(destinationName);
 
   const defaultPaymentOptions = [
     "PIX",
@@ -207,6 +235,19 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
         Valores e Pagamento
       </h2>
 
+      {frozenRate && (
+        <div className="mb-4 flex items-center gap-3 px-5 py-3.5 bg-[#2D4A3E]/8 border border-[#2D4A3E]/30 rounded-xl">
+          <Snowflake className="h-4 w-4 text-[#2D4A3E] flex-shrink-0" />
+          <div className="flex-1 min-w-0">
+            <span className="text-sm font-semibold text-[#2D4A3E]">Dólar congelado a R$ {frozenRate.toFixed(2)} · </span>
+            <span className="text-sm text-gray-700">Feche até 05/12 e garanta este câmbio no seu contrato, independente da variação do mercado.</span>
+          </div>
+          <span className="text-xs font-semibold text-[#2D4A3E] bg-[#2D4A3E]/10 px-2.5 py-1 rounded-full whitespace-nowrap flex-shrink-0 flex-shrink-0">
+            até 05/12
+          </span>
+        </div>
+      )}
+
       {promo && (
         <div className="mb-4 flex items-center gap-3 px-5 py-3.5 bg-[#bda94c]/10 border border-[#bda94c]/40 rounded-xl">
           <Tag className="h-4 w-4 text-[#bda94c] flex-shrink-0" />
@@ -230,17 +271,20 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
       >
         {/* Left — price + payment options */}
         <div className="md:col-span-3 p-7 border-b md:border-b-0 md:border-r border-gray-100">
-          <PriceTag lots={lots} price_from={price_from} rate={rate} rateLoading={rateLoading} departureDate={departureDate} promo={promo} />
+          <PriceTag lots={lots} price_from={price_from} rate={rate} rateLoading={rateLoading} departureDate={departureDate} promo={promo} frozenRate={frozenRate} />
 
           {/* Nota da cotação */}
-          {!rateLoading && rate && (
+          {!rateLoading && (frozenRate || rate) && (
             <div className="flex items-center gap-1.5 mb-5 -mt-2">
               <span className="text-xs text-gray-400">
-                * Esta viagem é cotada em dólar (USD). O valor em reais é uma estimativa com base na cotação atual do dólar turismo a R$ {rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} e pode variar conforme variação natural da moeda.
+                {frozenRate
+                  ? <>* Câmbio <strong className="text-[#2D4A3E]">congelado a R$ {frozenRate.toFixed(2)}</strong> até 05/12/2026 — valor garantido no contrato. {rate ? <>Cotação atual do mercado: R$ {rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}.</> : ''}</>
+                  : `* Esta viagem é cotada em dólar (USD). O valor em reais é uma estimativa com base na cotação atual do dólar turismo a R$ ${rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} e pode variar conforme variação natural da moeda.`
+                }
               </span>
-              <button onClick={refresh} className="text-[#6b9faf] hover:text-[#598491] transition-colors flex-shrink-0">
+              {!frozenRate && <button onClick={refresh} className="text-[#6b9faf] hover:text-[#598491] transition-colors flex-shrink-0">
                 <RefreshCw className="h-3 w-3" />
-              </button>
+              </button>}
             </div>
           )}
 
@@ -347,7 +391,7 @@ export default function PaymentSection({ price_from, price_lote2, pricing_lots, 
         </div>
       </motion.div>
       {/* Simulador de pagamento */}
-      <PaymentSimulator basePrice={price_from} departureDate={departureDate} rate={rate} rateLoading={rateLoading} onRefresh={refresh} promo={promo} />
+      <PaymentSimulator basePrice={price_from} departureDate={departureDate} rate={rate} rateLoading={rateLoading} onRefresh={refresh} promo={promo} frozenRate={frozenRate} />
     </section>
   );
 }

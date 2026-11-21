@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { differenceInMonths, startOfMonth, addMonths, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
-import { Zap, FileText, CreditCard, Layers, RefreshCw, ChevronDown } from 'lucide-react';
+import { Zap, FileText, CreditCard, Layers, RefreshCw, ChevronDown, Snowflake } from 'lucide-react';
 
 const fmtBRL = (val) =>
   'R$ ' + Number(val).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
@@ -83,7 +83,7 @@ function useInternalRate() {
   return { rate, loading, refresh: fetchRate };
 }
 
-export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, promo, promoBRL = 0, minEntryPct = 30, pixDiscount = 0, _defaultOpen = false }) {
+export default function PaymentSimulator({ basePrice, departureDate, rate: rateProp, rateLoading: rateLoadingProp, onRefresh, promo, promoBRL = 0, minEntryPct = 30, pixDiscount = 0, _defaultOpen = false, frozenRate }) {
   const [open, setOpen] = useState(_defaultOpen);
   const [method, setMethod] = useState('pix');
   const [cardInstallments, setCardInstallments] = useState(1);
@@ -92,9 +92,12 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
 
   // Usa taxa passada pelo pai (PaymentSection) ou busca internamente (Simulador standalone)
   const internal = useInternalRate();
-  const rate = rateProp !== undefined ? rateProp : internal.rate;
+  const liveRate = rateProp !== undefined ? rateProp : internal.rate;
   const rateLoading = rateLoadingProp !== undefined ? rateLoadingProp : internal.loading;
   const refresh = onRefresh || internal.refresh;
+
+  // Quando câmbio está congelado, usa o valor fixo nos cálculos
+  const rate = frozenRate || liveRate;
 
   if (!basePrice || Number(basePrice) <= 0) return null;
 
@@ -143,9 +146,11 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
         <div>
           <h3 className="text-base font-semibold text-[#1A1A1A]">Simulador de Pagamento</h3>
           <p className="text-sm text-gray-400 font-light mt-0.5">
-            {promo
-              ? <span>Calculando com <span className="text-[#bda94c] font-semibold">desconto de US$ {promo.discount}</span> por pessoa aplicado</span>
-              : 'Veja quanto você pagaria em reais em cada forma de pagamento'
+            {frozenRate
+              ? <span>Calculando com <span className="text-[#2D4A3E] font-semibold">dólar congelado a R$ {frozenRate.toFixed(2)}</span> — câmbio garantido até 05/12</span>
+              : promo
+                ? <span>Calculando com <span className="text-[#bda94c] font-semibold">desconto de US$ {promo.discount}</span> por pessoa aplicado</span>
+                : 'Veja quanto você pagaria em reais em cada forma de pagamento'
             }
           </p>
         </div>
@@ -361,16 +366,30 @@ export default function PaymentSimulator({ basePrice, departureDate, rate: rateP
                 </span>
               </div>
             )}
+            {/* Economia com câmbio congelado */}
+            {frozenRate && liveRate && !rateLoading && liveRate > frozenRate && (
+              <div className="flex items-center gap-2 px-3 py-2.5 bg-[#2D4A3E]/8 rounded-xl border border-[#2D4A3E]/25">
+                <Snowflake className="h-4 w-4 text-[#2D4A3E] flex-shrink-0" />
+                <div className="flex-1 min-w-0">
+                  <span className="text-xs font-semibold text-[#2D4A3E]">Economia com câmbio congelado: </span>
+                  <span className="text-xs text-gray-700 font-semibold">{fmtBRL(price * (liveRate - frozenRate))}</span>
+                  <span className="text-xs text-gray-500"> vs cotação do dia (R$ {liveRate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })})</span>
+                </div>
+              </div>
+            )}
+
             <div className="flex items-center justify-between pt-2 border-t border-gray-100">
               <p className="text-xs text-gray-400">
                 {rateLoading
                   ? 'Buscando cotação do dólar turismo...'
-                  : rate
-                    ? `* Estimativa baseada no dólar turismo a R$ ${rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}. Valor final pode variar.`
-                    : 'Cotação indisponível no momento.'
+                  : frozenRate
+                    ? <>* Câmbio <strong className="text-[#2D4A3E]">congelado a R$ {frozenRate.toFixed(2)}</strong> garantido no contrato até 05/12/2026.</>
+                    : rate
+                      ? `* Estimativa baseada no dólar turismo a R$ ${rate.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}. Valor final pode variar.`
+                      : 'Cotação indisponível no momento.'
                 }
               </p>
-              {!rateLoading && (
+              {!rateLoading && !frozenRate && (
                 <button
                   onClick={refresh}
                   className="flex items-center gap-1 text-xs text-[#6b9faf] hover:text-[#598491] transition-colors ml-3 flex-shrink-0"
